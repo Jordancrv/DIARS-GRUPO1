@@ -1,0 +1,6 @@
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\bin\Debug\CapaEntidad.dll
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\bin\Debug\CapaEntidad.pdb
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\obj\Debug\CapaEntidad.dll
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\obj\Debug\CapaEntidad.pdb

@@ -1,0 +1,314 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\capadatos\\conexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\conexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\wwwroot\\js\\sidebar.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\js\\sidebar.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\wwwroot\\js\\dashboard.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\js\\dashboard.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\wwwroot\\css\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\css\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\cursos\\big data\\santaeulalia_proyecto\\santaeulalia\\santaeulalia\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{7f40df72-066b-4810-a08b-c0fbed76c948}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{7f40df72-066b-4810-a08b-c0fbed76c948}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\DashboardController.cs",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "SantaEulalia\\Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T21:14:29.345Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "SantaEulalia\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Properties\\launchSettings.json",
+              "RelativeToolTip": "SantaEulalia\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAA8AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-28T21:06:24.76Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Shared\\Error.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Shared\\Error.cshtml",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Shared\\Error.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Shared\\Error.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-28T21:02:12Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-28T20:51:01.163Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-28T20:41:59.181Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Program.cs",
+              "RelativeDocumentMoniker": "SantaEulalia\\Program.cs",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Program.cs",
+              "RelativeToolTip": "SantaEulalia\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T20:49:07.503Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_ValidationScriptsPartial.cshtml",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-28T20:51:41.067Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_Layout.cshtml.css",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Shared\\_Layout.cshtml.css",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Shared\\_Layout.cshtml.css",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Shared\\_Layout.cshtml.css",
+              "RelativeToolTip": "SantaEulalia\\Views\\Shared\\_Layout.cshtml.css",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-28T20:58:40.837Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-28T21:00:33.304Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\appsettings.json",
+              "RelativeDocumentMoniker": "SantaEulalia\\appsettings.json",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\appsettings.json",
+              "RelativeToolTip": "SantaEulalia\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-28T20:51:03.594Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "sidebar.js",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\wwwroot\\js\\sidebar.js",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\js\\sidebar.js",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\wwwroot\\js\\sidebar.js",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\js\\sidebar.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-05-28T20:54:23.421Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-28T20:50:27.447Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "dashboard.css",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\wwwroot\\css\\dashboard.css",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css\\dashboard.css",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\wwwroot\\css\\dashboard.css",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\css\\dashboard.css",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAEwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-28T20:52:33.602Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-28T20:52:57.937Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "dashboard.js",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\wwwroot\\js\\dashboard.js",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\js\\dashboard.js",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\wwwroot\\js\\dashboard.js",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\js\\dashboard.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-05-28T20:53:47.329Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Dashboard\\Index.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Dashboard\\Index.cshtml",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\SantaEulalia\\Views\\Dashboard\\Index.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Dashboard\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-28T20:40:38.386Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Conexion.cs",
+              "DocumentMoniker": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\CapaDatos\\Conexion.cs",
+              "RelativeDocumentMoniker": "CapaDatos\\Conexion.cs",
+              "ToolTip": "C:\\Cursos\\BIG DATA\\SantaEulalia_Proyecto\\SantaEulalia\\CapaDatos\\Conexion.cs",
+              "RelativeToolTip": "CapaDatos\\Conexion.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAwCIAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T20:32:37.642Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

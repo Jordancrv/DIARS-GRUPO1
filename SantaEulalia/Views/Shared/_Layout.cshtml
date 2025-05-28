@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SantaEulalia</title>
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="submenu">
+                        <a href="javascript:void(0);">
+                            <img src="/lib/img/product.svg" alt="img" />
+                            <span> Compra</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a asp-controller="Producto" asp-action="ListarProducto">Lista de Productos</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Producto" asp-action="AgregarProducto">Agregar Productos</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Categoria" asp-action="ListarCategoria">Lista de Categorías</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Categoria" asp-action="AgregarCategoria">Agregar Categoría</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="submenu">
+                        <a href="javascript:void(0);">
+                            <img src="~/lib/img/sales1.svg" alt="img" />
+                            <span> Ventas</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a asp-controller="Venta" asp-action="ListarVentas">Lista de Ventas</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Venta" asp-action="AgregarVenta">Agregar Venta</a>
+                            </li>
+                            @*     Solo es un ejemplo para llamar a la vista y seguir usando el sideBar en la vista.
+                            <li>
+                                <a href="#" class="cargar-vista" data-url="@Url.Action("ListarCliente", "MantenedorCliente")">Lista de Clientes</a>
+                            </li>     
+                            *@
+                            @*Si se quiere agregar otro submenu solo se usa la misma estructura y se coloca debajo*@
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar">
+        <div id="sidebarToggle" class="hamburger">&#9776;</div>
+        <span>Panel de Administración</span>
+    </div>
+    <div class="main">
+        <div id="contenido-dinamico">
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/js/dashboard.js"></script>
+    <script src="~/js/sidebar.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

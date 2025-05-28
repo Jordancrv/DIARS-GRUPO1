@@ -1,0 +1,11 @@
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaLogica\bin\Debug\CapaLogica.dll
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaLogica\bin\Debug\CapaLogica.pdb
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaLogica\bin\Debug\CapaDatos.dll
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaLogica\bin\Debug\CapaEntidad.dll
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaLogica\bin\Debug\CapaDatos.pdb
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaLogica\bin\Debug\CapaEntidad.pdb
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaLogica\obj\Debug\CapaLogica.csproj.AssemblyReference.cache
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaLogica\obj\Debug\CapaLogica.csproj.CoreCompileInputs.cache
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaLogica\obj\Debug\CapaLogica.csproj.Up2Date
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaLogica\obj\Debug\CapaLogica.dll
+C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaLogica\obj\Debug\CapaLogica.pdb
