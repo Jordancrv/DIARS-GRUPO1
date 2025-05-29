@@ -16,3 +16,12 @@ C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.C
 C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.Up2Date
 C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.dll
 C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.pdb
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaDatos.dll
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaDatos.pdb
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaEntidad.dll
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaEntidad.pdb
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.AssemblyReference.cache
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.CoreCompileInputs.cache
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.Up2Date
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.dll
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.pdb

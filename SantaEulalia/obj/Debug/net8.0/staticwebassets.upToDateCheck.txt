@@ -2,6 +2,7 @@ wwwroot\css\dashboard.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\dashboard.js
+wwwroot\js\jsconfig.json
 wwwroot\js\sidebar.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css

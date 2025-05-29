@@ -10,3 +10,9 @@ C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.cspr
 C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
 C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.dll
 C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.pdb
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.dll
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.pdb
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.dll
+C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.pdb
