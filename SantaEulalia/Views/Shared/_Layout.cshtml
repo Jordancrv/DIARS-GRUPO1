@@ -1,76 +1,114 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SantaEulalia</title>
-    <link rel="stylesheet" href="~/css/dashboard.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title - Santa Eulalia</title>
+
+    <!-- Bootstrap + FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        body {
+            background-color: #1c1f2b;
+            color: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        #sidebar-wrapper {
+            background-color: #11131a;
+            min-width: 250px;
+        }
+
+        .sidebar-heading {
+            font-size: 1.4rem;
+            background-color: #0d0f14;
+            color: #00bfff;
+            text-align: center;
+            padding: 1.2rem;
+            border-bottom: 1px solid #2c2f3a;
+        }
+
+        .list-group-item {
+            background-color: transparent;
+            color: #dcdcdc;
+            border: none;
+        }
+
+            .list-group-item:hover {
+                background-color: #2c2f3a;
+                color: #00bfff;
+            }
+
+            .list-group-item i {
+                width: 20px;
+            }
+
+        .navbar {
+            background-color: #0d0f14;
+            border-bottom: 1px solid #2c2f3a;
+        }
+
+        .container-fluid {
+            padding-top: 1.5rem;
+        }
+
+        .card {
+            background-color: #2c2f3a;
+            border: none;
+            color: white;
+        }
+
+            .card:hover {
+                box-shadow: 0 0 10px rgba(0, 191, 255, 0.2);
+                transform: scale(1.01);
+                transition: all 0.3s;
+            }
+    </style>
 </head>
 <body>
-    <div id="sidebar" class="sidebar">
-        <div class="sidebar-inner slimscroll">
-            <div id="sidebar-menu" class="sidebar-menu">
-                <ul>
-                    <li class="submenu">
-                        <a href="javascript:void(0);">
-                            <img src="/lib/img/product.svg" alt="img" />
-                            <span> Compra</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a asp-controller="Producto" asp-action="ListarProducto">Lista de Productos</a>
-                            </li>
-                            <li>
-                                <a asp-controller="Producto" asp-action="AgregarProducto">Agregar Productos</a>
-                            </li>
-                            <li>
-                                <a asp-controller="Categoria" asp-action="ListarCategoria">Lista de Categorías</a>
-                            </li>
-                            <li>
-                                <a asp-controller="Categoria" asp-action="AgregarCategoria">Agregar Categoría</a>
-                            </li>
-                        </ul>
-                    </li>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <div class="sidebar-heading">
+                <i class="fas fa-store"></i> Santa Eulalia
+            </div>
+            <div class="list-group list-group-flush px-2">
+                <div class="text-white fw-bold mt-3 text-uppercase small">Compra</div>
+                <a class="list-group-item list-group-item-action" href="/Producto/Index"><i class="fas fa-box"></i> Productos</a>
+                <a class="list-group-item list-group-item-action" href="/Producto/Agregar"><i class="fas fa-plus"></i> Agregar Producto</a>
+                <a class="list-group-item list-group-item-action" href="/Categoria/Index"><i class="fas fa-tags"></i> Categorías</a>
+                <a class="list-group-item list-group-item-action" href="/Categoria/Agregar"><i class="fas fa-plus-square"></i> Agregar Categoría</a>
 
-                    <li class="submenu">
-                        <a href="javascript:void(0);">
-                            <img src="~/lib/img/sales1.svg" alt="img" />
-                            <span> Ventas</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a asp-controller="Venta" asp-action="ListarVentas">Lista de Ventas</a>
-                            </li>
-                            <li>
-                                <a asp-controller="Venta" asp-action="AgregarVenta">Agregar Venta</a>
-                            </li>
-                            @*     Solo es un ejemplo para llamar a la vista y seguir usando el sideBar en la vista.
-                            <li>
-                                <a href="#" class="cargar-vista" data-url="@Url.Action("ListarCliente", "MantenedorCliente")">Lista de Clientes</a>
-                            </li>     
-                            *@
-                            @*Si se quiere agregar otro submenu solo se usa la misma estructura y se coloca debajo*@
+                <div class="text-white fw-bold mt-4 text-uppercase small">Ventas</div>
+                <a class="list-group-item list-group-item-action" href="/Venta/Index"><i class="fas fa-shopping-cart"></i> Lista Ventas</a>
+                <a class="list-group-item list-group-item-action" href="/Venta/AgregarVenta"><i class="fas fa-cart-plus"></i> Agregar Venta</a>
+            </div>
+        </div>
 
-                        </ul>
-                    </li>
-                </ul>
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="w-100">
+            <nav class="navbar navbar-expand-lg navbar-dark px-4">
+                <span class="navbar-brand">Panel de Administración</span>
+            </nav>
+            <div class="container-fluid">
+                @RenderBody()
             </div>
         </div>
     </div>
-    <div class="navbar">
-        <div id="sidebarToggle" class="hamburger">&#9776;</div>
-        <span>Panel de Administración</span>
-    </div>
-    <div class="main">
-        <div id="contenido-dinamico">
-            @RenderBody()
-        </div>
-    </div>
-    <script src="~/js/dashboard.js"></script>
-    <script src="~/js/sidebar.js"></script>
+
+    <!-- Scripts requeridos -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Scripts específicos de las vistas -->
     @RenderSection("Scripts", required: false)
 </body>
 </html>

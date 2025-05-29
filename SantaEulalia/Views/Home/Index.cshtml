@@ -1,8 +1,29 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewBag.Title = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5">
+    <h1 class="display-4 text-primary mb-3">Bienvenido a <strong>Santa Eulalia</strong></h1>
+    <p class="lead text-light mb-4">Sistema de Gestión de Productos y Ventas</p>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-4">
+            <div class="card p-3">
+                <div class="card-body text-center">
+                    <i class="fas fa-box fa-2x mb-2 text-info"></i>
+                    <h5 class="card-title">Productos</h5>
+                    <a href="/Producto/Index" class="btn btn-outline-info mt-2">Ver Productos</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3">
+                <div class="card-body text-center">
+                    <i class="fas fa-shopping-cart fa-2x mb-2 text-success"></i>
+                    <h5 class="card-title">Ventas</h5>
+                    <a href="/Venta/Index" class="btn btn-outline-success mt-2">Ver Ventas</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
