@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaEulalia", "SantaEulalia\SantaEulalia.csproj", "{4A47FC3B-6439-4348-9A71-EE6EC1324077}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaEulalia", "SantaEulalia\SantaEulalia.csproj", "{4A47FC3B-6439-4348-9A71-EE6EC1324077}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaDatos", "CapaDatos\CapaDatos.csproj", "{6262A0CE-828B-4584-80C0-49F50FCACC2D}"
 EndProject

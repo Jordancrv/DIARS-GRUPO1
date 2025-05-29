@@ -7,3 +7,12 @@ C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaDatos\obj\Debug\CapaDa
 C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaDatos\obj\Debug\CapaDatos.csproj.Up2Date
 C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaDatos\obj\Debug\CapaDatos.dll
 C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaDatos\obj\Debug\CapaDatos.pdb
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaDatos.dll
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaDatos.pdb
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaEntidad.dll
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaEntidad.pdb
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.AssemblyReference.cache
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.CoreCompileInputs.cache
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.Up2Date
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.dll
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.pdb

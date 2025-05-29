@@ -24,14 +24,14 @@ namespace CapaDatos
 
         #endregion Singleton
 
-      /*  public SqlConnection Conectar()
+        public SqlConnection Conectar()
         {
             SqlConnection cn = new SqlConnection();
-            cn.ConnectionString = "Data Source=DESKTOP-HJ93MJO\\SQLEXPRESS;" +
-                                  "Initial Catalog=Ventas;" +
+            cn.ConnectionString = "Data Source=DESKTOP-BLFSTC3\\SQLEXPRESS" +
+                                  "Initial Catalog=ProyectoDiars;" +
                                   "Integrated Security=True;";
             return cn;
         }
-      */
-    }
+     
+    }//hl.a//
 }
