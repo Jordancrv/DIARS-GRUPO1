@@ -1,7 +1,62 @@
 ﻿@{
-	ViewData["Title"] = "Inicio";
+    ViewBag.Title = "Dashboard";
 }
 
-<h2>Bienvenido al Panel de Administración de Santa Eulalia</h2>
-<p>Selecciona una opción en el menú para comenzar.</p>
+<div class="container-fluid mt-4">
+    <h2 class="text-light mb-4">Dashboard General</h2>
+
+    <div class="row g-4">
+        <!-- Tarjeta de Productos -->
+        <div class="col-md-4">
+            <div class="card shadow border-0 text-white bg-gradient bg-primary">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-box fa-2x me-3"></i>
+                    <div>
+                        <h5 class="card-title mb-0">Total Productos</h5>
+                        <h3 class="fw-bold">0</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Ventas -->
+        <div class="col-md-4">
+            <div class="card shadow border-0 text-white bg-gradient bg-success">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-shopping-cart fa-2x me-3"></i>
+                    <div>
+                        <h5 class="card-title mb-0">Ventas Hoy</h5>
+                        <h3 class="fw-bold">0</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Ganancias -->
+        <div class="col-md-4">
+            <div class="card shadow border-0 text-white bg-gradient bg-warning">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-dollar-sign fa-2x me-3"></i>
+                    <div>
+                        <h5 class="card-title mb-0">Ganancias</h5>
+                        <h3 class="fw-bold">$0.00</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección inferior opcional -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card bg-dark text-white shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Resumen</h5>
+                    <p class="card-text">Ya gentita aquí iran gráficas o tablas resumen</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
