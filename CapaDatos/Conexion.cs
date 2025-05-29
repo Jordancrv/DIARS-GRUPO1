@@ -27,7 +27,7 @@ namespace CapaDatos
         public SqlConnection Conectar()
         {
             SqlConnection cn = new SqlConnection();
-            cn.ConnectionString = "Data Source=DESKTOP-BLFSTC3\\SQLEXPRESS" +
+            cn.ConnectionString = "Data Source=DESKTOP-4ULN0AO\\SQLEXPRESS" +
                                   "Initial Catalog=ProyectoDiars;" +
                                   "Integrated Security=True;";
             return cn;

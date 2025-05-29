@@ -681,18 +681,12 @@
           "CapaEntidad": "1.0.0"
         },
         "runtime": {
-          "CapaDatos.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "CapaDatos.dll": {}
         }
       },
       "CapaEntidad/1.0.0": {
         "runtime": {
-          "CapaEntidad.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "CapaEntidad.dll": {}
         }
       },
       "CapaLogica/1.0.0": {
@@ -701,10 +695,7 @@
           "CapaEntidad": "1.0.0"
         },
         "runtime": {
-          "CapaLogica.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "CapaLogica.dll": {}
         }
       }
     }
