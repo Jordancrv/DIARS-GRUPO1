@@ -29,3 +29,8 @@ C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaDatos\obj\Debug\CapaDatos.csproj.
 C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaDatos\obj\Debug\CapaDatos.csproj.CoreCompileInputs.cache
 C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaDatos\obj\Debug\CapaDatos.dll
 C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaDatos\obj\Debug\CapaDatos.pdb
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaDatos\bin\Debug\CapaDatos.dll
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaDatos\bin\Debug\CapaDatos.pdb
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaDatos\bin\Debug\CapaEntidad.dll
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaDatos\bin\Debug\CapaEntidad.pdb
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaDatos\obj\Debug\CapaDatos.csproj.Up2Date

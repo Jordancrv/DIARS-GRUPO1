@@ -1,9 +1,10 @@
-﻿using CapaDatos;
-using static CapaEntidad.Class1;
+﻿using System;
 using System.Collections.Generic;
-using System;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
+using CapaDatos;
+using CapaEntidad;
+using static CapaEntidad.Class1;
 
 namespace CapaLogica
 {
@@ -15,22 +16,24 @@ namespace CapaLogica
         #endregion
 
         #region Métodos
+
         public bool RegistrarVenta(entVenta venta, out int ventaId, out string mensaje)
         {
             SqlCommand cmd = null;
+            SqlConnection cn = null;
             ventaId = 0;
             mensaje = string.Empty;
             bool resultado = false;
 
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar(); // Asegúrate de tener este método en tu clase Conexion
+                cn = Conexion.Instancia.Conectar();
                 cmd = new SqlCommand("sp_RegistrarVenta", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 // Parámetros básicos
-                cmd.Parameters.AddWithValue("@ClienteId", venta.Cliente.ClienteId);
-                cmd.Parameters.AddWithValue("@UsuarioId", venta.Vendedor.UsuarioId);
+                cmd.Parameters.AddWithValue("@ClienteId", venta.Cliente.id_cliente);
+                cmd.Parameters.AddWithValue("@UsuarioId", venta.Vendedor.id_usuario);
                 cmd.Parameters.AddWithValue("@AlmacenId", venta.AlmacenId);
 
                 // Crear el DataTable con los detalles
@@ -44,7 +47,7 @@ namespace CapaLogica
                 foreach (var detalle in venta.Detalles)
                 {
                     dtDetalles.Rows.Add(
-                        detalle.Presentacion.PresentacionId,
+                        
                         detalle.Cantidad,
                         detalle.PrecioUnitario,
                         detalle.Descuento,
@@ -52,10 +55,9 @@ namespace CapaLogica
                     );
                 }
 
-                // Añadir el parámetro tipo tabla
                 SqlParameter paramDetalles = cmd.Parameters.AddWithValue("@DetallesVenta", dtDetalles);
                 paramDetalles.SqlDbType = SqlDbType.Structured;
-                paramDetalles.TypeName = "DetalleVentaType"; // Asegúrate de que este tipo exista en SQL Server
+                paramDetalles.TypeName = "DetalleVentaType";
 
                 // Parámetros de salida
                 SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Bit)
@@ -83,26 +85,25 @@ namespace CapaLogica
                 mensaje = paramMensaje.Value.ToString();
                 ventaId = Convert.ToInt32(paramVentaId.Value);
             }
-            catch (SqlException e)
+            catch (Exception e)
             {
                 mensaje = "Error al registrar venta: " + e.Message;
                 resultado = false;
             }
             finally
             {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
+                if (cmd != null && cmd.Connection != null && cmd.Connection.State == ConnectionState.Open)
                     cmd.Connection.Close();
             }
 
             return resultado;
         }
 
-
         public List<entVenta> ListarVentasPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
             try
             {
-                return datVenta.Instancia.ListarVentasPorFecha(fechaInicio, fechaFin);
+                return VentaBL.Instancia.ListarVentasPorFecha(fechaInicio, fechaFin);
             }
             catch (Exception ex)
             {
@@ -114,7 +115,7 @@ namespace CapaLogica
         {
             try
             {
-                return datVenta.Instancia.ObtenerVentaPorId(ventaId);
+                return VentaBL.Instancia.ObtenerVentaPorId(ventaId);
             }
             catch (Exception ex)
             {
@@ -126,15 +127,14 @@ namespace CapaLogica
         {
             try
             {
-                // Validar que la venta existe y está activa
-                var venta = datVenta.Instancia.ObtenerVentaPorId(ventaId);
+                var venta = VentaBL.Instancia.ObtenerVentaPorId(ventaId);
                 if (venta == null || !venta.Estado)
                 {
                     mensaje = "La venta no existe o ya está anulada";
                     return false;
                 }
 
-                return datVenta.Instancia.AnularVenta(ventaId, out mensaje);
+                return VentaBL.Instancia.AnularVenta(ventaId, out mensaje);
             }
             catch (Exception ex)
             {
@@ -143,10 +143,6 @@ namespace CapaLogica
             }
         }
 
-        #endregion
-
-        #region Métodos Privados
-        
         #endregion
     }
 }
