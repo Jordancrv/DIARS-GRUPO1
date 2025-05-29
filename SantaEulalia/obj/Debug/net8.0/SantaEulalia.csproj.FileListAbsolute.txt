@@ -500,3 +500,4 @@ C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\SantaEulalia\obj\Debug\net8.
 C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\SantaEulalia\obj\Debug\net8.0\SantaEulalia.pdb
 C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\SantaEulalia\obj\Debug\net8.0\SantaEulalia.genruntimeconfig.cache
 C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\SantaEulalia\obj\Debug\net8.0\ref\SantaEulalia.dll
+C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\SantaEulalia\bin\Debug\net8.0\wwwroot\lib\img\logo.png

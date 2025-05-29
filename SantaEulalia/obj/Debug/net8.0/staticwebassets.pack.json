@@ -213,6 +213,10 @@
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
+      "Id": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\lib\\img\\logo.png",
+      "PackagePath": "staticwebassets\\lib\\img\\logo.png"
+    },
+    {
       "Id": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\lib\\img\\product.svg",
       "PackagePath": "staticwebassets\\lib\\img\\product.svg"
     },
