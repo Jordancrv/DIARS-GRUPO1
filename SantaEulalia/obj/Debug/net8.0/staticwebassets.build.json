@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pxVLTF7yqMhjL2JS458CORy3jA1/yB1rXttxN+vlnNM=",
+  "Hash": "iW5PzdTNSsdKN9gZovccQewHr6YTbYYwfkTtKBwGOOc=",
   "Source": "SantaEulalia",
   "BasePath": "_content/SantaEulalia",
   "Mode": "Default",
@@ -1041,6 +1041,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
+    },
+    {
+      "Identity": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\lib\\img\\logo.png",
+      "SourceId": "SantaEulalia",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\",
+      "BasePath": "_content/SantaEulalia",
+      "RelativePath": "lib/img/logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Always",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\img\\logo.png"
     },
     {
       "Identity": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\lib\\img\\product.svg",
