@@ -6,18 +6,18 @@ public class LogProducto
     private static readonly LogProducto _instancia = new LogProducto();
     public static LogProducto Instancia => _instancia;
 
-    public List<Producto> ListarProductos()
+    public List<entProductos> ListarProductos()
     {
-        return new List<Producto>();
+        return new List<entProductos>();
     }
 
-    public bool RegistrarProducto(Producto obj, out string mensaje)
+    public bool RegistrarProducto(entProductos obj, out string mensaje)
     {
         mensaje = "Producto registrado";
         return true;
     }
 
-    public bool EditarProducto(Producto obj, out string mensaje)
+    public bool EditarProducto(entProductos obj, out string mensaje)
     {
         mensaje = "Producto editado";
         return true;

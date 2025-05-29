@@ -31,3 +31,7 @@ C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogic
 C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.csproj.Up2Date
 C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.dll
 C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.pdb
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaLogica\obj\Debug\CapaLogica.csproj.AssemblyReference.cache
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaLogica\obj\Debug\CapaLogica.csproj.CoreCompileInputs.cache
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaLogica\obj\Debug\CapaLogica.dll
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaLogica\obj\Debug\CapaLogica.pdb

@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace CapaEntidad
 {
-    public class Pago
+    public class entPago
     {
         public int PagoId { get; set; }
-        public MetodoPago MetodoPago { get; set; }
-        public Estado Estado { get; set; }
+        public entMetodoPago MetodoPago { get; set; }
+        public entEstado Estado { get; set; }
         public decimal Monto { get; set; }
         public DateTime FechaPago { get; set; }
     }
 
-    public class PagoEfectivo : Pago
+    public class PagoEfectivo : entPago
     {
         public decimal Vuelto { get; set; }
     }
 
-    public class PagoTarjeta : Pago
+    public class PagoTarjeta : entPago
     {
         public string NumeroTarjeta { get; set; }
         public string TipoTarjeta { get; set; }

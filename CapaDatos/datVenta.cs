@@ -24,195 +24,204 @@ namespace CapaDatos
 
         #region Métodos
 
-        public bool RegistrarVenta(entVenta venta, out int ventaId, out string mensaje)
+        public bool RegistrarVenta(entPedidosVenta pedido, out int pedidoId, out string mensaje)
         {
             SqlCommand cmd = null;
-            ventaId = 0;
+            pedidoId = 0;
             mensaje = string.Empty;
             bool resultado = false;
 
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("sp_RegistrarVenta", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                
-                cmd.Parameters.AddWithValue("@ClienteId", venta.Cliente.ClienteId);
-                cmd.Parameters.AddWithValue("@UsuarioId", venta.Vendedor.UsuarioId);
-                cmd.Parameters.AddWithValue("@AlmacenId", venta.AlmacenId);
-
-                
-                DataTable dtDetalles = new DataTable();
-                dtDetalles.Columns.Add("PresentacionId", typeof(int));
-                dtDetalles.Columns.Add("Cantidad", typeof(int));
-                dtDetalles.Columns.Add("PrecioUnitario", typeof(decimal));
-                dtDetalles.Columns.Add("Descuento", typeof(decimal));
-                dtDetalles.Columns.Add("PromocionId", typeof(int));
-
-                foreach (var detalle in venta.Detalles)
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    dtDetalles.Rows.Add(
-                        detalle.Presentacion.PresentacionId,
-                        detalle.Cantidad,
-                        detalle.PrecioUnitario,
-                        detalle.Descuento,
-                        detalle.Promocion?.PromocionId ?? 0
-                    );
+                    cmd = new SqlCommand("sp_RegistrarPedidoVenta", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@id_cliente", pedido.id_cliente);
+                    cmd.Parameters.AddWithValue("@id_usuario", pedido.id_usuario);
+                    cmd.Parameters.AddWithValue("@total", pedido.total); 
+
+                    DataTable dtDetalles = new DataTable();
+                    dtDetalles.Columns.Add("id_producto", typeof(int));
+                    dtDetalles.Columns.Add("cantidad", typeof(int));
+                    dtDetalles.Columns.Add("precio_unitario", typeof(decimal));
+
+                    foreach (var detalle in pedido.Detalles)
+                    {
+                        dtDetalles.Rows.Add(
+                            detalle.id_producto,
+                            detalle.cantidad,
+                            detalle.precio_unitario
+                        );
+                    }
+
+                    SqlParameter paramDetalles = cmd.Parameters.AddWithValue("@Detalles", dtDetalles);
+                    paramDetalles.SqlDbType = SqlDbType.Structured;
+                    paramDetalles.TypeName = "DetallePedidoType"; 
+
+                    SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Bit)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(paramResultado);
+
+                    SqlParameter paramMensaje = new SqlParameter("@Mensaje", SqlDbType.NVarChar, 500)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(paramMensaje);
+
+                    SqlParameter paramPedidoId = new SqlParameter("@PedidoId", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(paramPedidoId);
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    resultado = Convert.ToBoolean(paramResultado.Value);
+                    mensaje = paramMensaje.Value.ToString();
+                    pedidoId = Convert.ToInt32(paramPedidoId.Value);
                 }
-
-                SqlParameter paramDetalles = cmd.Parameters.AddWithValue("@DetallesVenta", dtDetalles);
-                paramDetalles.SqlDbType = SqlDbType.Structured;
-                paramDetalles.TypeName = "DetalleVentaType";
-
-                SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Bit);
-                paramResultado.Direction = ParameterDirection.Output;
-                cmd.Parameters.Add(paramResultado);
-
-                SqlParameter paramMensaje = new SqlParameter("@Mensaje", SqlDbType.VarChar, 500);
-                paramMensaje.Direction = ParameterDirection.Output;
-                cmd.Parameters.Add(paramMensaje);
-
-                SqlParameter paramVentaId = new SqlParameter("@VentaId", SqlDbType.Int);
-                paramVentaId.Direction = ParameterDirection.Output;
-                cmd.Parameters.Add(paramVentaId);
-
-                cn.Open();
-                cmd.ExecuteNonQuery();
-
-                resultado = Convert.ToBoolean(paramResultado.Value);
-                mensaje = paramMensaje.Value.ToString();
-                ventaId = Convert.ToInt32(paramVentaId.Value);
             }
-            catch (SqlException e)
+            catch (SqlException ex)
             {
-                mensaje = "Error al registrar venta: " + e.Message;
+                mensaje = $"Error SQL: {ex.Message}";
                 resultado = false;
             }
-            finally
+            catch (Exception ex)
             {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
-                    cmd.Connection.Close();
+                mensaje = $"Error general: {ex.Message}";
+                resultado = false;
             }
 
             return resultado;
         }
 
-        public List<entVenta> ListarVentasPorFecha(DateTime fechaInicio, DateTime fechaFin)
+
+        public List<entPedidosVenta> ListarVentasPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
             SqlCommand cmd = null;
-            List<entVenta> lista = new List<entVenta>();
+            List<entPedidosVenta> lista = new List<entPedidosVenta>();
 
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("sp_ListarVentasPorFecha", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@FechaInicio", fechaInicio);
-                cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
-
-                cn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    entVenta venta = new entVenta
-                    {
-                        VentaId = Convert.ToInt32(dr["VentaId"]),
-                        NumeroVenta = dr["NumeroVenta"].ToString(),
-                        Fecha = Convert.ToDateTime(dr["Fecha"]),
-                        Estado = Convert.ToBoolean(dr["Estado"]),
-                        Cliente = new entCliente
-                        {
-                            ClienteId = Convert.ToInt32(dr["ClienteId"]),
-                            RazonSocial = dr["RazonSocial"].ToString()
-                        }
-                       
-                    };
+                    cmd = new SqlCommand("sp_ListarVentasPorFecha", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                    cmd.Parameters.AddWithValue("@FechaFin", fechaFin);
 
-                    lista.Add(venta);
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            entPedidosVenta venta = new entPedidosVenta
+                            {
+                                id_pedido = Convert.ToInt32(dr["VentaId"]),
+                                fecha = Convert.ToDateTime(dr["Fecha"]),
+                                estado = dr["Estado"].ToString(),
+                                total = Convert.ToDecimal(dr["Total"]),
+                                id_cliente = Convert.ToInt32(dr["ClienteId"]),
+                                Cliente = new entClientes
+                                {
+                                    id_cliente = Convert.ToInt32(dr["ClienteId"]),
+                                    razon_social = dr["RazonSocial"].ToString()
+                                }
+                            };
+
+                            lista.Add(venta);
+                        }
+                    }
                 }
             }
             catch (SqlException e)
             {
                 throw new Exception("Error al listar ventas: " + e.Message);
             }
-            finally
-            {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
-                    cmd.Connection.Close();
-            }
 
             return lista;
         }
 
 
-        public entVenta ObtenerVentaPorId(int ventaId)
+
+        public entPedidosVenta ObtenerVentaPorId(int idPedido)
         {
             SqlCommand cmd = null;
-            entVenta venta = null;
+            entPedidosVenta pedido = null;
 
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("sp_ObtenerVentaPorId", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@VentaId", ventaId);
-
-                cn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                if (dr.Read())
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    venta = new entVenta
-                    {
-                        VentaId = Convert.ToInt32(dr["VentaId"]),
-                        NumeroVenta = dr["NumeroVenta"].ToString(),
-                        Fecha = Convert.ToDateTime(dr["Fecha"]),
-                        Estado = Convert.ToBoolean(dr["Estado"]),
-                        Cliente = new entCliente
-                        {
-                            ClienteId = Convert.ToInt32(dr["ClienteId"]),
-                            NumeroDocumento = dr["NumeroDocumento"].ToString(),
-                            RazonSocial = dr["RazonSocial"].ToString()
-                        }
-                    };
-                }
+                    cmd = new SqlCommand("sp_ObtenerVentaPorId", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id_pedido", idPedido);
 
-                if (venta != null)
-                {
-                    dr.NextResult();
-                    venta.Detalles = new List<entVentaDetalle>();
-
-                    while (dr.Read())
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        venta.Detalles.Add(new entVentaDetalle
+                        if (dr.Read())
                         {
-                            Presentacion = new entPresentacion
+                            pedido = new entPedidosVenta
                             {
-                                PresentacionId = Convert.ToInt32(dr["PresentacionId"]),
-                                Nombre = dr["Presentacion"].ToString(),
-                                Precio = Convert.ToDecimal(dr["PrecioUnitario"])
-                            },
-                            Cantidad = Convert.ToInt32(dr["Cantidad"]),
-                            Descuento = Convert.ToDecimal(dr["Descuento"]),
-                            Subtotal = Convert.ToDecimal(dr["Subtotal"])
-                        });
+                                id_pedido = Convert.ToInt32(dr["id_pedido"]),
+                                fecha = Convert.ToDateTime(dr["fecha"]),
+                                estado = dr["estado"].ToString(),
+                                total = Convert.ToDecimal(dr["total"]),
+                                id_cliente = Convert.ToInt32(dr["id_cliente"]),
+                                Cliente = new entClientes
+                                {
+                                    id_cliente = Convert.ToInt32(dr["id_cliente"]),
+                                    razon_social = dr["razon_social"].ToString(),
+                                    ruc = dr["ruc"].ToString(),
+                                    direccion = dr["direccion"].ToString(),
+                                    telefono = dr["telefono"].ToString(),
+                                    email = dr["email"].ToString(),
+                                    activo = Convert.ToBoolean(dr["activo"])
+                                }
+                            };
+                        }
+
+                        if (pedido != null)
+                        {
+                            dr.NextResult();
+                            pedido.Detalles = new List<entDetallesPedido>();
+
+                            while (dr.Read())
+                            {
+                                pedido.Detalles.Add(new entDetallesPedido
+                                {
+                                    id_detalle = Convert.ToInt32(dr["id_detalle"]),
+                                    id_producto = Convert.ToInt32(dr["id_producto"]),
+                                    cantidad = Convert.ToInt32(dr["cantidad"]),
+                                    precio_unitario = Convert.ToDecimal(dr["precio_unitario"]),
+                                    subtotal = Convert.ToDecimal(dr["subtotal"]),
+                                    Producto = new entProductos
+                                    {
+                                        id_producto = Convert.ToInt32(dr["id_producto"]),
+                                        nombre = dr["nombre_producto"].ToString(),
+                                        descripcion = dr["descripcion"].ToString()
+                                        // Puedes agregar más campos si tienes
+                                    }
+                                });
+                            }
+                        }
                     }
                 }
             }
             catch (SqlException e)
             {
-                throw new Exception("Error al obtener venta: " + e.Message);
-            }
-            finally
-            {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
-                    cmd.Connection.Close();
+                throw new Exception("Error al obtener venta por ID: " + e.Message);
             }
 
-            return venta;
+            return pedido;
         }
+
 
 
         public bool AnularVenta(int ventaId, out string mensaje)
@@ -261,166 +270,6 @@ namespace CapaDatos
 
 
         #endregion Métodos
-       /* CREATE PROCEDURE sp_RegistrarVenta
-    @ClienteId INT,
-    @UsuarioId INT,
-    @AlmacenId INT,
-    @DetallesVenta DetalleVentaType READONLY,
-    @Resultado BIT OUTPUT,
-    @Mensaje VARCHAR(500) OUTPUT,
-    @VentaId INT OUTPUT
-        AS
-BEGIN
-    BEGIN TRY
-        BEGIN TRANSACTION;
-        
-        -- 1. Registrar Pedido
-        DECLARE @PedidoId INT;
-        DECLARE @NumeroPedido VARCHAR(10) = 'P' + RIGHT('000000' + CAST(NEXT VALUE FOR seq_pedidos AS VARCHAR(6)), 6);
-        
-        INSERT INTO Pedido(NumeroPedido, ClienteId, Fecha, EstadoId, AlmacenId)
-        VALUES(@NumeroPedido, @ClienteId, GETDATE(), 1, @AlmacenId);
-
-        SET @PedidoId = SCOPE_IDENTITY();
-        
-        -- 2. Registrar Detalles del Pedido
-        INSERT INTO PedidoDetalle(PedidoId, PresentacionId, Cantidad, PromocionId)
-        SELECT @PedidoId, PresentacionId, Cantidad, PromocionId
-        FROM @DetallesVenta;
-        
-        -- 3. Registrar Venta
-        DECLARE @NumeroVenta CHAR(7) = 'V' + RIGHT('000000' + CAST(NEXT VALUE FOR seq_ventas AS VARCHAR(6)), 6);
-        
-        INSERT INTO Venta(NumeroVenta, PedidoId, Fecha, Estado)
-        VALUES(@NumeroVenta, @PedidoId, GETDATE(), 1);
-
-        SET @VentaId = SCOPE_IDENTITY();
-        
-        -- 4. Actualizar Stock
-        UPDATE APD
-        SET APD.Stock = APD.Stock - DV.Cantidad
-        FROM AlmacenPresentacionDetalle APD
-        INNER JOIN @DetallesVenta DV ON APD.PresentacionId = DV.PresentacionId
-        WHERE APD.AlmacenId = @AlmacenId;
-        
-        -- 5. Registrar Movimiento de Inventario
-        INSERT INTO OrdenSalida(NumeroOrdenSalida, VentaId, FechaSalida, Estado)
-        VALUES('OS' + RIGHT('000000' + CAST(NEXT VALUE FOR seq_ordenes_salida AS VARCHAR(6)), 6), @VentaId, GETDATE(), 1);
-        
-        DECLARE @OrdenSalidaId INT = SCOPE_IDENTITY();
-
-        INSERT INTO OrdenSalidaDetalle(OrdenSalidaId, PresentacionId, Cantidad, Estado)
-        SELECT @OrdenSalidaId, PresentacionId, Cantidad, 1
-        FROM @DetallesVenta;
-
-        COMMIT TRANSACTION;
-        SET @Resultado = 1;
-        SET @Mensaje = 'Venta registrada correctamente';
-        END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        SET @Resultado = 0;
-        SET @Mensaje = ERROR_MESSAGE();
-        SET @VentaId = 0;
-        END CATCH
-END;
-select* from Cliente
-
-CREATE TYPE DetalleVentaType AS TABLE
-(
-    PresentacionId INT,
-    Cantidad INT,
-    PrecioUnitario DECIMAL(10,2),
-    Descuento DECIMAL(10,2),
-    PromocionId INT
-);
-
-
-        CREATE PROCEDURE sp_ListarVentasPorFecha
-            @FechaInicio DATE,
-    @FechaFin DATE
-AS
-BEGIN
-    SELECT
-        v.VentaId,
-        v.NumeroVenta,
-        v.Fecha,
-        v.Estado,
-        c.ClienteId,
-        c.RazonSocial
-    FROM Venta v
-    INNER JOIN Pedido p ON v.PedidoId = p.PedidoId
-    INNER JOIN Cliente c ON p.ClienteId = c.ClienteId
-    WHERE v.Fecha BETWEEN @FechaInicio AND @FechaFin;
-        END;
-
-CREATE PROCEDURE sp_ObtenerVentaPorId
-    @VentaId INT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    -- Primer conjunto de resultados: Información general de la venta(sin vendedor)
-    SELECT
-        V.VentaId,
-        V.NumeroVenta,
-        V.Fecha,
-        V.Estado,
-        C.ClienteId,
-        C.NumeroDocumento,
-        C.RazonSocial
-        -- Usuario eliminado porque no existe en el modelo actual
-    FROM Venta V
-    INNER JOIN Pedido P ON V.PedidoId = P.PedidoId
-    INNER JOIN Cliente C ON P.ClienteId = C.ClienteId
-    WHERE V.VentaId = @VentaId;
-
-    -- Segundo conjunto de resultados: Detalles de la venta
-    SELECT
-        VD.PresentacionId,
-        PR.Nombre AS Presentacion,
-        PR.Precio AS PrecioUnitario,
-        VD.Cantidad,
-        VD.Descuento,
-        (VD.Cantidad* PR.Precio) - VD.Descuento AS Subtotal
-    FROM VentaDetalle VD
-    INNER JOIN Presentacion PR ON VD.PresentacionId = PR.PresentacionId
-    WHERE VD.VentaId = @VentaId;
-        END;
-
-
-CREATE PROCEDURE sp_AnularVenta
-    @VentaId INT,
-    @Resultado BIT OUTPUT,
-    @Mensaje VARCHAR(500) OUTPUT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-        BEGIN TRY
-        -- Verificar si la venta existe y está activa
-        IF EXISTS(SELECT 1 FROM Venta WHERE VentaId = @VentaId AND Estado = 1)
-        BEGIN
-            -- Actualizar el estado a 0 (anulado/inactivo)
-            UPDATE Venta
-            SET Estado = 0
-            WHERE VentaId = @VentaId;
-
-        SET @Resultado = 1;
-        SET @Mensaje = 'Venta anulada correctamente.';
-        END
-        ELSE
-        BEGIN
-            SET @Resultado = 0;
-            SET @Mensaje = 'La venta no existe o ya está anulada.';
-        END
-    END TRY
-    BEGIN CATCH
-        SET @Resultado = 0;
-        SET @Mensaje = ERROR_MESSAGE();
-        END CATCH
-END;*/
-
-        //Esos son los procedimientos almacenados//
+       
     }
 }

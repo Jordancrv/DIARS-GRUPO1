@@ -8,37 +8,37 @@ namespace CapaEntidad
 {
     public class entUsuario
     {
-        public int UsuarioId { get; set; }
-        public int EmpleadoId { get; set; }
-        public Empleado Empleado { get; set; } 
-        public string NombreUsuario { get; set; }
-        public string Correo { get; set; }
-        public string Contraseña { get; set; }
-        public int RolId { get; set; }
-        public Rol Rol { get; set; }
-        public bool Estado { get; set; } = true;
-
-        public string NombreMostrar =>
-            Empleado != null ? Empleado.NombreCompleto : NombreUsuario;
+        public int id_usuario { get; set; }
+        public string nombre { get; set; }
+        public string email { get; set; }
+        public string password_hash { get; set; }
+        public string rol { get; set; }
+        public DateTime fecha_creacion { get; set; }
+        public bool activo { get; set; }
     }
-    public class Empleado
+    public class entOrdenesCompra
     {
-        public int EmpleadoId { get; set; }
-        public string NumeroDocumento { get; set; } 
-        public string Nombres { get; set; }
-        public string Apellidos { get; set; }
-        public string CorreoPersonal { get; set; }
-        public string Telefono { get; set; }
-        public int DireccionId { get; set; }
-        public Direccion Direccion { get; set; }
-        public DateTime FechaNacimiento { get; set; }
-        public DateTime FechaIngreso { get; set; }
-        public string Puesto { get; set; }
-        public bool Estado { get; set; } = true;
-
+        public int id_orden_compra { get; set; }
+        public int id_proveedor { get; set; }
+        public int id_usuario { get; set; }
+        public DateTime fecha { get; set; }
+        public string estado { get; set; }
+        public decimal total { get; set; }
+        public entProveedores Proveedor { get; set; }
         public entUsuario Usuario { get; set; }
+        public List<entDetallesOrdenCompra> Detalles { get; set; }
+    }
+    public class entDetallesOrdenCompra
+    {
+        public int id_detalle { get; set; }
+        public int id_orden_compra { get; set; }
+        public int id_producto { get; set; }
+        public int cantidad { get; set; }
+        public decimal precio_unitario { get; set; }
+        public decimal subtotal { get; set; }
 
-        public string NombreCompleto => $"{Nombres} {Apellidos}";
+        public entOrdenesCompra OrdenCompra { get; set; }
+        public entProductos Producto { get; set; }
     }
     public class Direccion
     {

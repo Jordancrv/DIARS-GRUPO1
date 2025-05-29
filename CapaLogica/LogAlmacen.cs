@@ -3,8 +3,8 @@ using CapaEntidad;
 
 public class LogAlmacen
 {
-    private static readonly AlmacenDAO _instancia = new AlmacenDAO();
-    public static AlmacenDAO Instancia => _instancia;
+    private static readonly LogAlmacen _instancia = new LogAlmacen();
+    public static LogAlmacen Instancia => _instancia;
 
     public List<Almacen> ListarAlmacenes()
     {

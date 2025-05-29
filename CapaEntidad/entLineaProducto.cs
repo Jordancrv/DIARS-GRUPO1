@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace CapaEntidad
 {
-    public class Marca
+    public class entLineaProducto
     {
-        public int MarcaId { get; set; }
+        public int LineaProductoId { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; } = true;
-
-        public List<Producto> Productos { get; set; }
+        public List<entProductos> Productos { get; set; }
 
         public override string ToString() => Nombre;
     }
