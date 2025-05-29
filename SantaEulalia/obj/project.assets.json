@@ -3008,19 +3008,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Fabrii\\.nuget\\packages\\": {}
+    "C:\\Users\\USUARIO\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO01\\SantaEulalia\\SantaEulalia.csproj",
+      "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
       "projectName": "SantaEulalia",
-      "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO01\\SantaEulalia\\SantaEulalia.csproj",
-      "packagesPath": "C:\\Users\\Fabrii\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO01\\SantaEulalia\\obj\\",
+      "projectPath": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+      "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Fabrii\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3028,18 +3028,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO01\\CapaEntidad\\CapaEntidad.csproj": {
-              "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO01\\CapaEntidad\\CapaEntidad.csproj"
+            "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+              "projectPath": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
             },
-            "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO01\\CapaLogica\\CapaLogica.csproj": {
-              "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO01\\CapaLogica\\CapaLogica.csproj"
+            "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
+              "projectPath": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
             }
           }
         }
@@ -3048,11 +3047,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -3087,7 +3081,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
