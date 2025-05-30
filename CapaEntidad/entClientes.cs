@@ -26,21 +26,21 @@ namespace CapaEntidad
         public int id_usuario { get; set; }
         public DateTime fecha { get; set; }
         public string estado { get; set; }
-        public decimal total { get; set; }
+
 
         // Propiedades de navegación
         public entClientes Cliente { get; set; }
         public entUsuario Usuario { get; set; }
-        public List<entDetallesPedido> Detalles { get; set; }
+        public List<entDetallesVenta> Detalles { get; set; }
     }
-    public class entDetallesPedido
+    public class entDetallesVenta
     {
-        public int id_detalle { get; set; }
+         public int id_detalle{ get; set; } 
         public int id_pedido { get; set; }
         public int id_producto { get; set; }
         public int cantidad { get; set; }
         public decimal precio_unitario { get; set; }
-        public decimal subtotal { get; set; }
+        public decimal subtotal => cantidad * precio_unitario;
 
         // Propiedades de navegación
         public entPedidosVenta Pedido { get; set; }

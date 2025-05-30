@@ -43,8 +43,10 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="LogAlmacen.cs" />
-    <Compile Include="LogProducto.cs" />
-    <Compile Include="LogUsuario.cs" />
+    <Compile Include="logClientes.cs" />
+    <Compile Include="logProducto.cs" />
+    <Compile Include="logUsuario.cs" />
+    <Compile Include="logVenta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
