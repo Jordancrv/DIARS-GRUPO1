@@ -24,11 +24,10 @@ namespace CapaDatos
 
         #region Métodos
 
-        public bool InsertarVenta(entPedidosVenta pedido, out int pedidoId, out string mensaje)
+        public bool InsertarVenta1(entPedidosVenta pedido, out int pedidoId)
         {
             SqlCommand cmd = null;
             pedidoId = 0;
-            mensaje = string.Empty;
             bool resultado = false;
 
             try
@@ -46,7 +45,8 @@ namespace CapaDatos
                     dtDetalles.Columns.Add("id_producto", typeof(int));
                     dtDetalles.Columns.Add("cantidad", typeof(int));
                     dtDetalles.Columns.Add("precio_unitario", typeof(decimal));
-                    dtDetalles.Columns.Add("subtotal", typeof(decimal)); // ¡Falta esta columna!
+                    dtDetalles.Columns.Add("subtotal", typeof(decimal)); // Este campo puede ser eliminado si no se usa en el SP
+
                     foreach (var detalle in pedido.Detalles)
                     {
                         dtDetalles.Rows.Add(
@@ -59,19 +59,13 @@ namespace CapaDatos
 
                     SqlParameter paramDetalles = cmd.Parameters.AddWithValue("@Detalles", dtDetalles);
                     paramDetalles.SqlDbType = SqlDbType.Structured;
-                    paramDetalles.TypeName = "DetallePedidoType"; 
+                    paramDetalles.TypeName = "DetallePedidoType";
 
                     SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Bit)
                     {
                         Direction = ParameterDirection.Output
                     };
                     cmd.Parameters.Add(paramResultado);
-
-                    SqlParameter paramMensaje = new SqlParameter("@Mensaje", SqlDbType.NVarChar, 500)
-                    {
-                        Direction = ParameterDirection.Output
-                    };
-                    cmd.Parameters.Add(paramMensaje);
 
                     SqlParameter paramPedidoId = new SqlParameter("@PedidoId", SqlDbType.Int)
                     {
@@ -83,23 +77,81 @@ namespace CapaDatos
                     cmd.ExecuteNonQuery();
 
                     resultado = Convert.ToBoolean(paramResultado.Value);
-                    mensaje = paramMensaje.Value.ToString();
                     pedidoId = Convert.ToInt32(paramPedidoId.Value);
                 }
             }
-            catch (SqlException ex)
+            catch
             {
-                mensaje = $"Error SQL: {ex.Message}";
                 resultado = false;
+                pedidoId = 0;
             }
-            catch (Exception ex)
+
+            return resultado;
+        }
+
+
+        public bool InsertarVenta(entPedidosVenta pedido)
+        {
+            SqlCommand cmd = null;
+            bool resultado = false;
+
+            try
             {
-                mensaje = $"Error general: {ex.Message}";
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                {
+                    cmd = new SqlCommand("sp_RegistrarPedidoVenta", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@id_cliente", pedido.id_cliente);
+                    cmd.Parameters.AddWithValue("@id_usuario", pedido.id_usuario);
+                    cmd.Parameters.AddWithValue("@estado", pedido.estado);
+
+                    DataTable dtDetalles = new DataTable();
+                    dtDetalles.Columns.Add("id_producto", typeof(int));
+                    dtDetalles.Columns.Add("cantidad", typeof(int));
+                    dtDetalles.Columns.Add("precio_unitario", typeof(decimal));
+                    dtDetalles.Columns.Add("subtotal", typeof(decimal)); // si no lo usas en el SP puedes eliminar esta columna
+
+                    foreach (var detalle in pedido.Detalles)
+                    {
+                        dtDetalles.Rows.Add(
+                            detalle.id_producto,
+                            detalle.cantidad,
+                            detalle.precio_unitario,
+                            detalle.subtotal
+                        );
+                    }
+
+                    SqlParameter paramDetalles = cmd.Parameters.AddWithValue("@Detalles", dtDetalles);
+                    paramDetalles.SqlDbType = SqlDbType.Structured;
+                    paramDetalles.TypeName = "DetallePedidoType";
+
+                    SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Bit)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(paramResultado);
+
+                    // No agregamos el parámetro @PedidoId
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    resultado = Convert.ToBoolean(paramResultado.Value);
+                }
+            }
+            catch
+            {
                 resultado = false;
             }
 
             return resultado;
         }
+
+
+
+
+
 
 
         public List<entPedidosVenta> ListarVentasPorFecha(DateTime fechaInicio, DateTime fechaFin)
@@ -295,8 +347,8 @@ namespace CapaDatos
                                 id_cliente = Convert.ToInt32(dr["id_cliente"]),
                                 Cliente = new entClientes
                                 {
-                                    id_cliente = Convert.ToInt32(dr["id_cliente"]),
-                                    razon_social = dr["razon_social"].ToString()
+                                    id_cliente = Convert.ToInt32(dr["id_cliente"])
+                                    //razon_social = dr["razon_social"].ToString()
                                 }
                             };
 
