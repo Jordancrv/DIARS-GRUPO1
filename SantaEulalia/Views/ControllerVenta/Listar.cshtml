@@ -2,10 +2,9 @@
 
 @{
     ViewData["Title"] = "Listar";
-    Layout = "~/Views/Shared/_Layout.cshtml"; // Aquí indicamos que use tu diseño con sidebar
 }
-    
-<h1>Listar</h1>     
+
+<h1>Listar</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -49,11 +48,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.estado)
             </td>
-            <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id_pedido }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id_pedido }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id_pedido })   
-            </td>
+                
+                <td>
+                    @Html.ActionLink("Editar", "EditarVenta", new { id = item.id_pedido }) |
+                    @Html.ActionLink("Detalles", "DetallesVenta", new { id = item.id_pedido }) |
+                    @Html.ActionLink("Eliminar", "EliminarVenta", new { id = item.id_pedido }) |
+                    @Html.ActionLink("Insertar", "InsertarVenta")
+                </td>
         </tr>
 }
     </tbody>

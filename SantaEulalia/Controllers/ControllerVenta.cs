@@ -1,105 +1,158 @@
 ﻿using CapaEntidad;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CapaLogica;
+
 namespace SantaEulalia.Controllers
 {
     public class ControllerVenta : Controller
     {
 
-        // GET: ControllerVenta
-        public IActionResult Listar()
-        {
-            var listaVentas = logVenta.Instancia.ListarVentas();
-            return View(listaVentas);
-        }
 
-        // GET: ControllerVenta/Details/5
-        public IActionResult Details(int id)
-        {
-            var venta = logVenta.Instancia.BuscarVenta(id);
-            return View(venta);
-        }
-
-        // GET: ControllerVenta/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ControllerVenta/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(entPedidosVenta venta)
-        {
-            try
+            // GET: Listar ventas
+            public IActionResult Listar()
             {
-                int idVenta;
-                string mensaje;
-                bool resultado = logVenta.Instancia.InsertarVenta(venta, out idVenta, out mensaje);
+                var listaVentas = logVenta.Instancia.ListarVentas();
+                ViewBag.Lista = listaVentas;
+                return View(listaVentas);
+            }
 
-                if (resultado)
-                    return RedirectToAction(nameof(Listar));
-                else
+            // GET: Mostrar detalles de una venta
+            [HttpGet]
+            public IActionResult Detalles(int id)
+            {
+                try
                 {
-                    ViewBag.Mensaje = mensaje;
+                    var venta = logVenta.Instancia.BuscarVenta(id);
+                    if (venta == null)
+                        return NotFound();
+
+                    return View(venta);
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "Error: " + ex.Message;
+                    return RedirectToAction("Listar");
+                }
+            }
+
+            // GET: Mostrar formulario para insertar venta
+            [HttpGet]
+            public IActionResult InsertarVenta()
+            {
+                return View();
+            }
+
+            // POST: Insertar venta en la BD
+            [HttpPost]
+            public IActionResult InsertarVenta(entPedidosVenta venta)
+            {
+                try
+                {
+                    // Solo usamos el objeto venta, sin mensaje ni pedidoId
+                    bool resultado = logVenta.Instancia.InsertarVenta(venta);
+
+                    if (resultado)
+                        return RedirectToAction("Listar");
+                    else
+                    {
+                        ViewBag.Error = "No se pudo registrar la venta.";
+                        return View(venta);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "Error: " + ex.Message;
                     return View(venta);
                 }
             }
-            catch
+
+            // GET: Mostrar formulario para editar venta
+            [HttpGet]
+            public IActionResult EditarVenta(int id)
             {
-                return View();
-            }
-        }
+                try
+                {
+                    var venta = logVenta.Instancia.BuscarVenta(id);
+                    if (venta == null)
+                        return NotFound();
 
-        // GET: ControllerVenta/Edit/5
-        public IActionResult Edit(int id)
-        {
-            var venta = logVenta.Instancia.BuscarVenta(id);
-            return View(venta);
-        }
-
-        // POST: ControllerVenta/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(entPedidosVenta venta)
-        {
-            try
-            {
-                bool resultado = logVenta.Instancia.EditarVenta(venta);
-
-                if (resultado)
-                    return RedirectToAction(nameof(Listar));
-                else
                     return View(venta);
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "Error: " + ex.Message;
+                    return RedirectToAction("Listar");
+                }
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: ControllerVenta/Delete/5
-        public IActionResult Delete(int id)
-        {
-            var venta = logVenta.Instancia.BuscarVenta(id);
-            return View(venta);
-        }
+            // POST: Actualizar venta en la BD
+            [HttpPost]
+            public IActionResult EditarVenta(entPedidosVenta venta)
+            {
+                try
+                {
+                    bool resultado = logVenta.Instancia.EditarVenta(venta);
 
-        // POST: ControllerVenta/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            try
-            {
-                logVenta.Instancia.EliminarVenta(id);
-                return RedirectToAction(nameof(Listar));
+                    if (resultado)
+                        return RedirectToAction("Listar");
+                    else
+                        return View(venta);
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "Error: " + ex.Message;
+                    return View(venta);
+                }
             }
-            catch
+
+            // GET: Mostrar confirmación para eliminar venta
+            [HttpGet]
+            public IActionResult EliminarVenta(int id)
             {
-                return View();
+                try
+                {
+                    var venta = logVenta.Instancia.BuscarVenta(id);
+                    if (venta == null)
+                        return NotFound();
+
+                    return View(venta);
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "Error: " + ex.Message;
+                    return RedirectToAction("Listar");
+                }
             }
-        }
+
+            // POST: Confirmar eliminación de venta
+            [HttpPost, ActionName("EliminarVenta")]
+            public IActionResult EliminarVentaConfirmado(int id)
+            {
+                try
+                {
+                    bool eliminado = logVenta.Instancia.EliminarVenta(id);
+                    if (eliminado)
+                        return RedirectToAction("Listar");
+                    else
+                    {
+                        ViewBag.Error = "No se pudo eliminar la venta.";
+                        var venta = logVenta.Instancia.BuscarVenta(id);
+                        return View("EliminarVenta", venta);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "Error: " + ex.Message;
+                    var venta = logVenta.Instancia.BuscarVenta(id);
+                    return View("EliminarVenta", venta);
+                }
+            }
+        
+
+
+
+
+
+
     }
 }

@@ -29,9 +29,9 @@ namespace CapaLogica
             return datVenta.Instancia.ListarVentas();
         }
 
-        public bool InsertarVenta(entPedidosVenta venta, out int idVenta, out string mensaje)
+        public bool InsertarVenta(entPedidosVenta venta)
         {
-            return datVenta.Instancia.InsertarVenta(venta, out idVenta, out mensaje);
+            return datVenta.Instancia.InsertarVenta(venta);
         }
 
         public bool EditarVenta(entPedidosVenta id_venta)
