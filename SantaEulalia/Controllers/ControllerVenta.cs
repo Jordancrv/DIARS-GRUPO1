@@ -1,4 +1,5 @@
 ﻿using CapaEntidad;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CapaLogica;
 
