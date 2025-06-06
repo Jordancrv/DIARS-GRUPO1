@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CapaLogica
 {
-    internal class logVenta
+    public class logVenta
     {
         #region singleton
         private static readonly logVenta UnicaInstancia = new logVenta();

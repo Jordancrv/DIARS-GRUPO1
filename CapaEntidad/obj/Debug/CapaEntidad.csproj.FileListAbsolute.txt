@@ -34,3 +34,9 @@ C:\Users\pc\Desktop\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad
 C:\Users\pc\Desktop\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
 C:\Users\pc\Desktop\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.dll
 C:\Users\pc\Desktop\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.pdb
+C:\Users\Ingenieria\Downloads\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.dll
+C:\Users\Ingenieria\Downloads\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.pdb
+C:\Users\Ingenieria\Downloads\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
+C:\Users\Ingenieria\Downloads\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
+C:\Users\Ingenieria\Downloads\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.dll
+C:\Users\Ingenieria\Downloads\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.pdb
