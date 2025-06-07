@@ -22,7 +22,7 @@ namespace CapaDatos
                     SqlCommand cmd = new SqlCommand("sp_InsertarUsuario", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@nombre", usuario.nombre);
+                    cmd.Parameters.AddWithValue("@nombres", usuario.nombre);
                     cmd.Parameters.AddWithValue("@apellidos", usuario.apellidos);
                     cmd.Parameters.AddWithValue("@email", usuario.email);
                     cmd.Parameters.AddWithValue("@password_hash", usuario.password_hash);
@@ -51,7 +51,7 @@ namespace CapaDatos
                             lista.Add(new entUsuario
                             {
                                 id_usuario = Convert.ToInt32(dr["id_usuario"]),
-                                nombre = dr["nombre"].ToString(),
+                                nombre = dr["nombres"].ToString(),
                                 apellidos = dr["apellidos"].ToString(),
                                 email = dr["email"].ToString(),
                                 password_hash = dr["password_hash"].ToString(),

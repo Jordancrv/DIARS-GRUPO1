@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SantaEulalia")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+23b0f6b057885ad1c0e58411c09b3b7fe8fdf017")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e967cb9c9b517579214c96aa3c41e169df21649")]
 [assembly: System.Reflection.AssemblyProductAttribute("SantaEulalia")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SantaEulalia")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
