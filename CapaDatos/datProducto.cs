@@ -37,7 +37,7 @@ namespace CapaDatos
                 while (dr.Read())
                 {
                     entProductos p = new entProductos();
-                    p.id_producto = Convert.ToInt32(dr["id_producto"]);
+               
                     p.codigo = dr["codigo"].ToString();
                     p.nombre = dr["nombre"].ToString();
                     p.descripcion = dr["descripcion"].ToString();
