@@ -1,30 +1,122 @@
 ﻿@{
-    Layout = "~/Views/Shared/LayoutCompras.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Pago de Compra";
 }
 
-<h2>Registrar Pago</h2>
+<h2 class="mb-4">Pago de Orden de Compra</h2>
 
-<form>
-    <div class="mb-3">
-        <label for="orden" class="form-label">N° Orden de Compra</label>
-        <input type="text" class="form-control" id="orden" placeholder="Código de la orden">
+<!-- 1. Verificar orden de compra recibida -->
+<div class="card mb-4">
+    <div class="card-header bg-info text-white">
+        Seleccione Orden de Compra Recibida
     </div>
-    <div class="mb-3">
-        <label for="monto" class="form-label">Monto a pagar</label>
-        <input type="number" step="0.01" class="form-control" id="monto" placeholder="Monto">
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+                <label for="ordenCompra">Orden de Compra</label>
+                <select class="form-control" id="ordenCompra">
+                    <option value="">-- Seleccione --</option>
+                    <option value="1">OC001 - Proveedor A - S/ 520.00</option>
+                    <option value="2">OC002 - Proveedor B - S/ 780.00</option>
+                </select>
+            </div>
+        </form>
     </div>
-    <div class="mb-3">
-        <label for="metodo" class="form-label">Método de Pago</label>
-        <select class="form-select" id="metodo">
-            <option>Transferencia</option>
-            <option>Cheque</option>
-            <option>Tarjeta</option>
-        </select>
+</div>
+
+<!-- 2. Registrar Pago -->
+<div class="card mb-4">
+    <div class="card-header bg-secondary text-white">
+        Registro de Pago
     </div>
-    <div class="mb-3">
-        <label for="fechaPago" class="form-label">Fecha de Pago</label>
-        <input type="date" class="form-control" id="fechaPago">
+    <div class="card-body">
+        <form>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label>Método de Pago</label>
+                    <select class="form-control">
+                        <option>Efectivo</option>
+                        <option>Tarjeta</option>
+                        <option>Transferencia</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label>Monto a Pagar</label>
+                    <input type="text" class="form-control" value="S/ 520.00" readonly />
+                </div>
+                <div class="col-md-4">
+                    <label>Fecha de Pago</label>
+                    <input type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <!-- Si es efectivo -->
+            <div class="mb-3">
+                <label>Vuelto (si aplica)</label>
+                <input type="text" class="form-control" />
+            </div>
+
+            <!-- Si es tarjeta -->
+            <div class="mb-3">
+                <label>Número de Tarjeta</label>
+                <input type="text" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label>Código de Autorización</label>
+                <input type="text" class="form-control" />
+            </div>
+
+            <button class="btn btn-success mt-2">Registrar Pago</button>
+        </form>
     </div>
-    <button type="submit" class="btn btn-danger">Registrar Pago</button>
-</form>
+</div>
+
+<!-- 3. Comprobante de pago y acciones -->
+<div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+        Comprobantes de Pago Realizados
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID Pago</th>
+                    <th>Proveedor</th>
+                    <th>Método</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Comprobante</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>PG001</td>
+                    <td>Proveedor A</td>
+                    <td>Transferencia</td>
+                    <td>10/06/2025</td>
+                    <td>S/ 520.00</td>
+                    <td>Pagado</td>
+                    <td>Boleta N° 12345</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-info" href="#">Ver</a>
+                        <a class="btn btn-sm btn-outline-danger" href="#">Anular</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 4. Mantenedor método de pago y tipo comprobante -->
+<div class="card">
+    <div class="card-header bg-light">
+        Mantenedores
+    </div>
+    <div class="card-body">
+        <a class="btn btn-outline-primary" href="/MetodoPago/Mantener">Método de Pago</a>
+        <a class="btn btn-outline-secondary" href="/TipoComprobante/Mantener">Tipo de Comprobante</a>
+    </div>
+</div>

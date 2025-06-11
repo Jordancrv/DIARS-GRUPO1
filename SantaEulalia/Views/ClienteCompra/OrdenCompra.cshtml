@@ -1,26 +1,113 @@
 ﻿@{
-    Layout = "~/Views/Shared/LayoutCompras.cshtml";
-    ViewBag.Title = "Orden de Compra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Realizar Orden de Compra";
 }
 
-<h2>Generar Orden de Compra</h2>
+<h2 class="mb-4">Gestión de Orden de Compra</h2>
 
-<form>
-    <div class="mb-3">
-        <label for="proveedor" class="form-label">Proveedor</label>
-        <input type="text" class="form-control" id="proveedor" placeholder="Nombre del proveedor">
+<!-- 1. Cotizaciones disponibles para crear OC -->
+<div class="card mb-4">
+    <div class="card-header bg-info text-white">
+        Cotizaciones Disponibles
     </div>
-    <div class="mb-3">
-        <label for="producto" class="form-label">Producto</label>
-        <input type="text" class="form-control" id="producto" placeholder="Producto a comprar">
+    <div class="card-body">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Proveedor</th>
+                    <th>Precio Unitario</th>
+                    <th>Stock</th>
+                    <th>Cantidad</th>
+                    <th>Agregar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* Suponiendo que tienes una lista de cotizaciones cargada desde el controlador *@
+                @* Aquí deberías iterar sobre Model.Cotizaciones *@
+                <tr>
+                    <td>Teclado USB</td>
+                    <td>Proveedor SAC</td>
+                    <td>S/ 25.00</td>
+                    <td>100</td>
+                    <td>
+                        <input type="number" min="1" max="100" class="form-control" />
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">Agregar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="mb-3">
-        <label for="cantidad" class="form-label">Cantidad</label>
-        <input type="number" class="form-control" id="cantidad" placeholder="Cantidad">
+</div>
+
+<!-- 2. Detalles de la Orden en curso (como carrito) -->
+<div class="card mb-4">
+    <div class="card-header bg-secondary text-white">
+        Detalle de Orden en curso
     </div>
-    <div class="mb-3">
-        <label for="fecha" class="form-label">Fecha de entrega</label>
-        <input type="date" class="form-control" id="fecha">
+    <div class="card-body">
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                    <th>Quitar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* Aquí irán los productos seleccionados temporalmente (en la sesión o ViewModel) *@
+                <tr>
+                    <td>Teclado USB</td>
+                    <td>5</td>
+                    <td>S/ 25.00</td>
+                    <td>S/ 125.00</td>
+                    <td><button class="btn btn-sm btn-danger">X</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-end mt-2">
+            <strong>Total: S/ 125.00</strong>
+            <br />
+            <button class="btn btn-success mt-2">Confirmar Orden de Compra</button>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Registrar Orden</button>
-</form>
+</div>
+
+<!-- 3. Órdenes de Compra generadas -->
+<div class="card">
+    <div class="card-header bg-dark text-white">
+        Órdenes de Compra Generadas
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Proveedor</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* Iterar sobre Model.OrdenesCompra si lo tienes disponible *@
+                <tr>
+                    <td>OC001</td>
+                    <td>Proveedor SAC</td>
+                    <td>10/06/2025</td>
+                    <td>S/ 560.00</td>
+                    <td>Activo</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-danger" href="#">Anular</a>
+                        <a class="btn btn-sm btn-outline-info" href="#">Ver Detalle</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
