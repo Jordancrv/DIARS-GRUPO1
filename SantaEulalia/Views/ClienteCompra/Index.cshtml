@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/LayoutCompras.cshtml";
+    ViewBag.Title = "Panel Compras";
+}
+
+<h2>Bienvenido al módulo de Compras</h2>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card border-primary">
+            <div class="card-body text-center">
+                <h5 class="card-title">Orden de Compra</h5>
+                <a class="btn btn-outline-primary" href="@Url.Action("OrdenCompra", "ClienteCompra")">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-secondary">
+            <div class="card-body text-center">
+                <h5 class="card-title">Cotizar Producto</h5>
+                <a class="btn btn-outline-secondary" href="@Url.Action("Cotizacion", "ClienteCompra")">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-success">
+            <div class="card-body text-center">
+                <h5 class="card-title">Recepción</h5>
+                <a class="btn btn-outline-success" href="@Url.Action("Recepcion", "ClienteCompra")">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-danger">
+            <div class="card-body text-center">
+                <h5 class="card-title">Pago</h5>
+                <a class="btn btn-outline-danger" href="@Url.Action("Pago", "ClienteCompra")">Ir</a>
+            </div>
+        </div>
+    </div>
+</div>
