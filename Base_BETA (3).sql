@@ -16,6 +16,8 @@ CREATE TABLE Usuarios (
 );
 GO
 
+
+
 -- Correos de usuarios
 CREATE TABLE UsuarioCorreos (
     id_usuario INT,
@@ -127,10 +129,10 @@ CREATE TABLE Productos (
 );
 GO
 drop table Productos
+select * from Productos
 
 
-
-CREATE TABLE CategoriProductos(
+CREATE TABLE CategoriaProductos(
 
   idCategoria INT PRIMARY KEY IDENTITY(1,1),
    nombreCategoria VARCHAR(50) NOT NULL
@@ -141,7 +143,7 @@ Go
 CREATE TABLE Presentacion(
 
 idPresentacion INT PRIMARY KEY IDENTITY(1,1),
-    nombrePresentacion VARCHAR(64) NOT NULL,
+   nombrePresentacion VARCHAR(64) NOT NULL,
 
 
 ); 
@@ -242,7 +244,7 @@ CREATE TABLE PedidosVenta (
     id_comprobante INT REFERENCES ComprobantesPago(id_comprobante),
 	  total DECIMAL(12,2),
     total_descuento_productos DECIMAL(12,2),
-    total_descuento_promociones DECIMAL(12,2),
+    total_descuento_promociones DECIMAL(12,2),--------------------- quiza que vaya como registro. ver si va id de promociones o creo que va en promociones venta. y prmociones producto. 
     total_con_descuento DECIMAL(12,2),
 
 
@@ -671,6 +673,8 @@ BEGIN
 END
 go
 
+
+select * from 
 
 CREATE or alter  PROCEDURE spInsertarProducto
     @codigo NVARCHAR(50),
