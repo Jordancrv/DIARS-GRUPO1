@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/LayoutCompras.cshtml";
+    ViewBag.Title = "Recepción de Compra";
+}
+
+<h2>Registrar Recepción</h2>
+
+<form>
+    <div class="mb-3">
+        <label for="orden" class="form-label">N° Orden de Compra</label>
+        <input type="text" class="form-control" id="orden" placeholder="Código de la orden">
+    </div>
+    <div class="mb-3">
+        <label for="fecha" class="form-label">Fecha de Recepción</label>
+        <input type="date" class="form-control" id="fecha">
+    </div>
+    <div class="mb-3">
+        <label for="estado" class="form-label">Estado del Producto</label>
+        <select class="form-select" id="estado">
+            <option>Bueno</option>
+            <option>Regular</option>
+            <option>Defectuoso</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="observaciones" class="form-label">Observaciones</label>
+        <textarea class="form-control" id="observaciones" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Registrar Recepción</button>
+</form>

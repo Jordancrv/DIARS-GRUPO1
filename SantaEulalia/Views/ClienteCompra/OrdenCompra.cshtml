@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "~/Views/Shared/LayoutCompras.cshtml";
+    ViewBag.Title = "Orden de Compra";
+}
+
+<h2>Generar Orden de Compra</h2>
+
+<form>
+    <div class="mb-3">
+        <label for="proveedor" class="form-label">Proveedor</label>
+        <input type="text" class="form-control" id="proveedor" placeholder="Nombre del proveedor">
+    </div>
+    <div class="mb-3">
+        <label for="producto" class="form-label">Producto</label>
+        <input type="text" class="form-control" id="producto" placeholder="Producto a comprar">
+    </div>
+    <div class="mb-3">
+        <label for="cantidad" class="form-label">Cantidad</label>
+        <input type="number" class="form-control" id="cantidad" placeholder="Cantidad">
+    </div>
+    <div class="mb-3">
+        <label for="fecha" class="form-label">Fecha de entrega</label>
+        <input type="date" class="form-control" id="fecha">
+    </div>
+    <button type="submit" class="btn btn-primary">Registrar Orden</button>
+</form>

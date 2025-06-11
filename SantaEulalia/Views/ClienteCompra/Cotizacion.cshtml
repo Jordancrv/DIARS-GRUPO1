@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/LayoutCompras.cshtml";
+    ViewBag.Title = "Cotización de Producto";
+}
+
+<h2>Solicitar Cotización</h2>
+
+<form>
+    <div class="mb-3">
+        <label for="producto" class="form-label">Producto</label>
+        <input type="text" class="form-control" id="producto" placeholder="Producto a cotizar">
+    </div>
+    <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea class="form-control" id="descripcion" rows="3" placeholder="Detalles del producto"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="proveedor" class="form-label">Proveedor sugerido</label>
+        <input type="text" class="form-control" id="proveedor" placeholder="Nombre del proveedor">
+    </div>
+    <button type="submit" class="btn btn-secondary">Solicitar Cotización</button>
+</form>
