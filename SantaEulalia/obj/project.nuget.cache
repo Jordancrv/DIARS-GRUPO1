@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YEt0Zky2Y4s=",
+  "dgSpecHash": "Jm9RWrofsmU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\shant\\OneDrive\\Escritorio\\Nueva carpeta\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+  "projectFilePath": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\shant\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\shant\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
