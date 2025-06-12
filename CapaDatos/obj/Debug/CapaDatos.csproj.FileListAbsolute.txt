@@ -43,6 +43,7 @@ C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDato
 C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.CopyComplete
 C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.dll
 C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.pdb
+<<<<<<< Updated upstream
 C:\Users\Ingenieria\Downloads\DiarsProyecto\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaDatos.dll
 C:\Users\Ingenieria\Downloads\DiarsProyecto\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaDatos.pdb
 C:\Users\Ingenieria\Downloads\DiarsProyecto\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaEntidad.dll
@@ -70,3 +71,14 @@ C:\Users\Fabrii\Documents\GitHub\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.cspr
 C:\Users\Fabrii\Documents\GitHub\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.Up2Date
 C:\Users\Fabrii\Documents\GitHub\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.dll
 C:\Users\Fabrii\Documents\GitHub\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.pdb
+=======
+C:\Users\Jordan\Desktop\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaDatos.dll
+C:\Users\Jordan\Desktop\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaDatos.pdb
+C:\Users\Jordan\Desktop\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaEntidad.dll
+C:\Users\Jordan\Desktop\DIARS-GRUPO1\CapaDatos\bin\Debug\CapaEntidad.pdb
+C:\Users\Jordan\Desktop\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.AssemblyReference.cache
+C:\Users\Jordan\Desktop\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.CoreCompileInputs.cache
+C:\Users\Jordan\Desktop\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.csproj.Up2Date
+C:\Users\Jordan\Desktop\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.dll
+C:\Users\Jordan\Desktop\DIARS-GRUPO1\CapaDatos\obj\Debug\CapaDatos.pdb
+>>>>>>> Stashed changes
