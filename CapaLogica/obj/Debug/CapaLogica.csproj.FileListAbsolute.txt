@@ -86,3 +86,14 @@ C:\Users\Fabrii\Documents\GitHub\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.cs
 C:\Users\Fabrii\Documents\GitHub\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.csproj.Up2Date
 C:\Users\Fabrii\Documents\GitHub\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.dll
 C:\Users\Fabrii\Documents\GitHub\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.pdb
+C:\Users\Jordan\Desktop\DIARD\DIARS-GRUPO1\CapaLogica\bin\Debug\CapaLogica.dll
+C:\Users\Jordan\Desktop\DIARD\DIARS-GRUPO1\CapaLogica\bin\Debug\CapaLogica.pdb
+C:\Users\Jordan\Desktop\DIARD\DIARS-GRUPO1\CapaLogica\bin\Debug\CapaDatos.dll
+C:\Users\Jordan\Desktop\DIARD\DIARS-GRUPO1\CapaLogica\bin\Debug\CapaEntidad.dll
+C:\Users\Jordan\Desktop\DIARD\DIARS-GRUPO1\CapaLogica\bin\Debug\CapaDatos.pdb
+C:\Users\Jordan\Desktop\DIARD\DIARS-GRUPO1\CapaLogica\bin\Debug\CapaEntidad.pdb
+C:\Users\Jordan\Desktop\DIARD\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.csproj.AssemblyReference.cache
+C:\Users\Jordan\Desktop\DIARD\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.csproj.CoreCompileInputs.cache
+C:\Users\Jordan\Desktop\DIARD\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.csproj.Up2Date
+C:\Users\Jordan\Desktop\DIARD\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.dll
+C:\Users\Jordan\Desktop\DIARD\DIARS-GRUPO1\CapaLogica\obj\Debug\CapaLogica.pdb
