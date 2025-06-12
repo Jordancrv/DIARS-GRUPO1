@@ -7712,24 +7712,37 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pc\\.nuget\\packages\\": {},
+<<<<<<< Updated upstream
+    "C:\\Users\\Fabrii\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\Jordan\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+>>>>>>> Stashed changes
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+<<<<<<< Updated upstream
+      "projectUniqueName": "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
       "projectName": "SantaEulalia",
-      "projectPath": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
-      "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
+      "projectPath": "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+      "packagesPath": "C:\\Users\\Fabrii\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\Jordan\\Desktop\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+      "projectName": "SantaEulalia",
+      "projectPath": "C:\\Users\\Jordan\\Desktop\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+      "packagesPath": "C:\\Users\\Jordan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Jordan\\Desktop\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
+>>>>>>> Stashed changes
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+<<<<<<< Updated upstream
+        "C:\\Users\\Fabrii\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\Jordan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+>>>>>>> Stashed changes
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7744,11 +7757,19 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
-              "projectPath": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+<<<<<<< Updated upstream
+            "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+              "projectPath": "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
             },
-            "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
-              "projectPath": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
+            "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
+              "projectPath": "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
+=======
+            "C:\\Users\\Jordan\\Desktop\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+              "projectPath": "C:\\Users\\Jordan\\Desktop\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+            },
+            "C:\\Users\\Jordan\\Desktop\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
+              "projectPath": "C:\\Users\\Jordan\\Desktop\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
+>>>>>>> Stashed changes
             }
           }
         }
@@ -7762,8 +7783,12 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
+<<<<<<< Updated upstream
+      }
+=======
       },
       "SdkAnalysisLevel": "9.0.300"
+>>>>>>> Stashed changes
     },
     "frameworks": {
       "net8.0": {
@@ -7801,7 +7826,11 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< Updated upstream
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+=======
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+>>>>>>> Stashed changes
       }
     }
   }

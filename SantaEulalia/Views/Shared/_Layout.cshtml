@@ -66,19 +66,25 @@
             </div>
 
             <div class="list-group list-group-flush px-2">
-                <div class="text-white text-uppercase small fw-bold mt-3">Compra</div>
-                <a class="list-group-item list-group-item-action" href="/Producto/Listar">
-                    <i class="fas fa-box"></i> Productos
+                <div class="text-white text-uppercase small fw-bold mt-3">Compras</div>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Cotizacion", "ClienteCompra")">
+                    <i class="fas fa-search-dollar"></i> Cotización
                 </a>
-                <a class="list-group-item list-group-item-action" href="/Producto/Registrar">
-                    <i class="fas fa-plus"></i> Agregar Producto
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("OrdenCompra", "ClienteCompra")">
+                    <i class="fas fa-file-invoice"></i> Orden de Compra
                 </a>
-                <a class="list-group-item list-group-item-action" href="/Categoria/Index">
-                    <i class="fas fa-tags"></i> Categorías
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Recepcion", "ClienteCompra")">
+                    <i class="fas fa-box-open"></i> Recepción
                 </a>
-                <a class="list-group-item list-group-item-action" href="/Categoria/Agregar">
-                    <i class="fas fa-plus-square"></i> Agregar Categoría
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Pago", "ClienteCompra")">
+                    <i class="fas fa-credit-card"></i> Pago
                 </a>
+
+
 
                 <div class="text-white text-uppercase small fw-bold mt-4">Ventas</div>
                 <a class="list-group-item list-group-item-action" href="/ControllerVenta/Listar">
@@ -87,6 +93,7 @@
                 <a class="list-group-item list-group-item-action" href="/Venta/AgregarVenta">
                     <i class="fas fa-cart-plus"></i> Agregar Venta
                 </a>
+
 
 
 
