@@ -2014,11 +2014,7 @@
         },
         "runtime": {
           "CapaDatos.dll": {
-<<<<<<< Updated upstream
-            "assemblyVersion": "1.0.0",
-=======
             "assemblyVersion": "1.0.0.0",
->>>>>>> Stashed changes
             "fileVersion": "1.0.0.0"
           }
         }
@@ -2026,11 +2022,7 @@
       "CapaEntidad/1.0.0": {
         "runtime": {
           "CapaEntidad.dll": {
-<<<<<<< Updated upstream
-            "assemblyVersion": "1.0.0",
-=======
             "assemblyVersion": "1.0.0.0",
->>>>>>> Stashed changes
             "fileVersion": "1.0.0.0"
           }
         }
@@ -2042,11 +2034,7 @@
         },
         "runtime": {
           "CapaLogica.dll": {
-<<<<<<< Updated upstream
-            "assemblyVersion": "1.0.0",
-=======
             "assemblyVersion": "1.0.0.0",
->>>>>>> Stashed changes
             "fileVersion": "1.0.0.0"
           }
         }

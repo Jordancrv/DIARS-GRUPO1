@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SantaEulalia")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2897effa384f49cc8ce00aa9591dce8d764aded7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+215d47b80eaaf59d278f0b3ec3358aa68f82a011")]
 [assembly: System.Reflection.AssemblyProductAttribute("SantaEulalia")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SantaEulalia")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
