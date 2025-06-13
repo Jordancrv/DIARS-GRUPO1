@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = null;
+    Layout = null; 
 }
 <!DOCTYPE html>
 <html lang="es">
@@ -66,32 +66,65 @@
             </div>
 
             <div class="list-group list-group-flush px-2">
-                <div class="text-white text-uppercase small fw-bold mt-3">Compra</div>
-                <a class="list-group-item list-group-item-action" href="/Producto/Index">
-                    <i class="fas fa-box"></i> Productos
-                </a>
-                <a class="list-group-item list-group-item-action" href="/Producto/Agregar">
-                    <i class="fas fa-plus"></i> Agregar Producto
-                </a>
-                <a class="list-group-item list-group-item-action" href="/Categoria/Index">
-                    <i class="fas fa-tags"></i> Categorías
-                </a>
-                <a class="list-group-item list-group-item-action" href="/Categoria/Agregar">
-                    <i class="fas fa-plus-square"></i> Agregar Categoría
+                <div class="text-white text-uppercase small fw-bold mt-3">Compras</div>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Cotizacion", "ClienteCompra")">
+                    <i class="fas fa-search-dollar"></i> Cotización
                 </a>
 
+                <a class="list-group-item list-group-item-action" href="@Url.Action("OrdenCompra", "ClienteCompra")">
+                    <i class="fas fa-file-invoice"></i> Orden de Compra
+                </a>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Recepcion", "ClienteCompra")">
+                    <i class="fas fa-box-open"></i> Recepción
+                </a>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Pago", "ClienteCompra")">
+                    <i class="fas fa-credit-card"></i> Pago
+                </a>
+
+
+
                 <div class="text-white text-uppercase small fw-bold mt-4">Ventas</div>
-                <a class="list-group-item list-group-item-action" href="/Venta/Index">
+                <a class="list-group-item list-group-item-action" href="/ControllerVenta/Listar">
                     <i class="fas fa-shopping-cart"></i> Lista Ventas
                 </a>
                 <a class="list-group-item list-group-item-action" href="/Venta/AgregarVenta">
                     <i class="fas fa-cart-plus"></i> Agregar Venta
                 </a>
+
+
+
+
+                <div class="text-white text-uppercase small fw-bold mt-4">Clientes</div>
+                <a class="list-group-item list-group-item-action" href="/Cliente/Listar">
+                    <i class="fas fa-shopping-cart"></i> Listar Clientes
+                </a>
+                <a class="list-group-item list-group-item-action" href="/Cliente/InsertarCliente">
+                    <i class="fas fa-cart-plus"></i> Agregar Cliente 
+                </a>
+
+
+                <div class="text-white text-uppercase small fw-bold mt-4">Usuarios</div>
+                <a class="list-group-item list-group-item-action" href="/Usuarios/Listar">
+                    <i class="fas fa-shopping-cart"></i> Listar Usuarios
+                </a>
+                <a class="list-group-item list-group-item-action" href="/Usuarios/Registrar">
+                    <i class="fas fa-cart-plus"></i> Agregar Usuario
+                </a>
+
+
+            
+
+
+
+
             </div>
         </div>
 
         <!-- Page Content -->
-        <div id="page-content-wrapper" class="flex-grow-1">
+        <div id="page-content-wrapper"  class="flex-grow-1">
             <nav class="navbar navbar-expand-lg navbar-dark px-4">
                 <span class="navbar-brand">Panel de Administración</span>
             </nav>

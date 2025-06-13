@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Recepción de Compra";
+}
+
+<h2 class="mb-4">Recepción de Productos</h2>
+
+<!-- 1. Verificar orden de compra -->
+<div class="card mb-4">
+    <div class="card-header bg-info text-white">Seleccionar Orden de Compra</div>
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+                <label for="ordenCompra">Orden de Compra</label>
+                <select class="form-control" id="ordenCompra">
+                    <option value="">-- Seleccione --</option>
+                    <option value="1">OC001 - Proveedor A</option>
+                    <option value="2">OC002 - Proveedor B</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 2. Detalles de productos recibidos -->
+<div class="card mb-4">
+    <div class="card-header bg-secondary text-white">Productos en la Orden</div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad Esperada</th>
+                    <th>Cantidad Recibida</th>
+                    <th>Actualizar Stock</th>
+                    <th>Devolución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Producto A</td>
+                    <td>10</td>
+                    <td><input type="number" class="form-control" value="10" /></td>
+                    <td><button class="btn btn-outline-success">Actualizar</button></td>
+                    <td><button class="btn btn-outline-warning">Devolver</button></td>
+                </tr>
+                <tr>
+                    <td>Producto B</td>
+                    <td>5</td>
+                    <td><input type="number" class="form-control" value="4" /></td>
+                    <td><button class="btn btn-outline-success">Actualizar</button></td>
+                    <td><button class="btn btn-outline-warning">Devolver</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 3. Notificar proveedor -->
+<div class="card mb-4">
+    <div class="card-header bg-dark text-white">Notificación al Proveedor</div>
+    <div class="card-body">
+        <p>¿Desea notificar al proveedor sobre la recepción?</p>
+        <button class="btn btn-primary">Notificar Recepción</button>
+    </div>
+</div>

@@ -1,18 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using CapaDatos;
 using CapaEntidad;
+using System.Collections.Generic;
 
-public class LogUsuario
+public class logUsuario
 {
-    private static readonly LogUsuario _instancia = new LogUsuario();
-    public static LogUsuario Instancia => _instancia;
+    private static readonly logUsuario _instancia = new logUsuario();
+    public static logUsuario Instancia => _instancia;
 
-    public entUsuario Login(string usuario, string clave)
+    public bool Registrar(entUsuario usuario)
     {
-        return new entUsuario();
+        return datUsuario.Instancia.InsertarUsuario(usuario);
     }
 
-    public List<entUsuario> ListarUsuarios()
+    public List<entUsuario> Listar()
     {
-        return new List<entUsuario>();
+        return datUsuario.Instancia.ListarUsuarios();
+    }
+
+    public entUsuario BuscarPorId(int id)
+    {
+        return datUsuario.Instancia.BuscarUsuarioPorId(id);
+    }
+
+    public bool Editar(entUsuario usuario)
+    {
+        return datUsuario.Instancia.ActualizarUsuario(usuario);
+    }
+
+    public bool Eliminar(int id)
+    {
+        return datUsuario.Instancia.EliminarUsuario(id);
     }
 }
