@@ -29,37 +29,42 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("spListarProductos", cn);
+                cmd = new SqlCommand("sp_ListarProductos", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
                 {
-                    entProductos p = new entProductos();
-               
-                    p.codigo = dr["codigo"].ToString();
-                    p.nombre = dr["nombre"].ToString();
-                    p.descripcion = dr["descripcion"].ToString();
-                    p.precio = Convert.ToDecimal(dr["precio"]);
-                    p.stock = Convert.ToInt32(dr["stock"]);
-                    p.stock_minimo = Convert.ToInt32(dr["stock_minimo"]);
-                    p.unidad_medida = dr["unidad_medida"].ToString();
-                    p.id_proveedor = Convert.ToInt32(dr["id_proveedor"]);
-                    p.activo = Convert.ToBoolean(dr["activo"]);
+                    entProductos p = new entProductos
+                    {
+                        id_producto = Convert.ToInt32(dr["id_producto"]),
+                        codigo = dr["codigo"].ToString(),
+                        nombre = dr["nombre"].ToString(),
+                        descripcion = dr["descripcion"].ToString(),
+                        precio = Convert.ToDecimal(dr["precio"]),
+                        stock = Convert.ToInt32(dr["stock"]),
+                        stock_minimo = Convert.ToInt32(dr["stock_minimo"]),
+                        unidad_medida = dr["unidad_medida"].ToString(),
+                        id_proveedor = dr["id_proveedor"] != DBNull.Value ? Convert.ToInt32(dr["id_proveedor"]) : 0,
+                        idCategoria = dr["idCategoria"] != DBNull.Value ? Convert.ToInt32(dr["idCategoria"]) : 0,
+                        idPresentacion = dr["idPresentacion"] != DBNull.Value ? Convert.ToInt32(dr["idPresentacion"]) : 0,
+                        idTipoEmpaque = dr["idTipoEmpaque"] != DBNull.Value ? Convert.ToInt32(dr["idTipoEmpaque"]) : 0,
+                        activo = Convert.ToBoolean(dr["activo"])
+                    };
 
                     lista.Add(p);
                 }
+
                 dr.Close();
             }
             catch (SqlException e)
             {
-                throw e;
+                throw new Exception("Error al listar productos: " + e.Message, e);
             }
             finally
             {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
-                    cmd.Connection.Close();
+                cmd?.Connection?.Close();
             }
 
             return lista;
@@ -68,12 +73,12 @@ namespace CapaDatos
         public bool InsertarProducto(entProductos producto)
         {
             SqlCommand cmd = null;
-            bool inserto = false;
+            bool insertado = false;
 
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("spInsertarProducto", cn);
+                cmd = new SqlCommand("sp_InsertarProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("@codigo", producto.codigo);
@@ -83,12 +88,14 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@stock", producto.stock);
                 cmd.Parameters.AddWithValue("@stock_minimo", producto.stock_minimo);
                 cmd.Parameters.AddWithValue("@unidad_medida", producto.unidad_medida ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@id_proveedor", producto.id_proveedor); 
+                cmd.Parameters.AddWithValue("@id_proveedor", producto.id_proveedor);
+                cmd.Parameters.AddWithValue("@idCategoria", producto.idCategoria);
+                cmd.Parameters.AddWithValue("@idPresentacion", producto.idPresentacion);
+                cmd.Parameters.AddWithValue("@idTipoEmpaque", producto.idTipoEmpaque);
                 cmd.Parameters.AddWithValue("@activo", producto.activo);
 
                 cn.Open();
-                int filas = cmd.ExecuteNonQuery();
-                inserto = filas > 0;
+                insertado = cmd.ExecuteNonQuery() > 0;
             }
             catch (SqlException e)
             {
@@ -96,11 +103,10 @@ namespace CapaDatos
             }
             finally
             {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
-                    cmd.Connection.Close();
+                cmd?.Connection?.Close();
             }
 
-            return inserto;
+            return insertado;
         }
 
         public bool EditarProducto(entProductos producto)
@@ -111,7 +117,7 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("spEditarProducto", cn);
+                cmd = new SqlCommand("sp_EditarProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("@id_producto", producto.id_producto);
@@ -123,11 +129,13 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@stock_minimo", producto.stock_minimo);
                 cmd.Parameters.AddWithValue("@unidad_medida", producto.unidad_medida ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@id_proveedor", producto.id_proveedor);
+                cmd.Parameters.AddWithValue("@idCategoria", producto.idCategoria);
+                cmd.Parameters.AddWithValue("@idPresentacion", producto.idPresentacion);
+                cmd.Parameters.AddWithValue("@idTipoEmpaque", producto.idTipoEmpaque);
                 cmd.Parameters.AddWithValue("@activo", producto.activo);
 
                 cn.Open();
-                int filas = cmd.ExecuteNonQuery();
-                editado = filas > 0;
+                editado = cmd.ExecuteNonQuery() > 0;
             }
             catch (SqlException e)
             {
@@ -135,8 +143,7 @@ namespace CapaDatos
             }
             finally
             {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
-                    cmd.Connection.Close();
+                cmd?.Connection?.Close();
             }
 
             return editado;
@@ -150,7 +157,7 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("spBuscarProductoPorId", cn);
+                cmd = new SqlCommand("sp_BuscarProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id_producto", id_producto);
 
@@ -159,7 +166,7 @@ namespace CapaDatos
 
                 if (dr.Read())
                 {
-                    producto = new entProductos()
+                    producto = new entProductos
                     {
                         id_producto = Convert.ToInt32(dr["id_producto"]),
                         codigo = dr["codigo"].ToString(),
@@ -169,10 +176,14 @@ namespace CapaDatos
                         stock = Convert.ToInt32(dr["stock"]),
                         stock_minimo = Convert.ToInt32(dr["stock_minimo"]),
                         unidad_medida = dr["unidad_medida"].ToString(),
-                        id_proveedor =  Convert.ToInt32(dr["id_proveedor"]),
+                        id_proveedor = Convert.ToInt32(dr["id_proveedor"]),
+                        idCategoria = Convert.ToInt32(dr["idCategoria"]),
+                        idPresentacion = Convert.ToInt32(dr["idPresentacion"]),
+                        idTipoEmpaque = Convert.ToInt32(dr["idTipoEmpaque"]),
                         activo = Convert.ToBoolean(dr["activo"])
                     };
                 }
+
                 dr.Close();
             }
             catch (SqlException e)
@@ -181,8 +192,7 @@ namespace CapaDatos
             }
             finally
             {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
-                    cmd.Connection.Close();
+                cmd?.Connection?.Close();
             }
 
             return producto;
@@ -196,13 +206,12 @@ namespace CapaDatos
             try
             {
                 SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("spEliminarProducto", cn);
+                cmd = new SqlCommand("sp_EliminarProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id_producto", id_producto);
 
                 cn.Open();
-                int filasAfectadas = cmd.ExecuteNonQuery();
-                eliminado = filasAfectadas > 0;
+                eliminado = cmd.ExecuteNonQuery() > 0;
             }
             catch (SqlException e)
             {
@@ -210,28 +219,20 @@ namespace CapaDatos
             }
             finally
             {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
-                    cmd.Connection.Close();
+                cmd?.Connection?.Close();
             }
 
             return eliminado;
         }
 
         #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
+
+
+
+
+
+
 }
+

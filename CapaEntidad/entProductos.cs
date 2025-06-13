@@ -18,6 +18,10 @@ namespace CapaEntidad
         public int stock_minimo { get; set; }
         public string unidad_medida { get; set; }
         public int id_proveedor { get; set; }
+        public int idCategoria { get; set; }
+        public int idPresentacion { get; set; } 
+        public int idTipoEmpaque { get; set; }
+
         public bool activo { get; set; }
 
         public entProveedores Proveedor { get; set; }

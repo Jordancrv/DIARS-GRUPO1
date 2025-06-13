@@ -9,15 +9,25 @@ namespace CapaEntidad
     public class entClientes
     {
         public int id_cliente { get; set; }
+        public int id_tipo_cliente { get; set; } // 1: Persona Natural, 2: Persona Jurídica
+        public string nombres { get; set; }
+        public string apellidos { get; set; }
+        public string dni { get; set; } // Solo para Persona Natural
+
         public string razon_social { get; set; }
         public string ruc { get; set; }
         public string direccion { get; set; }
-        public string telefono { get; set; }
-        public string email { get; set; }
         public bool activo { get; set; }
 
-        // Colección de pedidos (opcional)
-        public List<entPedidosVenta> Pedidos { get; set; }
+        // NUEVO:
+        public List<string> lista_correos { get; set; }
+        public List<string> lista_telefonos { get; set; }
+
+        public entClientes()
+        {
+            lista_correos = new List<string>();
+            lista_telefonos = new List<string>();
+        }
     }
     public class entPedidosVenta
     {
