@@ -7717,11 +7717,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+      "projectUniqueName": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
       "projectName": "SantaEulalia",
-      "projectPath": "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+      "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
       "packagesPath": "C:\\Users\\Fabrii\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
+      "outputPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Fabrii\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7739,11 +7739,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
-              "projectPath": "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+            "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+              "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
             },
-            "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
-              "projectPath": "C:\\Users\\Fabrii\\Documents\\GitHub\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
+            "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
+              "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
             }
           }
         }
