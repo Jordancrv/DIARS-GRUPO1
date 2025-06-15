@@ -3,16 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capadatos\\datusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\datcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capaentidad\\entclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|solutionrelative:capaentidad\\entclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\cliente\\editarcliente.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\cliente\\editarcliente.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\cliente\\listar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\cliente\\listar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\cliente\\eliminarcliente.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\cliente\\eliminarcliente.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\cliente\\insertarcliente.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\cliente\\insertarcliente.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capadatos\\datusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\datproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -40,10 +56,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -210,18 +222,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Conexion.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\Conexion.cs",
-              "RelativeDocumentMoniker": "CapaDatos\\Conexion.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\Conexion.cs",
-              "RelativeToolTip": "CapaDatos\\Conexion.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-28T20:32:37.642Z"
+              "Title": "EliminarCliente.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAawCgAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-15T06:24:56.003Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 1,
+              "Title": "EditarCliente.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
+              "ViewState": "AgIAABQAAAAAAAAAAAAawCcAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-15T06:24:52.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Dashboard\\Index.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Dashboard\\Index.cshtml",
@@ -233,7 +259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "IndexUser.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Home\\IndexUser.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Home\\IndexUser.cshtml",
@@ -245,7 +271,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "style.css",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\style.css",
               "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css-user\\style.css",
@@ -258,6 +284,58 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Program.cs",
+              "RelativeDocumentMoniker": "SantaEulalia\\Program.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Program.cs",
+              "RelativeToolTip": "SantaEulalia\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T20:49:07.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "datCliente.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datCliente.cs",
+              "RelativeDocumentMoniker": "CapaDatos\\datCliente.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datCliente.cs",
+              "RelativeToolTip": "CapaDatos\\datCliente.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T21:53:02.075Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Listar.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\Listar.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\Listar.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\Listar.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\Listar.cshtml",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAawCAAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-15T06:24:58.854Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InsertarCliente.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
+              "ViewState": "AgIAABQAAAAAAAAAAAAWwCcAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-15T06:25:01.215Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "datProducto.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datProducto.cs",
               "RelativeDocumentMoniker": "CapaDatos\\datProducto.cs",
@@ -269,19 +347,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "datCliente.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datCliente.cs",
-              "RelativeDocumentMoniker": "CapaDatos\\datCliente.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datCliente.cs",
-              "RelativeToolTip": "CapaDatos\\datCliente.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-12T21:53:02.075Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "datUsuario.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datUsuario.cs",
               "RelativeDocumentMoniker": "CapaDatos\\datUsuario.cs",
@@ -294,7 +360,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "_ViewStart.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\_ViewStart.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\_ViewStart.cshtml",
@@ -306,7 +372,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
+              "Title": "Conexion.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\Conexion.cs",
+              "RelativeDocumentMoniker": "CapaDatos\\Conexion.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\Conexion.cs",
+              "RelativeToolTip": "CapaDatos\\Conexion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T20:32:37.642Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "_LayoutUser.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Shared\\_LayoutUser.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Shared\\_LayoutUser.cshtml",
@@ -318,7 +396,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "Microsoft.NET.Sdk.StaticWebAssets.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.300\\Sdks\\Microsoft.NET.Sdk.StaticWebAssets\\targets\\Microsoft.NET.Sdk.StaticWebAssets.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.300\\Sdks\\Microsoft.NET.Sdk.StaticWebAssets\\targets\\Microsoft.NET.Sdk.StaticWebAssets.targets",
@@ -330,7 +408,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Home\\Index.cshtml",
@@ -342,7 +420,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "_ViewImports.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\_ViewImports.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\_ViewImports.cshtml",
@@ -354,7 +432,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "LogProducto.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\LogProducto.cs",
               "RelativeDocumentMoniker": "CapaLogica\\LogProducto.cs",
@@ -366,7 +444,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "_ValidationScriptsPartial.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
@@ -378,7 +456,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\appsettings.json",
               "RelativeDocumentMoniker": "SantaEulalia\\appsettings.json",
@@ -390,19 +468,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Program.cs",
-              "RelativeDocumentMoniker": "SantaEulalia\\Program.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Program.cs",
-              "RelativeToolTip": "SantaEulalia\\Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAABsAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-28T20:49:07.503Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "LogUsuario.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\LogUsuario.cs",
               "RelativeDocumentMoniker": "CapaLogica\\LogUsuario.cs",
@@ -414,7 +480,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "VentaController.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\VentaController.cs",
               "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\VentaController.cs",
@@ -426,7 +492,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\Class1.cs",
               "RelativeDocumentMoniker": "CapaEntidad\\Class1.cs",
@@ -438,7 +504,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "VentaViewModel.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\ViewModels\\VentaViewModel.cs",
               "RelativeDocumentMoniker": "SantaEulalia\\ViewModels\\VentaViewModel.cs",
@@ -450,7 +516,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "AgregarVenta.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Venta\\AgregarVenta.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Venta\\AgregarVenta.cshtml",
@@ -462,7 +528,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "PedidoViewModel.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\ViewModels\\PedidoViewModel.cs",
               "RelativeDocumentMoniker": "SantaEulalia\\ViewModels\\PedidoViewModel.cs",
@@ -474,7 +540,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "ErrorViewModel.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Models\\ErrorViewModel.cs",
               "RelativeDocumentMoniker": "SantaEulalia\\Models\\ErrorViewModel.cs",
@@ -486,7 +552,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 28,
               "Title": "Usuario.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Usuario.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Usuario.cs",
@@ -497,7 +563,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "entAlmacen.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entAlmacen.cs",
               "RelativeDocumentMoniker": "CapaEntidad\\entAlmacen.cs",
@@ -509,7 +575,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 29,
               "Title": "SantaEulalia.csproj",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
               "RelativeDocumentMoniker": "SantaEulalia\\SantaEulalia.csproj",
@@ -521,7 +587,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 42,
               "Title": "Promocion.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Promocion.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Promocion.cs",
@@ -533,7 +599,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 43,
               "Title": "Despacho.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Despacho.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Despacho.cs",
@@ -545,7 +611,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 44,
               "Title": "Producto.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Producto.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Producto.cs",
@@ -557,7 +623,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 45,
               "Title": "Presentacion.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Presentacion.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Presentacion.cs",
@@ -569,7 +635,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 46,
               "Title": "Pedido.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Pedido.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Pedido.cs",
@@ -581,7 +647,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 47,
               "Title": "Pago.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Pago.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Pago.cs",
@@ -593,7 +659,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 48,
               "Title": "MetodoPago.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\MetodoPago.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\MetodoPago.cs",
@@ -605,7 +671,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 49,
               "Title": "Marca.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Marca.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Marca.cs",
@@ -617,7 +683,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 50,
               "Title": "LineaProducto.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\LineaProducto.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\LineaProducto.cs",
@@ -629,7 +695,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 51,
               "Title": "Estado.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Estado.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Estado.cs",
@@ -641,7 +707,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 52,
               "Title": "Cliente.cs",
               "DocumentMoniker": "C:\\Users\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Cliente.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\shant\\Desktop\\Nueva carpeta\\DIARS-GRUPO1\\CapaEntidad\\Cliente.cs",
@@ -653,7 +719,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 30,
               "Title": "Error.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Shared\\Error.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Shared\\Error.cshtml",
@@ -665,7 +731,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 31,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Shared\\_Layout.cshtml",
@@ -677,7 +743,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 32,
               "Title": "Privacy.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Home\\Privacy.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Home\\Privacy.cshtml",
@@ -689,7 +755,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 33,
               "Title": "PedidoController.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\PedidoController.cs",
               "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\PedidoController.cs",
@@ -701,7 +767,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 34,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\HomeController.cs",
@@ -713,7 +779,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 35,
               "Title": "DashboardController.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\DashboardController.cs",
               "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\DashboardController.cs",
@@ -725,7 +791,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 37,
               "Title": "_Layout.cshtml.css",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Shared\\_Layout.cshtml.css",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Shared\\_Layout.cshtml.css",
@@ -737,7 +803,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 36,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "SantaEulalia\\Properties\\launchSettings.json",
@@ -749,7 +815,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 38,
               "Title": "sidebar.js",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\js\\sidebar.js",
               "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\js\\sidebar.js",
@@ -761,7 +827,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 41,
               "Title": "dashboard.css",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css\\dashboard.css",
               "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css\\dashboard.css",
@@ -773,7 +839,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 40,
               "Title": "site.css",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css\\site.css",
@@ -785,7 +851,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 39,
               "Title": "dashboard.js",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\js\\dashboard.js",
               "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\js\\dashboard.js",
@@ -794,40 +860,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2025-05-28T20:53:47.329Z"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "276d2d14-2073-46d3-9a4c-dd5a23383c60",
-        "Display": 0,
-        "X": 985,
-        "Y": 178,
-        "Width": 1021,
-        "Height": 735,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "entClientes.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entClientes.cs",
-              "RelativeDocumentMoniker": "CapaEntidad\\entClientes.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entClientes.cs",
-              "RelativeToolTip": "CapaEntidad\\entClientes.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABYAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-29T20:03:45.888Z",
-              "EditorCaption": ""
             }
           ]
         }
