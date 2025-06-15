@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Panel Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>Estás en el panel de administrador.</p>
+<span class="navbar-text text-light">
+    Bienvenido, @Context.Session.GetString("nombre_usuario")
+</span>
+
+<div class="text-white text-uppercase small fw-bold mt-4">Navegación</div>
+<a class="list-group-item list-group-item-action" href="@Url.Action("Index", "Home")">
+    <i class="fas fa-home"></i> Ir a Vista Principal
+</a>
+

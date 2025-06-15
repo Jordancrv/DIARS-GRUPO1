@@ -33,8 +33,41 @@ namespace CapaDatos
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
+        public entUsuario Login(string email, string password)
+        {
+            entUsuario usuario = null;
 
-            public List<entUsuario> ListarUsuarios()
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            {
+                SqlCommand cmd = new SqlCommand(@"
+                    SELECT * 
+                    FROM Usuarios 
+                    WHERE email = @correo AND password_hash = @password", cn);
+                cmd.Parameters.AddWithValue("@correo", email);
+                cmd.Parameters.AddWithValue("@password", password); // ⚠️ Reemplaza por hash en entorno real
+                cn.Open();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    usuario = new entUsuario
+                    {
+                        id_usuario = Convert.ToInt32(dr["id_usuario"]),
+                        nombre = dr["nombres"].ToString(),
+                        apellidos = dr["apellidos"].ToString(),
+                        email = dr["email"].ToString(),
+                        password_hash = dr["password_hash"].ToString(),
+                        rol = dr["rol"].ToString(),
+                        fecha_creacion = Convert.ToDateTime(dr["fecha_creacion"]),
+                        activo = Convert.ToBoolean(dr["activo"])
+                    };
+                }
+            }
+
+            return usuario;
+        }
+
+        public List<entUsuario> ListarUsuarios()
             {
                 List<entUsuario> lista = new List<entUsuario>();
 

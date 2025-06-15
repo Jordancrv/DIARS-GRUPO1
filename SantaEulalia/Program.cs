@@ -2,8 +2,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo de expiración de sesión
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
+
+// Middleware para usar sesiones (IMPORTANTE: Debe ir antes de UseEndpoints/MapControllerRoute)
+app.UseSession();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -18,6 +27,7 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseAuthorization();
 
 app.UseRouting();
 
