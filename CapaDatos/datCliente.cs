@@ -21,38 +21,67 @@ namespace CapaDatos
         }
         #endregion
 
-        ublic List<entClientes> ListarClientes()
+        public List<entClientes> ListarClientes()
         {
             List<entClientes> lista = new List<entClientes>();
+
             using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
-                SqlCommand cmd = new SqlCommand("sp_ListarCliente", cn)
+                SqlCommand cmd = new SqlCommand("sp_ListarClienteCompleto", cn)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
                 cn.Open();
+
                 SqlDataReader dr = cmd.ExecuteReader();
+
                 while (dr.Read())
                 {
-                    entClientes cliente = new entClientes
+                    int id = Convert.ToInt32(dr["id_cliente"]);
+
+                    // Busca si ya está agregado
+                    var cliente = lista.FirstOrDefault(c => c.id_cliente == id);
+
+                    if (cliente == null)
                     {
-                        id_cliente = Convert.ToInt32(dr["id_cliente"]),
-                        id_tipo_cliente = Convert.ToInt32(dr["id_tipo_cliente"]),
-                        nombres = dr["nombres"].ToString(),
-                        apellidos = dr["apellidos"].ToString(),
-                        dni = dr["dni"].ToString(),
-                        razon_social = dr["razon_social"].ToString(),
-                        ruc = dr["ruc"].ToString(),
-                        direccion = dr["direccion"].ToString(),
-                        activo = Convert.ToBoolean(dr["activo"]),
-                        telefonos = new List<string>(),
-                        correos = new List<string>()
-                    };
-                    lista.Add(cliente);
+                        cliente = new entClientes
+                        {
+                            id_cliente = id,
+                            id_tipo_cliente = Convert.ToInt32(dr["id_tipo_cliente"]),
+                            nombres = dr["nombres"].ToString(),
+                            apellidos = dr["apellidos"].ToString(),
+                            dni = dr["dni"].ToString(),
+                            razon_social = dr["razon_social"].ToString(),
+                            ruc = dr["ruc"].ToString(),
+                            direccion = dr["direccion"].ToString(),
+                            activo = Convert.ToBoolean(dr["activo"]),
+                            telefonos = new List<string>(),
+                            correos = new List<string>()
+                        };
+                        lista.Add(cliente);
+                    }
+
+                    // Agrega teléfono si existe
+                    if (dr["telefono"] != DBNull.Value)
+                    {
+                        string tel = dr["telefono"].ToString();
+                        if (!cliente.telefonos.Contains(tel))
+                            cliente.telefonos.Add(tel);
+                    }
+
+                    // Agrega correo si existe
+                    if (dr["email"] != DBNull.Value)
+                    {
+                        string mail = dr["email"].ToString();
+                        if (!cliente.correos.Contains(mail))
+                            cliente.correos.Add(mail);
+                    }
                 }
             }
+
             return lista;
         }
+
 
         public bool InsertarCliente(entClientes cliente)
         {
@@ -75,7 +104,7 @@ namespace CapaDatos
                 int idGenerado = Convert.ToInt32(cmd.ExecuteScalar());
 
                 // Insertar correos
-                foreach (var email in cliente.lista_correos)
+                foreach (var email in cliente.correos)
                 {
                     SqlCommand cmdCorreo = new SqlCommand("sp_InsertarClienteCorreo", cn);
                     cmdCorreo.CommandType = CommandType.StoredProcedure;
@@ -85,7 +114,7 @@ namespace CapaDatos
                 }
 
                 // Insertar teléfonos
-                foreach (var telefono in cliente.lista_telefonos)
+                foreach (var telefono in cliente.telefonos)
                 {
                     SqlCommand cmdTel = new SqlCommand("sp_InsertarClienteTelefono", cn);
                     cmdTel.CommandType = CommandType.StoredProcedure;
@@ -119,6 +148,37 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@activo", cliente.activo);
                 cn.Open();
                 cmd.ExecuteNonQuery();
+                SqlCommand cmdDelCorreo = new SqlCommand("DELETE FROM ClienteCorreos WHERE id_cliente = @id_cliente", cn);
+                cmdDelCorreo.Parameters.AddWithValue("@id_cliente", cliente.id_cliente);
+                cmdDelCorreo.ExecuteNonQuery();
+
+                // Insertar nuevos correos
+                foreach (var email in cliente.correos)
+                {
+                    SqlCommand cmdCorreo = new SqlCommand("sp_InsertarClienteCorreo", cn);
+                    cmdCorreo.CommandType = CommandType.StoredProcedure;
+                    cmdCorreo.Parameters.AddWithValue("@id_cliente", cliente.id_cliente);
+                    cmdCorreo.Parameters.AddWithValue("@correo", email);
+                    cmdCorreo.ExecuteNonQuery();
+                    cmdCorreo.Dispose();
+                }
+
+                // Borrar teléfonos antiguos
+                SqlCommand cmdDelTelefono = new SqlCommand("DELETE FROM ClienteTelefonos WHERE id_cliente = @id_cliente", cn);
+                cmdDelTelefono.Parameters.AddWithValue("@id_cliente", cliente.id_cliente);
+                cmdDelTelefono.ExecuteNonQuery();
+
+                // Insertar nuevos teléfonos
+                foreach (var telefono in cliente.telefonos)
+                {
+                    SqlCommand cmdTel = new SqlCommand("sp_InsertarClienteTelefono", cn);
+                    cmdTel.CommandType = CommandType.StoredProcedure;
+                    cmdTel.Parameters.AddWithValue("@id_cliente", cliente.id_cliente);
+                    cmdTel.Parameters.AddWithValue("@telefono", telefono);
+                    cmdTel.ExecuteNonQuery();
+                    cmdTel.Dispose();
+                }
+
 
                 // Actualizar correos y teléfonos según la lógica del sistema (por ejemplo: eliminar y volver a insertar)
                 result = true;
@@ -128,35 +188,60 @@ namespace CapaDatos
 
         public entClientes BuscarCliente(int idCliente)
         {
-            entClientes cli = null;
-            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            try
             {
-                SqlCommand cmd = new SqlCommand("sp_BuscarCliente", cn)
+                entClientes cli = null;
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cmd.Parameters.AddWithValue("@id_cliente", idCliente);
-                cn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
-                {
-                    cli = new entClientes
+                    SqlCommand cmd = new SqlCommand("sp_BuscarCliente", cn)
                     {
-                        id_cliente = Convert.ToInt32(dr["id_cliente"]),
-                        id_tipo_cliente = Convert.ToInt32(dr["id_tipo_cliente"]),
-                        nombres = dr["nombres"].ToString(),
-                        apellidos = dr["apellidos"].ToString(),
-                        dni = dr["dni"].ToString(),
-                        razon_social = dr["razon_social"].ToString(),
-                        ruc = dr["ruc"].ToString(),
-                        direccion = dr["direccion"].ToString(),
-                        activo = Convert.ToBoolean(dr["activo"]),
-                        lista_telefonos = new List<string>(),
-                        lista_correos = new List<string>()
+                        CommandType = CommandType.StoredProcedure
                     };
+                    cmd.Parameters.AddWithValue("@id_cliente", idCliente);
+                    cn.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.Read())
+                    {
+                        cli = new entClientes
+                        {
+                            id_cliente = Convert.ToInt32(dr["id_cliente"]),
+                            id_tipo_cliente = Convert.ToInt32(dr["id_tipo_cliente"]),
+                            nombres = dr["nombres"].ToString(),
+                            apellidos = dr["apellidos"].ToString(),
+                            dni = dr["dni"].ToString(),
+                            razon_social = dr["razon_social"].ToString(),
+                            ruc = dr["ruc"].ToString(),
+                            direccion = dr["direccion"].ToString(),
+                            activo = Convert.ToBoolean(dr["activo"]),
+                            telefonos = new List<string>(),
+                            correos = new List<string>()
+                        };
+                    }
+
+                    SqlCommand cmdCorreo = new SqlCommand("SELECT email FROM ClienteCorreos WHERE id_cliente = @id", cn);
+                    cmdCorreo.Parameters.AddWithValue("@id", idCliente);
+                    SqlDataReader drCorreo = cmdCorreo.ExecuteReader();
+                    while (drCorreo.Read())
+                        cli.correos.Add(drCorreo["email"].ToString());
+                    drCorreo.Close();
+
+                    // Leer teléfonos
+                    SqlCommand cmdTel = new SqlCommand("SELECT telefono FROM ClienteTelefonos WHERE id_cliente = @id", cn);
+                    cmdTel.Parameters.AddWithValue("@id", idCliente);
+                    SqlDataReader drTel = cmdTel.ExecuteReader();
+                    while (drTel.Read())
+                        cli.telefonos.Add(drTel["telefono"].ToString());
+                    drTel.Close();
+
                 }
+                return cli;
             }
-            return cli;
+            catch(SqlException e)
+            {
+
+                throw new ApplicationException("Error al ingresar los datos, por favor ingrese los datos correctamente"); 
+
+            }
         }
 
         public bool EliminarCliente(int idCliente)
@@ -173,19 +258,19 @@ namespace CapaDatos
             }
         }
 
-        public bool DesactivarCliente(int idCliente)
-        {
-            using (SqlConnection cn = Conexion.Instancia.Conectar())
-            {
-                SqlCommand cmd = new SqlCommand("sp_DesactivarCliente", cn)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cmd.Parameters.AddWithValue("@id_cliente", idCliente);
-                cn.Open();
-                return cmd.ExecuteNonQuery() > 0;
-            }
-        }
+        //public bool DesactivarCliente(int idCliente)
+        //{
+        //    using (SqlConnection cn = Conexion.Instancia.Conectar())
+        //    {
+        //        SqlCommand cmd = new SqlCommand("sp_DesactivarCliente", cn)
+        //        {
+        //            CommandType = CommandType.StoredProcedure
+        //        };
+        //        cmd.Parameters.AddWithValue("@id_cliente", idCliente);
+        //        cn.Open();
+        //        return cmd.ExecuteNonQuery() > 0;
+        //    }
+        //}
 
 
     }

@@ -25,7 +25,7 @@ namespace CapaLogica
 
         public List<entClientes> ListarCliente()
         {
-            return datCliente.Instancia.ListarCliente();
+            return datCliente.Instancia.ListarClientes();
         }
 
         public bool InsertarCliente(entClientes cliente)

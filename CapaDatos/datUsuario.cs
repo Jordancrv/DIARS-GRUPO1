@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace CapaDatos
 {
   
@@ -33,6 +34,42 @@ namespace CapaDatos
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
+        //public entUsuario Login(string email, string password)
+        //{
+        //    entUsuario usuario = null;
+        //    string hashedPassword = Utilidades.HashPassword(password); // Asegúrate de tener esta función
+
+        //    using (SqlConnection cn = Conexion.Instancia.Conectar())
+        //    {
+        //        SqlCommand cmd = new SqlCommand(@"
+        //    SELECT * 
+        //    FROM Usuarios 
+        //    WHERE email = @email AND password_hash = @password AND activo = 1", cn);
+
+        //        cmd.Parameters.AddWithValue("@email", email);
+        //        cmd.Parameters.AddWithValue("@password", hashedPassword);
+
+        //        cn.Open();
+        //        SqlDataReader dr = cmd.ExecuteReader();
+        //        if (dr.Read())
+        //        {
+        //            usuario = new entUsuario
+        //            {
+        //                id_usuario = Convert.ToInt32(dr["id_usuario"]),
+        //                nombre = dr["nombres"].ToString(),
+        //                apellidos = dr["apellidos"].ToString(),
+        //                email = dr["email"].ToString(),
+        //                password_hash = dr["password_hash"].ToString(),
+        //                rol = dr["rol"].ToString(),
+        //                fecha_creacion = Convert.ToDateTime(dr["fecha_creacion"]),
+        //                activo = Convert.ToBoolean(dr["activo"])
+        //            };
+        //        }
+        //    }
+
+        //    return usuario;
+        //}
+
         public entUsuario Login(string email, string password)
         {
             entUsuario usuario = null;
@@ -40,11 +77,13 @@ namespace CapaDatos
             using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
                 SqlCommand cmd = new SqlCommand(@"
-                    SELECT * 
-                    FROM Usuarios 
-                    WHERE email = @correo AND password_hash = @password", cn);
+            SELECT * 
+            FROM Usuarios 
+            WHERE email = @correo AND password_hash = @password", cn);
+
                 cmd.Parameters.AddWithValue("@correo", email);
-                cmd.Parameters.AddWithValue("@password", password); // ⚠️ Reemplaza por hash en entorno real
+                cmd.Parameters.AddWithValue("@password", password); // Se compara directamente la contraseña en texto plano
+
                 cn.Open();
 
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -66,6 +105,7 @@ namespace CapaDatos
 
             return usuario;
         }
+
 
         public List<entUsuario> ListarUsuarios()
             {

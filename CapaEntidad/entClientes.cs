@@ -20,13 +20,13 @@ namespace CapaEntidad
         public bool activo { get; set; }
 
         // NUEVO:
-        public List<string> lista_correos { get; set; }
-        public List<string> lista_telefonos { get; set; }
+        public List<string> telefonos { get; set; }
+        public List<string> correos{ get; set; }
 
         public entClientes()
         {
-            lista_correos = new List<string>();
-            lista_telefonos = new List<string>();
+            telefonos = new List<string>();
+            correos = new List<string>();
         }
     }
     public class entPedidosVenta
