@@ -15,6 +15,23 @@ CREATE TABLE Usuarios (
     activo BIT DEFAULT 1
 );
 GO
+SELECT * FROM Usuarios	
+
+SELECT * FROM UsuarioCorreos	
+
+-- Insertar dos usuarios de tipo admin
+INSERT INTO Usuarios (nombres, apellidos, password_hash, rol)
+VALUES 
+('Juan', 'Pérez', 'hash123', 'admin'),
+('Laura', 'Gómez', 'hash456', 'admin');
+GO
+INSERT INTO Usuarios (nombres, apellidos, password_hash, rol)
+VALUES 
+('Anderson', 'Benites', 'admin123hash', 'admin');
+GO
+
+SELECT * FROM Usuarios
+
 
 CREATE TABLE UsuarioCorreos (
     id_usuario INT,
@@ -22,7 +39,32 @@ CREATE TABLE UsuarioCorreos (
     PRIMARY KEY (id_usuario, email),
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
-GO
+
+
+-- Obtener los ID generados automáticamente
+DECLARE @id1 INT, @id2 INT;
+declare @id3 int;
+
+SELECT TOP 1 @id1 = id_usuario FROM Usuarios WHERE nombres = 'Juan' AND apellidos = 'Pérez' ORDER BY id_usuario DESC;
+SELECT TOP 1 @id2 = id_usuario FROM Usuarios WHERE nombres = 'Laura' AND apellidos = 'Gómez' ORDER BY id_usuario DESC;
+SELECT TOP 1 @id3 = id_usuario FROM Usuarios WHERE nombres = 'Anderson' AND apellidos = 'Benites' ORDER BY id_usuario DESC;
+-- Insertar correos para el primer usuario
+INSERT INTO UsuarioCorreos (id_usuario, email)
+VALUES
+(@id1, 'juan.admin1@example.com'),
+(@id1, 'juan.admin2@example.com');
+INSERT INTO UsuarioCorreos (id_usuario, email)
+VALUES
+(@id3, 'anderson.admin@example.com');
+-- Insertar correos para el segundo usuario
+INSERT INTO UsuarioCorreos (id_usuario, email)
+VALUES
+(@id2, 'laura.admin1@example.com'),
+(@id2, 'laura.admin2@example.com');
+
+SELECT * FROM UsuarioCorreos	
+
+
 
 -- Tabla de tipo de cliente
 CREATE TABLE TipoCliente (
@@ -30,6 +72,8 @@ CREATE TABLE TipoCliente (
     nombre_tipo VARCHAR(20) NOT NULL
 );
 GO
+
+
 
 INSERT INTO TipoCliente (id_tipo_cliente, nombre_tipo)
 VALUES (1, 'persona'), (2, 'empresa');
@@ -43,13 +87,13 @@ CREATE TABLE Clientes (
     apellidos VARCHAR(100),
     dni VARCHAR(16),
     razon_social VARCHAR(100),
-    ruc VARCHAR(11) UNIQUE,
+    ruc VARCHAR(11) NULL,
     direccion TEXT,
     activo BIT DEFAULT 1,
     FOREIGN KEY (id_tipo_cliente) REFERENCES TipoCliente(id_tipo_cliente)
 );
 GO
-
+select * from Clientes
 CREATE TABLE ClienteCorreos (
     id_cliente INT,
     email VARCHAR(100),
@@ -65,6 +109,101 @@ CREATE TABLE ClienteTelefonos (
     FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
 );
 GO
+
+-- 6. Insertar personas (clientes tipo 1)
+INSERT INTO Clientes (id_tipo_cliente, nombres, apellidos, dni, direccion)
+VALUES 
+(1, 'Carlos', 'Ramirez', '12345678', 'Calle Lima 123'),
+(1, 'Laura', 'Gomez', '23456789', 'Av. Arequipa 456'),
+(1, 'Andrés', 'Torres', '34567890', 'Jr. Puno 789'),
+(1, 'Lucía', 'Fernández', '45678901', 'Calle Cusco 101'),
+(1, 'Miguel', 'Salinas', '56789012', 'Av. Brasil 202');
+GO
+
+-- 7. Insertar correos (puedes verificar con SELECT para ver los IDs generados)
+INSERT INTO ClienteCorreos (id_cliente, email)
+VALUES 
+(1, 'carlos@gmail.com'),
+(2, 'laura@hotmail.com'),
+(3, 'andres@yahoo.com'),
+(4, 'lucia@gmail.com'),
+(5, 'miguel@hotmail.com');
+GO
+
+-- 8. Insertar teléfonos
+INSERT INTO ClienteTelefonos (id_cliente, telefono)
+VALUES 
+(1, '999111111'),
+(2, '999222222'),
+(3, '999333333'),
+(4, '999444444'),
+(5, '999555555');
+GO
+
+-- Inserta 5 empresas
+INSERT INTO Clientes (id_tipo_cliente, razon_social, ruc, direccion)
+VALUES 
+(2, 'Inversiones Andina SAC', '20123456789', 'Av. Larco 102, Trujillo'),
+(2, 'Soluciones Integrales SRL', '20456789123', 'Calle Los Robles 208, Lima'),
+(2, 'Constructora Eléctrica EIRL', '20678912345', 'Jr. Amazonas 345, Arequipa'),
+(2, 'Servicios Médicos S.A.C.', '20345678901', 'Av. Grau 124, Piura'),
+(2, 'Exportadora Andina SAC', '20987654321', 'Mz G Lt 12, Cusco');
+GO
+
+-- Inserta correos para esas empresas
+INSERT INTO ClienteCorreos (id_cliente, email)
+VALUES 
+(1, 'contacto@andinainv.com'),
+(2, 'info@solucionesint.com'),
+(3, 'ventas@constructel.com'),
+(4, 'atencion@servmedicos.pe'),
+(5, 'exporta@andinasac.pe');
+GO
+
+-- Inserta teléfonos para esas empresas
+INSERT INTO ClienteTelefonos (id_cliente, telefono)
+VALUES 
+(1, '044-123456'),
+(2, '01-7654321'),
+(3, '054-789012'),
+(4, '073-654321'),
+(5, '084-321987');
+GO
+
+select * from Clientes
+--EXEC sp_help Clientes;
+
+
+--select * from ClienteCorreos
+--select * from ClienteTelefonos
+--select * from Clientes
+--DROP TABLE IF EXISTS ClienteTelefonos;
+--DROP TABLE IF EXISTS ClienteCorreos;
+--DROP TABLE IF EXISTS Clientes;
+--DROP TABLE IF EXISTS TipoCliente;
+--GO
+
+--SELECT 
+--    f.name AS ForeignKey,
+--    OBJECT_NAME(f.parent_object_id) AS TableName,
+--    COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
+--FROM 
+--    sys.foreign_keys AS f
+--INNER JOIN 
+--    sys.foreign_key_columns AS fc 
+--    ON f.OBJECT_ID = fc.constraint_object_id
+--WHERE 
+--    f.referenced_object_id = OBJECT_ID('Clientes');
+
+--	ALTER TABLE PedidosVenta
+--DROP CONSTRAINT FK__PedidosVe__id_cl__75A278F5;
+
+
+
+
+
+
+
 
 -- Tabla de proveedores
 CREATE TABLE Proveedores (
@@ -292,13 +431,34 @@ GO
 -- Ordenes de compra
 CREATE TABLE OrdenesCompra (
     id_orden_compra INT IDENTITY(1,1) PRIMARY KEY,
-    id_proveedor INT REFERENCES Proveedores(id_proveedor),
+    id_proveedor INT NULL REFERENCES  Proveedores(id_proveedor),
     id_usuario INT REFERENCES Usuarios(id_usuario),
     fecha DATETIME DEFAULT GETDATE(),
     estado VARCHAR(20) NOT NULL CHECK (estado IN ('pendiente', 'recibido', 'cancelado')),
-    total DECIMAL(12, 2) NOT NULL
+    total DECIMAL(12, 2) NOT NULL,
+	tipo_orden VARCHAR(20) NOT NULL CHECK (tipo_orden IN ('directa', 'licitacion')) DEFAULT 'directa'
 );
+--DROP TABLE OrdenesCompra
+--ALTER TABLE OrdenesCompra
+
 GO
+
+--SELECT 
+--    f.name AS ForeignKey,
+--    OBJECT_NAME(f.parent_object_id) AS TableName,
+--    COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
+--FROM 
+--    sys.foreign_keys AS f
+--INNER JOIN 
+--    sys.foreign_key_columns AS fc 
+--    ON f.OBJECT_ID = fc.constraint_object_id
+--WHERE 
+--    f.referenced_object_id = OBJECT_ID('OrdenesCompra');
+
+--	ALTER TABLE PagosOrdenCompra
+--DROP CONSTRAINT FK__PagosOrde__id_or__52E34C9D;
+
+
 
 -- Detalles de orden de compra
 CREATE TABLE DetallesOrdenCompra (
@@ -313,6 +473,34 @@ CREATE TABLE DetallesOrdenCompra (
 );
 GO
 
+
+
+
+
+CREATE TABLE PagosOrdenCompra (
+    id_pago INT IDENTITY(1,1) PRIMARY KEY,
+    id_orden_compra INT REFERENCES OrdenesCompra(id_orden_compra),
+    id_metodo_pago INT REFERENCES MetodosPago(id_metodo_pago),
+    monto DECIMAL(12, 2) NOT NULL,
+    fecha_pago DATETIME DEFAULT GETDATE(),
+    estado VARCHAR(20) CHECK (estado IN ('pendiente', 'completado', 'anulado')),
+    observaciones VARCHAR(255)
+);
+
+CREATE TABLE OfertasProveedor (
+    id_oferta INT IDENTITY(1,1) PRIMARY KEY,
+    id_orden_compra INT REFERENCES OrdenesCompra(id_orden_compra),
+    id_proveedor INT REFERENCES Proveedores(id_proveedor),
+    precio_ofertado DECIMAL(12,2) NOT NULL,
+    fecha_oferta DATETIME DEFAULT GETDATE(),
+    observaciones VARCHAR(255)
+);
+
+SELECT *FROM OfertasProveedor
+
+
+
+
 -- Movimiento de stock
 CREATE TABLE MovimientosStock (
     id_movimiento INT IDENTITY(1,1) PRIMARY KEY,
@@ -324,6 +512,38 @@ CREATE TABLE MovimientosStock (
     id_orden_compra INT NULL REFERENCES OrdenesCompra(id_orden_compra),
     motivo TEXT
 );
+GO
+
+
+
+
+
+-----------------------------------------Para que el sistema elijga automaticamente el 
+----------------------menor precio ------------------------
+
+CREATE PROCEDURE AdjudicarLicitacion (
+    @id_orden_compra INT
+)
+AS
+BEGIN
+    DECLARE @id_proveedor INT;
+    DECLARE @precio_ofertado DECIMAL(12,2);
+
+    SELECT TOP 1 
+        @id_proveedor = id_proveedor,
+        @precio_ofertado = precio_ofertado
+    FROM OfertasProveedor
+    WHERE id_orden_compra = @id_orden_compra
+    ORDER BY precio_ofertado ASC;
+
+    UPDATE OrdenesCompra
+    SET id_proveedor = @id_proveedor,
+        total = @precio_ofertado,
+        estado = 'pendiente'
+    WHERE id_orden_compra = @id_orden_compra;
+END;
+
+
 GO
 
 
@@ -514,26 +734,114 @@ END
 GO
 
 -- Listar clientes
-CREATE OR ALTER PROCEDURE sp_ListarClientes
+CREATE OR ALTER PROCEDURE sp_InsertarCliente
+    @id_tipo_cliente INT,
+    @nombres NVARCHAR(100),
+    @apellidos NVARCHAR(100),
+    @dni CHAR(8),
+    @razon_social NVARCHAR(150),
+    @ruc CHAR(11),
+    @direccion NVARCHAR(200),
+    @activo BIT
 AS
 BEGIN
-    SELECT 
-        c.id_cliente,
-        c.id_tipo_cliente,
-        tc.nombre_tipo,
-        c.nombres,
-        c.apellidos,
-        c.dni,
-        c.razon_social,
-        c.ruc,
-        c.direccion,
-        (SELECT TOP 1 email FROM ClienteCorreos WHERE id_cliente = c.id_cliente) AS email,
-        (SELECT TOP 1 telefono FROM ClienteTelefonos WHERE id_cliente = c.id_cliente) AS telefono,
-        c.activo
-    FROM Clientes c
-    INNER JOIN TipoCliente tc ON c.id_tipo_cliente = tc.id_tipo_cliente;
-END
+    SET NOCOUNT ON;
+
+    INSERT INTO Clientes (id_tipo_cliente, nombres, apellidos, dni, razon_social, ruc, direccion, activo)
+    VALUES (@id_tipo_cliente, @nombres, @apellidos, @dni, @razon_social, @ruc, @direccion, @activo);
+
+    SELECT SCOPE_IDENTITY() AS id_generado;
+END;
 GO
+CREATE OR ALTER PROCEDURE sp_InsertarClienteCorreo
+    @id_cliente INT,
+    @correo NVARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO ClienteCorreos (id_cliente, email)
+    VALUES (@id_cliente, @correo);
+END;
+GO
+--select  * from ClienteTelefonos
+CREATE OR ALTER PROCEDURE sp_InsertarClienteTelefono
+    @id_cliente INT,
+    @telefono NVARCHAR(15)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO ClienteTelefonos(id_cliente, telefono)
+    VALUES (@id_cliente, @telefono);
+END;
+GO
+select * from ClienteCorreos
+
+select * from ClienteTelefonos
+select * from Clientes
+
+
+
+--CREATE OR ALTER PROCEDURE sp_InsertarClienteV2
+--    @id_tipo_cliente INT,
+--    @nombres VARCHAR(100),
+--    @apellidos VARCHAR(100),
+--    @dni VARCHAR(16),
+--    @razon_social VARCHAR(100),
+--    @ruc VARCHAR(11),
+--    @direccion TEXT,
+--    @email VARCHAR(100),
+--    @telefono VARCHAR(20),
+--    @activo BIT
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+--    BEGIN TRY
+--        BEGIN TRANSACTION;
+
+--        -- Insertar cliente
+--        INSERT INTO Clientes (id_tipo_cliente, nombres, apellidos, dni, razon_social, ruc, direccion, activo)
+--        VALUES (@id_tipo_cliente, @nombres, @apellidos, @dni, @razon_social, @ruc, @direccion, @activo);
+
+--        DECLARE @id_cliente INT = SCOPE_IDENTITY();
+
+--        -- Validar límite de correos
+--        IF (SELECT COUNT(*) FROM ClienteCorreos WHERE id_cliente = @id_cliente) < 2
+--        BEGIN
+--            INSERT INTO ClienteCorreos (id_cliente, email)
+--            VALUES (@id_cliente, @email);
+--        END
+--        ELSE
+--        BEGIN
+--            RAISERROR('El cliente ya tiene el máximo de correos permitidos (2).', 16, 1);
+--        END
+
+--        -- Validar límite de teléfonos
+--        IF (SELECT COUNT(*) FROM ClienteTelefonos WHERE id_cliente = @id_cliente) < 2
+--        BEGIN
+--            INSERT INTO ClienteTelefonos (id_cliente, telefono)
+--            VALUES (@id_cliente, @telefono);
+--        END
+--        ELSE
+--        BEGIN
+--            RAISERROR('El cliente ya tiene el máximo de teléfonos permitidos (2).', 16, 1);
+--        END
+
+--        COMMIT;
+--    END TRY
+--    BEGIN CATCH
+--        ROLLBACK;
+--        THROW;
+--    END CATCH
+--END
+--GO
+
+
+
+
+
+
 
 -- Buscar cliente por ID
 CREATE OR ALTER PROCEDURE sp_BuscarCliente
