@@ -82,51 +82,134 @@ namespace CapaDatos
             return lista;
         }
 
-
         public bool InsertarCliente(entClientes cliente)
         {
             bool result = false;
+
             using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
-                SqlCommand cmd = new SqlCommand("sp_InsertarCliente", cn)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cmd.Parameters.AddWithValue("@id_tipo_cliente", cliente.id_tipo_cliente);
-                cmd.Parameters.AddWithValue("@nombres", (object)cliente.nombres ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@apellidos", (object)cliente.apellidos ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@dni", (object)cliente.dni ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@razon_social", (object)cliente.razon_social ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@ruc", (object)cliente.ruc ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@direccion", (object)cliente.direccion ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@activo", cliente.activo);
                 cn.Open();
-                int idGenerado = Convert.ToInt32(cmd.ExecuteScalar());
+                SqlTransaction transaction = cn.BeginTransaction();
 
-                // Insertar correos
-                foreach (var email in cliente.correos)
+                try
                 {
-                    SqlCommand cmdCorreo = new SqlCommand("sp_InsertarClienteCorreo", cn);
-                    cmdCorreo.CommandType = CommandType.StoredProcedure;
-                    cmdCorreo.Parameters.AddWithValue("@id_cliente", idGenerado);
-                    cmdCorreo.Parameters.AddWithValue("@correo", email);
-                    cmdCorreo.ExecuteNonQuery();
-                }
+                    // Insertar cliente
+                    using (SqlCommand cmd = new SqlCommand("sp_InsertarCliente", cn, transaction))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@id_tipo_cliente", cliente.id_tipo_cliente);
+                        cmd.Parameters.AddWithValue("@nombres", (object)cliente.nombres ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@apellidos", (object)cliente.apellidos ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@dni", (object)cliente.dni ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@razon_social", (object)cliente.razon_social ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@ruc", (object)cliente.ruc ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@direccion", (object)cliente.direccion ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@activo", cliente.activo);
 
-                // Insertar teléfonos
-                foreach (var telefono in cliente.telefonos)
+                        int idGenerado = Convert.ToInt32(cmd.ExecuteScalar());
+
+                        // Insertar correos
+                        foreach (var correo in cliente.correos)
+                        {
+                            using (SqlCommand cmdCorreo = new SqlCommand("sp_InsertarClienteCorreo", cn, transaction))
+                            {
+                                cmdCorreo.CommandType = CommandType.StoredProcedure;
+                                cmdCorreo.Parameters.AddWithValue("@id_cliente", idGenerado);
+                                cmdCorreo.Parameters.AddWithValue("@correo", correo);
+                                cmdCorreo.ExecuteNonQuery();
+                            }
+                        }
+
+                        // Insertar teléfonos
+                        foreach (var telefono in cliente.telefonos)
+                        {
+                            using (SqlCommand cmdTel = new SqlCommand("sp_InsertarClienteTelefono", cn, transaction))
+                            {
+                                cmdTel.CommandType = CommandType.StoredProcedure;
+                                cmdTel.Parameters.AddWithValue("@id_cliente", idGenerado);
+                                cmdTel.Parameters.AddWithValue("@telefono", telefono);
+                                cmdTel.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    transaction.Commit();
+                    result = true;
+                }
+                catch (Exception ex)
                 {
-                    SqlCommand cmdTel = new SqlCommand("sp_InsertarClienteTelefono", cn);
-                    cmdTel.CommandType = CommandType.StoredProcedure;
-                    cmdTel.Parameters.AddWithValue("@id_cliente", idGenerado);
-                    cmdTel.Parameters.AddWithValue("@telefono", telefono);
-                    cmdTel.ExecuteNonQuery();
+                    transaction.Rollback();
+                    // Aquí puedes loguear el error: ex.Message
+                    throw new Exception("Error al insertar el cliente: " + ex.Message);
                 }
-
-                result = true;
             }
+
             return result;
         }
+
+
+        public int InsertarClienteYDetalle(entClientes cliente)
+        {
+            int idGenerado = 0;
+
+            using (SqlConnection con = Conexion.Instancia.Conectar())
+            {
+                con.Open();
+
+                try
+                {
+                    // Insertar cliente principal y obtener ID generado
+                    using (SqlCommand cmd = new SqlCommand("sp_InsertarCliente", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@id_tipo_cliente", cliente.id_tipo_cliente);
+                        cmd.Parameters.AddWithValue("@nombres", cliente.nombres ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@apellidos", cliente.apellidos ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@dni", cliente.dni ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@razon_social", cliente.razon_social ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@ruc", cliente.ruc ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@direccion", cliente.direccion ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@activo", cliente.activo);
+
+                        object result = cmd.ExecuteScalar();
+                        idGenerado = Convert.ToInt32(result);
+                    }
+
+                    // Insertar correos
+                    foreach (var correo in cliente.correos)
+                    {
+                        using (SqlCommand cmdCorreo = new SqlCommand("sp_InsertarClienteCorreo", con))
+                        {
+                            cmdCorreo.CommandType = CommandType.StoredProcedure;
+                            cmdCorreo.Parameters.AddWithValue("@id_cliente", idGenerado);
+                            cmdCorreo.Parameters.AddWithValue("@correo", correo);
+                            cmdCorreo.ExecuteNonQuery();
+                        }
+                    }
+
+                    // Insertar teléfonos
+                    foreach (var tel in cliente.telefonos)
+                    {
+                        using (SqlCommand cmdTel = new SqlCommand("sp_InsertarClienteTelefono", con))
+                        {
+                            cmdTel.CommandType = CommandType.StoredProcedure;
+                            cmdTel.Parameters.AddWithValue("@id_cliente", idGenerado);
+                            cmdTel.Parameters.AddWithValue("@telefono", tel);
+                            cmdTel.ExecuteNonQuery();
+                        }
+                    }
+                }
+                catch
+                {
+                    throw; // Se puede agregar logging si deseas registrar el error.
+                }
+            }
+
+            return idGenerado;
+        }
+
+
 
         public bool EditarCliente(entClientes cliente)
         {

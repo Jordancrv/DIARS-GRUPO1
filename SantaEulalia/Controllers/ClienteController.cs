@@ -42,25 +42,27 @@ namespace SantaEulalia.Controllers
                 return View();
             }
 
-            // POST: Insertar cliente
-            [HttpPost]
-            public IActionResult InsertarCliente(entClientes cliente)
+        // POST: Insertar cliente
+        [HttpPost]
+        public IActionResult InsertarCliente(entClientes cliente)
+        {
+            try
             {
-                try
-                {
-                    bool resultado = logClientes.Instancia.InsertarCliente(cliente); // Usa lógica con listas
-                    if (resultado)
-                        return RedirectToAction("Listar");
+                int idGenerado = logClientes.Instancia.InsertarCliente2(cliente);
 
-                    ViewBag.Error = "No se pudo registrar el cliente.";
-                    return View(cliente);
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Error = "Error: " + ex.Message;
-                    return View(cliente);
-                }
+                if (idGenerado > 0)
+                    return RedirectToAction("Listar");
+
+                ViewBag.Error = "No se pudo registrar el cliente.";
+                return View(cliente);
             }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Error: " + ex.Message;
+                return View(cliente);
+            }
+
+        }
 
             // GET: Mostrar formulario de edición
             [HttpGet]

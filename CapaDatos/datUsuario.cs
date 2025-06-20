@@ -77,12 +77,13 @@ namespace CapaDatos
             using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
                 SqlCommand cmd = new SqlCommand(@"
-            SELECT * 
-            FROM Usuarios 
-            WHERE email = @correo AND password_hash = @password", cn);
+            SELECT u.*, uc.email
+            FROM Usuarios u
+            INNER JOIN UsuarioCorreos uc ON u.id_usuario = uc.id_usuario
+            WHERE uc.email = @correo AND u.password_hash = @password", cn);
 
                 cmd.Parameters.AddWithValue("@correo", email);
-                cmd.Parameters.AddWithValue("@password", password); // Se compara directamente la contraseña en texto plano
+                cmd.Parameters.AddWithValue("@password", password); // Idealmente, compara el hash
 
                 cn.Open();
 
