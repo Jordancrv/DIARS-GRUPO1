@@ -233,8 +233,8 @@ namespace CapaDatos
                                     razon_social = dr["razon_social"].ToString(),
                                     ruc = dr["ruc"].ToString(),
                                     direccion = dr["direccion"].ToString(),
-                                    telefono = dr["telefono"].ToString(),
-                                    email = dr["email"].ToString(),
+                                    //telefono = dr["telefono"].ToString(),
+                                   // email = dr["email"].ToString(),
                                     activo = Convert.ToBoolean(dr["activo"])
                                 }
                             };
@@ -479,8 +479,8 @@ namespace CapaDatos
                                     razon_social = dr["razon_social"].ToString(),
                                     ruc = dr["ruc"].ToString(),
                                     direccion = dr["direccion"].ToString(),
-                                    telefono = dr["telefono"].ToString(),
-                                    email = dr["email"].ToString(),
+                                  //  telefono = dr["telefono"].ToString(),
+                                  //  email = dr["email"].ToString(),
                                     activo = Convert.ToBoolean(dr["activo"])
                                 }
                             };

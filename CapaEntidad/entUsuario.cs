@@ -9,7 +9,7 @@ namespace CapaEntidad
     public class entUsuario
     {
         public int id_usuario { get; set; }
-        public string nombre { get; set; }
+        public string nombres { get; set; }
         public string apellidos { get; set; }
         public string email { get; set; }
         public string password_hash { get; set; }
@@ -17,30 +17,8 @@ namespace CapaEntidad
         public DateTime fecha_creacion { get; set; }
         public bool activo { get; set; }
     }
-    public class entOrdenesCompra
-    {
-        public int id_orden_compra { get; set; }
-        public int id_proveedor { get; set; }
-        public int id_usuario { get; set; }
-        public DateTime fecha { get; set; }
-        public string estado { get; set; }
-        public decimal total { get; set; }
-        public entProveedores Proveedor { get; set; }
-        public entUsuario Usuario { get; set; }
-        public List<entDetallesOrdenCompra> Detalles { get; set; }
-    }
-    public class entDetallesOrdenCompra
-    {
-        public int id_detalle { get; set; }
-        public int id_orden_compra { get; set; }
-        public int id_producto { get; set; }
-        public int cantidad { get; set; }
-        public decimal precio_unitario { get; set; }
-        public decimal subtotal { get; set; }
+    
 
-        public entOrdenesCompra OrdenCompra { get; set; }
-        public entProductos Producto { get; set; }
-    }
     public class Direccion
     {
         public int DireccionId { get; set; }

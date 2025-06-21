@@ -98,6 +98,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Home/IndexUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleFVzZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -106,8 +110,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/OrdenCompra/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZW5Db21wcmFcQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/OrdenCompra/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZW5Db21wcmFcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/OrdenCompra/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZW5Db21wcmFcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/OrdenCompra/Listar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZW5Db21wcmFcTGlzdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/PanelAdmin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFuZWxBZG1pblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Producto/Detalles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9cRGV0YWxsZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Producto/Editar.cshtml]
@@ -124,6 +148,30 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Producto/Registrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9cUmVnaXN0cmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Proveedores/ConsultarEstado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmVlZG9yZXNcQ29uc3VsdGFyRXN0YWRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Proveedores/Detalles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmVlZG9yZXNcRGV0YWxsZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Proveedores/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmVlZG9yZXNcRWRpdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Proveedores/Eliminar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmVlZG9yZXNcRWxpbWluYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Proveedores/Listar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmVlZG9yZXNcTGlzdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Proveedores/Registrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmVlZG9yZXNcUmVnaXN0cmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Fabrii/source/repos/DIARS-GRUPO1/SantaEulalia/Views/Shared/Error.cshtml]

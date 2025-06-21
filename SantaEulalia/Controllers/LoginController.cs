@@ -18,10 +18,10 @@ public class LoginController : Controller
         if (usuario != null)
         {
             HttpContext.Session.SetInt32("id_usuario", usuario.id_usuario);
-            HttpContext.Session.SetString("nombre_usuario", usuario.nombre);
+            HttpContext.Session.SetString("nombres_usuario", usuario.nombres);
             HttpContext.Session.SetString("rol", usuario.rol);
 
-            if (usuario.rol == "Admin")
+            if (usuario.rol == "admin")
                 return RedirectToAction("Index", "PanelAdmin"); // Usa _Layout.cshtml
             else
                 return RedirectToAction("PanelUser", "Home"); // Usa _LayoutUser.cshtml

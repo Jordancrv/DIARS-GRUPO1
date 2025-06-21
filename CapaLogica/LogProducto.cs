@@ -46,6 +46,10 @@ public class logProducto
         return datProducto.Instancia.EliminarProducto(idProducto);
     }
 
-    // EliminaEdita (si tienes un método lógico similar al cliente)
-   
+    public int ObtenerStockMinimo(int idProducto)
+    {
+        return datProducto.Instancia.ObtenerStockMinimo(idProducto);
+    }
+
+
 }

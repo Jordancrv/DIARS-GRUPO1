@@ -25,13 +25,22 @@ namespace CapaLogica
 
         public List<entClientes> ListarCliente()
         {
-            return datCliente.Instancia.ListarCliente();
+            return datCliente.Instancia.ListarClientes();
+        }
+        public int  InsertarCliente2(entClientes cliente)
+        {
+            return datCliente.Instancia.InsertarClienteYDetalle(cliente);
         }
 
-        public bool InsertarCliente(entClientes cliente)
-        {
-            return datCliente.Instancia.InsertarCliente(cliente);
-        }
+
+
+
+
+
+        //public bool InsertarCliente(entClientes cliente)
+        //{
+        //    return datCliente.Instancia.InsertarCliente(cliente);
+        //}
 
         public bool EditarCliente(entClientes cliente)
         {
