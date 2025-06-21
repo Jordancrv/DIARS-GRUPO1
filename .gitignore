@@ -1,2 +1,14 @@
 .vs/
 obj/
+# Visual Studio
+*.suo
+*.user
+.vs/
+
+# Build outputs
+bin/
+obj/
+
+# Caches y archivos temporales
+*.cache
+*.pdb
