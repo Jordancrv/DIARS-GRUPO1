@@ -164,11 +164,11 @@ Go
 Create table TipoPromociones(
 it_tipo_promociones int primary key identity(1,1), 
 
-
-
-
-
+select  * from PedidosVenta 
 ); 
+
+select  * from PedidosVenta 
+
 CREATE TABLE TipoPromocion (
     id_tipo_promocion INT PRIMARY KEY IDENTITY(1,1),
     nombre_tipo VARCHAR(50) NOT NULL -- Ej: 'por producto', 'por monto', 'general', 'por categoría', etc.
@@ -248,7 +248,7 @@ CREATE TABLE PedidosVenta (
     id_comprobante INT REFERENCES ComprobantesPago(id_comprobante),
 	  total DECIMAL(12,2),
     total_descuento_productos DECIMAL(12,2),
-    total_descuento_promociones DECIMAL(12,2),
+    total_descuento_promociones DECIMAL(12,2),---- descuento por venta, arreglarlo en en el inetrfaz unicament
     total_con_descuento DECIMAL(12,2),
 
 

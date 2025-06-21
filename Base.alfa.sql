@@ -327,7 +327,7 @@ GO
 CREATE TABLE PedidosVenta (
     id_pedido INT IDENTITY(1,1) PRIMARY KEY,
     id_cliente INT REFERENCES Clientes(id_cliente),
-    id_usuario INT REFERENCES Usuarios(id_usuario),
+    id_usuario INT NULL REFERENCES Usuarios(id_usuario),
     fecha DATETIME DEFAULT GETDATE(),
     id_comprobante INT REFERENCES ComprobantesPago(id_comprobante),
     total DECIMAL(12,2),
@@ -337,6 +337,23 @@ CREATE TABLE PedidosVenta (
     estado VARCHAR(20) NOT NULL CHECK (estado IN ('pendiente', 'procesado', 'anulado'))
 );
 GO
+drop table PedidosVenta
+
+SELECT 
+    f.name AS ForeignKey,
+    OBJECT_NAME(f.parent_object_id) AS TableName,
+    COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
+FROM 
+    sys.foreign_keys AS f
+INNER JOIN 
+    sys.foreign_key_columns AS fc 
+    ON f.OBJECT_ID = fc.constraint_object_id
+WHERE 
+    f.referenced_object_id = OBJECT_ID('PedidosVenta');
+
+	ALTER TABLE DetallesVenta
+DROP CONSTRAINT FK__DetallesV__id_pe__7D439ABD;
+
 
 
     --total AS (
@@ -385,6 +402,8 @@ CREATE TABLE DetallesVenta (
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
 );
 GO
+select * from DetallesVenta
+
 
 ---------------------------------Para seleccionar el descuento que "tiene" ese producto
 --------------------------------esta seleccion la utilizaresmos en algun proceso almacenado

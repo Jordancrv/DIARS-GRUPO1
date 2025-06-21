@@ -3,20 +3,232 @@
   "WorkspaceRootPath": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capadatos\\datcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capaentidad\\entpago.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|solutionrelative:capaentidad\\entpago.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\datusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capaentidad\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|solutionrelative:capaentidad\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capalogica\\logventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|solutionrelative:capalogica\\logventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\venta\\agregarventa.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\venta\\agregarventa.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\controllerventa\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\controllerventa\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\controllerventa\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\controllerventa\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\controllerventa\\insertarventa.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\controllerventa\\insertarventa.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\controllerventa\\eliminarventa.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\controllerventa\\eliminarventa.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\usuarios\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\usuarios\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\css-user\\slick.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\css-user\\slick.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\datventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\css-user\\bootstrap.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\css-user\\bootstrap.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\css-user\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\css-user\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\css-user\\font-awesome.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\css-user\\font-awesome.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capaentidad\\entusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|solutionrelative:capaentidad\\entusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capaentidad\\entproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|solutionrelative:capaentidad\\entproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capaentidad\\entlineaproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|solutionrelative:capaentidad\\entlineaproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capaentidad\\entclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|solutionrelative:capaentidad\\entclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capaentidad\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|solutionrelative:capaentidad\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capaentidad\\entestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9635E793-BA7F-492B-B6E9-2CBC5AF4E0DA}|CapaEntidad\\CapaEntidad.csproj|solutionrelative:capaentidad\\entestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capalogica\\usuariobl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|solutionrelative:capalogica\\usuariobl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capalogica\\logproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|solutionrelative:capalogica\\logproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\producto\\eliminar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\producto\\eliminar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\producto\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\producto\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capalogica\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|solutionrelative:capalogica\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capalogica\\logalmacen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|solutionrelative:capalogica\\logalmacen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capalogica\\logclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|solutionrelative:capalogica\\logclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capalogica\\logproveedores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|solutionrelative:capalogica\\logproveedores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\capalogica\\logusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|solutionrelative:capalogica\\logusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\datusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\css-user\\nice-select.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\css-user\\nice-select.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\css-user\\main-color03-green.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\css-user\\main-color03-green.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\css-user\\animate.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\css-user\\animate.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\css\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\css\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\img-user\\favicon.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\img-user\\favicon.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\img-user\\color_bg1.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\img-user\\color_bg1.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\img-user\\card3.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\img-user\\card3.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\wwwroot\\img-user\\bg-newsletter.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\wwwroot\\img-user\\bg-newsletter.jpg||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\clientecompra\\pago.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\clientecompra\\pago.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\clientecompra\\ordencompra.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\clientecompra\\ordencompra.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\clientecompra\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\clientecompra\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\clientecompra\\cotizacion.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\clientecompra\\cotizacion.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\clientecompra\\recepcion.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\clientecompra\\recepcion.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\ventacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\ventacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\controllerventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\controllerventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\proveedorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\proveedorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\pedidocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\pedidocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\paneladmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\paneladmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\productocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\productocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\datproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\datproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\utilidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\utilidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\clientecompracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\clientecompracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\conexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\conexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\datcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\cliente\\insertarcliente.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -33,66 +245,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\cliente\\listar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\views\\cliente\\listar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\controllerventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\controllerventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capalogica\\logclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6AC60A6-136E-4374-832C-53FE0A3BE9AA}|CapaLogica\\CapaLogica.csproj|solutionrelative:capalogica\\logclientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\paneladmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\paneladmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\conexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\conexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\clientecompracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\clientecompracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\datventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\datproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\datproveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\capadatos\\utilidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6262A0CE-828B-4584-80C0-49F50FCACC2D}|CapaDatos\\CapaDatos.csproj|solutionrelative:capadatos\\utilidades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\ventacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\ventacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\pedidocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\pedidocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\proveedorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\proveedorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\controllers\\productocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|solutionrelative:santaeulalia\\controllers\\productocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4A47FC3B-6439-4348-9A71-EE6EC1324077}|SantaEulalia\\SantaEulalia.csproj|c:\\users\\pc\\desktop\\diarsproyecto\\diars-grupo1\\santaeulalia\\views\\login\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -114,7 +266,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -126,140 +278,549 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "datUsuario.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datUsuario.cs",
-              "RelativeDocumentMoniker": "CapaDatos\\datUsuario.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datUsuario.cs",
-              "RelativeToolTip": "CapaDatos\\datUsuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIMAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T00:48:26.04Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "InsertarCliente.cshtml",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
-              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
-              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAAF8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-16T00:33:34.145Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Listar.cshtml",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\Listar.cshtml",
-              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\Listar.cshtml",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\Listar.cshtml",
-              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\Listar.cshtml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACQAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-16T00:30:24.737Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "EliminarCliente.cshtml",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
-              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
-              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-16T00:35:44.064Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "entClientes.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entClientes.cs",
-              "RelativeDocumentMoniker": "CapaEntidad\\entClientes.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entClientes.cs",
-              "RelativeToolTip": "CapaEntidad\\entClientes.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAowCEAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T00:28:11.369Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "datCliente.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datCliente.cs",
-              "RelativeDocumentMoniker": "CapaDatos\\datCliente.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datCliente.cs",
-              "RelativeToolTip": "CapaDatos\\datCliente.cs",
-              "ViewState": "AgIAAHwAAAAAAAAAAAAuwHEAAAA+AAAAAAAAAA==",
+              "Title": "entPago.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entPago.cs",
+              "RelativeDocumentMoniker": "CapaEntidad\\entPago.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entPago.cs",
+              "RelativeToolTip": "CapaEntidad\\entPago.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA1wA4AAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T01:33:38.582Z",
+              "WhenOpened": "2025-06-21T21:05:15.394Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ClienteController.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ClienteController.cs",
-              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\ClienteController.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ClienteController.cs",
-              "RelativeToolTip": "SantaEulalia\\Controllers\\ClienteController.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAAIwFYAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-15T23:37:22.165Z"
+              "DocumentIndex": 4,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ControllerVenta\\Delete.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\ControllerVenta\\Delete.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ControllerVenta\\Delete.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\ControllerVenta\\Delete.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T21:02:45.545Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ControllerVenta\\Edit.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\ControllerVenta\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ControllerVenta\\Edit.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\ControllerVenta\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T21:02:21.393Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "InsertarVenta.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ControllerVenta\\InsertarVenta.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\ControllerVenta\\InsertarVenta.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ControllerVenta\\InsertarVenta.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\ControllerVenta\\InsertarVenta.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T21:00:37.313Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "AgregarVenta.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Venta\\AgregarVenta.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Venta\\AgregarVenta.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Venta\\AgregarVenta.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Venta\\AgregarVenta.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAUwC8AAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T20:46:14.731Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "logVenta.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\logVenta.cs",
+              "RelativeDocumentMoniker": "CapaLogica\\logVenta.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\logVenta.cs",
+              "RelativeToolTip": "CapaLogica\\logVenta.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T20:42:39.995Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\Class1.cs",
               "RelativeDocumentMoniker": "CapaEntidad\\Class1.cs",
               "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\Class1.cs",
               "RelativeToolTip": "CapaEntidad\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAA2wAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T03:37:14.926Z"
+              "WhenOpened": "2025-06-20T03:37:14.926Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EliminarVenta.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ControllerVenta\\EliminarVenta.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\ControllerVenta\\EliminarVenta.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ControllerVenta\\EliminarVenta.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\ControllerVenta\\EliminarVenta.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T21:00:35.574Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "slick.min.css",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\slick.min.css",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css-user\\slick.min.css",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\slick.min.css",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\css-user\\slick.min.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAACMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-06-21T20:41:49.699Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "font-awesome.min.css",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\font-awesome.min.css",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css-user\\font-awesome.min.css",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\font-awesome.min.css",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\css-user\\font-awesome.min.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAlCAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-06-21T20:41:53.226Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "style.css",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\style.css",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css-user\\style.css",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\style.css",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\css-user\\style.css",
+              "ViewState": "AgIAAP01AAAAAAAAAADwvwk2AAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-06-21T20:42:08.699Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "bootstrap.min.css",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\bootstrap.min.css",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css-user\\bootstrap.min.css",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\bootstrap.min.css",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\css-user\\bootstrap.min.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABV+gAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-06-21T20:41:52.538Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
+              "Title": "datVenta.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datVenta.cs",
+              "RelativeDocumentMoniker": "CapaDatos\\datVenta.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datVenta.cs",
+              "RelativeToolTip": "CapaDatos\\datVenta.cs",
+              "ViewState": "AgIAAMoAAAAAAAAAAAAAANUAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T01:10:09.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Editar.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Usuarios\\Editar.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Usuarios\\Editar.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Usuarios\\Editar.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Usuarios\\Editar.cshtml",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAADQAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T20:54:57.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "entUsuario.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entUsuario.cs",
+              "RelativeDocumentMoniker": "CapaEntidad\\entUsuario.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entUsuario.cs",
+              "RelativeToolTip": "CapaEntidad\\entUsuario.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA3wBwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T20:55:55.85Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "entProductos.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entProductos.cs",
+              "RelativeDocumentMoniker": "CapaEntidad\\entProductos.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entProductos.cs",
+              "RelativeToolTip": "CapaEntidad\\entProductos.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T05:23:13.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "entLineaProducto.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entLineaProducto.cs",
+              "RelativeDocumentMoniker": "CapaEntidad\\entLineaProducto.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entLineaProducto.cs",
+              "RelativeToolTip": "CapaEntidad\\entLineaProducto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T05:23:07.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "entClientes.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entClientes.cs",
+              "RelativeDocumentMoniker": "CapaEntidad\\entClientes.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entClientes.cs",
+              "RelativeToolTip": "CapaEntidad\\entClientes.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA0wB0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T00:28:11.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "entEstado.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entEstado.cs",
+              "RelativeDocumentMoniker": "CapaEntidad\\entEstado.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaEntidad\\entEstado.cs",
+              "RelativeToolTip": "CapaEntidad\\entEstado.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T05:22:26.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "logProducto.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\LogProducto.cs",
+              "RelativeDocumentMoniker": "CapaLogica\\LogProducto.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\LogProducto.cs",
+              "RelativeToolTip": "CapaLogica\\LogProducto.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T20:43:32.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Eliminar.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Producto\\Eliminar.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Producto\\Eliminar.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Producto\\Eliminar.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Producto\\Eliminar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T20:50:33.722Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Editar.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Producto\\Editar.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Producto\\Editar.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Producto\\Editar.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Producto\\Editar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T20:50:32.746Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "UsuarioBL.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\UsuarioBL.cs",
+              "RelativeDocumentMoniker": "CapaLogica\\UsuarioBL.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\UsuarioBL.cs",
+              "RelativeToolTip": "CapaLogica\\UsuarioBL.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T20:42:51.842Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "logProveedores.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\logProveedores.cs",
+              "RelativeDocumentMoniker": "CapaLogica\\logProveedores.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\logProveedores.cs",
+              "RelativeToolTip": "CapaLogica\\logProveedores.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T20:43:24.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "logUsuario.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\LogUsuario.cs",
+              "RelativeDocumentMoniker": "CapaLogica\\LogUsuario.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\LogUsuario.cs",
+              "RelativeToolTip": "CapaLogica\\LogUsuario.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAcwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T20:43:19.938Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
               "Title": "logClientes.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\logClientes.cs",
               "RelativeDocumentMoniker": "CapaLogica\\logClientes.cs",
               "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\logClientes.cs",
               "RelativeToolTip": "CapaLogica\\logClientes.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAIwCUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T01:34:35.724Z"
+              "WhenOpened": "2025-06-16T01:34:35.724Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "EditarCliente.cshtml",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
-              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
-              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-16T00:37:18.305Z"
+              "DocumentIndex": 24,
+              "Title": "LogAlmacen.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\LogAlmacen.cs",
+              "RelativeDocumentMoniker": "CapaLogica\\LogAlmacen.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\LogAlmacen.cs",
+              "RelativeToolTip": "CapaLogica\\LogAlmacen.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T20:43:46.01Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ControllerVenta.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ControllerVenta.cs",
-              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\ControllerVenta.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ControllerVenta.cs",
-              "RelativeToolTip": "SantaEulalia\\Controllers\\ControllerVenta.cs",
+              "DocumentIndex": 23,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\Class1.cs",
+              "RelativeDocumentMoniker": "CapaLogica\\Class1.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaLogica\\Class1.cs",
+              "RelativeToolTip": "CapaLogica\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T20:44:05.485Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "main-color03-green.css",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\main-color03-green.css",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css-user\\main-color03-green.css",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\main-color03-green.css",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\css-user\\main-color03-green.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T01:20:33.574Z"
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-06-21T20:42:00.155Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 28,
+              "Title": "datUsuario.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datUsuario.cs",
+              "RelativeDocumentMoniker": "CapaDatos\\datUsuario.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datUsuario.cs",
+              "RelativeToolTip": "CapaDatos\\datUsuario.cs",
+              "ViewState": "AgIAAHYAAAAAAAAAAAAAAIkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T00:48:26.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "animate.min.css",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\animate.min.css",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css-user\\animate.min.css",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\animate.min.css",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\css-user\\animate.min.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-06-21T20:41:51.722Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "dashboard.css",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css\\dashboard.css",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css\\dashboard.css",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css\\dashboard.css",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\css\\dashboard.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-06-21T20:41:54.506Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "nice-select.css",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\nice-select.css",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\css-user\\nice-select.css",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\css-user\\nice-select.css",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\css-user\\nice-select.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-06-21T20:41:48.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "favicon.png -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - PNG [48x48, 32 bits, PNG]",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\img-user\\favicon.png",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\img-user\\favicon.png",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\img-user\\favicon.png -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - PNG [48x48, 32 bits, PNG]",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\img-user\\favicon.png -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - PNG [48x48, 32 bits, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-06-21T20:41:43.786Z",
+              "EditorCaption": " -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - PNG [48x48, 32 bits, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "color_bg1.jpg -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [27x27, 24 bits, JPG]",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\img-user\\color_bg1.jpg",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\img-user\\color_bg1.jpg",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\img-user\\color_bg1.jpg -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [27x27, 24 bits, JPG]",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\img-user\\color_bg1.jpg -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [27x27, 24 bits, JPG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-06-21T20:41:43.002Z",
+              "EditorCaption": " -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [27x27, 24 bits, JPG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "card3.jpg -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [51x36, 24 bits, JPG]",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\img-user\\card3.jpg",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\img-user\\card3.jpg",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\img-user\\card3.jpg -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [51x36, 24 bits, JPG]",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\img-user\\card3.jpg -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [51x36, 24 bits, JPG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-06-21T20:41:42.29Z",
+              "EditorCaption": " -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [51x36, 24 bits, JPG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "bg-newsletter.jpg -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [770x397, 24 bits, JPG]",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\img-user\\bg-newsletter.jpg",
+              "RelativeDocumentMoniker": "SantaEulalia\\wwwroot\\img-user\\bg-newsletter.jpg",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\wwwroot\\img-user\\bg-newsletter.jpg -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [770x397, 24 bits, JPG]",
+              "RelativeToolTip": "SantaEulalia\\wwwroot\\img-user\\bg-newsletter.jpg -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [770x397, 24 bits, JPG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-06-21T20:41:40.209Z",
+              "EditorCaption": " -  [Espa\u00F1ol (Espa\u00F1a, alfabetizaci\u00F3n internacional)] - Bitmap [770x397, 24 bits, JPG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "Cotizacion.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ClienteCompra\\Cotizacion.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\ClienteCompra\\Cotizacion.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ClienteCompra\\Cotizacion.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\ClienteCompra\\Cotizacion.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T20:40:08.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ClienteCompra\\Index.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\ClienteCompra\\Index.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ClienteCompra\\Index.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\ClienteCompra\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T20:40:07.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "Recepcion.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ClienteCompra\\Recepcion.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\ClienteCompra\\Recepcion.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ClienteCompra\\Recepcion.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\ClienteCompra\\Recepcion.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T20:40:03.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "Pago.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ClienteCompra\\Pago.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\ClienteCompra\\Pago.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ClienteCompra\\Pago.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\ClienteCompra\\Pago.cshtml",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T20:39:59.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "OrdenCompra.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ClienteCompra\\OrdenCompra.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\ClienteCompra\\OrdenCompra.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\ClienteCompra\\OrdenCompra.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\ClienteCompra\\OrdenCompra.cshtml",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-21T20:39:56.463Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
               "Title": "PanelAdminController.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\PanelAdminController.cs",
               "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\PanelAdminController.cs",
@@ -267,59 +828,25 @@
               "RelativeToolTip": "SantaEulalia\\Controllers\\PanelAdminController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T00:46:39.52Z"
+              "WhenOpened": "2025-06-16T00:46:39.52Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "ClienteCompraController.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ClienteCompraController.cs",
-              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\ClienteCompraController.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ClienteCompraController.cs",
-              "RelativeToolTip": "SantaEulalia\\Controllers\\ClienteCompraController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 43,
+              "Title": "ControllerVenta.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ControllerVenta.cs",
+              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\ControllerVenta.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ControllerVenta.cs",
+              "RelativeToolTip": "SantaEulalia\\Controllers\\ControllerVenta.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T00:14:15.331Z"
+              "WhenOpened": "2025-06-16T01:20:33.574Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Conexion.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\Conexion.cs",
-              "RelativeDocumentMoniker": "CapaDatos\\Conexion.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\Conexion.cs",
-              "RelativeToolTip": "CapaDatos\\Conexion.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T01:27:03.367Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "datVenta.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datVenta.cs",
-              "RelativeDocumentMoniker": "CapaDatos\\datVenta.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datVenta.cs",
-              "RelativeToolTip": "CapaDatos\\datVenta.cs",
-              "ViewState": "AgIAAF8BAAAAAAAAAAAgwGsBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T01:10:09.687Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "datProveedor.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datProveedor.cs",
-              "RelativeDocumentMoniker": "CapaDatos\\datProveedor.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datProveedor.cs",
-              "RelativeToolTip": "CapaDatos\\datProveedor.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T01:03:03.88Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 51,
               "Title": "Utilidades.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\Utilidades.cs",
               "RelativeDocumentMoniker": "CapaDatos\\Utilidades.cs",
@@ -331,7 +858,84 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 48,
+              "Title": "ProductoController.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ProductoController.cs",
+              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\ProductoController.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ProductoController.cs",
+              "RelativeToolTip": "SantaEulalia\\Controllers\\ProductoController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T00:46:37.759Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "PedidoController.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\PedidoController.cs",
+              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\PedidoController.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\PedidoController.cs",
+              "RelativeToolTip": "SantaEulalia\\Controllers\\PedidoController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T00:46:38.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "ProveedoresController.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ProveedoresController.cs",
+              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\ProveedoresController.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ProveedoresController.cs",
+              "RelativeToolTip": "SantaEulalia\\Controllers\\ProveedoresController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T00:46:35.656Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "UsuariosController.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\UsuariosController.cs",
+              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\UsuariosController.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\UsuariosController.cs",
+              "RelativeToolTip": "SantaEulalia\\Controllers\\UsuariosController.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T00:46:17.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "VentaController.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\VentaController.cs",
+              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\VentaController.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\VentaController.cs",
+              "RelativeToolTip": "SantaEulalia\\Controllers\\VentaController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowD0AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T00:45:07.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "ClienteCompraController.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ClienteCompraController.cs",
+              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\ClienteCompraController.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ClienteCompraController.cs",
+              "RelativeToolTip": "SantaEulalia\\Controllers\\ClienteCompraController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T00:14:15.331Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
               "Title": "LoginController.cs",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\LoginController.cs",
               "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\LoginController.cs",
@@ -343,67 +947,115 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "VentaController.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\VentaController.cs",
-              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\VentaController.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\VentaController.cs",
-              "RelativeToolTip": "SantaEulalia\\Controllers\\VentaController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 53,
+              "Title": "ClienteController.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ClienteController.cs",
+              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\ClienteController.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ClienteController.cs",
+              "RelativeToolTip": "SantaEulalia\\Controllers\\ClienteController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwD8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T00:45:07.616Z"
+              "WhenOpened": "2025-06-15T23:37:22.165Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "UsuariosController.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\UsuariosController.cs",
-              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\UsuariosController.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\UsuariosController.cs",
-              "RelativeToolTip": "SantaEulalia\\Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAAG4AAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 49,
+              "Title": "datProducto.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datProducto.cs",
+              "RelativeDocumentMoniker": "CapaDatos\\datProducto.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datProducto.cs",
+              "RelativeToolTip": "CapaDatos\\datProducto.cs",
+              "ViewState": "AgIAAN8AAAAAAAAAAAAcwJcAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T00:46:17.74Z"
+              "WhenOpened": "2025-06-21T05:21:35.38Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "ProveedoresController.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ProveedoresController.cs",
-              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\ProveedoresController.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ProveedoresController.cs",
-              "RelativeToolTip": "SantaEulalia\\Controllers\\ProveedoresController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 50,
+              "Title": "datProveedor.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datProveedor.cs",
+              "RelativeDocumentMoniker": "CapaDatos\\datProveedor.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datProveedor.cs",
+              "RelativeToolTip": "CapaDatos\\datProveedor.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T00:46:35.656Z"
+              "WhenOpened": "2025-06-16T01:03:03.88Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "ProductoController.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ProductoController.cs",
-              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\ProductoController.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\ProductoController.cs",
-              "RelativeToolTip": "SantaEulalia\\Controllers\\ProductoController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 55,
+              "Title": "Conexion.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\Conexion.cs",
+              "RelativeDocumentMoniker": "CapaDatos\\Conexion.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\Conexion.cs",
+              "RelativeToolTip": "CapaDatos\\Conexion.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACAAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T00:46:37.759Z"
+              "WhenOpened": "2025-06-16T01:27:03.367Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "PedidoController.cs",
-              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\PedidoController.cs",
-              "RelativeDocumentMoniker": "SantaEulalia\\Controllers\\PedidoController.cs",
-              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Controllers\\PedidoController.cs",
-              "RelativeToolTip": "SantaEulalia\\Controllers\\PedidoController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-16T00:46:38.544Z"
+              "DocumentIndex": 57,
+              "Title": "InsertarCliente.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\InsertarCliente.cshtml",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAAF8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-16T00:33:34.145Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 58,
+              "Title": "EditarCliente.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\EditarCliente.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-16T00:37:18.305Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "datCliente.cs",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datCliente.cs",
+              "RelativeDocumentMoniker": "CapaDatos\\datCliente.cs",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\CapaDatos\\datCliente.cs",
+              "RelativeToolTip": "CapaDatos\\datCliente.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAiwGgAAABhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T01:33:38.582Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "EliminarCliente.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\EliminarCliente.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-16T00:35:44.064Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "Listar.cshtml",
+              "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\Listar.cshtml",
+              "RelativeDocumentMoniker": "SantaEulalia\\Views\\Cliente\\Listar.cshtml",
+              "ToolTip": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Cliente\\Listar.cshtml",
+              "RelativeToolTip": "SantaEulalia\\Views\\Cliente\\Listar.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACQAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-16T00:30:24.737Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Login\\Index.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Login\\Index.cshtml",
@@ -415,7 +1067,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 63,
               "Title": "SantaEulalia.csproj",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
               "RelativeDocumentMoniker": "SantaEulalia\\SantaEulalia.csproj",
@@ -427,7 +1079,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 62,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\pc\\Desktop\\DiarsProyecto\\DIARS-GRUPO1\\SantaEulalia\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "SantaEulalia\\Views\\Shared\\_Layout.cshtml",

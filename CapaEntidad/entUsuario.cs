@@ -16,7 +16,23 @@ namespace CapaEntidad
         public string rol { get; set; }
         public DateTime fecha_creacion { get; set; }
         public bool activo { get; set; }
+
+
+        // NUEVO:
+        
+        public List<string> correos { get; set; }
+
+        public entUsuario()
+        {
+           
+            correos = new List<string>();
+        }
     }
+
+
+
+
+}
     public class entOrdenesCompra
     {
         public int id_orden_compra { get; set; }
