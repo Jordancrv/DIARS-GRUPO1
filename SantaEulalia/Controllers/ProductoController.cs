@@ -1,5 +1,10 @@
 ﻿using CapaEntidad;
+using CapaLogica;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SantaEulalia.ViewModels;
+using System;
+using System.Linq;
 
 namespace SantaEulalia.Controllers
 {
@@ -9,7 +14,6 @@ namespace SantaEulalia.Controllers
         public IActionResult Listar()
         {
             var productos = logProducto.Instancia.ListarProducto();
-            ViewBag.Lista = productos;
             return View(productos);
         }
 
@@ -36,29 +40,31 @@ namespace SantaEulalia.Controllers
         [HttpGet]
         public IActionResult Registrar()
         {
-            return View();
+            var viewModel = new ProductoViewModel();
+            CargarCombos(viewModel);
+            return View(viewModel);
         }
 
         // POST: Insertar nuevo producto
         [HttpPost]
-        public IActionResult Registrar(entProductos producto)
+        public IActionResult Registrar(ProductoViewModel vm)
         {
             try
             {
-                bool registrado = logProducto.Instancia.InsertarProducto(producto);
+                bool registrado = logProducto.Instancia.InsertarProducto(vm.Producto);
 
                 if (registrado)
                     return RedirectToAction("Listar");
-                else
-                {
-                    ViewBag.Error = "No se pudo registrar el producto.";
-                    return View(producto);
-                }
+
+                ViewBag.Error = "No se pudo registrar el producto.";
+                CargarCombos(vm);
+                return View(vm);
             }
             catch (Exception ex)
             {
                 ViewBag.Error = "Error al registrar: " + ex.Message;
-                return View(producto);
+                CargarCombos(vm);
+                return View(vm);
             }
         }
 
@@ -72,7 +78,12 @@ namespace SantaEulalia.Controllers
                 if (producto == null)
                     return NotFound();
 
-                return View(producto);
+                var viewModel = new ProductoViewModel
+                {
+                    Producto = producto
+                };
+                CargarCombos(viewModel);
+                return View(viewModel);
             }
             catch (Exception ex)
             {
@@ -83,24 +94,24 @@ namespace SantaEulalia.Controllers
 
         // POST: Actualizar producto
         [HttpPost]
-        public IActionResult Editar(entProductos producto)
+        public IActionResult Editar(ProductoViewModel vm)
         {
             try
             {
-                bool editado = logProducto.Instancia.EditarProducto(producto);
+                bool editado = logProducto.Instancia.EditarProducto(vm.Producto);
 
                 if (editado)
                     return RedirectToAction("Listar");
-                else
-                {
-                    ViewBag.Error = "No se pudo editar el producto.";
-                    return View(producto);
-                }
+
+                ViewBag.Error = "No se pudo editar el producto.";
+                CargarCombos(vm);
+                return View(vm);
             }
             catch (Exception ex)
             {
                 ViewBag.Error = "Error al editar: " + ex.Message;
-                return View(producto);
+                CargarCombos(vm);
+                return View(vm);
             }
         }
 
@@ -132,12 +143,10 @@ namespace SantaEulalia.Controllers
                 bool eliminado = logProducto.Instancia.EliminarProducto(id);
                 if (eliminado)
                     return RedirectToAction("Listar");
-                else
-                {
-                    ViewBag.Error = "No se pudo eliminar el producto.";
-                    var producto = logProducto.Instancia.BuscarProducto(id);
-                    return View("Eliminar", producto);
-                }
+
+                ViewBag.Error = "No se pudo eliminar el producto.";
+                var producto = logProducto.Instancia.BuscarProducto(id);
+                return View("Eliminar", producto);
             }
             catch (Exception ex)
             {
@@ -147,9 +156,36 @@ namespace SantaEulalia.Controllers
             }
         }
 
+        // Método privado para cargar los combos en el ViewModel
+        private void CargarCombos(ProductoViewModel vm)
+        {
+            vm.Proveedores = logProveedores.Instancia.ListarProveedores()
+                .Select(p => new SelectListItem
+                {
+                    Value = p.id_proveedor.ToString(),
+                    Text = p.razon_social
+                }).ToList();
 
+            vm.Categorias = logCategoria.Instancia.ListarCategorias()
+                .Select(c => new SelectListItem
+                {
+                    Value = c.idCategoria.ToString(),
+                    Text = c.nombreCategoria
+                }).ToList();
 
+            vm.Presentaciones = logPresentacion.Instancia.ListarPresentaciones()
+                .Select(p => new SelectListItem
+                {
+                    Value = p.idPresentacion.ToString(),
+                    Text = p.nombrePresentacion
+                }).ToList();
 
-
+            vm.TiposEmpaque = logTipoEmpaque.Instancia.ListarTipoEmpaque()
+                .Select(t => new SelectListItem
+                {
+                    Value = t.idTipoEmpaque.ToString(),
+                    Text = t.nombreEmpaque
+                }).ToList();
+        }
     }
 }

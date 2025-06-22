@@ -50,7 +50,13 @@ namespace CapaDatos
                         idCategoria = dr["idCategoria"] != DBNull.Value ? Convert.ToInt32(dr["idCategoria"]) : 0,
                         idPresentacion = dr["idPresentacion"] != DBNull.Value ? Convert.ToInt32(dr["idPresentacion"]) : 0,
                         idTipoEmpaque = dr["idTipoEmpaque"] != DBNull.Value ? Convert.ToInt32(dr["idTipoEmpaque"]) : 0,
-                        activo = Convert.ToBoolean(dr["activo"])
+                        activo = Convert.ToBoolean(dr["activo"]),
+
+                        // Propiedades de navegación
+                        nombreProveedor = dr["nombreProveedor"]?.ToString(),
+                        nombreCategoria = dr["nombreCategoria"]?.ToString(),
+                        nombrePresentacion = dr["nombrePresentacion"]?.ToString(),
+                        nombreTipoEmpaque = dr["nombreTipoEmpaque"]?.ToString()
                     };
 
                     lista.Add(p);
@@ -69,6 +75,7 @@ namespace CapaDatos
 
             return lista;
         }
+
 
         public bool InsertarProducto(entProductos producto)
         {
@@ -180,7 +187,13 @@ namespace CapaDatos
                         idCategoria = Convert.ToInt32(dr["idCategoria"]),
                         idPresentacion = Convert.ToInt32(dr["idPresentacion"]),
                         idTipoEmpaque = Convert.ToInt32(dr["idTipoEmpaque"]),
-                        activo = Convert.ToBoolean(dr["activo"])
+                        activo = Convert.ToBoolean(dr["activo"]),
+
+                        // Propiedades de navegación
+                        nombreProveedor = dr["nombreProveedor"]?.ToString(),
+                        nombreCategoria = dr["nombreCategoria"]?.ToString(),
+                        nombrePresentacion = dr["nombrePresentacion"]?.ToString(),
+                        nombreTipoEmpaque = dr["nombreTipoEmpaque"]?.ToString()
                     };
                 }
 
@@ -197,6 +210,7 @@ namespace CapaDatos
 
             return producto;
         }
+
 
         public bool EliminarProducto(int id_producto)
         {
@@ -224,6 +238,22 @@ namespace CapaDatos
 
             return eliminado;
         }
+        public int ObtenerStockMinimo(int idProducto)
+        {
+            int stockMinimo = 0;
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            {
+                SqlCommand cmd = new SqlCommand("sp_ObtenerStockMinimo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id_producto", idProducto);
+                cn.Open();
+                var result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                    stockMinimo = Convert.ToInt32(result);
+            }
+            return stockMinimo;
+        }
+
 
         #endregion
     }

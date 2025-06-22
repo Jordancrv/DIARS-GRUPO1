@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = null; 
+    Layout = null;
 }
 <!DOCTYPE html>
 <html lang="es">
@@ -84,8 +84,6 @@
                     <i class="fas fa-credit-card"></i> Pago
                 </a>
 
-
-
                 <div class="text-white text-uppercase small fw-bold mt-4">Ventas</div>
                 <a class="list-group-item list-group-item-action" href="/ControllerVenta/Listar">
                     <i class="fas fa-shopping-cart"></i> Lista Ventas
@@ -94,29 +92,47 @@
                     <i class="fas fa-cart-plus"></i> Agregar Venta
                 </a>
 
-
-
-
                 <div class="text-white text-uppercase small fw-bold mt-4">Clientes</div>
                 <a class="list-group-item list-group-item-action" href="/Cliente/Listar">
-                    <i class="fas fa-shopping-cart"></i> Listar Clientes
+                    <i class="fas fa-users"></i> Listar Clientes
                 </a>
                 <a class="list-group-item list-group-item-action" href="/Cliente/InsertarCliente">
-                    <i class="fas fa-cart-plus"></i> Agregar Cliente 
+                    <i class="fas fa-user-plus"></i> Agregar Cliente
                 </a>
-
 
                 <div class="text-white text-uppercase small fw-bold mt-4">Usuarios</div>
                 <a class="list-group-item list-group-item-action" href="/Usuarios/Listar">
-                    <i class="fas fa-shopping-cart"></i> Listar Usuarios
+                    <i class="fas fa-user-friends"></i> Listar Usuarios
                 </a>
                 <a class="list-group-item list-group-item-action" href="/Usuarios/Registrar">
-                    <i class="fas fa-cart-plus"></i> Agregar Usuario
+                    <i class="fas fa-user-plus"></i> Agregar Usuario
                 </a>
 
+                <div class="text-white text-uppercase small fw-bold mt-4">Proveedores</div>
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "Proveedores")">
+                    <i class="fas fa-clipboard-list"></i> Listar Proveedores
+                </a>
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Registrar", "Proveedores")">
+                    <i class="fas fa-user-plus"></i> Registrar Proveedor
+                </a>
+                <div class="text-white text-uppercase small fw-bold mt-3">Compras</div>
 
-            
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "OrdenCompra")">
+                    <i class="fas fa-file-invoice"></i> Ordenes de Compra
+                </a>
 
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Crear", "OrdenCompra")">
+                    <i class="fas fa-plus-circle"></i> Nueva Orden
+                </a>
+                <div class="text-white text-uppercase small fw-bold mt-4">Productos</div>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "Producto")">
+                    <i class="fas fa-boxes"></i> Listar Productos
+                </a>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Registrar", "Producto")">
+                    <i class="fas fa-plus-square"></i> Agregar Producto
+                </a>
 
 
 
@@ -124,7 +140,7 @@
         </div>
 
         <!-- Page Content -->
-        <div id="page-content-wrapper"  class="flex-grow-1">
+        <div id="page-content-wrapper" class="flex-grow-1">
             <nav class="navbar navbar-expand-lg navbar-dark px-4">
                 <span class="navbar-brand">Panel de Administración</span>
             </nav>
@@ -139,4 +155,3 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
-

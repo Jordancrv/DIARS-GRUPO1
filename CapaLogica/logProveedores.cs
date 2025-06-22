@@ -43,6 +43,10 @@ namespace CapaLogica
         {
             return datProveedor.Instancia.EliminarProveedor(idProveedor);
         }
+        public decimal ObtenerPrecioProveedor(int idProveedor, int idProducto)
+        {
+            return datProveedor.Instancia.ObtenerPrecioProveedor(idProveedor, idProducto);
+        }
 
 
 

@@ -73,7 +73,7 @@
             var rol = Context.Session.GetString("rol");
         }
 
-        @if (!string.IsNullOrEmpty(rol) && rol == "Admin")
+        @if (!string.IsNullOrEmpty(rol) && rol == "admin")
 
         {
             <a class="btn btn-warning me-2" href="@Url.Action("Index", "PanelAdmin")">
@@ -5330,5 +5330,7 @@
 <script src="~/js-user/biolife.framework.js"></script>
 <script src="~/js-user/functions.js"></script>
 </body>
+@RenderSection("Scripts", required: false)
+
 
 </html>

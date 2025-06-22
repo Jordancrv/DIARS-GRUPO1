@@ -1,91 +1,62 @@
 ﻿@model IEnumerable<CapaEntidad.entProductos>
 
 @{
+    ViewData["Title"] = "Lista de Productos";
+
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    ViewData["Title"] = "Listar";
 }
 
-<h1>Listar</h1>
+<h2>Lista de Productos</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.id_producto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.codigo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.precio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.stock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.stock_minimo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.unidad_medida)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.id_proveedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.activo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_producto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.stock)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.stock_minimo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.unidad_medida)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_proveedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.activo)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+<a asp-action="Registrar" class="btn btn-success mb-3">+ Registrar Nuevo Producto</a>
+
+@if (!Model.Any())
+
+{
+    <div class="alert alert-info">No hay productos registrados.</div>
 }
-    </tbody>
-</table>
+
+else
+
+{
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Unidad</th>
+                <th>Proveedor</th>
+                <th>Categoría</th>
+                <th>Presentación</th>
+                <th>Empaque</th>
+                <th>Activo</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+
+            {
+                <tr>
+                    <td>@item.codigo</td>
+                    <td>@item.nombre</td>
+                    <td>@item.precio.ToString("C")</td>
+                    <td>@item.stock</td>
+                    <td>@item.unidad_medida</td>
+                    <td>@item.nombreProveedor</td>
+                    <td>@item.nombreCategoria</td>
+                    <td>@item.nombrePresentacion</td>
+                    <td>@item.nombreTipoEmpaque</td>
+                    <td>@(item.activo ? "Sí" : "No")</td>
+                    <td class="text-center">
+                        <a asp-action="Detalles" asp-route-id="@item.id_producto" class="btn btn-sm btn-info">Ver</a>
+                        <a asp-action="Editar" asp-route-id="@item.id_producto" class="btn btn-sm btn-warning">Editar</a>
+                        <a asp-action="Eliminar" asp-route-id="@item.id_producto" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

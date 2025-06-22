@@ -39,12 +39,15 @@ namespace SantaEulalia.Controllers
             return View();
         }
 
-        // POST: Insertar nuevo proveedor
         [HttpPost]
-        public IActionResult Registrar(entProveedores proveedor)
+        public IActionResult Registrar(entProveedores proveedor, List<string> correos, List<string> telefonos)
         {
             try
             {
+                proveedor.correos = correos ?? new List<string>();
+                proveedor.telefonos = telefonos ?? new List<string>();
+                proveedor.activo = true;
+
                 bool registrado = logProveedores.Instancia.InsertarProveedor(proveedor);
 
                 if (registrado)
@@ -61,6 +64,27 @@ namespace SantaEulalia.Controllers
                 return View(proveedor);
             }
         }
+        // GET: Consultar estado de un proveedor
+        [HttpGet]
+        public IActionResult ConsultarEstado(int id)
+        {
+            try
+            {
+                var proveedor = logProveedores.Instancia.BuscarProveedor(id);
+                if (proveedor == null)
+                    return NotFound();
+
+                ViewBag.Estado = proveedor.activo ? "Activo" : "Inactivo";
+                return View(proveedor); // Vista llamada ConsultarEstado.cshtml
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Error al consultar estado: " + ex.Message;
+                return RedirectToAction("Listar");
+            }
+        }
+
+
 
         // GET: Mostrar formulario para editar un proveedor
         [HttpGet]
@@ -83,10 +107,13 @@ namespace SantaEulalia.Controllers
 
         // POST: Actualizar proveedor
         [HttpPost]
-        public IActionResult Editar(entProveedores proveedor)
+        public IActionResult Editar(entProveedores proveedor, List<string> correos, List<string> telefonos)
         {
             try
             {
+                proveedor.correos = correos ?? new List<string>();
+                proveedor.telefonos = telefonos ?? new List<string>();
+
                 bool editado = logProveedores.Instancia.EditarProveedor(proveedor);
 
                 if (editado)
@@ -103,6 +130,7 @@ namespace SantaEulalia.Controllers
                 return View(proveedor);
             }
         }
+
 
         // GET: Mostrar confirmación para eliminar proveedor
         [HttpGet]
