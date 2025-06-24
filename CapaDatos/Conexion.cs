@@ -27,8 +27,8 @@ namespace CapaDatos
         public SqlConnection Conectar()
         {
             SqlConnection cn = new SqlConnection();
-            cn.ConnectionString = "Data Source=ANDERSON\\SQL2024;" +
-                                  "Initial Catalog=DiarsBeta;" +
+            cn.ConnectionString = "Data Source=PC101;" +
+                                  "Initial Catalog=Diars;" +
                                   "Integrated Security=True;";
             return cn;
         }
