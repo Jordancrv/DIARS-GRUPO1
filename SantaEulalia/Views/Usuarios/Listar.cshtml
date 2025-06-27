@@ -2,7 +2,6 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
     ViewData["Title"] = "Listar";
 }
 
@@ -11,69 +10,53 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.id_usuario)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nombres)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.apellidos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.password_hash)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.rol)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fecha_creacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.activo)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.First().id_usuario)</th>
+            <th>@Html.DisplayNameFor(model => model.First().nombres)</th>
+            <th>@Html.DisplayNameFor(model => model.First().apellidos)</th>
+            <th>Correos</th>
+            <th>@Html.DisplayNameFor(model => model.First().password_hash)</th>
+            <th>@Html.DisplayNameFor(model => model.First().rol)</th>
+            <th>@Html.DisplayNameFor(model => model.First().fecha_creacion)</th>
+            <th>@Html.DisplayNameFor(model => model.First().activo)</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_usuario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombres)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.apellidos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.password_hash)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.rol)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fecha_creacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.activo)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id_usuario</td>
+                <td>@item.nombres</td>
+                <td>@item.apellidos</td>
+                <td>
+                    @if (item.correos != null && item.correos.Any())
+                    {
+                        <ul>
+                            @foreach (var correo in item.correos)
+                            {
+                                <li>@correo</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>Sin correos</span>
+                    }
+                </td>
+                <td>@item.password_hash</td>
+                <td>@item.rol</td>
+                <td>@item.fecha_creacion.ToString("yyyy-MM-dd")</td>
+                <td>@(item.activo ? "Sí" : "No")</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id_usuario }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id_usuario }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id_usuario })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

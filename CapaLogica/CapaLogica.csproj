@@ -48,6 +48,7 @@
     <Compile Include="logOrdenCompra.cs" />
     <Compile Include="logPresentacion.cs" />
     <Compile Include="logProducto.cs" />
+    <Compile Include="logPromociones.cs" />
     <Compile Include="logProveedores.cs" />
     <Compile Include="logTipoEmpaque.cs" />
     <Compile Include="logUsuario.cs" />

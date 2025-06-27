@@ -17,15 +17,15 @@ public class logUsuario
         return datUsuario.Instancia.ListarUsuarios();
     }
 
-    public entUsuario BuscarPorId(int id)
-    {
-        return datUsuario.Instancia.BuscarUsuarioPorId(id);
-    }
+    //public entUsuario BuscarPorId(int id)
+    //{
+    //    return datUsuario.Instancia.BuscarUsuarioPorId(id);
+    //}
 
-    public bool Editar(entUsuario usuario)
-    {
-        return datUsuario.Instancia.ActualizarUsuario(usuario);
-    }
+    //public bool Editar(entUsuario usuario)
+    //{
+    //    return datUsuario.Instancia.ActualizarUsuario(usuario);
+    //}
 
     public bool Eliminar(int id)
     {

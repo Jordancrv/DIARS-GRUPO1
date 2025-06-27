@@ -578,6 +578,83 @@ namespace CapaDatos
         }
 
 
+        //public bool InsertarComprobante(entComprobantePago comprobante)
+        //{
+        //    SqlCommand cmd = null;
+        //    bool insertado = false;
+
+        //    try
+        //    {
+        //        SqlConnection cn = Conexion.Instancia.Conectar();
+        //        cmd = new SqlCommand("sp_InsertarComprobante", cn);
+        //        cmd.CommandType = CommandType.StoredProcedure;
+
+        //        cmd.Parameters.AddWithValue("@tipo", comprobante.tipo);
+        //        cmd.Parameters.AddWithValue("@serie", comprobante.serie ?? (object)DBNull.Value);
+        //        cmd.Parameters.AddWithValue("@numero", comprobante.numero ?? (object)DBNull.Value);
+        //        cmd.Parameters.AddWithValue("@fecha_emision", comprobante.fecha_emision);
+        //        cmd.Parameters.AddWithValue("@id_cliente", comprobante.id_cliente);
+        //        cmd.Parameters.AddWithValue("@total", comprobante.total);
+
+        //        cn.Open();
+        //        insertado = cmd.ExecuteNonQuery() > 0;
+        //    }
+        //    catch (SqlException e)
+        //    {
+        //        throw new Exception("Error al insertar comprobante: " + e.Message, e);
+        //    }
+        //    finally
+        //    {
+        //        cmd?.Connection?.Close();
+        //    }
+
+        //    return insertado;
+        //}
+
+        public List<entComprobantePago> ListarComprobantes()
+        {
+            SqlCommand cmd = null;
+            SqlDataReader dr = null;
+            List<entComprobantePago> lista = new List<entComprobantePago>();
+
+            try
+            {
+                SqlConnection cn = Conexion.Instancia.Conectar();
+                cmd = new SqlCommand("sp_listarComprobantes", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cn.Open();
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    entComprobantePago comprobante = new entComprobantePago
+                    {
+                        Tipo = dr["tipo"].ToString(),
+                        Serie = dr["serie"] != DBNull.Value ? dr["serie"].ToString() : null,
+                        Numero = dr["numero"] != DBNull.Value ? dr["numero"].ToString() : null,
+                        Activo = dr["activo"] != DBNull.Value ? Convert.ToBoolean(dr["activo"]) : false
+                    };
+
+                    lista.Add(comprobante);
+                }
+            }
+            catch (SqlException e)
+            {
+                throw new Exception("Error al listar comprobantes: " + e.Message, e);
+            }
+            finally
+            {
+                dr?.Close();
+                cmd?.Connection?.Close();
+            }
+
+            return lista;
+        }
+
+
+
+
         #endregion Métodos
 
     }

@@ -30,7 +30,6 @@ VALUES
 ('Anderson', 'Benites', 'admin123hash', 'admin');
 GO
 
-SELECT * FROM Usuarios
 
 
 CREATE TABLE UsuarioCorreos (
@@ -39,6 +38,7 @@ CREATE TABLE UsuarioCorreos (
     PRIMARY KEY (id_usuario, email),
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
+
 
 
 -- Obtener los ID generados automáticamente
@@ -308,8 +308,8 @@ GO
 CREATE TABLE ComprobantesPago (
     id_comprobante INT IDENTITY(1,1) PRIMARY KEY,
     tipo VARCHAR(50) NOT NULL CHECK (tipo IN ('factura', 'boleta', 'nota_credito')),
-    serie VARCHAR(20),
-    numero VARCHAR(20),
+    serie VARCHAR(20),-- agregar unique para evitar duplicados. 
+    numero VARCHAR(20),--agregar unique para evitar duplicados. 
     activo BIT DEFAULT 1
 );
 GO
@@ -333,7 +333,7 @@ CREATE TABLE PedidosVenta (
     total DECIMAL(12,2),
     total_descuento_productos DECIMAL(12,2),
     total_descuento_promociones DECIMAL(12,2),
-    total_con_descuento DECIMAL(12,2),
+	   total_con_descuento DECIMAL(12,2),
     estado VARCHAR(20) NOT NULL CHECK (estado IN ('pendiente', 'procesado', 'anulado'))
 );
 GO
@@ -600,52 +600,100 @@ GO
 -------------------------------------------------------------
 -------------PROCESO PARA USUARIO-----------------------
 -- Insertar usuario con correo
-CREATE OR ALTER PROCEDURE sp_InsertarUsuario
-    @nombres VARCHAR(100),
-    @apellidos VARCHAR(100),
-    @email VARCHAR(100),
-    @password_hash VARCHAR(255),
-    @rol VARCHAR(50),
+--CREATE OR ALTER PROCEDURE sp_InsertarUsuario
+--    @nombres VARCHAR(100),
+--    @apellidos VARCHAR(100),
+--    @email VARCHAR(100),
+--    @password_hash VARCHAR(255),
+--    @rol VARCHAR(50),
+--    @activo BIT
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+--    BEGIN TRY
+--        BEGIN TRANSACTION;
+
+--        INSERT INTO Usuarios (nombres, apellidos, password_hash, rol, fecha_creacion, activo)
+--        VALUES (@nombres, @apellidos, @password_hash, @rol, GETDATE(), @activo);
+
+--        DECLARE @id_usuario INT = SCOPE_IDENTITY();
+
+--        INSERT INTO UsuarioCorreos (id_usuario, email)
+--        VALUES (@id_usuario, @email);
+
+--        COMMIT;
+--    END TRY
+--    BEGIN CATCH
+--        ROLLBACK;
+--        THROW;
+--    END CATCH
+--END
+--GO
+select * from Usuarios
+create or alter PROCEDURE sp_InsertarUsuario
+    @nombres NVARCHAR(100),
+    @apellidos NVARCHAR(100),
+    @password_hash NVARCHAR(255),
+    @rol NVARCHAR(50),
     @activo BIT
 AS
 BEGIN
     SET NOCOUNT ON;
-    BEGIN TRY
-        BEGIN TRANSACTION;
 
-        INSERT INTO Usuarios (nombres, apellidos, password_hash, rol, fecha_creacion, activo)
-        VALUES (@nombres, @apellidos, @password_hash, @rol, GETDATE(), @activo);
+    INSERT INTO Usuarios (nombres, apellidos, password_hash, rol, activo)
+    VALUES (@nombres, @apellidos, @password_hash, @rol, @activo);
 
-        DECLARE @id_usuario INT = SCOPE_IDENTITY();
-
-        INSERT INTO UsuarioCorreos (id_usuario, email)
-        VALUES (@id_usuario, @email);
-
-        COMMIT;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK;
-        THROW;
-    END CATCH
-END
+    SELECT SCOPE_IDENTITY() AS id_generado;
+END;
 GO
 
+
+
+CREATE OR ALTER PROCEDURE sp_InsertarCorreoUsuarios
+    @id_usuario INT,
+    @correo NVARCHAR(100)
+AS
+BEGIN
+    INSERT INTO UsuarioCorreos (id_usuario, email)
+    VALUES (@id_usuario, @correo);
+END;
+GO
+
+
+select   nombres from Usuarios  where nombres = 'alverto'; 
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- Listar usuarios
-CREATE OR ALTER PROCEDURE sp_ListarUsuarios
+Create or alter  procedure sp_ListarUsuarios
 AS
 BEGIN
     SELECT 
         u.id_usuario,
         u.nombres,
         u.apellidos,
-        uc.email,
+        u.password_hash,
         u.rol,
         u.fecha_creacion,
-        u.activo
+        u.activo,
+        c.email
     FROM Usuarios u
-    LEFT JOIN UsuarioCorreos uc ON u.id_usuario = uc.id_usuario;
-END
+    LEFT JOIN UsuarioCorreos c ON u.id_usuario = c.id_usuario
+    ORDER BY u.id_usuario;
+END;
 GO
+
+select * from Usuarios
 
 -- Buscar usuario por ID
 CREATE OR ALTER PROCEDURE sp_BuscarUsuarioPorId
@@ -711,6 +759,12 @@ BEGIN
     WHERE id_usuario = @id_usuario;
 END
 GO
+
+
+
+
+
+
 
 
 ------------------------PROCESO PARA CLIENTE........................
@@ -1240,7 +1294,6 @@ END;
 GO
 
 
-
 CREATE OR ALTER PROCEDURE sp_BuscarPromocionPorId
     @id_promocion INT
 AS
@@ -1316,7 +1369,9 @@ BEGIN
     VALUES (@nombre_tipo);
 END;
 GO
-
+-------si se usara----------
+-------------------------
+------
 CREATE OR ALTER PROCEDURE sp_ListarTipoPromocion
 AS
 BEGIN
@@ -1412,6 +1467,8 @@ END;
 GO
 
 
+SELECT * FROM Promociones
+SELECT * FROM TipoPromocion
 CREATE OR ALTER PROCEDURE sp_BuscarPromocionPorId
     @id_promocion INT
 AS
@@ -1502,10 +1559,55 @@ END;
 GO
 
 
+----------------------Proc Comprobante de pago------------
+-----------------------------------------------------
+
+CREATE OR ALTER PROCEDURE sp_ListarComprobantes
+as 
+	begin
+		select * from ComprobantesPago
+	end
+
+GO
+
+CREATE OR ALTER PROCEDURE sp_InsertarComprobante
+    @tipo VARCHAR(20),
+    @serie VARCHAR(20),
+    @numero VARCHAR(20),
+    @fecha_emision DATE,
+    @id_cliente INT,
+    @total DECIMAL(10, 2)
+AS
+BEGIN
+    INSERT INTO ComprobantesPago (
+        tipo, serie, numero, fecha_emision, id_cliente, total, activo
+    )
+    VALUES (
+        @tipo, @serie, @numero, @fecha_emision, @id_cliente, @total, 1
+    );
+END;
+GO
+
+
+
+
+
 
 
 -----------PROC.  PEDIDO-VENTA----------------
 
+CREATE OR ALTER PROCEDURE sp_listarComprobantes
+AS 
+	BEGIN 
+		SELECT  tipo, serie, numero, activo FROM ComprobantesPago
+
+	END
+
+GO
+
+
+
+SELECT * FROM ComprobantesPago
 
 -- Para insertar detalles de productos vendidos
 CREATE TYPE DetalleVentaType AS TABLE (
