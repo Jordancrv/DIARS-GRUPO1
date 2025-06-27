@@ -1,0 +1,71 @@
+﻿@model CapaEntidad.entUsuario
+
+@{
+    ViewData["Title"] = "Registrar Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Registrar Usuario</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Registrar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="nombres"></label>
+                <input asp-for="nombres" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="apellidos"></label>
+                <input asp-for="apellidos" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input asp-for="password_hash" type="password" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Rol</label>
+                <select asp-for="rol" class="form-control">
+                    <option value="">Seleccione un Rol</option>
+                    <option value="admin">admin</option>
+                    <option value="vendedor">vendedor</option>
+                    <option value="almacen">almacén</option>
+                    <option value="compras">compras</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Correo 1</label>
+                <input name="correos" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label>Correo 2 (opcional)</label>
+                <input name="correos" class="form-control" />
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="activo" /> @Html.DisplayNameFor(m => m.activo)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Registrar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    
+}

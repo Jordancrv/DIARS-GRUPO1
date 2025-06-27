@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -43,9 +43,18 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="LogAlmacen.cs" />
-    <Compile Include="LogProducto.cs" />
-    <Compile Include="LogUsuario.cs" />
+    <Compile Include="logCategoria.cs" />
+    <Compile Include="logClientes.cs" />
+    <Compile Include="logOrdenCompra.cs" />
+    <Compile Include="logPresentacion.cs" />
+    <Compile Include="logProducto.cs" />
+    <Compile Include="logPromociones.cs" />
+    <Compile Include="logProveedores.cs" />
+    <Compile Include="logTipoEmpaque.cs" />
+    <Compile Include="logUsuario.cs" />
+    <Compile Include="logVenta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsuarioBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CapaDatos\CapaDatos.csproj">

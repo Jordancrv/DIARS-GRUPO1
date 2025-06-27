@@ -18,11 +18,22 @@ namespace CapaEntidad
         public int stock_minimo { get; set; }
         public string unidad_medida { get; set; }
         public int id_proveedor { get; set; }
+        public int idCategoria { get; set; }
+        public int idPresentacion { get; set; } 
+        public int idTipoEmpaque { get; set; }
+
         public bool activo { get; set; }
 
-        public entProveedores Proveedor { get; set; }
-    }
+        // Relaciones
+        
 
+        // Propiedades de navegación (opcional si usas ViewModel)
+        public string nombreProveedor { get; set; }
+        public string nombreCategoria { get; set; }
+        public string nombrePresentacion { get; set; }
+        public string nombreTipoEmpaque { get; set; }
+
+    }
     public class entProveedores
     {
         public int id_proveedor { get; set; }
@@ -30,13 +41,25 @@ namespace CapaEntidad
         public string ruc { get; set; }
         public string direccion { get; set; }
         public string contacto { get; set; }
-        public string telefono { get; set; }
-        public string email { get; set; }
         public bool activo { get; set; }
 
+        public List<string> telefonos { get; set; }
+        public List<string> correos { get; set; }
+
         public List<entProductos> Productos { get; set; }
+
+        public entProveedores()
+        {
+            telefonos = new List<string>();
+            correos = new List<string>();
+            Productos = new List<entProductos>();
+        }
     }
-    
-    
+
+
+
+
+
+
 
 }

@@ -1,31 +1,55 @@
 ﻿using System.Collections.Generic;
 using CapaEntidad;
+using CapaDatos; 
 
-public class LogProducto
+public class logProducto
 {
-    private static readonly LogProducto _instancia = new LogProducto();
-    public static LogProducto Instancia => _instancia;
+    #region Singleton
+    private static readonly logProducto UnicaInstancia = new logProducto();
 
-    public List<entProductos> ListarProductos()
+    public static logProducto Instancia
     {
-        return new List<entProductos>();
+        get
+        {
+            return logProducto.UnicaInstancia;
+        }
+    }
+    #endregion
+
+    // Listar
+    public List<entProductos> ListarProducto()
+    {
+        return datProducto.Instancia.ListarProductos();
     }
 
-    public bool RegistrarProducto(entProductos obj, out string mensaje)
+    // Insertar
+    public bool InsertarProducto(entProductos producto)
     {
-        mensaje = "Producto registrado";
-        return true;
+        return datProducto.Instancia.InsertarProducto(producto);
     }
 
-    public bool EditarProducto(entProductos obj, out string mensaje)
+    // Editar
+    public bool EditarProducto(entProductos producto)
     {
-        mensaje = "Producto editado";
-        return true;
+        return datProducto.Instancia.EditarProducto(producto);
     }
 
-    public bool EliminarProducto(int id, out string mensaje)
+    // Buscar
+    public entProductos BuscarProducto(int idProducto)
     {
-        mensaje = "Producto eliminado";
-        return true;
+        return datProducto.Instancia.BuscarProducto(idProducto);
     }
+
+    // Eliminar
+    public bool EliminarProducto(int idProducto)
+    {
+        return datProducto.Instancia.EliminarProducto(idProducto);
+    }
+
+    public int ObtenerStockMinimo(int idProducto)
+    {
+        return datProducto.Instancia.ObtenerStockMinimo(idProducto);
+    }
+
+
 }

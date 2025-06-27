@@ -1,30 +1,6 @@
-C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\bin\Debug\CapaEntidad.dll
-C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\bin\Debug\CapaEntidad.pdb
-C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
-C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
-C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\obj\Debug\CapaEntidad.dll
-C:\Cursos\BIG DATA\SantaEulalia_Proyecto\SantaEulalia\CapaEntidad\obj\Debug\CapaEntidad.pdb
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.dll
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.pdb
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.dll
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.pdb
-C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.dll
-C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.pdb
-C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
-C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
-C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.dll
-C:\Users\shant\Desktop\Nueva carpeta\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.pdb
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaEntidad\obj\Debug\CapaEntidad.dll
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaEntidad\obj\Debug\CapaEntidad.pdb
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaEntidad\bin\Debug\CapaEntidad.dll
-C:\Users\Fabrii\Source\Repos\DIARS-GRUPO01\CapaEntidad\bin\Debug\CapaEntidad.pdb
-C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.dll
-C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.pdb
-C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
-C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
-C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.dll
-C:\Users\USUARIO\Desktop\proyectoDiars\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.pdb
+C:\Users\pc\Desktop\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.dll
+C:\Users\pc\Desktop\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\bin\Debug\CapaEntidad.pdb
+C:\Users\pc\Desktop\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
+C:\Users\pc\Desktop\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.dll
+C:\Users\pc\Desktop\DiarsProyecto\DIARS-GRUPO1\CapaEntidad\obj\Debug\CapaEntidad.pdb

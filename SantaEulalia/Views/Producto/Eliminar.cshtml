@@ -1,0 +1,34 @@
+﻿@model CapaEntidad.entProductos
+
+@{
+    ViewData["Title"] = "Eliminar Producto";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar Producto</h2>
+
+<h4>¿Está seguro de que desea eliminar el siguiente producto?</h4>
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">Código</dt>
+        <dd class="col-sm-9">@Model.codigo</dd>
+
+        <dt class="col-sm-3">Nombre</dt>
+        <dd class="col-sm-9">@Model.nombre</dd>
+
+        <dt class="col-sm-3">Precio</dt>
+        <dd class="col-sm-9">@Model.precio</dd>
+
+        <dt class="col-sm-3">Unidad de Medida</dt>
+        <dd class="col-sm-9">@Model.unidad_medida</dd>
+    </dl>
+
+    <form asp-action="Eliminar" method="post">
+        <input type="hidden" asp-for="id_producto" />
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

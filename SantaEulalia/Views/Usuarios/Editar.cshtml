@@ -1,0 +1,77 @@
+﻿@model CapaEntidad.entUsuario
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<h1>Editar Usuario</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Editar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- ID oculto -->
+            <input type="hidden" asp-for="id_usuario" />
+
+            <div class="form-group">
+                <label asp-for="nombres" class="control-label"></label>
+                <input asp-for="nombres" class="form-control" />
+                <span asp-validation-for="nombres" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="apellidos" class="control-label"></label>
+                <input asp-for="apellidos" class="form-control" />
+                <span asp-validation-for="apellidos" class="text-danger"></span>
+            </div>
+
+            <!-- Mostrar los correos -->
+            <div class="form-group">
+                <label>Correos</label>
+                @for (int i = 0; i < Model.correos.Count; i++)
+                {
+                    <input type="email" name="correos[@i]" value="@Model.correos[i]" class="form-control mb-2" />
+                }
+                <!-- Opción para agregar un nuevo correo manualmente -->
+                <input type="email" name="correos[]" class="form-control" placeholder="Nuevo correo (opcional)" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="password_hash" class="control-label"></label>
+                <input asp-for="password_hash" class="form-control" type="password" />
+                <span asp-validation-for="password_hash" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="rol" class="control-label"></label>
+                <input asp-for="rol" class="form-control" />
+                <span asp-validation-for="rol" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="fecha_creacion" class="control-label"></label>
+                <input asp-for="fecha_creacion" class="form-control" readonly />
+                <span asp-validation-for="fecha_creacion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <input class="form-check-input" asp-for="activo" />
+                <label class="form-check-label" asp-for="activo"></label>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary ml-2">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
