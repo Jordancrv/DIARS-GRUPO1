@@ -839,3 +839,10 @@ C:\Users\Fabrii\source\repos\DIARS-GRUPO1\SantaEulalia\obj\Debug\net8.0\refint\S
 C:\Users\Fabrii\source\repos\DIARS-GRUPO1\SantaEulalia\obj\Debug\net8.0\SantaEulalia.pdb
 C:\Users\Fabrii\source\repos\DIARS-GRUPO1\SantaEulalia\obj\Debug\net8.0\SantaEulalia.genruntimeconfig.cache
 C:\Users\Fabrii\source\repos\DIARS-GRUPO1\SantaEulalia\obj\Debug\net8.0\ref\SantaEulalia.dll
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\SantaEulalia\bin\Debug\net8.0\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\SantaEulalia\bin\Debug\net8.0\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\SantaEulalia\bin\Debug\net8.0\Rotativa.AspNetCore.dll
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\SantaEulalia\bin\Debug\net8.0\CapaEntidad.dll.config
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\SantaEulalia\bin\Debug\net8.0\CapaLogica.dll.config
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\SantaEulalia\bin\Debug\net8.0\CapaDatos.dll.config
+C:\Users\Fabrii\Source\Repos\DIARS-GRUPO1\SantaEulalia\obj\Debug\net8.0\SantaEulalia.MvcApplicationPartsAssemblyInfo.cs

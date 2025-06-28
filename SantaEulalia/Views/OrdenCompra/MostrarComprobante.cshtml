@@ -1,0 +1,58 @@
+﻿@model CapaEntidad.ComprobantePagoViewModel
+
+@{
+    ViewBag.Title = "Comprobante de Pago";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="mb-4">Comprobante de Pago</h2>
+
+<div class="card bg-light text-dark">
+    <div class="card-body">
+        <h4 class="card-title">@Model.Comprobante.tipo.ToUpper()</h4>
+        <p><strong>Serie:</strong> @Model.Comprobante.serie</p>
+        <p><strong>Número:</strong> @Model.Comprobante.numero</p>
+        <p><strong>Activo:</strong> @(Model.Comprobante.activo ? "Sí" : "No")</p>
+        <hr />
+        <h5 class="mt-3">Detalle del Pago</h5>
+        <p><strong>Monto:</strong> S/. @Model.Pago.Monto</p>
+        <p><strong>Estado:</strong> @Model.Pago.Estado</p>
+        <p><strong>Fecha de Pago:</strong> @Model.Pago.FechaPago.ToShortDateString()</p>
+        <p><strong>Observaciones:</strong> @Model.Pago.Observaciones</p>
+
+        <hr />
+        <h5 class="mt-3">Orden de Compra</h5>
+        <p><strong>ID Orden:</strong> @Model.Orden.id_orden_compra</p>
+        <p><strong>Total:</strong> S/. @Model.Orden.total</p>
+        <p><strong>Fecha:</strong> @Model.Orden.fecha.ToShortDateString()</p>
+        <p><strong>Tipo de Orden:</strong> @Model.Orden.tipo_orden</p>
+        <p><strong>Estado:</strong> @Model.Orden.estado</p>
+
+        <h6 class="mt-3">Productos:</h6>
+        <ul>
+            @foreach (var d in Model.Orden.detalles)
+            {
+                <li>
+                    Producto ID: @d.id_producto |
+                    Cantidad: @d.cantidad |
+                    Precio Unitario: S/. @d.precio_unitario |
+                    Subtotal: S/. @(d.cantidad * d.precio_unitario)
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<a class="btn btn-success" href="@Url.Action("DescargarPDF", "OrdenCompra", new { id = Model.Comprobante.id_comprobante })" target="_blank">
+    Descargar PDF
+</a>
+<a class="btn btn-danger mt-2"
+   href="@Url.Action("AnularPago", "OrdenCompra", new { id = Model.Comprobante.id_comprobante })"
+   onclick="return confirm('¿Estás seguro de que deseas anular este pago?');">
+    Anular Pago
+</a>
+
+
+
+
+<a href="@Url.Action("Listar", "OrdenCompra")" class="btn btn-primary mt-3">Volver al listado</a>

@@ -4,6 +4,8 @@ GO
 USE DiarsAlfa;
 GO
 
+--aaa
+
 -- Tabla de usuarios
 CREATE TABLE Usuarios (
     id_usuario INT IDENTITY(1,1) PRIMARY KEY,
@@ -245,6 +247,21 @@ CREATE TABLE ProveedorTelefonos (
     FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor)
 );
 GO
+
+CREATE TABLE ProveedorProductos (
+    id_proveedor INT REFERENCES Proveedores(id_proveedor),
+    id_producto INT REFERENCES Productos(id_producto),
+    precio DECIMAL(12, 2) NOT NULL,
+    PRIMARY KEY (id_proveedor, id_producto)
+);
+
+ALTER TABLE PagosOrdenCompra
+ADD id_comprobante INT NULL REFERENCES ComprobantesPago(id_comprobante);
+
+
+
+
+drop table ProveedorProductos
 
 CREATE OR ALTER PROCEDURE sp_ListarProveedoresCompleto
 AS
@@ -557,6 +574,52 @@ CREATE TABLE ComprobantesPago (
     activo BIT DEFAULT 1
 );
 GO
+CREATE OR ALTER PROCEDURE sp_RegistrarPagoOrden
+    @IdOrdenCompra INT,
+    @IdMetodoPago INT,
+    @Monto DECIMAL(12, 2),
+    @TipoComprobante VARCHAR(50),
+    @Serie VARCHAR(20),
+    @Numero VARCHAR(20),
+    @Observaciones VARCHAR(255) = NULL,
+    @IdComprobanteGenerado INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRAN;
+
+        INSERT INTO ComprobantesPago (tipo, serie, numero)
+        VALUES (@TipoComprobante, @Serie, @Numero);
+
+        DECLARE @id_comprobante INT = SCOPE_IDENTITY();
+
+        INSERT INTO PagosOrdenCompra (
+            id_orden_compra, id_metodo_pago, monto, estado, fecha_pago, observaciones, id_comprobante
+        )
+        VALUES (
+            @IdOrdenCompra, @IdMetodoPago, @Monto, 'completado', GETDATE(), @Observaciones, @id_comprobante
+        );
+
+        UPDATE OrdenesCompra
+        SET estado = 'recibido'
+        WHERE id_orden_compra = @IdOrdenCompra;
+
+        SET @IdComprobanteGenerado = @id_comprobante;
+
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK;
+        THROW;
+    END CATCH
+END;
+
+
+
+
+
 
 -- Métodos de pago
 CREATE TABLE MetodosPago (
@@ -566,6 +629,12 @@ CREATE TABLE MetodosPago (
     activo BIT DEFAULT 1
 );
 GO
+
+select * from MetodosPago
+INSERT INTO MetodosPago (nombre, descripcion, activo)
+VALUES ('Efectivo', 'Pago en efectivo', 1),
+       ('Tarjeta', 'Pago con tarjeta de crédito/débito', 1),
+       ('Transferencia', 'Pago mediante transferencia bancaria', 1);
 
 -- Pedidos de venta
 CREATE TABLE PedidosVenta (
@@ -672,6 +741,74 @@ CREATE TABLE PagosVenta (
 );
 GO
 
+CREATE OR ALTER PROCEDURE sp_RealizarPagoOrdenCompra
+    @id_orden_compra INT,
+    @id_metodo_pago INT,
+    @monto DECIMAL(12, 2),
+    @tipo_comprobante VARCHAR(50), -- 'factura', 'boleta', 'nota_credito'
+    @serie VARCHAR(20),
+    @numero VARCHAR(20),
+    @observaciones VARCHAR(255) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- Validar orden pendiente
+        IF NOT EXISTS (
+            SELECT 1 FROM OrdenesCompra WHERE id_orden_compra = @id_orden_compra AND estado = 'pendiente'
+        )
+            THROW 50010, 'La orden de compra no existe o no está en estado pendiente.', 1;
+
+        -- Validar menor precio
+        IF EXISTS (
+            SELECT 1
+            FROM DetallesOrdenCompra doc
+            JOIN (
+                SELECT id_producto, MIN(precio) AS precio_minimo
+                FROM ProveedorProductos
+                GROUP BY id_producto
+            ) precios_min ON doc.id_producto = precios_min.id_producto
+            WHERE doc.id_orden_compra = @id_orden_compra
+              AND doc.precio_unitario > precios_min.precio_minimo
+        )
+            THROW 50011, 'Uno o más productos tienen un precio mayor al mínimo registrado.', 1;
+
+        -- Insertar comprobante
+        INSERT INTO ComprobantesPago (tipo, serie, numero)
+        VALUES (@tipo_comprobante, @serie, @numero);
+
+        DECLARE @id_comprobante INT = SCOPE_IDENTITY();
+
+        -- Insertar pago
+        INSERT INTO PagosOrdenCompra (
+            id_orden_compra, id_metodo_pago, monto, fecha_pago,
+            estado, observaciones, id_comprobante
+        )
+        VALUES (
+            @id_orden_compra, @id_metodo_pago, @monto, GETDATE(),
+            'completado', @observaciones, @id_comprobante
+        );
+
+        -- Actualizar estado de orden
+        UPDATE OrdenesCompra
+        SET estado = 'recibido'
+        WHERE id_orden_compra = @id_orden_compra;
+
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK;
+        THROW;
+    END CATCH
+END
+GO
+
+
+
+
 -- Ordenes de compra
 CREATE TABLE OrdenesCompra (
     id_orden_compra INT IDENTITY(1,1) PRIMARY KEY,
@@ -737,6 +874,17 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
+        -- Validar que todos los productos pertenecen al proveedor seleccionado
+        IF EXISTS (
+            SELECT 1
+            FROM @detalles d
+            JOIN Productos p ON p.id_producto = d.id_producto
+            WHERE p.id_proveedor <> @id_proveedor
+        )
+        BEGIN
+            THROW 50004, 'Uno o más productos no pertenecen al proveedor seleccionado.', 1;
+        END
+
         -- Validar que cantidad >= stock mínimo
         IF EXISTS (
             SELECT 1 FROM @detalles d
@@ -747,17 +895,17 @@ BEGIN
             THROW 50002, 'La cantidad ingresada para un producto es menor al stock mínimo permitido.', 1;
         END
 
-        --Calcular total
+        -- Calcular total
         DECLARE @total DECIMAL(12,2);
         SELECT @total = SUM(cantidad * precio_unitario) FROM @detalles;
 
-        --Insertar orden de compra
+        -- Insertar orden de compra
         INSERT INTO OrdenesCompra (id_proveedor, id_usuario, estado, total, tipo_orden)
         VALUES (@id_proveedor, @id_usuario, 'pendiente', @total, @tipo_orden);
 
         DECLARE @id_orden_compra INT = SCOPE_IDENTITY();
 
-        --Insertar detalles
+        -- Insertar detalles
         INSERT INTO DetallesOrdenCompra (id_orden_compra, id_producto, cantidad, precio_unitario)
         SELECT @id_orden_compra, id_producto, cantidad, precio_unitario FROM @detalles;
 
@@ -769,6 +917,7 @@ BEGIN
     END CATCH
 END
 GO
+
 
 select * from Proveedores
 
@@ -836,13 +985,42 @@ GO
 
 CREATE TABLE PagosOrdenCompra (
     id_pago INT IDENTITY(1,1) PRIMARY KEY,
-    id_orden_compra INT REFERENCES OrdenesCompra(id_orden_compra),
-    id_metodo_pago INT REFERENCES MetodosPago(id_metodo_pago),
+    id_orden_compra INT NOT NULL REFERENCES OrdenesCompra(id_orden_compra),
+    id_metodo_pago INT NOT NULL REFERENCES MetodosPago(id_metodo_pago),
+    id_comprobante INT NOT NULL REFERENCES ComprobantesPago(id_comprobante),
     monto DECIMAL(12, 2) NOT NULL,
     fecha_pago DATETIME DEFAULT GETDATE(),
     estado VARCHAR(20) CHECK (estado IN ('pendiente', 'completado', 'anulado')),
     observaciones VARCHAR(255)
 );
+GO
+
+CREATE OR ALTER PROCEDURE sp_AnularPagoOrden
+    @IdComprobante INT
+AS
+BEGIN
+    -- Cambiar estado de la orden a "pendiente"
+    UPDATE OrdenesCompra
+    SET estado = 'pendiente'
+    WHERE id_orden_compra = (
+        SELECT id_orden_compra FROM PagosOrdenCompra WHERE id_comprobante = @IdComprobante
+    );
+
+    -- Marcar el comprobante como inactivo
+    UPDATE ComprobantesPago
+    SET activo = 0
+    WHERE id_comprobante = @IdComprobante;
+
+    -- También cambiar el estado del pago a "anulado"
+    UPDATE PagosOrdenCompra
+    SET estado = 'anulado'
+    WHERE id_comprobante = @IdComprobante;
+END
+GO
+
+
+
+
 
 
 CREATE TABLE OfertasProveedor (

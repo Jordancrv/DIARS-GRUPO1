@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "r+FaTu0chEY=",
+  "dgSpecHash": "NSOFf/qHZeU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+  "projectFilePath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Fabrii\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Fabrii\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
@@ -122,6 +122,7 @@
     "C:\\Users\\Fabrii\\.nuget\\packages\\nuget.projectmodel\\6.11.0\\nuget.projectmodel.6.11.0.nupkg.sha512",
     "C:\\Users\\Fabrii\\.nuget\\packages\\nuget.protocol\\6.11.0\\nuget.protocol.6.11.0.nupkg.sha512",
     "C:\\Users\\Fabrii\\.nuget\\packages\\nuget.versioning\\6.11.0\\nuget.versioning.6.11.0.nupkg.sha512",
+    "C:\\Users\\Fabrii\\.nuget\\packages\\rotativa.aspnetcore\\1.4.0\\rotativa.aspnetcore.1.4.0.nupkg.sha512",
     "C:\\Users\\Fabrii\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Fabrii\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Fabrii\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",

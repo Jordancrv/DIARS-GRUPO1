@@ -1,0 +1,30 @@
+﻿@model CapaEntidad.entComprobantePago
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Comprobante de Pago</title>
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 14px; margin: 20px; }
+        h2 { text-align: center; margin-bottom: 20px; }
+        .datos { margin-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid #000; }
+        th, td { padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+    <h2>Comprobante de Pago</h2>
+
+    <div class="datos">
+        <strong>ID Comprobante:</strong> @Model.id_comprobante <br />
+        <strong>Tipo:</strong> @Model.tipo <br />
+        <strong>Serie:</strong> @Model.serie <br />
+        <strong>Número:</strong> @Model.numero <br />
+        <strong>Activo:</strong> @(Model.activo ? "Sí" : "No")
+    </div>
+
+    <!-- Aquí puedes agregar datos de la orden también -->
+</body>
+</html>

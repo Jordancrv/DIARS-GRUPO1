@@ -11,10 +11,9 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-// Middleware para usar sesiones (IMPORTANTE: Debe ir antes de UseEndpoints/MapControllerRoute)
+// Middleware para usar sesiones
 app.UseSession();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage(); // Esto es clave para ver los errores
@@ -27,15 +26,15 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseAuthorization();
 
 app.UseRouting();
-
 app.UseAuthorization();
 
+// Configuración de rutas
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Dashboard}/{action=Index}/{id?}");
-//pattern: "{controller=Home}/{action=Index}/{id?}");
+
+Rotativa.AspNetCore.RotativaConfiguration.Setup(app.Environment.WebRootPath, "Rotativa");
 
 app.Run();

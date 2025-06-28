@@ -1996,6 +1996,18 @@
           "lib/netstandard2.0/NuGet.Versioning.dll": {}
         }
       },
+      "Rotativa.AspNetCore/1.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Rotativa.AspNetCore.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Rotativa.AspNetCore.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "runtime.native.System.Data.SqlClient.sni/4.4.0": {
         "type": "package",
         "dependencies": {
@@ -6278,6 +6290,24 @@
         "nuget.versioning.nuspec"
       ]
     },
+    "Rotativa.AspNetCore/1.4.0": {
+      "sha512": "zn0KgqCQqiTuNPYgeqrIJxXafjJUfDJBcUJIhAV5NgWSCX3DOEeg339zMJTbzcCyoJgGPL5LrG+IKZ3k8/Uk9Q==",
+      "type": "package",
+      "path": "rotativa.aspnetcore/1.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net5.0/Rotativa.AspNetCore.dll",
+        "lib/net6.0/Rotativa.AspNetCore.dll",
+        "lib/net7.0/Rotativa.AspNetCore.dll",
+        "lib/net8.0/Rotativa.AspNetCore.dll",
+        "lib/netcoreapp3.1/Rotativa.AspNetCore.dll",
+        "lib/netstandard2.0/Rotativa.AspNetCore.dll",
+        "rotativa.aspnetcore.1.4.0.nupkg.sha512",
+        "rotativa.aspnetcore.nuspec"
+      ]
+    },
     "runtime.native.System.Data.SqlClient.sni/4.4.0": {
       "sha512": "A8v6PGmk+UGbfWo5Ixup0lPM4swuSwOiayJExZwKIOjTlFFQIsu3QnDXECosBEyrWSPryxBVrdqtJyhK3BaupQ==",
       "type": "package",
@@ -7708,6 +7738,7 @@
       "CapaLogica >= 1.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.5",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.7",
+      "Rotativa.AspNetCore >= 1.4.0",
       "System.Data.SqlClient >= 4.9.0"
     ]
   },
@@ -7717,11 +7748,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+      "projectUniqueName": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
       "projectName": "SantaEulalia",
-      "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+      "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
       "packagesPath": "C:\\Users\\Fabrii\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
+      "outputPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Fabrii\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7739,11 +7770,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
-              "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+            "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+              "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
             },
-            "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
-              "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
+            "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
+              "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
             }
           }
         }
@@ -7770,6 +7801,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[8.0.7, )"
+          },
+          "Rotativa.AspNetCore": {
+            "target": "Package",
+            "version": "[1.4.0, )"
           },
           "System.Data.SqlClient": {
             "target": "Package",
