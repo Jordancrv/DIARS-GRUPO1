@@ -32,7 +32,7 @@ namespace CapaEntidad
         public string nombreCategoria { get; set; }
         public string nombrePresentacion { get; set; }
         public string nombreTipoEmpaque { get; set; }
-
+        //public string materialEmpaque { get; set; }
     }
     public class entProveedores
     {

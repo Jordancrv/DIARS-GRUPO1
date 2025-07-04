@@ -64,8 +64,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxMaXN0YXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/pc/Desktop/DiarsProyecto/DIARS-GRUPO1/SantaEulalia/Views/ControllerVenta/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlclZlbnRhXENyZWF0ZS5jc2h0bWw=
+[C:/Users/pc/Desktop/DiarsProyecto/DIARS-GRUPO1/SantaEulalia/Views/comprobante/InsertarComprobante.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcY29tcHJvYmFudGVcSW5zZXJ0YXJDb21wcm9iYW50ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pc/Desktop/DiarsProyecto/DIARS-GRUPO1/SantaEulalia/Views/comprobante/Listar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcY29tcHJvYmFudGVcTGlzdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pc/Desktop/DiarsProyecto/DIARS-GRUPO1/SantaEulalia/Views/ControllerVenta/Delete.cshtml]
@@ -82,10 +86,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/pc/Desktop/DiarsProyecto/DIARS-GRUPO1/SantaEulalia/Views/ControllerVenta/EliminarVenta.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlclZlbnRhXEVsaW1pbmFyVmVudGEuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/pc/Desktop/DiarsProyecto/DIARS-GRUPO1/SantaEulalia/Views/ControllerVenta/InsertarVenta.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlclZlbnRhXEluc2VydGFyVmVudGEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pc/Desktop/DiarsProyecto/DIARS-GRUPO1/SantaEulalia/Views/ControllerVenta/Listar.cshtml]
@@ -150,6 +150,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/pc/Desktop/DiarsProyecto/DIARS-GRUPO1/SantaEulalia/Views/Producto/Registrar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9cUmVnaXN0cmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pc/Desktop/DiarsProyecto/DIARS-GRUPO1/SantaEulalia/Views/Promociones/Insertar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW9jaW9uZXNcSW5zZXJ0YXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pc/Desktop/DiarsProyecto/DIARS-GRUPO1/SantaEulalia/Views/Promociones/Listar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW9jaW9uZXNcTGlzdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pc/Desktop/DiarsProyecto/DIARS-GRUPO1/SantaEulalia/Views/Proveedores/ConsultarEstado.cshtml]

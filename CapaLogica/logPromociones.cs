@@ -35,6 +35,21 @@ namespace CapaLogica
             return datPromociones.Instancia.InsertarPromocion(promocion);
         }
 
+        public decimal ObtenerDescuentoPromocion(int idProducto)
+        {
+            try
+            {
+                return datVenta.Instancia.ObtenerDescuentoPromocion(idProducto);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en la lógica: " + ex.Message);
+            }
+        }
+
+
+
+
         //// Editar
         //public bool EditarPromocion(entPromociones promocion)
         //{
@@ -52,6 +67,12 @@ namespace CapaLogica
         //{
         //    return datPromociones.Instancia.EliminarPromocion(idPromocion);
         //}
+
+        public List<entTipoPromocion> Listar()
+        {
+            return datPromociones.Instancia.Listar();
+        }
+
 
 
 

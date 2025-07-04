@@ -45,7 +45,7 @@ namespace CapaDatos
                         Descuento = Convert.ToDecimal(dr["Descuento"]),
                         FechaInicio = Convert.ToDateTime(dr["FechaInicio"]),
                         FechaFin = Convert.ToDateTime(dr["FechaFin"]),
-                        TipoPromocion = dr["TipoPromocion"].ToString(),
+                        TipoPromocion = dr["TipoPromocion"].ToString(), // <-- Cambiado
                         Estado = Convert.ToBoolean(dr["Estado"])
                     });
                 }
@@ -64,7 +64,7 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@Descuento", promo.Descuento);
                 cmd.Parameters.AddWithValue("@FechaInicio", promo.FechaInicio);
                 cmd.Parameters.AddWithValue("@FechaFin", promo.FechaFin);
-                cmd.Parameters.AddWithValue("@id_tipo_promocion", promo.IdTipoPromocion);
+                cmd.Parameters.AddWithValue("@id_tipo_promocion", promo.idTipoPromocion);
                 cmd.Parameters.AddWithValue("@Estado", promo.Estado);
 
                 cn.Open();
@@ -84,6 +84,33 @@ namespace CapaDatos
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
+
+
+        public List<entTipoPromocion> Listar()
+        {
+            List<entTipoPromocion> lista = new List<entTipoPromocion>();
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            {
+                SqlCommand cmd = new SqlCommand("sp_ListarTipoPromocion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cn.Open();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    lista.Add(new entTipoPromocion
+                    {
+                        IdTipoPromocion = Convert.ToInt32(dr["id_tipo_promocion"]),
+                        NombreTipo = dr["nombre_tipo"].ToString()
+                    });
+                }
+            }
+            return lista;
+        }
+
+
+
+      
 
 
     }

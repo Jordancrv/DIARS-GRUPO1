@@ -21,66 +21,67 @@ namespace CapaDatos
         }
         #endregion
 
-        public List<entClientes> ListarClientes()
-        {
-            List<entClientes> lista = new List<entClientes>();
-
-            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            public List<entClientes> ListarClientes()
             {
-                SqlCommand cmd = new SqlCommand("sp_ListarClienteCompleto", cn)
+                List<entClientes> lista = new List<entClientes>();
+
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    CommandType = CommandType.StoredProcedure
-                };
-                cn.Open();
-
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    int id = Convert.ToInt32(dr["id_cliente"]);
-
-                    // Busca si ya está agregado
-                    var cliente = lista.FirstOrDefault(c => c.id_cliente == id);
-
-                    if (cliente == null)
+                    SqlCommand cmd = new SqlCommand("sp_ListarClienteCompleto", cn)
                     {
-                        cliente = new entClientes
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    cn.Open();
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        int id = Convert.ToInt32(dr["id_cliente"]);
+
+                        // Busca si ya está agregado
+                        var cliente = lista.FirstOrDefault(c => c.id_cliente == id);
+
+                        if (cliente == null)
                         {
-                            id_cliente = id,
-                            id_tipo_cliente = Convert.ToInt32(dr["id_tipo_cliente"]),
-                            nombres = dr["nombres"].ToString(),
-                            apellidos = dr["apellidos"].ToString(),
-                            dni = dr["dni"].ToString(),
-                            razon_social = dr["razon_social"].ToString(),
-                            ruc = dr["ruc"].ToString(),
-                            direccion = dr["direccion"].ToString(),
-                            activo = Convert.ToBoolean(dr["activo"]),
-                            telefonos = new List<string>(),
-                            correos = new List<string>()
-                        };
-                        lista.Add(cliente);
-                    }
+                            cliente = new entClientes
+                            {
+                                id_cliente = id,
+                                id_tipo_cliente = Convert.ToInt32(dr["id_tipo_cliente"]),
+                                nombres = dr["nombres"].ToString(),
+                                apellidos = dr["apellidos"].ToString(),
+                                dni = dr["dni"].ToString(),
+                                razon_social = dr["razon_social"].ToString(),
+                                ruc = dr["ruc"].ToString(),
+                                direccion = dr["direccion"].ToString(),
+                                idUsuario = dr["id_usuario"] != DBNull.Value ? dr["id_usuario"].ToString() : null,  
+                                activo = Convert.ToBoolean(dr["activo"]),
+                                telefonos = new List<string>(),
+                                correos = new List<string>()
+                            };
+                            lista.Add(cliente);
+                        }
 
-                    // Agrega teléfono si existe
-                    if (dr["telefono"] != DBNull.Value)
-                    {
-                        string tel = dr["telefono"].ToString();
-                        if (!cliente.telefonos.Contains(tel))
-                            cliente.telefonos.Add(tel);
-                    }
+                        // Agrega teléfono si existe
+                        if (dr["telefono"] != DBNull.Value)
+                        {
+                            string tel = dr["telefono"].ToString();
+                            if (!cliente.telefonos.Contains(tel))
+                                cliente.telefonos.Add(tel);
+                        }
 
-                    // Agrega correo si existe
-                    if (dr["email"] != DBNull.Value)
-                    {
-                        string mail = dr["email"].ToString();
-                        if (!cliente.correos.Contains(mail))
-                            cliente.correos.Add(mail);
+                        // Agrega correo si existe
+                        if (dr["email"] != DBNull.Value)
+                        {
+                            string mail = dr["email"].ToString();
+                            if (!cliente.correos.Contains(mail))
+                                cliente.correos.Add(mail);
+                        }
                     }
                 }
-            }
 
-            return lista;
-        }
+                return lista;
+            }
 
         public bool InsertarCliente(entClientes cliente)
         {
@@ -104,6 +105,7 @@ namespace CapaDatos
                         cmd.Parameters.AddWithValue("@razon_social", (object)cliente.razon_social ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@ruc", (object)cliente.ruc ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@direccion", (object)cliente.direccion ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@id_usuario", (object)cliente.idUsuario ?? DBNull.Value); // Nuevo parámetro para el usuario que crea el cliente
                         cmd.Parameters.AddWithValue("@activo", cliente.activo);
 
                         int idGenerado = Convert.ToInt32(cmd.ExecuteScalar());
@@ -170,6 +172,7 @@ namespace CapaDatos
                         cmd.Parameters.AddWithValue("@razon_social", cliente.razon_social ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@ruc", cliente.ruc ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@direccion", cliente.direccion ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@id_usuario", cliente.idUsuario ?? (object)DBNull.Value); // Nuevo parámetro para el usuario que crea el cliente   
                         cmd.Parameters.AddWithValue("@activo", cliente.activo);
 
                         object result = cmd.ExecuteScalar();
@@ -228,6 +231,7 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@razon_social", (object)cliente.razon_social ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@ruc", (object)cliente.ruc ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@direccion", (object)cliente.direccion ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@id_usuario", (object)cliente.idUsuario ?? DBNull.Value); // Nuevo parámetro para el usuario que edita el cliente
                 cmd.Parameters.AddWithValue("@activo", cliente.activo);
                 cn.Open();
                 cmd.ExecuteNonQuery();
@@ -295,6 +299,7 @@ namespace CapaDatos
                             razon_social = dr["razon_social"].ToString(),
                             ruc = dr["ruc"].ToString(),
                             direccion = dr["direccion"].ToString(),
+                            idUsuario = dr["id_usuario"] != DBNull.Value ? dr["id_usuario"].ToString() : null, // Nuevo campo para el usuario que creó el cliente
                             activo = Convert.ToBoolean(dr["activo"]),
                             telefonos = new List<string>(),
                             correos = new List<string>()

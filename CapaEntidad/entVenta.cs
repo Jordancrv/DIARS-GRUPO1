@@ -27,10 +27,7 @@ namespace CapaEntidad
 
         public decimal TotalConDescuento
         {
-            get
-            {
-                return Total - TotalDescuentoProductos - TotalDescuentoPromociones;
-            }
+            get; set; // Total después de aplicar descuentos    
         }
 
         public string Estado { get; set; } // 'pendiente', 'procesado', 'anulado'
@@ -61,12 +58,12 @@ namespace CapaEntidad
             public decimal PrecioUnitario { get; set; }
 
             // Subtotal se calcula automáticamente como Cantidad * PrecioUnitario
-            public decimal Subtotal => Cantidad * PrecioUnitario;
+            public decimal Subtotal { get; set;  }
 
             public decimal Descuento { get; set; } // Porcentaje
 
             // TotalConDescuento también es calculado
-            public decimal TotalConDescuento => Cantidad * PrecioUnitario * (1 - Descuento / 100.0m);
+            public decimal TotalConDescuento { get; set; }  
         }
     
 

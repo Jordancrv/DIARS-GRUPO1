@@ -34,8 +34,7 @@ namespace CapaDatos
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.AddWithValue("@nombres", (object)usuario.nombres ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@apellidos", (object)usuario.apellidos ?? DBNull.Value);
+                     
                         cmd.Parameters.AddWithValue("@password_hash", (object)usuario.password_hash ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@rol", (object)usuario.rol ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@activo", usuario.activo);
@@ -76,7 +75,7 @@ namespace CapaDatos
             return result;
         }
 
-      
+
         //private void InsertarCorreoUsuario(int idUsuario, string correo)
         //{
         //    using (SqlConnection con = Conexion.Instancia.Conectar())
@@ -138,13 +137,13 @@ namespace CapaDatos
             using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
                 SqlCommand cmd = new SqlCommand(@"
-            SELECT u.*, uc.email
+            SELECT u.id_usuario, u.password_hash, u.rol, u.fecha_creacion, u.activo
             FROM Usuarios u
             INNER JOIN UsuarioCorreos uc ON u.id_usuario = uc.id_usuario
             WHERE uc.email = @correo AND u.password_hash = @password", cn);
 
                 cmd.Parameters.AddWithValue("@correo", email);
-                cmd.Parameters.AddWithValue("@password", password); // Idealmente, compara el hash
+                cmd.Parameters.AddWithValue("@password", password); // Se recomienda usar hashing aquí
 
                 cn.Open();
 
@@ -154,8 +153,6 @@ namespace CapaDatos
                     usuario = new entUsuario
                     {
                         id_usuario = Convert.ToInt32(dr["id_usuario"]),
-                        nombres = dr["nombres"].ToString(), // estaba mal antes
-                        apellidos = dr["apellidos"].ToString(),
                         password_hash = dr["password_hash"].ToString(),
                         rol = dr["rol"].ToString(),
                         fecha_creacion = Convert.ToDateTime(dr["fecha_creacion"]),
@@ -189,8 +186,7 @@ namespace CapaDatos
                             usuariosDic[id_usuario] = new entUsuario
                             {
                                 id_usuario = id_usuario,
-                                nombres = dr["nombres"].ToString(),
-                                apellidos = dr["apellidos"].ToString(),
+                             
                                 password_hash = dr["password_hash"].ToString(),
                                 rol = dr["rol"].ToString(),
                                 fecha_creacion = Convert.ToDateTime(dr["fecha_creacion"]),

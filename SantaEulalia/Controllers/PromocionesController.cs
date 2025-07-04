@@ -1,6 +1,7 @@
 ﻿using CapaEntidad;
 using CapaLogica;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SantaEulalia.Controllers
 {
@@ -36,6 +37,8 @@ namespace SantaEulalia.Controllers
         [HttpGet]
         public IActionResult Insertar()
         {
+            var tipos = logPromociones.Instancia.Listar(); // Carga los tipos desde la lógica
+            ViewBag.TipoPromociones = new SelectList(tipos, "IdTipoPromocion", "NombreTipo");
             return View();
         }
 

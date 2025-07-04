@@ -20,7 +20,6 @@ namespace CapaDatos
         #endregion singleton
 
         #region métodos
-
         public List<entProductos> ListarProductos()
         {
             SqlCommand cmd = null;
@@ -46,17 +45,23 @@ namespace CapaDatos
                         stock = Convert.ToInt32(dr["stock"]),
                         stock_minimo = Convert.ToInt32(dr["stock_minimo"]),
                         unidad_medida = dr["unidad_medida"].ToString(),
-                        id_proveedor = dr["id_proveedor"] != DBNull.Value ? Convert.ToInt32(dr["id_proveedor"]) : 0,
-                        idCategoria = dr["idCategoria"] != DBNull.Value ? Convert.ToInt32(dr["idCategoria"]) : 0,
-                        idPresentacion = dr["idPresentacion"] != DBNull.Value ? Convert.ToInt32(dr["idPresentacion"]) : 0,
-                        idTipoEmpaque = dr["idTipoEmpaque"] != DBNull.Value ? Convert.ToInt32(dr["idTipoEmpaque"]) : 0,
                         activo = Convert.ToBoolean(dr["activo"]),
 
-                        // Propiedades de navegación
-                        nombreProveedor = dr["nombreProveedor"]?.ToString(),
+                        // **CORRECCIÓN:** Estas líneas se eliminan porque el SP no devuelve los IDs.
+                        // Si estas propiedades (id_proveedor, idCategoria, etc.) son estrictamente necesarias
+                        // en tu entidad y el SP no las devuelve, entonces DEBES modificar el SP.
+                        // De lo contrario, no puedes mapearlas desde el DataReader.
+                        // id_proveedor = dr["proveedor"] != DBNull.Value ? 0 : 0, // No se devuelve el id, solo el nombre
+                        // idCategoria = dr["nombreCategoria"] != DBNull.Value ? 0 : 0,
+                        // idPresentacion = dr["nombrePresentacion"] != DBNull.Value ? 0 : 0,
+                        // idTipoEmpaque = dr["nombreEmpaque"] != DBNull.Value ? 0 : 0,
+
+                        // Propiedades de navegación adaptadas al SP
+                        nombreProveedor = dr["proveedor"]?.ToString(),
                         nombreCategoria = dr["nombreCategoria"]?.ToString(),
                         nombrePresentacion = dr["nombrePresentacion"]?.ToString(),
-                        nombreTipoEmpaque = dr["nombreTipoEmpaque"]?.ToString()
+                        nombreTipoEmpaque = dr["nombreEmpaque"]?.ToString(),
+                        // materialEmpaque (del SP) NO SE AGREGA para ser "similar" y no agregar extras
                     };
 
                     lista.Add(p);
@@ -66,16 +71,17 @@ namespace CapaDatos
             }
             catch (SqlException e)
             {
+                // Manejo de errores simplificado, similar a tu original
                 throw new Exception("Error al listar productos: " + e.Message, e);
             }
             finally
             {
+                // Asegura que la conexión se cierre correctamente
                 cmd?.Connection?.Close();
             }
 
             return lista;
         }
-
 
         public bool InsertarProducto(entProductos producto)
         {

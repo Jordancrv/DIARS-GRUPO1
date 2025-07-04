@@ -150,6 +150,73 @@ namespace CapaDatos
             }
         }
 
+
+
+        //public entProveedores BuscarProveedor(int idProveedor)
+        //{
+        //    entProveedores prov = null;
+        //    using (SqlConnection cn = Conexion.Instancia.Conectar())
+        //    {
+        //        cn.Open();
+
+        //        // Datos principales del proveedor
+        //        SqlCommand cmd = new SqlCommand("sp_BuscarProveedor", cn);
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.Parameters.AddWithValue("@id_proveedor", idProveedor);
+
+        //        using (SqlDataReader dr = cmd.ExecuteReader())
+        //        {
+        //            if (dr.Read())
+        //            {
+        //                prov = new entProveedores
+        //                {
+        //                    id_proveedor = Convert.ToInt32(dr["id_proveedor"]),
+        //                    razon_social = dr["razon_social"].ToString(),
+        //                    ruc = dr["ruc"].ToString(),
+        //                    direccion = dr["direccion"].ToString(),
+        //                    contacto = dr["contacto"].ToString(),
+        //                    activo = Convert.ToBoolean(dr["activo"]),
+        //                    telefonos = new List<string>(),
+        //                    correos = new List<string>()
+        //                };
+        //            }
+        //        }
+
+        //        if (prov != null)
+        //        {
+        //            // Correos
+        //            SqlCommand cmdCorreos = new SqlCommand("sp_ListarCorreosProveedor", cn);
+        //            cmdCorreos.CommandType = CommandType.StoredProcedure;
+        //            cmdCorreos.Parameters.AddWithValue("@id_proveedor", idProveedor);
+        //            using (SqlDataReader dr = cmdCorreos.ExecuteReader())
+        //            {
+        //                while (dr.Read())
+        //                {
+        //                    prov.correos.Add(dr["email"].ToString());
+        //                }
+        //            }
+
+        //            // Teléfonos
+        //            SqlCommand cmdTelefonos = new SqlCommand("sp_ListarTelefonosProveedor", cn);
+        //            cmdTelefonos.CommandType = CommandType.StoredProcedure;
+        //            cmdTelefonos.Parameters.AddWithValue("@id_proveedor", idProveedor);
+        //            using (SqlDataReader dr = cmdTelefonos.ExecuteReader())
+        //            {
+        //                while (dr.Read())
+        //                {
+        //                    prov.telefonos.Add(dr["telefono"].ToString());
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return prov;
+        //}
+
+
+
+
+
         public entProveedores BuscarProveedor(int idProveedor)
         {
             entProveedores prov = null;

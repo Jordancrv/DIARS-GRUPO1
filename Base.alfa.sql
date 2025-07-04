@@ -7,76 +7,23 @@ GO
 -- Tabla de usuarios
 CREATE TABLE Usuarios (
     id_usuario INT IDENTITY(1,1) PRIMARY KEY,
-    nombres VARCHAR(100) NOT NULL,
-    apellidos VARCHAR(100) NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    rol VARCHAR(50) NOT NULL CHECK (rol IN ('admin', 'vendedor', 'almacen', 'compras')),
+    rol VARCHAR(50) NOT NULL CHECK (rol IN ('admin','vendedor' , 'compras', 'cliente', 'proveedor')),
     fecha_creacion DATETIME DEFAULT GETDATE(),
     activo BIT DEFAULT 1
 );
 GO
-SELECT * FROM Usuarios	
-
-SELECT * FROM UsuarioCorreos	
-
--- Insertar dos usuarios de tipo admin
-INSERT INTO Usuarios (nombres, apellidos, password_hash, rol)
-VALUES 
-('Juan', 'Pérez', 'hash123', 'admin'),
-('Laura', 'Gómez', 'hash456', 'admin');
-GO
-INSERT INTO Usuarios (nombres, apellidos, password_hash, rol)
-VALUES 
-('Anderson', 'Benites', 'admin123hash', 'admin');
-GO
-
-
-
 CREATE TABLE UsuarioCorreos (
     id_usuario INT,
     email VARCHAR(100) UNIQUE,
     PRIMARY KEY (id_usuario, email),
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
-);
-
-
-
--- Obtener los ID generados automáticamente
-DECLARE @id1 INT, @id2 INT;
-declare @id3 int;
-
-SELECT TOP 1 @id1 = id_usuario FROM Usuarios WHERE nombres = 'Juan' AND apellidos = 'Pérez' ORDER BY id_usuario DESC;
-SELECT TOP 1 @id2 = id_usuario FROM Usuarios WHERE nombres = 'Laura' AND apellidos = 'Gómez' ORDER BY id_usuario DESC;
-SELECT TOP 1 @id3 = id_usuario FROM Usuarios WHERE nombres = 'Anderson' AND apellidos = 'Benites' ORDER BY id_usuario DESC;
--- Insertar correos para el primer usuario
-INSERT INTO UsuarioCorreos (id_usuario, email)
-VALUES
-(@id1, 'juan.admin1@example.com'),
-(@id1, 'juan.admin2@example.com');
-INSERT INTO UsuarioCorreos (id_usuario, email)
-VALUES
-(@id3, 'anderson.admin@example.com');
--- Insertar correos para el segundo usuario
-INSERT INTO UsuarioCorreos (id_usuario, email)
-VALUES
-(@id2, 'laura.admin1@example.com'),
-(@id2, 'laura.admin2@example.com');
-
-SELECT * FROM UsuarioCorreos	
-
-
-
+	); 
 -- Tabla de tipo de cliente
 CREATE TABLE TipoCliente (
     id_tipo_cliente INT PRIMARY KEY,
     nombre_tipo VARCHAR(20) NOT NULL
 );
-GO
-
-
-
-INSERT INTO TipoCliente (id_tipo_cliente, nombre_tipo)
-VALUES (1, 'persona'), (2, 'empresa');
 GO
 
 -- Tabla de clientes
@@ -89,11 +36,12 @@ CREATE TABLE Clientes (
     razon_social VARCHAR(100),
     ruc VARCHAR(11) NULL,
     direccion TEXT,
+	id_usuario INT NULL REFERENCES Usuarios(id_usuario), 
     activo BIT DEFAULT 1,
     FOREIGN KEY (id_tipo_cliente) REFERENCES TipoCliente(id_tipo_cliente)
 );
 GO
-select * from Clientes
+
 CREATE TABLE ClienteCorreos (
     id_cliente INT,
     email VARCHAR(100),
@@ -110,100 +58,30 @@ CREATE TABLE ClienteTelefonos (
 );
 GO
 
--- 6. Insertar personas (clientes tipo 1)
-INSERT INTO Clientes (id_tipo_cliente, nombres, apellidos, dni, direccion)
-VALUES 
-(1, 'Carlos', 'Ramirez', '12345678', 'Calle Lima 123'),
-(1, 'Laura', 'Gomez', '23456789', 'Av. Arequipa 456'),
-(1, 'Andrés', 'Torres', '34567890', 'Jr. Puno 789'),
-(1, 'Lucía', 'Fernández', '45678901', 'Calle Cusco 101'),
-(1, 'Miguel', 'Salinas', '56789012', 'Av. Brasil 202');
+CREATE TABLE Trabajadores (
+    id_trabajador INT IDENTITY(1,1) PRIMARY KEY,
+    id_usuario INT NULL REFERENCES Usuarios(id_usuario), -- Enlace opcional a la cuenta de usuario
+    nombres VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
+    dni CHAR(8) NOT NULL UNIQUE,
+    cargo VARCHAR(50) NULL,
+    fecha_ingreso DATE NULL,
+    activo BIT DEFAULT 1 NOT NULL
+);
 GO
+-- Tabla para almacenar los correos electrónicos de los trabajadores.
+CREATE TABLE TrabajadorCorreo (
+    id_trabajador INT REFERENCES Trabajadores(id_trabajador),
+    email VARCHAR(100) UNIQUE,
+    PRIMARY KEY (id_trabajador, email)
+);
 
--- 7. Insertar correos (puedes verificar con SELECT para ver los IDs generados)
-INSERT INTO ClienteCorreos (id_cliente, email)
-VALUES 
-(1, 'carlos@gmail.com'),
-(2, 'laura@hotmail.com'),
-(3, 'andres@yahoo.com'),
-(4, 'lucia@gmail.com'),
-(5, 'miguel@hotmail.com');
-GO
-
--- 8. Insertar teléfonos
-INSERT INTO ClienteTelefonos (id_cliente, telefono)
-VALUES 
-(1, '999111111'),
-(2, '999222222'),
-(3, '999333333'),
-(4, '999444444'),
-(5, '999555555');
-GO
-
--- Inserta 5 empresas
-INSERT INTO Clientes (id_tipo_cliente, razon_social, ruc, direccion)
-VALUES 
-(2, 'Inversiones Andina SAC', '20123456789', 'Av. Larco 102, Trujillo'),
-(2, 'Soluciones Integrales SRL', '20456789123', 'Calle Los Robles 208, Lima'),
-(2, 'Constructora Eléctrica EIRL', '20678912345', 'Jr. Amazonas 345, Arequipa'),
-(2, 'Servicios Médicos S.A.C.', '20345678901', 'Av. Grau 124, Piura'),
-(2, 'Exportadora Andina SAC', '20987654321', 'Mz G Lt 12, Cusco');
-GO
-
--- Inserta correos para esas empresas
-INSERT INTO ClienteCorreos (id_cliente, email)
-VALUES 
-(1, 'contacto@andinainv.com'),
-(2, 'info@solucionesint.com'),
-(3, 'ventas@constructel.com'),
-(4, 'atencion@servmedicos.pe'),
-(5, 'exporta@andinasac.pe');
-GO
-
--- Inserta teléfonos para esas empresas
-INSERT INTO ClienteTelefonos (id_cliente, telefono)
-VALUES 
-(1, '044-123456'),
-(2, '01-7654321'),
-(3, '054-789012'),
-(4, '073-654321'),
-(5, '084-321987');
-GO
-
-select * from Clientes
---EXEC sp_help Clientes;
-
-
---select * from ClienteCorreos
---select * from ClienteTelefonos
---select * from Clientes
---DROP TABLE IF EXISTS ClienteTelefonos;
---DROP TABLE IF EXISTS ClienteCorreos;
---DROP TABLE IF EXISTS Clientes;
---DROP TABLE IF EXISTS TipoCliente;
---GO
-
---SELECT 
---    f.name AS ForeignKey,
---    OBJECT_NAME(f.parent_object_id) AS TableName,
---    COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
---FROM 
---    sys.foreign_keys AS f
---INNER JOIN 
---    sys.foreign_key_columns AS fc 
---    ON f.OBJECT_ID = fc.constraint_object_id
---WHERE 
---    f.referenced_object_id = OBJECT_ID('Clientes');
-
---	ALTER TABLE PedidosVenta
---DROP CONSTRAINT FK__PedidosVe__id_cl__75A278F5;
-
-
-
-
-
-
-
+-- Tabla para almacenar los números de teléfono de los trabajadores.
+CREATE TABLE TrabajadorTelefono (
+    id_trabajador INT REFERENCES Trabajadores(id_trabajador),
+    telefono VARCHAR(100) UNIQUE,
+    PRIMARY KEY (id_trabajador, telefono)
+);
 
 -- Tabla de proveedores
 CREATE TABLE Proveedores (
@@ -212,6 +90,7 @@ CREATE TABLE Proveedores (
     ruc VARCHAR(11) UNIQUE NOT NULL,
     direccion TEXT,
     contacto VARCHAR(100),
+	id_usuario INT NULL REFERENCES Usuarios(id_usuario), 
     activo BIT DEFAULT 1
 );
 GO
@@ -308,8 +187,8 @@ GO
 CREATE TABLE ComprobantesPago (
     id_comprobante INT IDENTITY(1,1) PRIMARY KEY,
     tipo VARCHAR(50) NOT NULL CHECK (tipo IN ('factura', 'boleta', 'nota_credito')),
-    serie VARCHAR(20),-- agregar unique para evitar duplicados. 
-    numero VARCHAR(20),--agregar unique para evitar duplicados. 
+    serie VARCHAR(20)unique ,-- agregar unique para evitar duplicados. 
+    numero VARCHAR(20)unique,--agregar unique para evitar duplicados. 
     activo BIT DEFAULT 1
 );
 GO
@@ -337,25 +216,266 @@ CREATE TABLE PedidosVenta (
     estado VARCHAR(20) NOT NULL CHECK (estado IN ('pendiente', 'procesado', 'anulado'))
 );
 GO
-drop table PedidosVenta
 
-SELECT 
-    f.name AS ForeignKey,
-    OBJECT_NAME(f.parent_object_id) AS TableName,
-    COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
-FROM 
-    sys.foreign_keys AS f
-INNER JOIN 
-    sys.foreign_key_columns AS fc 
-    ON f.OBJECT_ID = fc.constraint_object_id
-WHERE 
-    f.referenced_object_id = OBJECT_ID('PedidosVenta');
+-- Detalles de la venta
+CREATE TABLE DetallesVenta (
+    id_detalle INT IDENTITY(1,1) PRIMARY KEY,
+    id_pedido INT,
+    id_producto INT,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    subtotal DECIMAL(10, 2),
+    descuento DECIMAL(5,2) DEFAULT 0,
+    total_con_descuento DECIMAL(10,2),
+    FOREIGN KEY (id_pedido) REFERENCES PedidosVenta(id_pedido),
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+);
+GO
+CREATE TABLE VentaPromocion (
+    id_pedido INT,
+    id_promocion INT,
+    PRIMARY KEY (id_pedido, id_promocion),
+    FOREIGN KEY (id_pedido) REFERENCES PedidosVenta(id_pedido),
+    FOREIGN KEY (id_promocion) REFERENCES Promociones(IdPromocion)
+);
+GO
 
-	ALTER TABLE DetallesVenta
-DROP CONSTRAINT FK__DetallesV__id_pe__7D439ABD;
+-- Pagos de venta
+CREATE TABLE PagosVenta (
+    id_pago INT IDENTITY(1,1) PRIMARY KEY,
+    id_pedido INT REFERENCES PedidosVenta(id_pedido),
+    id_metodo_pago INT REFERENCES MetodosPago(id_metodo_pago),
+    monto DECIMAL(12, 2) NOT NULL,
+    fecha DATETIME DEFAULT GETDATE(),
+    estado VARCHAR(20) CHECK (estado IN ('completado', 'anulado', 'pendiente'))
+);
+GO
+
+-- Ordenes de compra
+CREATE TABLE OrdenesCompra (
+    id_orden_compra INT IDENTITY(1,1) PRIMARY KEY,
+    id_proveedor INT NULL REFERENCES  Proveedores(id_proveedor),
+    id_usuario INT REFERENCES Usuarios(id_usuario),
+    fecha DATETIME DEFAULT GETDATE(),
+    estado VARCHAR(20) NOT NULL CHECK (estado IN ('pendiente', 'recibido', 'cancelado')),
+    total DECIMAL(12, 2) NOT NULL,
+	tipo_orden VARCHAR(20) NOT NULL CHECK (tipo_orden IN ('directa', 'licitacion')) DEFAULT 'directa'
+);
+
+GO
+
+-- Detalles de orden de compra
+CREATE TABLE DetallesOrdenCompra (
+    id_detalle INT IDENTITY(1,1) PRIMARY KEY,
+    id_orden_compra INT,
+    id_producto INT,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    subtotal AS (cantidad * precio_unitario),
+    FOREIGN KEY (id_orden_compra) REFERENCES OrdenesCompra(id_orden_compra),
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+);
+GO
 
 
 
+
+
+CREATE TABLE PagosOrdenCompra (
+    id_pago INT IDENTITY(1,1) PRIMARY KEY,
+    id_orden_compra INT REFERENCES OrdenesCompra(id_orden_compra),
+    id_metodo_pago INT REFERENCES MetodosPago(id_metodo_pago),
+    monto DECIMAL(12, 2) NOT NULL,
+    fecha_pago DATETIME DEFAULT GETDATE(),
+    estado VARCHAR(20) CHECK (estado IN ('pendiente', 'completado', 'anulado')),
+    observaciones VARCHAR(255)
+);
+go
+
+CREATE TABLE OfertasProveedor (
+    id_oferta INT IDENTITY(1,1) PRIMARY KEY,
+    id_orden_compra INT REFERENCES OrdenesCompra(id_orden_compra),
+    id_proveedor INT REFERENCES Proveedores(id_proveedor),
+    precio_ofertado DECIMAL(12,2) NOT NULL,
+    fecha_oferta DATETIME DEFAULT GETDATE(),
+    observaciones VARCHAR(255)
+);
+go
+
+
+
+
+
+
+-- Movimiento de stock
+CREATE TABLE MovimientosStock (
+    id_movimiento INT IDENTITY(1,1) PRIMARY KEY,
+    id_producto INT REFERENCES Productos(id_producto),
+    tipo VARCHAR(20) NOT NULL CHECK (tipo IN ('entrada', 'salida', 'ajuste')),
+    cantidad INT NOT NULL,
+    fecha DATETIME DEFAULT GETDATE(),
+    id_pedido INT NULL REFERENCES PedidosVenta(id_pedido),
+    id_orden_compra INT NULL REFERENCES OrdenesCompra(id_orden_compra),
+    motivo TEXT
+);
+GO
+
+-------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------CODIGO DE SOPORTE--------------------------------------------------
+
+
+
+-- Variables para almacenar los ID generados
+DECLARE @id1 INT, @id2 INT, @id3 INT;
+
+-- Inserción 1
+INSERT INTO Usuarios (password_hash, rol) VALUES ('hash123', 'admin');
+SET @id1 = SCOPE_IDENTITY();
+
+-- Inserción 2
+INSERT INTO Usuarios (password_hash, rol) VALUES ('hash456', 'admin');
+SET @id2 = SCOPE_IDENTITY();
+
+-- Inserción 3
+INSERT INTO Usuarios (password_hash, rol) VALUES ('admin123hash', 'admin');
+SET @id3 = SCOPE_IDENTITY();
+
+-- Correos para Juan
+INSERT INTO UsuarioCorreos (id_usuario, email) VALUES
+(@id1, 'juan.admin1@example.com'),
+(@id1, 'juan.admin2@example.com');
+
+-- Correos para Laura
+INSERT INTO UsuarioCorreos (id_usuario, email) VALUES
+(@id2, 'laura.admin1@example.com'),
+(@id2, 'laura.admin2@example.com');
+
+-- Correo para Anderson
+INSERT INTO UsuarioCorreos (id_usuario, email) VALUES
+(@id3, 'anderson.admin@example.com');
+GO
+
+--eliminar identitis--
+ --DBCC CHECKIDENT ('Usuarios', RESEED, 0); 
+
+ INSERT INTO TipoCliente (id_tipo_cliente, nombre_tipo)
+VALUES (1, 'persona'), (2, 'empresa');
+GO
+
+
+-- 6. Insertar personas (clientes tipo 1)
+INSERT INTO Clientes (id_tipo_cliente, nombres, apellidos, dni, direccion)
+VALUES 
+(1, 'Carlos', 'Ramirez', '12345678', 'Calle Lima 123'),
+(1, 'Laura', 'Gomez', '23456789', 'Av. Arequipa 456'),
+(1, 'Andrés', 'Torres', '34567890', 'Jr. Puno 789'),
+(1, 'Lucía', 'Fernández', '45678901', 'Calle Cusco 101'),
+(1, 'Miguel', 'Salinas', '56789012', 'Av. Brasil 202');
+GO
+
+-- 7. Insertar correos (puedes verificar con SELECT para ver los IDs generados)
+INSERT INTO ClienteCorreos (id_cliente, email)
+VALUES 
+(1, 'carlos@gmail.com'),
+(2, 'laura@hotmail.com'),
+(3, 'andres@yahoo.com'),
+(4, 'lucia@gmail.com'),
+(5, 'miguel@hotmail.com');
+GO
+
+-- 8. Insertar teléfonos
+INSERT INTO ClienteTelefonos (id_cliente, telefono)
+VALUES 
+(1, '999111111'),
+(2, '999222222'),
+(3, '999333333'),
+(4, '999444444'),
+(5, '999555555');
+GO
+
+-- Inserta 5 empresas
+INSERT INTO Clientes (id_tipo_cliente, razon_social, ruc, direccion)
+VALUES 
+(2, 'Inversiones Andina SAC', '20123456789', 'Av. Larco 102, Trujillo'),
+(2, 'Soluciones Integrales SRL', '20456789123', 'Calle Los Robles 208, Lima'),
+(2, 'Constructora Eléctrica EIRL', '20678912345', 'Jr. Amazonas 345, Arequipa'),
+(2, 'Servicios Médicos S.A.C.', '20345678901', 'Av. Grau 124, Piura'),
+(2, 'Exportadora Andina SAC', '20987654321', 'Mz G Lt 12, Cusco');
+GO
+
+-- Inserta correos para esas empresas
+INSERT INTO ClienteCorreos (id_cliente, email)
+VALUES 
+(1, 'contacto@andinainv.com'),
+(2, 'info@solucionesint.com'),
+(3, 'ventas@constructel.com'),
+(4, 'atencion@servmedicos.pe'),
+(5, 'exporta@andinasac.pe');
+GO
+
+-- Inserta teléfonos para esas empresas
+INSERT INTO ClienteTelefonos (id_cliente, telefono)
+VALUES 
+(1, '044-123456'),
+(2, '01-7654321'),
+(3, '054-789012'),
+(4, '073-654321'),
+(5, '084-321987');
+GO
+
+
+--EXEC sp_help Clientes;
+
+
+--select * from ClienteCorreos
+--select * from ClienteTelefonos
+--select * from Clientes
+--DROP TABLE IF EXISTS ClienteTelefonos;
+--DROP TABLE IF EXISTS ClienteCorreos;
+--DROP TABLE IF EXISTS Clientes;
+--DROP TABLE IF EXISTS TipoCliente;
+--GO
+
+--SELECT 
+--    f.name AS ForeignKey,
+--    OBJECT_NAME(f.parent_object_id) AS TableName,
+--    COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
+--FROM 
+--    sys.foreign_keys AS f
+--INNER JOIN 
+--    sys.foreign_key_columns AS fc 
+--    ON f.OBJECT_ID = fc.constraint_object_id
+--WHERE 
+--    f.referenced_object_id = OBJECT_ID('Clientes');
+
+--	ALTER TABLE PedidosVenta
+--DROP CONSTRAINT FK__PedidosVe__id_cl__75A278F5;
+-------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+
+--SELECT 
+--    f.name AS ForeignKey,
+--    OBJECT_NAME(f.parent_object_id) AS TableName,
+--    COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
+--FROM 
+--    sys.foreign_keys AS f
+--INNER JOIN 
+--    sys.foreign_key_columns AS fc 
+--    ON f.OBJECT_ID = fc.constraint_object_id
+--WHERE 
+--    f.referenced_object_id = OBJECT_ID('PedidosVenta');
+
+--	ALTER TABLE DetallesVenta
+--DROP CONSTRAINT FK__DetallesV__id_pe__7D439ABD;
+
+
+--------------------------------------------------------
+---------------------------------------------------------
+-------------------------------------------
+------------------------------------------
     --total AS (
     --    SELECT SUM(subtotal)
     --    FROM DetallesVenta
@@ -388,81 +508,12 @@ DROP CONSTRAINT FK__DetallesV__id_pe__7D439ABD;
     --),
 
 
--- Detalles de la venta
-CREATE TABLE DetallesVenta (
-    id_detalle INT IDENTITY(1,1) PRIMARY KEY,
-    id_pedido INT,
-    id_producto INT,
-    cantidad INT NOT NULL,
-    precio_unitario DECIMAL(10, 2) NOT NULL,
-    subtotal AS (cantidad * precio_unitario),
-    descuento DECIMAL(5,2) DEFAULT 0,
-    total_con_descuento AS (cantidad * precio_unitario * (1 - descuento / 100.0)),
-    FOREIGN KEY (id_pedido) REFERENCES PedidosVenta(id_pedido),
-    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
-);
-GO
-select * from DetallesVenta
+	--------------------------------------------------------
+---------------------------------------------------------
+-------------------------------------------
+------------------------------------------
 
-
----------------------------------Para seleccionar el descuento que "tiene" ese producto
---------------------------------esta seleccion la utilizaresmos en algun proceso almacenado
--------------------------------- y utilizado direcctamente en aplicacion para filtrar pro el id del producto----
----------------------------automaticamente el desuento que le corresponde-------------------------
-
-CREATE PROCEDURE ObtenerDescuentoProductoActivo
-    @id_producto INT
-AS
-BEGIN
-    SELECT TOP 1 p.Descuento
-    FROM ProductoPromocion pp
-    JOIN Promociones p ON p.IdPromocion = pp.id_promocion
-    WHERE 
-        pp.id_producto = @id_producto
-        AND p.FechaInicio <= GETDATE()
-        AND p.FechaFin >= GETDATE()
-        AND p.Estado = 1
-    ORDER BY p.Descuento DESC
-END
-GO
-
--- Promociones aplicadas a ventas
-CREATE TABLE VentaPromocion (
-    id_pedido INT,
-    id_promocion INT,
-    PRIMARY KEY (id_pedido, id_promocion),
-    FOREIGN KEY (id_pedido) REFERENCES PedidosVenta(id_pedido),
-    FOREIGN KEY (id_promocion) REFERENCES Promociones(IdPromocion)
-);
-GO
-
--- Pagos de venta
-CREATE TABLE PagosVenta (
-    id_pago INT IDENTITY(1,1) PRIMARY KEY,
-    id_pedido INT REFERENCES PedidosVenta(id_pedido),
-    id_metodo_pago INT REFERENCES MetodosPago(id_metodo_pago),
-    monto DECIMAL(12, 2) NOT NULL,
-    fecha DATETIME DEFAULT GETDATE(),
-    estado VARCHAR(20) CHECK (estado IN ('completado', 'anulado', 'pendiente'))
-);
-GO
-
--- Ordenes de compra
-CREATE TABLE OrdenesCompra (
-    id_orden_compra INT IDENTITY(1,1) PRIMARY KEY,
-    id_proveedor INT NULL REFERENCES  Proveedores(id_proveedor),
-    id_usuario INT REFERENCES Usuarios(id_usuario),
-    fecha DATETIME DEFAULT GETDATE(),
-    estado VARCHAR(20) NOT NULL CHECK (estado IN ('pendiente', 'recibido', 'cancelado')),
-    total DECIMAL(12, 2) NOT NULL,
-	tipo_orden VARCHAR(20) NOT NULL CHECK (tipo_orden IN ('directa', 'licitacion')) DEFAULT 'directa'
-);
---DROP TABLE OrdenesCompra
---ALTER TABLE OrdenesCompra
-
-GO
-
---SELECT 
+	--SELECT 
 --    f.name AS ForeignKey,
 --    OBJECT_NAME(f.parent_object_id) AS TableName,
 --    COL_NAME(fc.parent_object_id, fc.parent_column_id) AS ColumnName
@@ -479,68 +530,13 @@ GO
 
 
 
--- Detalles de orden de compra
-CREATE TABLE DetallesOrdenCompra (
-    id_detalle INT IDENTITY(1,1) PRIMARY KEY,
-    id_orden_compra INT,
-    id_producto INT,
-    cantidad INT NOT NULL,
-    precio_unitario DECIMAL(10, 2) NOT NULL,
-    subtotal AS (cantidad * precio_unitario),
-    FOREIGN KEY (id_orden_compra) REFERENCES OrdenesCompra(id_orden_compra),
-    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
-);
-GO
-
-
-
-
-
-CREATE TABLE PagosOrdenCompra (
-    id_pago INT IDENTITY(1,1) PRIMARY KEY,
-    id_orden_compra INT REFERENCES OrdenesCompra(id_orden_compra),
-    id_metodo_pago INT REFERENCES MetodosPago(id_metodo_pago),
-    monto DECIMAL(12, 2) NOT NULL,
-    fecha_pago DATETIME DEFAULT GETDATE(),
-    estado VARCHAR(20) CHECK (estado IN ('pendiente', 'completado', 'anulado')),
-    observaciones VARCHAR(255)
-);
-
-CREATE TABLE OfertasProveedor (
-    id_oferta INT IDENTITY(1,1) PRIMARY KEY,
-    id_orden_compra INT REFERENCES OrdenesCompra(id_orden_compra),
-    id_proveedor INT REFERENCES Proveedores(id_proveedor),
-    precio_ofertado DECIMAL(12,2) NOT NULL,
-    fecha_oferta DATETIME DEFAULT GETDATE(),
-    observaciones VARCHAR(255)
-);
-
-SELECT *FROM OfertasProveedor
-
-
-
-
--- Movimiento de stock
-CREATE TABLE MovimientosStock (
-    id_movimiento INT IDENTITY(1,1) PRIMARY KEY,
-    id_producto INT REFERENCES Productos(id_producto),
-    tipo VARCHAR(20) NOT NULL CHECK (tipo IN ('entrada', 'salida', 'ajuste')),
-    cantidad INT NOT NULL,
-    fecha DATETIME DEFAULT GETDATE(),
-    id_pedido INT NULL REFERENCES PedidosVenta(id_pedido),
-    id_orden_compra INT NULL REFERENCES OrdenesCompra(id_orden_compra),
-    motivo TEXT
-);
-GO
-
-
-
-
+----------------------------------
+----------------------------------PROCEDIMIENTOS------------
 
 -----------------------------------------Para que el sistema elijga automaticamente el 
 ----------------------menor precio ------------------------
 
-CREATE PROCEDURE AdjudicarLicitacion (
+CREATE or alter PROCEDURE AdjudicarLicitacion (
     @id_orden_compra INT
 )
 AS
@@ -567,143 +563,87 @@ GO
 
 
 
+-----------------------------------------Para que el sistema elijga automaticamente el 
+----------------------menor precio ------------------------
 
+CREATE or alter  PROCEDURE AdjudicarLicitacion (
+    @id_orden_compra INT
+)
+AS
+BEGIN
+    DECLARE @id_proveedor INT;
+    DECLARE @precio_ofertado DECIMAL(12,2);
 
+    SELECT TOP 1 
+        @id_proveedor = id_proveedor,
+        @precio_ofertado = precio_ofertado
+    FROM OfertasProveedor
+    WHERE id_orden_compra = @id_orden_compra
+    ORDER BY precio_ofertado ASC;
 
-------- vista opcional para llenar el descuento correspondiente a ese producto ..
-
-
---CREATE VIEW VistaDetallesConDescuento AS
---SELECT 
---    dv.id_detalle,
---    dv.id_pedido,
---    dv.id_producto,
---    dv.cantidad,
---    dv.precio_unitario,
---    dv.subtotal,
---    ISNULL(p.Descuento, 0) AS descuento,
---    dv.subtotal * (1 - ISNULL(p.Descuento, 0) / 100.0) AS total_con_descuento
---FROM DetallesVenta dv
---LEFT JOIN ProductoPromocion pp ON pp.id_producto = dv.id_producto
---LEFT JOIN Promociones p ON p.IdPromocion = pp.id_promocion
---    AND GETDATE() BETWEEN p.FechaInicio AND p.FechaFin
---    AND p.Estado = 1;
-
-
--------------------------------------------------------------------------
-
-
-
-
+    UPDATE OrdenesCompra
+    SET id_proveedor = @id_proveedor,
+        total = @precio_ofertado,
+        estado = 'pendiente'
+    WHERE id_orden_compra = @id_orden_compra;
+END;
+GO
 
 -----------PROCEDIMIENTOS ALMACENADOS---------------------------
 -------------------------------------------------------------
 -------------PROCESO PARA USUARIO-----------------------
 -- Insertar usuario con correo
---CREATE OR ALTER PROCEDURE sp_InsertarUsuario
---    @nombres VARCHAR(100),
---    @apellidos VARCHAR(100),
---    @email VARCHAR(100),
---    @password_hash VARCHAR(255),
---    @rol VARCHAR(50),
---    @activo BIT
---AS
---BEGIN
---    SET NOCOUNT ON;
---    BEGIN TRY
---        BEGIN TRANSACTION;
-
---        INSERT INTO Usuarios (nombres, apellidos, password_hash, rol, fecha_creacion, activo)
---        VALUES (@nombres, @apellidos, @password_hash, @rol, GETDATE(), @activo);
-
---        DECLARE @id_usuario INT = SCOPE_IDENTITY();
-
---        INSERT INTO UsuarioCorreos (id_usuario, email)
---        VALUES (@id_usuario, @email);
-
---        COMMIT;
---    END TRY
---    BEGIN CATCH
---        ROLLBACK;
---        THROW;
---    END CATCH
---END
---GO
-select * from Usuarios
-create or alter PROCEDURE sp_InsertarUsuario
-    @nombres NVARCHAR(100),
-    @apellidos NVARCHAR(100),
-    @password_hash NVARCHAR(255),
-    @rol NVARCHAR(50),
+CREATE OR ALTER PROCEDURE sp_InsertarUsuario
+ 
+    @email VARCHAR(100),
+    @password_hash VARCHAR(255),
+    @rol VARCHAR(50),
     @activo BIT
 AS
 BEGIN
     SET NOCOUNT ON;
+    BEGIN TRY
+        BEGIN TRANSACTION;
 
-    INSERT INTO Usuarios (nombres, apellidos, password_hash, rol, activo)
-    VALUES (@nombres, @apellidos, @password_hash, @rol, @activo);
+        INSERT INTO Usuarios ( password_hash, rol, fecha_creacion, activo)
+        VALUES ( @password_hash, @rol, GETDATE(), @activo);
 
-    SELECT SCOPE_IDENTITY() AS id_generado;
-END;
+        DECLARE @id_usuario INT = SCOPE_IDENTITY();
+
+        INSERT INTO UsuarioCorreos (id_usuario, email)
+        VALUES (@id_usuario, @email);
+
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK;
+        THROW;
+    END CATCH
+END
 GO
-
-
-
-CREATE OR ALTER PROCEDURE sp_InsertarCorreoUsuarios
-    @id_usuario INT,
-    @correo NVARCHAR(100)
-AS
-BEGIN
-    INSERT INTO UsuarioCorreos (id_usuario, email)
-    VALUES (@id_usuario, @correo);
-END;
-GO
-
-
-select   nombres from Usuarios  where nombres = 'alverto'; 
-
-
-
-
-
-
-
-
-
-
-
-
 
 -- Listar usuarios
-Create or alter  procedure sp_ListarUsuarios
+CREATE or alter  PROCEDURE sp_ListarUsuarios
 AS
 BEGIN
     SELECT 
         u.id_usuario,
-        u.nombres,
-        u.apellidos,
-        u.password_hash,
+        uc.email,
         u.rol,
         u.fecha_creacion,
-        u.activo,
-        c.email
+        u.activo
     FROM Usuarios u
-    LEFT JOIN UsuarioCorreos c ON u.id_usuario = c.id_usuario
-    ORDER BY u.id_usuario;
-END;
+    LEFT JOIN UsuarioCorreos uc ON u.id_usuario = uc.id_usuario;
+END
 GO
 
-select * from Usuarios
-
 -- Buscar usuario por ID
-CREATE OR ALTER PROCEDURE sp_BuscarUsuarioPorId
+CREATE  OR ALTER PROCEDURE sp_BuscarUsuarioPorId
     @id_usuario INT
 AS
 BEGIN
     SELECT 
         u.id_usuario,
-        u.nombres,
-        u.apellidos,
         uc.email,
         u.rol,
         u.fecha_creacion,
@@ -715,7 +655,7 @@ END
 GO
 
 -- Editar usuario
-CREATE OR ALTER PROCEDURE sp_EditarUsuario
+CREATE  OR ALTER  PROCEDURE sp_EditarUsuario
     @id_usuario INT,
     @nombres VARCHAR(100),
     @apellidos VARCHAR(100),
@@ -729,9 +669,8 @@ BEGIN
         BEGIN TRANSACTION;
 
         UPDATE Usuarios
-        SET nombres = @nombres,
-            apellidos = @apellidos,
-            password_hash = @password_hash,
+        SET 
+          password_hash = @password_hash,
             rol = @rol,
             activo = @activo
         WHERE id_usuario = @id_usuario;
@@ -761,52 +700,69 @@ END
 GO
 
 
-
-
-
-
-
-
 ------------------------PROCESO PARA CLIENTE........................
--- Insertar cliente con email y teléfono
-CREATE OR ALTER PROCEDURE sp_InsertarCliente
-    @id_tipo_cliente INT,
-    @nombres VARCHAR(100),
-    @apellidos VARCHAR(100),
-    @dni VARCHAR(16),
-    @razon_social VARCHAR(100),
-    @ruc VARCHAR(11),
-    @direccion TEXT,
-    @email VARCHAR(100),
-    @telefono VARCHAR(20),
-    @activo BIT
+CREATE Or alter PROCEDURE sp_ListarClienteCompleto
 AS
 BEGIN
-    SET NOCOUNT ON;
-    BEGIN TRY
-        BEGIN TRANSACTION;
-
-        INSERT INTO Clientes (id_tipo_cliente, nombres, apellidos, dni, razon_social, ruc, direccion, activo)
-        VALUES (@id_tipo_cliente, @nombres, @apellidos, @dni, @razon_social, @ruc, @direccion, @activo);
-
-        DECLARE @id_cliente INT = SCOPE_IDENTITY();
-
-        INSERT INTO ClienteCorreos (id_cliente, email)
-        VALUES (@id_cliente, @email);
-
-        INSERT INTO ClienteTelefonos (id_cliente, telefono)
-        VALUES (@id_cliente, @telefono);
-
-        COMMIT;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK;
-        THROW;
-    END CATCH
+    SELECT 
+        c.id_cliente,
+        c.id_tipo_cliente,
+        c.nombres,
+        c.apellidos,
+        c.dni,
+        c.razon_social,
+        c.ruc,
+        c.direccion,
+        c.id_usuario,
+        c.activo,
+        t.telefono,
+        co.email
+    FROM Clientes c
+    LEFT JOIN ClienteTelefonos t ON c.id_cliente = t.id_cliente
+    LEFT JOIN ClienteCorreos co ON c.id_cliente = co.id_cliente
+    ORDER BY c.id_cliente;
 END
 GO
+-- Insertar cliente con email y teléfono
+--CREATE OR ALTER PROCEDURE sp_InsertarCliente
+--    @id_tipo_cliente INT,
+--    @nombres VARCHAR(100),
+--    @apellidos VARCHAR(100),
+--    @dni VARCHAR(16),
+--    @razon_social VARCHAR(100),
+--    @ruc VARCHAR(11),
+--    @direccion TEXT,
+--	@idUsuario int,
+--    @email VARCHAR(100),
+--    @telefono VARCHAR(20),
+--    @activo BIT
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+--    BEGIN TRY
+--        BEGIN TRANSACTION;
 
--- Listar clientes
+--        INSERT INTO Clientes (id_tipo_cliente, nombres, apellidos, dni, razon_social, ruc, direccion,id_usuario , activo)
+--        VALUES (@id_tipo_cliente, @nombres, @apellidos, @dni, @razon_social, @ruc, @direccion,@idUsuario, @activo);
+
+--        DECLARE @id_cliente INT = SCOPE_IDENTITY();
+
+--        INSERT INTO ClienteCorreos (id_cliente, email)
+--        VALUES (@id_cliente, @email);
+
+--        INSERT INTO ClienteTelefonos (id_cliente, telefono)
+--        VALUES (@id_cliente, @telefono);
+
+--        COMMIT;
+--    END TRY
+--    BEGIN CATCH
+--        ROLLBACK;
+--        THROW;
+--    END CATCH
+--END
+--GO
+
+
 CREATE OR ALTER PROCEDURE sp_InsertarCliente
     @id_tipo_cliente INT,
     @nombres NVARCHAR(100),
@@ -815,18 +771,21 @@ CREATE OR ALTER PROCEDURE sp_InsertarCliente
     @razon_social NVARCHAR(150),
     @ruc CHAR(11),
     @direccion NVARCHAR(200),
+	@idUsuario int, 
     @activo BIT
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO Clientes (id_tipo_cliente, nombres, apellidos, dni, razon_social, ruc, direccion, activo)
-    VALUES (@id_tipo_cliente, @nombres, @apellidos, @dni, @razon_social, @ruc, @direccion, @activo);
+    INSERT INTO Clientes (id_tipo_cliente, nombres, apellidos, dni, razon_social, ruc, direccion,id_usuario, activo)
+    VALUES (@id_tipo_cliente, @nombres, @apellidos, @dni, @razon_social, @ruc, @direccion,@idUsuario,  @activo);
 
     SELECT SCOPE_IDENTITY() AS id_generado;
 END;
 GO
-CREATE OR ALTER PROCEDURE sp_InsertarClienteCorreo
+
+
+CREATE OR ALTER  PROCEDURE sp_InsertarClienteCorreo
     @id_cliente INT,
     @correo NVARCHAR(100)
 AS
@@ -837,6 +796,10 @@ BEGIN
     VALUES (@id_cliente, @correo);
 END;
 GO
+
+
+
+
 --select  * from ClienteTelefonos
 CREATE OR ALTER PROCEDURE sp_InsertarClienteTelefono
     @id_cliente INT,
@@ -849,10 +812,6 @@ BEGIN
     VALUES (@id_cliente, @telefono);
 END;
 GO
-select * from ClienteCorreos
-
-select * from ClienteTelefonos
-select * from Clientes
 
 
 
@@ -910,12 +869,6 @@ select * from Clientes
 --END
 --GO
 
-
-
-
-
-
-
 -- Buscar cliente por ID
 CREATE OR ALTER PROCEDURE sp_BuscarCliente
     @id_cliente INT
@@ -930,6 +883,7 @@ BEGIN
         c.razon_social,
         c.ruc,
         c.direccion,
+		c.id_usuario, 
         (SELECT TOP 1 email FROM ClienteCorreos WHERE id_cliente = c.id_cliente) AS email,
         (SELECT TOP 1 telefono FROM ClienteTelefonos WHERE id_cliente = c.id_cliente) AS telefono,
         c.activo
@@ -1033,8 +987,7 @@ BEGIN
 END
 GO
 
--- Listar proveedores
-CREATE OR ALTER PROCEDURE sp_ListarProveedores
+CREATE OR ALTER PROCEDURE sp_ListarProveedoresCompleto
 AS
 BEGIN
     SELECT 
@@ -1043,15 +996,19 @@ BEGIN
         p.ruc,
         p.direccion,
         p.contacto,
-        (SELECT TOP 1 email FROM ProveedorCorreos WHERE id_proveedor = p.id_proveedor) AS email,
-        (SELECT TOP 1 telefono FROM ProveedorTelefonos WHERE id_proveedor = p.id_proveedor) AS telefono,
-        p.activo
-    FROM Proveedores p;
-END
+        p.activo,
+        t.telefono,
+        c.email
+    FROM Proveedores p
+    LEFT JOIN ProveedorTelefonos t ON p.id_proveedor = t.id_proveedor
+    LEFT JOIN ProveedorCorreos c ON p.id_proveedor = c.id_proveedor
+END;
 GO
 
+
+
 -- Buscar proveedor por ID
-CREATE OR ALTER PROCEDURE sp_BuscarProveedor
+CREATE OR ALTER  PROCEDURE sp_BuscarProveedor
     @id_proveedor INT
 AS
 BEGIN
@@ -1061,29 +1018,91 @@ BEGIN
         p.ruc,
         p.direccion,
         p.contacto,
-        (SELECT TOP 1 email FROM ProveedorCorreos WHERE id_proveedor = p.id_proveedor) AS email,
-        (SELECT TOP 1 telefono FROM ProveedorTelefonos WHERE id_proveedor = p.id_proveedor) AS telefono,
-        p.activo
+        p.activo,
+        (
+            SELECT STRING_AGG(t.telefono, ',') 
+            FROM ProveedorTelefonos t 
+            WHERE t.id_proveedor = p.id_proveedor
+        ) AS telefonos,
+        (
+            SELECT STRING_AGG(c.email, ',') 
+            FROM ProveedorCorreos c 
+            WHERE c.id_proveedor = p.id_proveedor
+        ) AS correos
     FROM Proveedores p
     WHERE p.id_proveedor = @id_proveedor;
 END
 GO
 
+
+--CREATE OR ALTER PROCEDURE sp_BuscarProveedor
+--    @id_proveedor INT
+--AS
+--BEGIN
+--    SELECT 
+--        id_proveedor,
+--        razon_social,
+--        ruc,
+--        direccion,
+--        contacto,
+--        activo
+--    FROM Proveedores
+--    WHERE id_proveedor = @id_proveedor;
+--END
+--GO
+
+--CREATE OR ALTER PROCEDURE sp_ListarCorreosProveedor
+--    @id_proveedor INT
+--AS
+--BEGIN
+--    SELECT email
+--    FROM ProveedorCorreos
+--    WHERE id_proveedor = @id_proveedor;
+--END
+--GO
+
+--CREATE OR ALTER PROCEDURE sp_ListarCorreosProveedor
+--    @id_proveedor INT
+--AS
+--BEGIN
+--    SELECT email
+--    FROM ProveedorCorreos
+--    WHERE id_proveedor = @id_proveedor;
+--END
+--GO
+
+
+
+-- Tipo para correos
+CREATE TYPE CorreoTableType AS TABLE (
+    email VARCHAR(100)
+);
+GO
+
+-- Tipo para teléfonos
+CREATE TYPE TelefonoTableType AS TABLE (
+    telefono VARCHAR(20)
+);
+GO
+
+
+
 -- Editar proveedor
-CREATE OR ALTER PROCEDURE sp_EditarProveedor
+CREATE OR ALTER  PROCEDURE sp_EditarProveedor
     @id_proveedor INT,
     @razon_social VARCHAR(100),
     @ruc VARCHAR(11),
     @direccion TEXT,
     @contacto VARCHAR(100),
-    @email VARCHAR(100),
-    @telefono VARCHAR(20),
+    @Correos CorreoTableType READONLY,
+    @Telefonos TelefonoTableType READONLY,
     @activo BIT
 AS
 BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
+        -- Actualizar datos principales
         UPDATE Proveedores
         SET razon_social = @razon_social,
             ruc = @ruc,
@@ -1092,13 +1111,15 @@ BEGIN
             activo = @activo
         WHERE id_proveedor = @id_proveedor;
 
-        UPDATE ProveedorCorreos
-        SET email = @email
-        WHERE id_proveedor = @id_proveedor;
+        -- Reemplazar correos
+        DELETE FROM ProveedorCorreos WHERE id_proveedor = @id_proveedor;
+        INSERT INTO ProveedorCorreos (id_proveedor, email)
+        SELECT @id_proveedor, email FROM @Correos;
 
-        UPDATE ProveedorTelefonos
-        SET telefono = @telefono
-        WHERE id_proveedor = @id_proveedor;
+        -- Reemplazar teléfonos
+        DELETE FROM ProveedorTelefonos WHERE id_proveedor = @id_proveedor;
+        INSERT INTO ProveedorTelefonos (id_proveedor, telefono)
+        SELECT @id_proveedor, telefono FROM @Telefonos;
 
         COMMIT;
     END TRY
@@ -1109,21 +1130,22 @@ BEGIN
 END
 GO
 
+
 -- Borrado lógico de proveedor
-CREATE OR ALTER PROCEDURE sp_EliminarProveedor
+CREATE OR ALTER  PROCEDURE sp_EliminarProveedor
     @id_proveedor INT
 AS
 BEGIN
+    SET NOCOUNT ON;
+
     UPDATE Proveedores
     SET activo = 0
     WHERE id_proveedor = @id_proveedor;
-END
+END;
 GO
-
-
 ------------------------PROCESOS PARA PRODUCTOS----------------------
 -- Insertar producto
-CREATE OR ALTER PROCEDURE sp_InsertarProducto
+CREATE OR ALTER  PROCEDURE sp_InsertarProducto
     @codigo VARCHAR(50),
     @nombre VARCHAR(100),
     @descripcion TEXT,
@@ -1150,10 +1172,11 @@ END
 GO
 
 -- Listar productos
-CREATE OR ALTER PROCEDURE sp_ListarProductos
+---
+CREATE  OR ALTER PROCEDURE sp_ListarProductos
 AS
 BEGIN
-    SELECT 
+    SELECT
         p.id_producto,
         p.codigo,
         p.nombre,
@@ -1162,9 +1185,13 @@ BEGIN
         p.stock,
         p.stock_minimo,
         p.unidad_medida,
+        p.id_proveedor, -- Add this
         pr.razon_social AS proveedor,
+        p.idCategoria, -- Add this
         c.nombreCategoria,
+        p.idPresentacion, -- Add this
         pre.nombrePresentacion,
+        p.idTipoEmpaque, -- Add this
         te.nombreEmpaque,
         te.material,
         p.activo
@@ -1176,8 +1203,10 @@ BEGIN
 END
 GO
 
+
+
 -- Buscar producto por ID
-CREATE OR ALTER PROCEDURE sp_BuscarProducto
+CREATE OR ALTER  PROCEDURE sp_BuscarProducto
     @id_producto INT
 AS
 BEGIN
@@ -1231,7 +1260,7 @@ END
 GO
 
 -- Borrado lógico de producto
-CREATE OR ALTER PROCEDURE sp_EliminarProducto
+CREATE OR ALTER  PROCEDURE sp_EliminarProducto
     @id_producto INT
 AS
 BEGIN
@@ -1244,39 +1273,44 @@ GO
 ---------------------------------------PROMOCION---------
 
 
+ CREATE OR ALTER PROCEDURE sp_InsertarTipoPromocion
+    @nombre_tipo VARCHAR(50)
+AS
+BEGIN
+    INSERT INTO TipoPromocion (nombre_tipo)
+    VALUES (@nombre_tipo);
+END;
+GO
+
 CREATE OR ALTER PROCEDURE sp_InsertarPromocion
     @NombrePromocion VARCHAR(128),
     @Descuento DECIMAL(5,2),
     @FechaInicio DATE,
     @FechaFin DATE,
-    @id_tipo_promocion INT,
-    @Estado BIT,
-    @Productos TABLE (id_producto INT)
+    @id_tipo_promocion INT
 AS
 BEGIN
-    SET NOCOUNT ON;
-    BEGIN TRY
-        BEGIN TRANSACTION;
-
-        INSERT INTO Promociones (NombrePromocion, Descuento, FechaInicio, FechaFin, Estado, id_tipo_promocion)
-        VALUES (@NombrePromocion, @Descuento, @FechaInicio, @FechaFin, @Estado, @id_tipo_promocion);
-
-        DECLARE @id_promocion INT = SCOPE_IDENTITY();
-
-        INSERT INTO ProductoPromocion (id_producto, id_promocion)
-        SELECT id_producto, @id_promocion FROM @Productos;
-
-        COMMIT;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK;
-        THROW;
-    END CATCH
+    INSERT INTO Promociones (
+        NombrePromocion,
+        Descuento,
+        FechaInicio,
+        FechaFin,
+        Estado,
+        id_tipo_promocion
+    )
+    VALUES (
+        @NombrePromocion,
+        @Descuento,
+        @FechaInicio,
+        @FechaFin,
+        1, -- Estado activo por defecto
+        @id_tipo_promocion
+    );
 END;
 GO
 
 
-CREATE OR ALTER PROCEDURE sp_ListarPromociones
+CREATE OR ALTER  PROCEDURE sp_ListarPromociones
 AS
 BEGIN
     SELECT 
@@ -1285,11 +1319,11 @@ BEGIN
         p.Descuento,
         p.FechaInicio,
         p.FechaFin,
-        tp.nombre_tipo AS TipoPromocion,
-        p.Estado
+        p.Estado,
+        p.id_tipo_promocion,
+        tp.nombre_tipo AS TipoPromocion
     FROM Promociones p
-    INNER JOIN TipoPromocion tp ON p.id_tipo_promocion = tp.id_tipo_promocion
-    ORDER BY p.FechaInicio DESC;
+    INNER JOIN TipoPromocion tp ON p.id_tipo_promocion = tp.id_tipo_promocion;
 END;
 GO
 
@@ -1347,7 +1381,7 @@ END;
 GO
 
 
-CREATE OR ALTER PROCEDURE sp_EliminarPromocion
+CREATE OR ALTER  PROCEDURE sp_EliminarPromocion
     @id_promocion INT
 AS
 BEGIN
@@ -1369,14 +1403,15 @@ BEGIN
     VALUES (@nombre_tipo);
 END;
 GO
--------si se usara----------
--------------------------
-------
-CREATE OR ALTER PROCEDURE sp_ListarTipoPromocion
+
+CREATE OR ALTER  PROCEDURE sp_ListarTipoPromocion
 AS
 BEGIN
+    SET NOCOUNT ON;
+
     SELECT id_tipo_promocion, nombre_tipo
-    FROM TipoPromocion;
+    FROM TipoPromocion
+    
 END;
 GO
 
@@ -1405,48 +1440,73 @@ GO
 
 
 ---------------------------PROC. PRODUCTO-PROMCIONES---------------
-
-
-
 CREATE TYPE ProductosPromocionType AS TABLE (
     id_producto INT
 );
 GO
 
+--CREATE OR ALTER PROCEDURE sp_InsertarPromocion
+--    @NombrePromocion VARCHAR(128),
+--    @Descuento DECIMAL(5,2),
+--    @FechaInicio DATE,
+--    @FechaFin DATE,
+--    @Estado BIT,
+--    @id_tipo_promocion INT,
+--    @Productos ProductosPromocionType READONLY
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+--    BEGIN TRY
+--        BEGIN TRANSACTION;
+
+--        INSERT INTO Promociones (
+--            NombrePromocion, Descuento, FechaInicio, FechaFin, Estado, id_tipo_promocion
+--        )
+--        VALUES (
+--            @NombrePromocion, @Descuento, @FechaInicio, @FechaFin, @Estado, @id_tipo_promocion
+--        );
+
+--        DECLARE @id_promocion INT = SCOPE_IDENTITY();
+
+--        INSERT INTO ProductoPromocion (id_producto, id_promocion)
+--        SELECT id_producto, @id_promocion FROM @Productos;
+
+--        COMMIT;
+--    END TRY
+--    BEGIN CATCH
+--        ROLLBACK;
+--        THROW;
+--    END CATCH
+--END;
+--GO
 CREATE OR ALTER PROCEDURE sp_InsertarPromocion
     @NombrePromocion VARCHAR(128),
     @Descuento DECIMAL(5,2),
     @FechaInicio DATE,
     @FechaFin DATE,
-    @Estado BIT,
     @id_tipo_promocion INT,
-    @Productos ProductosPromocionType READONLY
+    @Estado BIT
 AS
 BEGIN
-    SET NOCOUNT ON;
-    BEGIN TRY
-        BEGIN TRANSACTION;
-
-        INSERT INTO Promociones (
-            NombrePromocion, Descuento, FechaInicio, FechaFin, Estado, id_tipo_promocion
-        )
-        VALUES (
-            @NombrePromocion, @Descuento, @FechaInicio, @FechaFin, @Estado, @id_tipo_promocion
-        );
-
-        DECLARE @id_promocion INT = SCOPE_IDENTITY();
-
-        INSERT INTO ProductoPromocion (id_producto, id_promocion)
-        SELECT id_producto, @id_promocion FROM @Productos;
-
-        COMMIT;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK;
-        THROW;
-    END CATCH
+    INSERT INTO Promociones (
+        NombrePromocion,
+        Descuento,
+        FechaInicio,
+        FechaFin,
+        id_tipo_promocion,
+        Estado
+    )
+    VALUES (
+        @NombrePromocion,
+        @Descuento,
+        @FechaInicio,
+        @FechaFin,
+        @id_tipo_promocion,
+        @Estado
+    );
 END;
 GO
+
 
 
 CREATE OR ALTER PROCEDURE sp_ListarPromociones
@@ -1466,9 +1526,6 @@ BEGIN
 END;
 GO
 
-
-SELECT * FROM Promociones
-SELECT * FROM TipoPromocion
 CREATE OR ALTER PROCEDURE sp_BuscarPromocionPorId
     @id_promocion INT
 AS
@@ -1548,7 +1605,7 @@ GO
 
 
 
-CREATE OR ALTER PROCEDURE sp_EliminarPromocion
+CREATE OR ALTER  PROCEDURE sp_EliminarPromocion
     @id_promocion INT
 AS
 BEGIN
@@ -1559,154 +1616,173 @@ END;
 GO
 
 
-----------------------Proc Comprobante de pago------------
------------------------------------------------------
-
-CREATE OR ALTER PROCEDURE sp_ListarComprobantes
-as 
-	begin
-		select * from ComprobantesPago
-	end
-
-GO
-
-CREATE OR ALTER PROCEDURE sp_InsertarComprobante
-    @tipo VARCHAR(20),
-    @serie VARCHAR(20),
-    @numero VARCHAR(20),
-    @fecha_emision DATE,
-    @id_cliente INT,
-    @total DECIMAL(10, 2)
-AS
-BEGIN
-    INSERT INTO ComprobantesPago (
-        tipo, serie, numero, fecha_emision, id_cliente, total, activo
-    )
-    VALUES (
-        @tipo, @serie, @numero, @fecha_emision, @id_cliente, @total, 1
-    );
-END;
-GO
-
-
-
-
-
 
 
 -----------PROC.  PEDIDO-VENTA----------------
 
-CREATE OR ALTER PROCEDURE sp_listarComprobantes
-AS 
-	BEGIN 
-		SELECT  tipo, serie, numero, activo FROM ComprobantesPago
 
-	END
-
-GO
-
-
-
-SELECT * FROM ComprobantesPago
-
--- Para insertar detalles de productos vendidos
 CREATE TYPE DetalleVentaType AS TABLE (
     id_producto INT,
     cantidad INT,
-    precio_unitario DECIMAL(10, 2),
-    descuento DECIMAL(5,2)
+    precio_unitario DECIMAL(10,2),
+    subtotal DECIMAL(10,2),
+    descuento DECIMAL(5,2),
+    total_con_descuento DECIMAL(10,2)
 );
-GO
-
+go
 -- Para promociones aplicadas en una venta
-CREATE TYPE VentaPromocionType AS TABLE (
-    id_promocion INT
-);
-GO
-
-
-CREATE OR ALTER PROCEDURE sp_RegistrarPedidoVenta
+--CREATE TYPE VentaPromocionType AS TABLE (
+--    id_promocion INT
+--);
+--GO
+CREATE or alter PROCEDURE InsertarPedidoVenta
     @id_cliente INT,
-    @id_usuario INT,
+    @id_usuario INT = NULL,
     @id_comprobante INT,
+    @total DECIMAL(12,2),
+    @total_descuento_productos DECIMAL(12,2),
+    @total_descuento_promociones DECIMAL(12,2),
+    @total_con_descuento DECIMAL(12,2),
     @estado VARCHAR(20),
-    @Detalles DetalleVentaType READONLY,
-    @Promociones VentaPromocionType READONLY,
-    @PedidoId INT OUTPUT,
-    @Resultado BIT OUTPUT
+    @Detalles DetalleVentaType READONLY -- Este es un tipo de tabla (debes crearlo si no lo tienes aún)
 AS
 BEGIN
     SET NOCOUNT ON;
+
     BEGIN TRY
-        BEGIN TRANSACTION;
+        BEGIN TRAN;
 
-        DECLARE @total DECIMAL(12,2) = 0;
-        DECLARE @total_descuento_producto DECIMAL(12,2) = 0;
-        DECLARE @total_descuento_promocion DECIMAL(12,2) = 0;
-
-        -- Calcular totales
-        SELECT 
-            @total = SUM(cantidad * precio_unitario),
-            @total_descuento_producto = SUM(cantidad * precio_unitario * (descuento / 100.0))
-        FROM @Detalles;
-
-        -- Suponiendo un 10% de descuento total por promociones aplicadas
-        SELECT @total_descuento_promocion = @total * 0.10
-        WHERE EXISTS (SELECT 1 FROM @Promociones); -- Solo si hay promociones
-
-        DECLARE @total_con_descuento DECIMAL(12,2) = @total - @total_descuento_producto - @total_descuento_promocion;
-
-        -- Insertar cabecera
+        -- Insertar en PedidosVenta
         INSERT INTO PedidosVenta (
-            id_cliente, id_usuario, fecha, id_comprobante,
-            total, total_descuento_productos, total_descuento_promociones, total_con_descuento, estado
+            id_cliente, id_usuario, id_comprobante, total,
+            total_descuento_productos, total_descuento_promociones,
+            total_con_descuento, estado
         )
         VALUES (
-            @id_cliente, @id_usuario, GETDATE(), @id_comprobante,
-            @total, @total_descuento_producto, @total_descuento_promocion, @total_con_descuento, @estado
+            @id_cliente, @id_usuario, @id_comprobante,
+            @total, @total_descuento_productos,
+            @total_descuento_promociones, @total_con_descuento, @estado
         );
 
-        SET @PedidoId = SCOPE_IDENTITY();
+        DECLARE @id_pedido INT = SCOPE_IDENTITY();
 
-        -- Insertar detalles
-        INSERT INTO DetallesVenta (id_pedido, id_producto, cantidad, precio_unitario, descuento)
-        SELECT 
-            @PedidoId, id_producto, cantidad, precio_unitario, descuento
+        -- Insertar en DetallesVenta
+        INSERT INTO DetallesVenta (
+            id_pedido, id_producto, cantidad,
+            precio_unitario, subtotal, descuento, total_con_descuento
+        )
+        SELECT
+            @id_pedido, id_producto, cantidad,
+            precio_unitario, subtotal, descuento, total_con_descuento
         FROM @Detalles;
 
-        -- Insertar promociones aplicadas
-        INSERT INTO VentaPromocion (id_pedido, id_promocion)
-        SELECT @PedidoId, id_promocion FROM @Promociones;
-
-        SET @Resultado = 1;
         COMMIT;
     END TRY
     BEGIN CATCH
         ROLLBACK;
-        SET @Resultado = 0;
-        SET @PedidoId = 0;
+
+        THROW;
     END CATCH
-END;
+END
 GO
 
 
+--CREATE OR ALTER PROCEDURE sp_RegistrarPedidoVenta
+--    @id_cliente INT,
+--    @id_usuario INT,
+--    @id_comprobante INT,
+--    @estado VARCHAR(20),
+--    @Detalles DetalleVentaType READONLY,
+--    @Promociones VentaPromocionType READONLY,
+--    @PedidoId INT OUTPUT,
+--    @Resultado BIT OUTPUT
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+--    BEGIN TRY
+--        BEGIN TRANSACTION;
 
+--        DECLARE @total DECIMAL(12,2) = 0;
+--        DECLARE @total_descuento_producto DECIMAL(12,2) = 0;
+--        DECLARE @total_descuento_promocion DECIMAL(12,2) = 0;
 
-CREATE OR ALTER PROCEDURE sp_ListarPedidosVenta
+--        -- Calcular totales
+--        SELECT 
+--            @total = SUM(cantidad * precio_unitario),
+--            @total_descuento_producto = SUM(cantidad * precio_unitario * (descuento / 100.0))
+--        FROM @Detalles;
+
+--        -- Suponiendo un 10% de descuento total por promociones aplicadas
+--        SELECT @total_descuento_promocion = @total * 0.10
+--        WHERE EXISTS (SELECT 1 FROM @Promociones); -- Solo si hay promociones
+
+--        DECLARE @total_con_descuento DECIMAL(12,2) = @total - @total_descuento_producto - @total_descuento_promocion;
+
+--        -- Insertar cabecera
+--        INSERT INTO PedidosVenta (
+--            id_cliente, id_usuario, fecha, id_comprobante,
+--            total, total_descuento_productos, total_descuento_promociones, total_con_descuento, estado
+--        )
+--        VALUES (
+--            @id_cliente, @id_usuario, GETDATE(), @id_comprobante,
+--            @total, @total_descuento_producto, @total_descuento_promocion, @total_con_descuento, @estado
+--        );
+
+--        SET @PedidoId = SCOPE_IDENTITY();
+
+--        -- Insertar detalles
+--        INSERT INTO DetallesVenta (id_pedido, id_producto, cantidad, precio_unitario, descuento)
+--        SELECT 
+--            @PedidoId, id_producto, cantidad, precio_unitario, descuento
+--        FROM @Detalles;
+
+--        -- Insertar promociones aplicadas
+--        INSERT INTO VentaPromocion (id_pedido, id_promocion)
+--        SELECT @PedidoId, id_promocion FROM @Promociones;
+
+--        SET @Resultado = 1;
+--        COMMIT;
+--    END TRY
+--    BEGIN CATCH
+--        ROLLBACK;
+--        SET @Resultado = 0;
+--        SET @PedidoId = 0;
+--    END CATCH
+--END;
+--GO
+
+CREATE or alter PROCEDURE sp_ObtenerDescuentoPromocion
+    @idProducto INT,
+    @descuento DECIMAL(5,2) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT TOP 1 @descuento = descuento
+    FROM PromocionesProducto
+    WHERE id_producto = @idProducto
+      AND GETDATE() BETWEEN fecha_inicio AND fecha_fin
+    ORDER BY fecha_inicio DESC;
+END;
+GO
+
+CREATE  or alter PROCEDURE sp_ListarPedidosVenta
 AS
 BEGIN
     SET NOCOUNT ON;
 
     SELECT 
         pv.id_pedido,
-        pv.fecha,
-        pv.estado,
-        c.razon_social AS cliente,
-        (u.nombres + ' ' + u.apellidos) AS usuario,
-        pv.total,
-        pv.total_descuento_productos,
-        pv.total_descuento_promociones,
-        pv.total_con_descuento
+		pv.id_cliente,
+		pv.id_usuario, 
+		pv.fecha, 
+		pv.id_comprobante, 
+		pv.total, 
+		pv.total_descuento_productos, 
+		pv.total_descuento_promociones, 
+		pv.total_con_descuento, 
+        pv.estado
+        
     FROM PedidosVenta pv
     INNER JOIN Clientes c ON pv.id_cliente = c.id_cliente
     INNER JOIN Usuarios u ON pv.id_usuario = u.id_usuario
@@ -1714,43 +1790,66 @@ BEGIN
 END;
 GO
 
-
-
-
-CREATE OR ALTER PROCEDURE sp_BuscarPedidoVenta
+CREATE OR ALTER PROCEDURE sp_ListarDetallesVentaPorPedido
     @id_pedido INT
 AS
 BEGIN
-    -- Cabecera
-    SELECT 
-        pv.id_pedido, pv.fecha, pv.estado,
-        c.razon_social AS cliente,
-        u.nombres + ' ' + u.apellidos AS usuario,
-        pv.total, pv.total_descuento_productos, pv.total_descuento_promociones, pv.total_con_descuento
-    FROM PedidosVenta pv
-    INNER JOIN Clientes c ON pv.id_cliente = c.id_cliente
-    INNER JOIN Usuarios u ON pv.id_usuario = u.id_usuario
-    WHERE pv.id_pedido = @id_pedido;
+    SET NOCOUNT ON;
 
-    -- Detalles
     SELECT 
-        dv.id_detalle, p.nombre AS producto,
-        dv.cantidad, dv.precio_unitario,
-        dv.descuento,
+        dv.id_detalle,
+        dv.id_pedido,
+        dv.id_producto,
+        dv.cantidad,
+        dv.precio_unitario,
         dv.subtotal,
+        dv.descuento,
         dv.total_con_descuento
     FROM DetallesVenta dv
-    INNER JOIN Productos p ON dv.id_producto = p.id_producto
     WHERE dv.id_pedido = @id_pedido;
-
-    -- Promociones
-    SELECT 
-        pr.IdPromocion, pr.NombrePromocion, pr.Descuento, pr.FechaInicio, pr.FechaFin
-    FROM VentaPromocion vp
-    INNER JOIN Promociones pr ON vp.id_promocion = pr.IdPromocion
-    WHERE vp.id_pedido = @id_pedido;
-END;
+END
 GO
+
+
+
+
+
+
+
+--CREATE OR ALTER PROCEDURE sp_BuscarPedidoVenta
+--    @id_pedido INT
+--AS
+--BEGIN
+--    -- Cabecera
+--    SELECT 
+--        pv.id_pedido, pv.fecha, pv.estado,
+--        c.razon_social AS cliente,
+--        u.nombres + ' ' + u.apellidos AS usuario,
+--        pv.total, pv.total_descuento_productos, pv.total_descuento_promociones, pv.total_con_descuento
+--    FROM PedidosVenta pv
+--    INNER JOIN Clientes c ON pv.id_cliente = c.id_cliente
+--    INNER JOIN Usuarios u ON pv.id_usuario = u.id_usuario
+--    WHERE pv.id_pedido = @id_pedido;
+
+--    -- Detalles
+--    SELECT 
+--        dv.id_detalle, p.nombre AS producto,
+--        dv.cantidad, dv.precio_unitario,
+--        dv.descuento,
+--        dv.subtotal,
+--        dv.total_con_descuento
+--    FROM DetallesVenta dv
+--    INNER JOIN Productos p ON dv.id_producto = p.id_producto
+--    WHERE dv.id_pedido = @id_pedido;
+
+--    -- Promociones
+--    SELECT 
+--        pr.IdPromocion, pr.NombrePromocion, pr.Descuento, pr.FechaInicio, pr.FechaFin
+--    FROM VentaPromocion vp
+--    INNER JOIN Promociones pr ON vp.id_promocion = pr.IdPromocion
+--    WHERE vp.id_pedido = @id_pedido;
+--END;
+--GO
 
 
 
@@ -1810,7 +1909,7 @@ BEGIN
         pv.fecha,
         pv.monto,
         pv.estado,
-        mp.nombre_metodo,
+        mp.nombre,
         c.razon_social AS cliente
     FROM PagosVenta pv
     INNER JOIN PedidosVenta p ON pv.id_pedido = p.id_pedido
@@ -1818,6 +1917,7 @@ BEGIN
     INNER JOIN MetodosPago mp ON pv.id_metodo_pago = mp.id_metodo_pago;
 END;
 GO
+select  * from MetodosPago
 
 CREATE OR ALTER PROCEDURE sp_BuscarPagoVenta
     @id_pago INT
@@ -1827,7 +1927,7 @@ BEGIN
 END;
 GO
 
-CREATE OR ALTER PROCEDURE sp_AnularPagoVenta
+CREATE  OR ALTER PROCEDURE sp_AnularPagoVenta
     @id_pago INT
 AS
 BEGIN
@@ -1845,7 +1945,7 @@ CREATE TYPE DetalleOrdenCompraType AS TABLE (
 GO
 
 
-CREATE OR ALTER PROCEDURE sp_InsertarOrdenCompra
+CREATE OR ALTER   PROCEDURE sp_InsertarOrdenCompra
     @id_proveedor INT,
     @id_usuario INT,
     @estado VARCHAR(20),
@@ -1882,6 +1982,9 @@ BEGIN
 END;
 GO
 
+
+
+-------------revisar , esta mal este procedimiento...........
 CREATE OR ALTER PROCEDURE sp_ListarOrdenesCompra
 AS
 BEGIN

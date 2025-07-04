@@ -11,13 +11,6 @@ namespace CapaEntidad
     public class entUsuario
     {
         public int id_usuario { get; set; }
-
-     
-        public string nombres { get; set; }
-
-    
-        public string apellidos { get; set; }
-
         public string password_hash { get; set; }
 
 
