@@ -22,16 +22,15 @@ namespace CapaDatos
 
         }
 
-        #endregion Singleton
+        #endregion Singleton                                            
 
         public SqlConnection Conectar()
         {
             SqlConnection cn = new SqlConnection();
-            cn.ConnectionString = "Data Source=DESKTOP-BLFSTC3\\SQLEXPRESS;" +
+            cn.ConnectionString = "Data Source=localhost;" +
                                   "Initial Catalog=DiarsAlfa;" +
                                   "Integrated Security=True;";
             return cn;
         }
-     
-    }//hl.a//
+    }
 }

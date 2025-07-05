@@ -1,19 +1,19 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {}
+    "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj": {
+    "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj",
+        "projectUniqueName": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj",
         "projectName": "CapaDatos",
-        "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj",
+        "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj",
         "frameworks": {
           "net472": {
             "projectReferences": {
-              "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
-                "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+              "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
               }
             }
           }
@@ -23,11 +23,11 @@
         "net472": {}
       }
     },
-    "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+    "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
+        "projectUniqueName": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
         "projectName": "CapaEntidad",
-        "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
+        "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
         "frameworks": {
           "net472": {
             "projectReferences": {}
@@ -38,19 +38,19 @@
         "net472": {}
       }
     },
-    "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
+    "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj",
+        "projectUniqueName": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj",
         "projectName": "CapaLogica",
-        "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj",
+        "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj",
         "frameworks": {
           "net472": {
             "projectReferences": {
-              "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj": {
-                "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj"
+              "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj": {
+                "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj"
               },
-              "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
-                "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+              "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
               }
             }
           }
@@ -60,14 +60,14 @@
         "net472": {}
       }
     },
-    "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {
+    "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+        "projectUniqueName": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
         "projectName": "SantaEulalia",
-        "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+        "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
         "packagesPath": "C:\\Users\\Fabrii\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
+        "outputPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Fabrii\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -85,11 +85,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
-                "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+              "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
               },
-              "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
-                "projectPath": "C:\\Users\\Fabrii\\Source\\Repos\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
+              "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
+                "projectPath": "C:\\Users\\Fabrii\\source\\repos\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
               }
             }
           }

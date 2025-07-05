@@ -24,12 +24,12 @@ namespace CapaLogica
 
         #region Métodos
 
-        public List<entPedidosVenta> ListarVentas()
+        public List<entPedidoVenta> ListarVentas()
         {
             return datVenta.Instancia.ListarVentas();
         }
 
-        public bool InsertarVenta(entPedidosVenta venta)
+        public bool InsertarVenta(entPedidoVenta venta)
         {
             return datVenta.Instancia.InsertarVenta(venta);
         }

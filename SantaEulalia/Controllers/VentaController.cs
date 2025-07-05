@@ -41,7 +41,7 @@ public class VentaController : Controller
             Detalles = model.Detalles.Select(d => new entVentaDetalle
             {
                 Cantidad = d.Cantidad,
-                PrecioUnitario = d.PrecioUnitario, 
+                PrecioUnitario = d.PrecioUnitario,
                 Descuento = d.Descuento,
                 Promocion = d.PromocionId.HasValue ? new entPromocion { PromocionId = d.PromocionId.Value } : null
             }).ToList()

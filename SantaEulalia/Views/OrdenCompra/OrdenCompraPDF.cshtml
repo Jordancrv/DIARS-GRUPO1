@@ -93,30 +93,30 @@
         <p><strong>Fecha:</strong> @Model.Orden.fecha.ToString("dd/MM/yyyy")</p>
     </div>
 
-    <div class="section">
-        <h3>Productos</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID Producto</th>
-                    <th>Cantidad</th>
-                    <th>Precio Unitario (S/.)</th>
-                    <th>Subtotal (S/.)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Orden.detalles)
-                {
+        <div class="section">
+            <h3>Productos</h3>
+            <table>
+                <thead>
                     <tr>
-                        <td>@item.id_producto</td>
-                        <td>@item.cantidad</td>
-                        <td>@item.precio_unitario.ToString("0.00")</td>
-                        <td>@(item.cantidad * item.precio_unitario).ToString("0.00")</td>
+                        <th>ID Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario (S/.)</th>
+                        <th>Subtotal (S/.)</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Orden.detalles)
+                    {
+                        <tr>
+                            <td>@item.id_producto</td>
+                            <td>@item.cantidad</td>
+                            <td>@item.precio_unitario.ToString("0.00")</td>
+                            <td>@( (item.cantidad * item.precio_unitario).ToString("0.00") )</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
     <div class="total">
         <p>Total de la Orden: <strong>S/. @Model.Orden.total.ToString("0.00")</strong></p>

@@ -54,6 +54,7 @@ namespace CapaDatos
                             razon_social = dr["razon_social"].ToString(),
                             ruc = dr["ruc"].ToString(),
                             direccion = dr["direccion"].ToString(),
+                            idUsuario = dr["id_usuario"] != DBNull.Value ? dr["id_usuario"].ToString() : null,
                             activo = Convert.ToBoolean(dr["activo"]),
                             telefonos = new List<string>(),
                             correos = new List<string>()
@@ -104,6 +105,7 @@ namespace CapaDatos
                         cmd.Parameters.AddWithValue("@razon_social", (object)cliente.razon_social ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@ruc", (object)cliente.ruc ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@direccion", (object)cliente.direccion ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@id_usuario", (object)cliente.idUsuario ?? DBNull.Value); // Nuevo parámetro para el usuario que crea el cliente
                         cmd.Parameters.AddWithValue("@activo", cliente.activo);
 
                         int idGenerado = Convert.ToInt32(cmd.ExecuteScalar());
@@ -170,6 +172,7 @@ namespace CapaDatos
                         cmd.Parameters.AddWithValue("@razon_social", cliente.razon_social ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@ruc", cliente.ruc ?? (object)DBNull.Value);
                         cmd.Parameters.AddWithValue("@direccion", cliente.direccion ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@id_usuario", cliente.idUsuario ?? (object)DBNull.Value); // Nuevo parámetro para el usuario que crea el cliente   
                         cmd.Parameters.AddWithValue("@activo", cliente.activo);
 
                         object result = cmd.ExecuteScalar();
@@ -228,6 +231,7 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@razon_social", (object)cliente.razon_social ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@ruc", (object)cliente.ruc ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@direccion", (object)cliente.direccion ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@id_usuario", (object)cliente.idUsuario ?? DBNull.Value); // Nuevo parámetro para el usuario que edita el cliente
                 cmd.Parameters.AddWithValue("@activo", cliente.activo);
                 cn.Open();
                 cmd.ExecuteNonQuery();
@@ -295,6 +299,7 @@ namespace CapaDatos
                             razon_social = dr["razon_social"].ToString(),
                             ruc = dr["ruc"].ToString(),
                             direccion = dr["direccion"].ToString(),
+                            idUsuario = dr["id_usuario"] != DBNull.Value ? dr["id_usuario"].ToString() : null, // Nuevo campo para el usuario que creó el cliente
                             activo = Convert.ToBoolean(dr["activo"]),
                             telefonos = new List<string>(),
                             correos = new List<string>()
@@ -319,10 +324,10 @@ namespace CapaDatos
                 }
                 return cli;
             }
-            catch(SqlException e)
+            catch (SqlException e)
             {
 
-                throw new ApplicationException("Error al ingresar los datos, por favor ingrese los datos correctamente"); 
+                throw new ApplicationException("Error al ingresar los datos, por favor ingrese los datos correctamente");
 
             }
         }

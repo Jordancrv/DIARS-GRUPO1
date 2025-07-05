@@ -39,8 +39,14 @@
     <Reference Include="Microsoft.AspNetCore.Antiforgery, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Antiforgery.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Antiforgery.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.1.0.0\lib\net451\Microsoft.AspNetCore.Authentication.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Cookies, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Cookies.1.0.0\lib\net451\Microsoft.AspNetCore.Authentication.Cookies.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Authentication.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Core.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Core.dll</HintPath>
@@ -230,6 +236,9 @@
     </Reference>
     <Reference Include="Rotativa.AspNetCore, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.AspNetCore.1.4.0\lib\netstandard2.0\Rotativa.AspNetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa.NetCore, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.NetCore.1.0.4\lib\net451\Rotativa.NetCore.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -429,6 +438,7 @@
     <Compile Include="logOrdenCompra.cs" />
     <Compile Include="logPresentacion.cs" />
     <Compile Include="logProducto.cs" />
+    <Compile Include="logPromociones.cs" />
     <Compile Include="logProveedores.cs" />
     <Compile Include="logTipoEmpaque.cs" />
     <Compile Include="logUsuario.cs" />

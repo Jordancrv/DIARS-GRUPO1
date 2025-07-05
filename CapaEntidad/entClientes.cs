@@ -17,11 +17,13 @@ namespace CapaEntidad
         public string razon_social { get; set; }
         public string ruc { get; set; }
         public string direccion { get; set; }
+        public string idUsuario { get; set; } // Usuario que creó el cliente    
+
         public bool activo { get; set; }
 
         // NUEVO:
         public List<string> telefonos { get; set; }
-        public List<string> correos{ get; set; }
+        public List<string> correos { get; set; }
 
         public entClientes()
         {
@@ -45,7 +47,7 @@ namespace CapaEntidad
     }
     public class entDetallesVenta
     {
-         public int id_detalle{ get; set; } 
+        public int id_detalle { get; set; }
         public int id_pedido { get; set; }
         public int id_producto { get; set; }
         public int cantidad { get; set; }

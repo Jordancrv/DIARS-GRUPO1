@@ -18,7 +18,7 @@ public class LoginController : Controller
         if (usuario != null)
         {
             HttpContext.Session.SetInt32("id_usuario", usuario.id_usuario);
-            HttpContext.Session.SetString("nombres_usuario", usuario.nombres);
+
             HttpContext.Session.SetString("rol", usuario.rol);
 
             if (usuario.rol == "admin")

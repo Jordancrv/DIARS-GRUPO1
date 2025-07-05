@@ -21,6 +21,7 @@
             <th>@Html.DisplayNameFor(m => m.First().razon_social)</th>
             <th>@Html.DisplayNameFor(m => m.First().ruc)</th>
             <th>@Html.DisplayNameFor(m => m.First().direccion)</th>
+            <th>@Html.DisplayNameFor(m => m.First().idUsuario)</th>
             <th>Correos</th>
             <th>Teléfonos</th>
             <th>@Html.DisplayNameFor(m => m.First().activo)</th>
@@ -38,6 +39,7 @@
                 <td>@item.razon_social</td>
                 <td>@item.ruc</td>
                 <td>@item.direccion</td>
+                <td>@item.idUsuario</td>
                 <td>
                     @(item.correos != null ? string.Join(", ", item.correos.Take(2)) : "")
                 </td>

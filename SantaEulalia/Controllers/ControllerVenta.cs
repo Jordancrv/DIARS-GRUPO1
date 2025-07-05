@@ -45,7 +45,7 @@ namespace SantaEulalia.Controllers
 
             // POST: Insertar venta en la BD
             [HttpPost]
-            public IActionResult InsertarVenta(entPedidosVenta venta)
+            public IActionResult InsertarVenta(entPedidoVenta venta)
             {
                 try
                 {
