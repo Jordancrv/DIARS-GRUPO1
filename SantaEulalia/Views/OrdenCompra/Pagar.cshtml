@@ -1,0 +1,62 @@
+﻿@model CapaEntidad.entPagoOrdenCompra
+
+@{
+    ViewBag.Title = "Registrar Pago";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // o el layout que usas en ese archivo grande
+}
+
+<h2 class="mb-4">Registrar Pago</h2>
+
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+{
+    <div class="alert alert-danger">
+        @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@modelError.ErrorMessage</div>
+        }
+    </div>
+}
+
+<form asp-action="Pagar" method="post">
+    <input type="hidden" asp-for="IdOrdenCompra" />
+
+    <div class="mb-3">
+        <label asp-for="Monto" class="form-label">Monto</label>
+        <input asp-for="Monto" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="IdMetodoPago" class="form-label">Método de Pago</label>
+        <select asp-for="IdMetodoPago" asp-items="ViewBag.MetodosPago" class="form-select" required>
+            <option value="">-- Seleccionar --</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TipoComprobante" class="form-label">Tipo Comprobante</label>
+        <select asp-for="TipoComprobante" class="form-select" required>
+            <option value="">-- Seleccione --</option>
+            <option value="factura">Factura</option>
+            <option value="boleta">Boleta</option>
+            <option value="nota_credito">Nota de Crédito</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Serie" class="form-label">Serie</label>
+        <input asp-for="Serie" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Numero" class="form-label">Número</label>
+        <input asp-for="Numero" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Observaciones" class="form-label">Observaciones</label>
+        <textarea asp-for="Observaciones" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Registrar Pago</button>
+    <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+</form>

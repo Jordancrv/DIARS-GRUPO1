@@ -1,0 +1,163 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@(ViewBag.Title ?? "Página sin título") - Santa Eulalia</title>
+    <!-- Estilos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/dashboard.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #10121c;
+            color: #f8f9fa;
+        }
+
+        #sidebar-wrapper {
+            background-color: #0d0f14;
+            min-height: 100vh;
+            padding: 1rem 0;
+        }
+
+        .sidebar-heading {
+            font-size: 1.2rem;
+            color: #00bfff;
+            padding: 0 1rem;
+        }
+
+            .sidebar-heading img {
+                height: 30px;
+                margin-right: 10px;
+            }
+
+        .list-group-item {
+            background-color: transparent;
+            color: #ccc;
+            border: none;
+        }
+
+            .list-group-item:hover {
+                background-color: #1e212d;
+                color: #00bfff;
+            }
+
+        .navbar {
+            background-color: #1a1c25;
+        }
+
+        .content-wrapper {
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper" class="bg-dark text-white">
+            <div class="sidebar-heading d-flex align-items-center gap-2 px-3 mb-3">
+                <img src="/lib/img/logo.png" alt="Logo" style="height: 30px;" />
+                <span class="fw-bold">Santa Eulalia</span>
+            </div>
+
+            <div class="list-group list-group-flush px-2">
+                <div class="text-white text-uppercase small fw-bold mt-3">Compras</div>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Cotizacion", "ClienteCompra")">
+                    <i class="fas fa-search-dollar"></i> Cotización
+                </a>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("OrdenCompra", "ClienteCompra")">
+                    <i class="fas fa-file-invoice"></i> Orden de Compra
+                </a>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Recepcion", "ClienteCompra")">
+                    <i class="fas fa-box-open"></i> Recepción
+                </a>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Pago", "ClienteCompra")">
+                    <i class="fas fa-credit-card"></i> Pago
+                </a>
+
+                <div class="text-white text-uppercase small fw-bold mt-4">Ventas</div>
+                <a class="list-group-item list-group-item-action" href="/ControllerVenta/Listar">
+                    <i class="fas fa-shopping-cart"></i> Lista Ventas
+                </a>
+                <a class="list-group-item list-group-item-action" href="/ControllerVenta/Insertar">
+                    <i class="fas fa-cart-plus"></i> Agregar Venta
+                </a>
+
+                <div class="text-white text-uppercase small fw-bold mt-4">Clientes</div>
+                <a class="list-group-item list-group-item-action" href="/Cliente/Listar">
+                    <i class="fas fa-users"></i> Listar Clientes
+                </a>
+                <a class="list-group-item list-group-item-action" href="/Cliente/InsertarCliente">
+                    <i class="fas fa-user-plus"></i> Agregar Cliente
+                </a>
+
+                <div class="text-white text-uppercase small fw-bold mt-4">Usuarios</div>
+                <a class="list-group-item list-group-item-action" href="/Usuarios/Listar">
+                    <i class="fas fa-user-friends"></i> Listar Usuarios
+                </a>
+                <a class="list-group-item list-group-item-action" href="/Usuarios/Registrar">
+                    <i class="fas fa-user-plus"></i> Agregar Usuario
+                </a>
+
+                <div class="text-white text-uppercase small fw-bold mt-4">Proveedores</div>
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "Proveedores")">
+                    <i class="fas fa-clipboard-list"></i> Listar Proveedores
+                </a>
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Registrar", "Proveedores")">
+                    <i class="fas fa-user-plus"></i> Registrar Proveedor
+                </a>
+                <div class="text-white text-uppercase small fw-bold mt-3">Compras</div>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "OrdenCompra")">
+                    <i class="fas fa-file-invoice"></i> Ordenes de Compra
+                </a>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Crear", "OrdenCompra")">
+                    <i class="fas fa-plus-circle"></i> Nueva Orden
+                </a>
+                <div class="text-white text-uppercase small fw-bold mt-4">Pagos</div>
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "OrdenCompra")">
+                    <i class="fas fa-money-check-alt"></i> Pagos Ordenes Compra
+                </a>
+                <div class="text-white text-uppercase small fw-bold mt-4">Productos</div>
+
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "Producto")">
+                    <i class="fas fa-boxes"></i> Listar Productos
+                </a>
+
+                <a class="list-group-item list-group-item-action" href="@Url.Action("Registrar", "Producto")">
+                    <i class="fas fa-plus-square"></i> Agregar Producto
+                </a>
+
+
+
+
+
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="flex-grow-1">
+            <nav class="navbar navbar-expand-lg navbar-dark px-4">
+                <span class="navbar-brand">Panel de Administración</span>
+            </nav>
+            <main class="content-wrapper">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
