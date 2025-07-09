@@ -1,0 +1,41 @@
+﻿@model CapaEntidad.entProveedores
+
+@{
+    ViewBag.Title = "Detalles del Proveedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles del Proveedor</h2>
+
+<div class="text-light">
+    <p><strong>ID:</strong> @Model.id_proveedor</p>
+    <p><strong>Razón Social:</strong> @Model.razon_social</p>
+    <p><strong>RUC:</strong> @Model.ruc</p>
+    <p><strong>Dirección:</strong> @Model.direccion</p>
+    <p><strong>Contacto:</strong> @Model.contacto</p>
+    <p><strong>Usuario:</strong> @(Model.id_usuario != null ? Model.id_usuario.ToString() : "Sin usuario")</p>
+
+    @if (Model.correos != null && Model.correos.Any())
+    {
+        <p><strong>Correos:</strong></p>
+        <ul>
+            @foreach (var c in Model.correos)
+            {
+                <li>@c</li>
+            }
+        </ul>
+    }
+
+    @if (Model.telefonos != null && Model.telefonos.Any())
+    {
+        <p><strong>Teléfonos:</strong></p>
+        <ul>
+            @foreach (var t in Model.telefonos)
+            {
+                <li>@t</li>
+            }
+        </ul>
+    }
+</div>
+
+<a asp-action="Listar" class="btn btn-secondary mt-3">Volver</a>

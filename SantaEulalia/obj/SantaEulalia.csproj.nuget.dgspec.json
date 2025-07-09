@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {}
+    "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj": {
+    "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj",
+        "projectUniqueName": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj",
         "projectName": "CapaDatos",
-        "projectPath": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj",
+        "projectPath": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj",
         "UsingMicrosoftNETSdk": false,
         "frameworks": {
           "net472": {
             "projectReferences": {
-              "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
-                "projectPath": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+              "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
               }
             }
           }
@@ -24,11 +24,11 @@
         "net472": {}
       }
     },
-    "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+    "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
+        "projectUniqueName": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
         "projectName": "CapaEntidad",
-        "projectPath": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
+        "projectPath": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
         "UsingMicrosoftNETSdk": false,
         "frameworks": {
           "net472": {
@@ -40,20 +40,20 @@
         "net472": {}
       }
     },
-    "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
+    "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj",
+        "projectUniqueName": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj",
         "projectName": "CapaLogica",
-        "projectPath": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj",
+        "projectPath": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj",
         "UsingMicrosoftNETSdk": false,
         "frameworks": {
           "net472": {
             "projectReferences": {
-              "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj": {
-                "projectPath": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj"
+              "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj": {
+                "projectPath": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj"
               },
-              "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
-                "projectPath": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+              "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
               }
             }
           }
@@ -63,14 +63,14 @@
         "net472": {}
       }
     },
-    "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {
+    "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+        "projectUniqueName": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
         "projectName": "SantaEulalia",
-        "projectPath": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+        "projectPath": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
         "packagesPath": "C:\\Users\\shant\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
+        "outputPath": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -91,11 +91,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
-                "projectPath": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+              "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
               },
-              "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
-                "projectPath": "C:\\Users\\shant\\Desktop\\xd\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
+              "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
+                "projectPath": "C:\\Users\\shant\\OneDrive\\Escritorio\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
               }
             }
           }
@@ -108,17 +108,29 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[9.0.5, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Rotativa.AspNetCore": {
+              "target": "Package",
+              "version": "[1.4.0, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
@@ -144,7 +156,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

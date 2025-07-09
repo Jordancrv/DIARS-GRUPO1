@@ -1,0 +1,49 @@
+﻿@model List<CapaEntidad.entPedidoVenta>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Listado de Ventas";
+}
+
+<h2>Listado de Ventas</h2>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID Venta</th>
+            <th>Cliente</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>ID Comprobante</th>
+            <th>Total</th>
+            <th>Desc. Productos</th>
+            <th>Desc. Promociones</th>
+            <th>Total con Descuento</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var venta in Model)
+        {
+            <tr>
+                <td>@venta.IdPedidoVenta</td>
+                <td>@venta.Cliente?.razon_social</td>
+                <td>@(venta.Usuario != null ? venta.Usuario.id_usuario : "Sin usuario")</td>
+                <td>@venta.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@venta.IdComprobante</td>
+                <td>S/. @venta.Total.ToString("F2")</td>
+                <td>S/. @venta.TotalDescuentoProductos.ToString("F2")</td>
+                <td>S/. @venta.TotalDescuentoPromociones.ToString("F2")</td>
+                <td><strong>S/. @venta.TotalConDescuento.ToString("F2")</strong></td>
+                <td>@venta.Estado</td>
+                <td>
+                    @Html.ActionLink("Detalles", "Detalles", new { id = venta.IdPedidoVenta }, new { @class = "btn btn-info btn-sm" }) |
+                    @Html.ActionLink("Eliminar", "Eliminar", new { id = venta.IdPedidoVenta }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="@Url.Action("InsertarVenta", "Venta")">Registrar nueva venta</a>
