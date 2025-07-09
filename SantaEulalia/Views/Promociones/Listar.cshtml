@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CapaEntidad.entPromociones>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Listar Promociones";
+}
+
+<h1>Lista de Promociones</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nueva Promoción</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().IdPromocion)</th>
+            <th>@Html.DisplayNameFor(model => model.First().NombrePromocion)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Descuento)</th>
+            <th>@Html.DisplayNameFor(model => model.First().FechaInicio)</th>
+            <th>@Html.DisplayNameFor(model => model.First().FechaFin)</th>
+            <th>@Html.DisplayNameFor(model => model.First().TipoPromocion)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Estado)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var promo in Model)
+        {
+            <tr>
+                <td>@promo.IdPromocion</td>
+                <td>@promo.NombrePromocion</td>
+                <td>@promo.Descuento.ToString("P2")</td>
+                <td>@promo.FechaInicio.ToString("yyyy-MM-dd")</td>
+                <td>@promo.FechaFin.ToString("yyyy-MM-dd")</td>
+                <td>@promo.TipoPromocion</td>
+                <td>@(promo.Estado ? "Activa" : "Inactiva")</td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = promo.IdPromocion }) |
+                    @Html.ActionLink("Detalles", "Details", new { id = promo.IdPromocion }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = promo.IdPromocion })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

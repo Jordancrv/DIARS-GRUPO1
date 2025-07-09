@@ -1,0 +1,91 @@
+@using Microsoft.AspNetCore.Http
+@{
+    var rol = Context.Session.GetString("rol");
+}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title - Santa Eulalia</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="~/css-user/site.css" rel="stylesheet" />
+
+    @RenderSection("Styles", required: false)
+</head>
+
+<body>
+    <header class="bg-success text-white">
+        <div class="container d-flex justify-content-between align-items-center py-2">
+            <a href="@Url.Action("Tienda", "Producto")">
+                <img src="~/img-user/logo.png" alt="Logo" height="40" />
+            </a>
+
+            <div class="d-flex align-items-center">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item"><a href="#" class="text-white"><i class="fa fa-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class="text-white"><i class="fa fa-instagram"></i></a></li>
+                </ul>
+
+                <ul class="list-inline mb-0 ml-3">
+                    @if (rol == null)
+                    {
+                        <li class="list-inline-item">
+                            <a href="@Url.Action("Index", "Login")" class="btn btn-light btn-sm rounded-pill px-3">
+                                <i class="fa fa-sign-in-alt"></i> Iniciar sesión
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        if (rol == "admin")
+                        {
+                            <li class="list-inline-item">
+                                <a href="@Url.Action("Index", "PanelAdmin")" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                                    <i class="fa fa-user-shield"></i> Panel Admin
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-inline-item">
+                                <a href="@Url.Action("PanelUser", "Home")" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                                    <i class="fa fa-user"></i> Mi Cuenta
+                                </a>
+                            </li>
+                        }
+                        <li class="list-inline-item">
+                            <a href="@Url.Action("CerrarSesion", "Login")" class="btn btn-danger btn-sm rounded-pill px-3">
+                                <i class="fa fa-sign-out-alt"></i> Cerrar sesión
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-light text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-1">&copy; 2025 Santa Eulalia - Todos los derechos reservados</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Política de privacidad</a></li>
+                <li class="list-inline-item"><a href="#">Términos y condiciones</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js-user/functions.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

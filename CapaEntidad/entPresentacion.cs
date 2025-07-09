@@ -8,6 +8,8 @@ namespace CapaEntidad
 {
     public class entPresentacion
     {
-        
+        public int idPresentacion { get; set; }
+        public string nombrePresentacion { get; set; }
     }
+
 }
