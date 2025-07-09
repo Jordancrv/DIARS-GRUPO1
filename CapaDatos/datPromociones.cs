@@ -15,7 +15,7 @@ namespace CapaDatos
 
         #region Singleton
         private static readonly datPromociones _instancia = new datPromociones();
-        
+
         #endregion
 
 
@@ -110,9 +110,8 @@ namespace CapaDatos
 
 
 
-      
+
 
 
     }
-
 }

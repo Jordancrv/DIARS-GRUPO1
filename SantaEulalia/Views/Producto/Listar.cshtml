@@ -25,6 +25,7 @@ else
                 <th>Código</th>
                 <th>Nombre</th>
                 <th>Precio</th>
+                <th>PrecioVenta</th>
                 <th>Stock</th>
                 <th>Unidad</th>
                 <th>Proveedor</th>
@@ -43,6 +44,7 @@ else
                     <td>@item.codigo</td>
                     <td>@item.nombre</td>
                     <td>@item.precio.ToString("C")</td>
+                    <td>@item.precioventa.ToString("C")</td>
                     <td>@item.stock</td>
                     <td>@item.unidad_medida</td>
                     <td>@item.nombreProveedor</td>
@@ -51,10 +53,11 @@ else
                     <td>@item.nombreTipoEmpaque</td>
                     <td>@(item.activo ? "Sí" : "No")</td>
                     <td class="text-center">
-                        <a asp-action="Detalles" asp-route-id="@item.id_producto" class="btn btn-sm btn-info">Ver</a>
-                        <a asp-action="Editar" asp-route-id="@item.id_producto" class="btn btn-sm btn-warning">Editar</a>
-                        <a asp-action="Eliminar" asp-route-id="@item.id_producto" class="btn btn-sm btn-danger">Eliminar</a>
+                        @Html.ActionLink("Detalles", "Detalles", new { id = item.id_producto }, new { @class = "btn btn-sm btn-info" }) |
+                        @Html.ActionLink("Editar", "Editar", new { id = item.id_producto }, new { @class = "btn btn-sm btn-warning" }) |
+                        @Html.ActionLink("Eliminar", "Eliminar", new { id = item.id_producto }, new { @class = "btn btn-sm btn-danger" })
                     </td>
+                    
                 </tr>
             }
         </tbody>

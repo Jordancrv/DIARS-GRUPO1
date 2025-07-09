@@ -23,7 +23,7 @@ namespace CapaEntidad
 
         // NUEVO:
         public List<string> telefonos { get; set; }
-        public List<string> correos{ get; set; }
+        public List<string> correos { get; set; }
 
         public entClientes()
         {
@@ -47,7 +47,7 @@ namespace CapaEntidad
     }
     public class entDetallesVenta
     {
-         public int id_detalle{ get; set; } 
+        public int id_detalle { get; set; }
         public int id_pedido { get; set; }
         public int id_producto { get; set; }
         public int cantidad { get; set; }

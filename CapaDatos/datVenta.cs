@@ -258,7 +258,7 @@ namespace CapaDatos
                                     ruc = dr["ruc"].ToString(),
                                     direccion = dr["direccion"].ToString(),
                                     //telefono = dr["telefono"].ToString(),
-                                   // email = dr["email"].ToString(),
+                                    // email = dr["email"].ToString(),
                                     activo = Convert.ToBoolean(dr["activo"])
                                 }
                             };
@@ -546,8 +546,8 @@ namespace CapaDatos
                                     razon_social = dr["razon_social"].ToString(),
                                     ruc = dr["ruc"].ToString(),
                                     direccion = dr["direccion"].ToString(),
-                                  //  telefono = dr["telefono"].ToString(),
-                                  //  email = dr["email"].ToString(),
+                                    //  telefono = dr["telefono"].ToString(),
+                                    //  email = dr["email"].ToString(),
                                     activo = Convert.ToBoolean(dr["activo"])
                                 }
                             };
@@ -566,7 +566,7 @@ namespace CapaDatos
                                     id_producto = Convert.ToInt32(dr["id_producto"]),
                                     cantidad = Convert.ToInt32(dr["cantidad"]),
                                     precio_unitario = Convert.ToDecimal(dr["precio_unitario"]),
-                                   
+
                                     Producto = new entProductos
                                     {
                                         id_producto = Convert.ToInt32(dr["id_producto"]),
@@ -656,10 +656,10 @@ namespace CapaDatos
                 cmd = new SqlCommand("sp_InsertarComprobante", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@tipo", comprobante.Tipo);
-                cmd.Parameters.AddWithValue("@serie", comprobante.Serie ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@numero", comprobante.Numero ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@activo", comprobante.Activo); // Nuevo parámetro
+                cmd.Parameters.AddWithValue("@tipo", comprobante.tipo);
+                cmd.Parameters.AddWithValue("@serie", comprobante.serie ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@numero", comprobante.numero ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@activo", comprobante.activo); // Nuevo parámetro
 
 
                 cn.Open();
@@ -696,10 +696,10 @@ namespace CapaDatos
                 {
                     entComprobantePago comprobante = new entComprobantePago
                     {
-                        Tipo = dr["tipo"].ToString(),
-                        Serie = dr["serie"] != DBNull.Value ? dr["serie"].ToString() : null,
-                        Numero = dr["numero"] != DBNull.Value ? dr["numero"].ToString() : null,
-                        Activo = dr["activo"] != DBNull.Value ? Convert.ToBoolean(dr["activo"]) : false
+                        tipo = dr["tipo"].ToString(),
+                        serie = dr["serie"] != DBNull.Value ? dr["serie"].ToString() : null,
+                        numero = dr["numero"] != DBNull.Value ? dr["numero"].ToString() : null,
+                        activo = dr["activo"] != DBNull.Value ? Convert.ToBoolean(dr["activo"]) : false
                     };
 
                     lista.Add(comprobante);

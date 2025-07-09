@@ -20,12 +20,12 @@ namespace CapaEntidad
 
         public bool activo { get; set; }
 
-     
+
         public List<string> correos { get; set; }
 
         public entUsuario()
         {
-            this.correos = new List<string>(); 
+            this.correos = new List<string>();
         }
     }
 

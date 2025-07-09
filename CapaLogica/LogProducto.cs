@@ -17,6 +17,8 @@ public class logProducto
     #endregion
 
     // Listar
+
+
     public List<entProductos> ListarProducto()
     {
         return datProducto.Instancia.ListarProductos();
@@ -50,6 +52,9 @@ public class logProducto
     {
         return datProducto.Instancia.ObtenerStockMinimo(idProducto);
     }
+
+
+
 
 
 }

@@ -13,6 +13,7 @@
     <p><strong>RUC:</strong> @Model.ruc</p>
     <p><strong>Dirección:</strong> @Model.direccion</p>
     <p><strong>Contacto:</strong> @Model.contacto</p>
+    <p><strong>Usuario:</strong> @(Model.id_usuario != null ? Model.id_usuario.ToString() : "Sin usuario")</p>
 
     @if (Model.correos != null && Model.correos.Any())
     {

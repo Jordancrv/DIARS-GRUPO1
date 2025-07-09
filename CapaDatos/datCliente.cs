@@ -21,67 +21,67 @@ namespace CapaDatos
         }
         #endregion
 
-            public List<entClientes> ListarClientes()
+        public List<entClientes> ListarClientes()
+        {
+            List<entClientes> lista = new List<entClientes>();
+
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
-                List<entClientes> lista = new List<entClientes>();
-
-                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                SqlCommand cmd = new SqlCommand("sp_ListarClienteCompleto", cn)
                 {
-                    SqlCommand cmd = new SqlCommand("sp_ListarClienteCompleto", cn)
+                    CommandType = CommandType.StoredProcedure
+                };
+                cn.Open();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    int id = Convert.ToInt32(dr["id_cliente"]);
+
+                    // Busca si ya está agregado
+                    var cliente = lista.FirstOrDefault(c => c.id_cliente == id);
+
+                    if (cliente == null)
                     {
-                        CommandType = CommandType.StoredProcedure
-                    };
-                    cn.Open();
+                        cliente = new entClientes
+                        {
+                            id_cliente = id,
+                            id_tipo_cliente = Convert.ToInt32(dr["id_tipo_cliente"]),
+                            nombres = dr["nombres"].ToString(),
+                            apellidos = dr["apellidos"].ToString(),
+                            dni = dr["dni"].ToString(),
+                            razon_social = dr["razon_social"].ToString(),
+                            ruc = dr["ruc"].ToString(),
+                            direccion = dr["direccion"].ToString(),
+                            idUsuario = dr["id_usuario"] != DBNull.Value ? dr["id_usuario"].ToString() : null,
+                            activo = Convert.ToBoolean(dr["activo"]),
+                            telefonos = new List<string>(),
+                            correos = new List<string>()
+                        };
+                        lista.Add(cliente);
+                    }
 
-                    SqlDataReader dr = cmd.ExecuteReader();
-
-                    while (dr.Read())
+                    // Agrega teléfono si existe
+                    if (dr["telefono"] != DBNull.Value)
                     {
-                        int id = Convert.ToInt32(dr["id_cliente"]);
+                        string tel = dr["telefono"].ToString();
+                        if (!cliente.telefonos.Contains(tel))
+                            cliente.telefonos.Add(tel);
+                    }
 
-                        // Busca si ya está agregado
-                        var cliente = lista.FirstOrDefault(c => c.id_cliente == id);
-
-                        if (cliente == null)
-                        {
-                            cliente = new entClientes
-                            {
-                                id_cliente = id,
-                                id_tipo_cliente = Convert.ToInt32(dr["id_tipo_cliente"]),
-                                nombres = dr["nombres"].ToString(),
-                                apellidos = dr["apellidos"].ToString(),
-                                dni = dr["dni"].ToString(),
-                                razon_social = dr["razon_social"].ToString(),
-                                ruc = dr["ruc"].ToString(),
-                                direccion = dr["direccion"].ToString(),
-                                idUsuario = dr["id_usuario"] != DBNull.Value ? dr["id_usuario"].ToString() : null,  
-                                activo = Convert.ToBoolean(dr["activo"]),
-                                telefonos = new List<string>(),
-                                correos = new List<string>()
-                            };
-                            lista.Add(cliente);
-                        }
-
-                        // Agrega teléfono si existe
-                        if (dr["telefono"] != DBNull.Value)
-                        {
-                            string tel = dr["telefono"].ToString();
-                            if (!cliente.telefonos.Contains(tel))
-                                cliente.telefonos.Add(tel);
-                        }
-
-                        // Agrega correo si existe
-                        if (dr["email"] != DBNull.Value)
-                        {
-                            string mail = dr["email"].ToString();
-                            if (!cliente.correos.Contains(mail))
-                                cliente.correos.Add(mail);
-                        }
+                    // Agrega correo si existe
+                    if (dr["email"] != DBNull.Value)
+                    {
+                        string mail = dr["email"].ToString();
+                        if (!cliente.correos.Contains(mail))
+                            cliente.correos.Add(mail);
                     }
                 }
-
-                return lista;
             }
+
+            return lista;
+        }
 
         public bool InsertarCliente(entClientes cliente)
         {
@@ -324,10 +324,10 @@ namespace CapaDatos
                 }
                 return cli;
             }
-            catch(SqlException e)
+            catch (SqlException e)
             {
 
-                throw new ApplicationException("Error al ingresar los datos, por favor ingrese los datos correctamente"); 
+                throw new ApplicationException("Error al ingresar los datos, por favor ingrese los datos correctamente");
 
             }
         }

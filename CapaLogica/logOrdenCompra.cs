@@ -3,6 +3,7 @@ using CapaEntidad;
 using System;
 using System.Collections.Generic;
 
+
 namespace CapaLogica
 {
     public class logOrdenCompra
@@ -32,6 +33,22 @@ namespace CapaLogica
         {
             return datOrdenCompra.Instancia.ObtenerOrdenCompraPorId(id);
         }
+        public int RegistrarPagoOrden(entPagoOrdenCompra pago)
+        {
+            return datOrdenCompra.Instancia.RegistrarPagoOrden(pago);
+        }
+        public entPagoOrdenCompra ObtenerPagoPorComprobante(int idComprobante)
+        {
+            return datOrdenCompra.Instancia.ObtenerPagoPorComprobante(idComprobante);
+        }
+        public bool AnularPagoOrden(int idComprobante)
+        {
+            return datOrdenCompra.Instancia.AnularPagoOrden(idComprobante);
+        }
+
+
+
+
 
     }
 }

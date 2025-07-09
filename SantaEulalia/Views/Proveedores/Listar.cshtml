@@ -19,6 +19,7 @@
                 <th>RUC</th>
                 <th>Dirección</th>
                 <th>Contacto</th>
+                <th>Usuario</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -31,6 +32,7 @@
                     <td>@item.ruc</td>
                     <td>@item.direccion</td>
                     <td>@item.contacto</td>
+                    <td>@(item.id_usuario != null ? item.id_usuario.ToString() : "Sin usuario")</td>
                     <td>
                         <a class="btn btn-warning btn-sm" href="@Url.Action("Editar", "Proveedores", new { id = item.id_proveedor })">Editar</a>
                         <a class="btn btn-danger btn-sm" href="@Url.Action("Eliminar", "Proveedores", new { id = item.id_proveedor })" onclick="return confirm('¿Desea eliminar este proveedor?');">Eliminar</a>

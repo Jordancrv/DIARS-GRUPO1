@@ -26,7 +26,7 @@ namespace CapaLogica
         // Listar
         public List<entPromociones> ListarPromociones()
         {
-            return datPromociones.Instancia.ListarPromociones(); 
+            return datPromociones.Instancia.ListarPromociones();
         }
 
         // Insertar

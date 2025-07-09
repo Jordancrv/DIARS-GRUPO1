@@ -15,6 +15,7 @@ namespace CapaEntidad
         public string contacto { get; set; }
         public bool activo { get; set; }
 
+
         public List<string> telefonos { get; set; }
         public List<string> correos { get; set; }
 

@@ -1,4 +1,5 @@
 wwwroot\css\dashboard.css
+wwwroot\css\productos.css
 wwwroot\css\site.css
 wwwroot\css-user\animate.min.css
 wwwroot\css-user\bootstrap.min.css
@@ -343,3 +344,5 @@ wwwroot\lib\jquery-validation\LICENSE.md
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\Rotativa.rar
+wwwroot\Rotativa\wkhtmltopdf.exe

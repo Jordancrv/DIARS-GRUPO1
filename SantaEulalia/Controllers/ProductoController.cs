@@ -1,191 +1,59 @@
-﻿using CapaEntidad;
-using CapaLogica;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SantaEulalia.ViewModels;
-using System;
+using CapaEntidad;
+using CapaLogica;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace SantaEulalia.Controllers
 {
     public class ProductoController : Controller
     {
-        // GET: Listar todos los productos
-        public IActionResult Listar()
+        // ========================
+        // 👉 VISTA PARA CLIENTES (Tienda)
+        // ========================
+        [HttpGet]
+        public IActionResult Tienda(string busqueda, int? categoriaId)
         {
             var productos = logProducto.Instancia.ListarProducto();
-            return View(productos);
-        }
 
-        // GET: Mostrar detalles de un producto por ID
-        [HttpGet]
-        public IActionResult Detalles(int id)
-        {
-            try
+            if (!string.IsNullOrWhiteSpace(busqueda))
             {
-                var producto = logProducto.Instancia.BuscarProducto(id);
-                if (producto == null)
-                    return NotFound();
-
-                return View(producto);
+                productos = productos
+                    .Where(p => p.nombre.Contains(busqueda, System.StringComparison.OrdinalIgnoreCase))
+                    .ToList();
             }
-            catch (Exception ex)
+
+            if (categoriaId.HasValue)
             {
-                ViewBag.Error = "Error al mostrar detalles: " + ex.Message;
-                return RedirectToAction("Listar");
+                productos = productos
+                    .Where(p => p.idCategoria == categoriaId.Value)
+                    .ToList();
             }
-        }
 
-        // GET: Mostrar formulario para registrar un nuevo producto
-        [HttpGet]
-        public IActionResult Registrar()
-        {
-            var viewModel = new ProductoViewModel();
-            CargarCombos(viewModel);
-            return View(viewModel);
-        }
-
-        // POST: Insertar nuevo producto
-        [HttpPost]
-        public IActionResult Registrar(ProductoViewModel vm)
-        {
-            try
-            {
-                bool registrado = logProducto.Instancia.InsertarProducto(vm.Producto);
-
-                if (registrado)
-                    return RedirectToAction("Listar");
-
-                ViewBag.Error = "No se pudo registrar el producto.";
-                CargarCombos(vm);
-                return View(vm);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Error = "Error al registrar: " + ex.Message;
-                CargarCombos(vm);
-                return View(vm);
-            }
-        }
-
-        // GET: Mostrar formulario para editar un producto
-        [HttpGet]
-        public IActionResult Editar(int id)
-        {
-            try
-            {
-                var producto = logProducto.Instancia.BuscarProducto(id);
-                if (producto == null)
-                    return NotFound();
-
-                var viewModel = new ProductoViewModel
-                {
-                    Producto = producto
-                };
-                CargarCombos(viewModel);
-                return View(viewModel);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Error = "Error al cargar datos del producto: " + ex.Message;
-                return RedirectToAction("Listar");
-            }
-        }
-
-        // POST: Actualizar producto
-        [HttpPost]
-        public IActionResult Editar(ProductoViewModel vm)
-        {
-            try
-            {
-                bool editado = logProducto.Instancia.EditarProducto(vm.Producto);
-
-                if (editado)
-                    return RedirectToAction("Listar");
-
-                ViewBag.Error = "No se pudo editar el producto.";
-                CargarCombos(vm);
-                return View(vm);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Error = "Error al editar: " + ex.Message;
-                CargarCombos(vm);
-                return View(vm);
-            }
-        }
-
-        // GET: Mostrar confirmación para eliminar producto
-        [HttpGet]
-        public IActionResult Eliminar(int id)
-        {
-            try
-            {
-                var producto = logProducto.Instancia.BuscarProducto(id);
-                if (producto == null)
-                    return NotFound();
-
-                return View(producto);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Error = "Error al buscar producto: " + ex.Message;
-                return RedirectToAction("Listar");
-            }
-        }
-
-        // POST: Confirmar eliminación
-        [HttpPost, ActionName("Eliminar")]
-        public IActionResult EliminarConfirmado(int id)
-        {
-            try
-            {
-                bool eliminado = logProducto.Instancia.EliminarProducto(id);
-                if (eliminado)
-                    return RedirectToAction("Listar");
-
-                ViewBag.Error = "No se pudo eliminar el producto.";
-                var producto = logProducto.Instancia.BuscarProducto(id);
-                return View("Eliminar", producto);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Error = "Error al eliminar: " + ex.Message;
-                var producto = logProducto.Instancia.BuscarProducto(id);
-                return View("Eliminar", producto);
-            }
-        }
-
-        // Método privado para cargar los combos en el ViewModel
-        private void CargarCombos(ProductoViewModel vm)
-        {
-            vm.Proveedores = logProveedores.Instancia.ListarProveedores()
-                .Select(p => new SelectListItem
-                {
-                    Value = p.id_proveedor.ToString(),
-                    Text = p.razon_social
-                }).ToList();
-
-            vm.Categorias = logCategoria.Instancia.ListarCategorias()
+            var listaCategorias = logCategoria.Instancia.ListarCategorias()
                 .Select(c => new SelectListItem
                 {
                     Value = c.idCategoria.ToString(),
                     Text = c.nombreCategoria
-                }).ToList();
+                })
+                .ToList();
 
-            vm.Presentaciones = logPresentacion.Instancia.ListarPresentaciones()
-                .Select(p => new SelectListItem
-                {
-                    Value = p.idPresentacion.ToString(),
-                    Text = p.nombrePresentacion
-                }).ToList();
+            ViewBag.Categorias = listaCategorias;
+            ViewBag.Busqueda = busqueda;
+            ViewBag.CategoriaSeleccionada = categoriaId;
 
-            vm.TiposEmpaque = logTipoEmpaque.Instancia.ListarTipoEmpaque()
-                .Select(t => new SelectListItem
-                {
-                    Value = t.idTipoEmpaque.ToString(),
-                    Text = t.nombreEmpaque
-                }).ToList();
+            return View("Tienda", productos);
+        }
+
+        // ========================
+        // 👉 VISTA PARA ADMINISTRADOR (Listar Productos)
+        // ========================
+        [HttpGet]
+        public IActionResult Listar()
+        {
+            var productos = logProducto.Instancia.ListarProducto();
+            return View(productos); // ← Asegúrate de tener la vista Views/Producto/Listar.cshtml
         }
     }
 }

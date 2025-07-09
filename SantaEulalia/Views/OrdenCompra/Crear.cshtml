@@ -8,6 +8,17 @@
 
 <h2 class="mb-4">Nueva Orden de Compra</h2>
 
+<!-- ✅ Mostrar errores del ModelState -->
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+{
+    <div class="alert alert-danger">
+        @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@modelError.ErrorMessage</div>
+        }
+    </div>
+}
+
 <form asp-action="Crear" method="post">
     <input type="hidden" asp-for="id_usuario" value="1" />
 

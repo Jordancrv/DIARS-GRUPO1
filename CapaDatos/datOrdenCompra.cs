@@ -15,31 +15,40 @@ namespace CapaDatos
 
         public bool InsertarOrdenCompraValidada(OrdenCompra orden)
         {
-            using (SqlConnection cn = Conexion.Instancia.Conectar())
-            using (SqlCommand cmd = new SqlCommand("sp_InsertarOrdenCompraValidada", cn))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@id_proveedor", orden.id_proveedor ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@id_usuario", orden.id_usuario);
-                cmd.Parameters.AddWithValue("@tipo_orden", orden.tipo_orden);
-
-                DataTable dt = new DataTable();
-                dt.Columns.Add("id_producto", typeof(int));
-                dt.Columns.Add("cantidad", typeof(int));
-                dt.Columns.Add("precio_unitario", typeof(decimal));
-                foreach (var d in orden.detalles)
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                using (SqlCommand cmd = new SqlCommand("sp_InsertarOrdenCompraValidada", cn))
                 {
-                    dt.Rows.Add(d.id_producto, d.cantidad, d.precio_unitario);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id_proveedor", orden.id_proveedor ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@id_usuario", orden.id_usuario);
+                    cmd.Parameters.AddWithValue("@tipo_orden", orden.tipo_orden);
+
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("id_producto", typeof(int));
+                    dt.Columns.Add("cantidad", typeof(int));
+                    dt.Columns.Add("precio_unitario", typeof(decimal));
+                    foreach (var d in orden.detalles)
+                    {
+                        dt.Rows.Add(d.id_producto, d.cantidad, d.precio_unitario);
+                    }
+
+                    SqlParameter pDetalles = cmd.Parameters.AddWithValue("@detalles", dt);
+                    pDetalles.SqlDbType = SqlDbType.Structured;
+                    pDetalles.TypeName = "dbo.DetalleOrdenCompraTableType";
+
+                    cn.Open();
+                    return cmd.ExecuteNonQuery() > 0;
                 }
-
-                SqlParameter pDetalles = cmd.Parameters.AddWithValue("@detalles", dt);
-                pDetalles.SqlDbType = SqlDbType.Structured;
-                pDetalles.TypeName = "dbo.DetalleOrdenCompraTableType";
-
-                cn.Open();
-                return cmd.ExecuteNonQuery() > 0;
+            }
+            catch (SqlException ex)
+            {
+                
+                throw new Exception(ex.Message);
             }
         }
+
 
         public bool AnularOrdenCompra(int idOrdenCompra)
         {
@@ -81,6 +90,93 @@ namespace CapaDatos
             }
             return lista;
         }
+        public int RegistrarPagoOrden(entPagoOrdenCompra pago)
+        {
+            try
+            {
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                using (SqlCommand cmd = new SqlCommand("sp_RegistrarPagoOrden", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@IdOrdenCompra", pago.IdOrdenCompra);
+                    cmd.Parameters.AddWithValue("@IdMetodoPago", pago.IdMetodoPago);
+                    cmd.Parameters.AddWithValue("@Monto", pago.Monto);
+                    cmd.Parameters.AddWithValue("@TipoComprobante", pago.TipoComprobante ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Serie", pago.Serie ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Numero", pago.Numero ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Observaciones", pago.Observaciones ?? (object)DBNull.Value);
+
+                    SqlParameter output = new SqlParameter("@IdComprobanteGenerado", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(output);
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    return (int)output.Value;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al registrar el pago: " + ex.Message);
+            }
+        }
+        public entPagoOrdenCompra ObtenerPagoPorComprobante(int idComprobante)
+        {
+            entPagoOrdenCompra pago = null;
+
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            using (SqlCommand cmd = new SqlCommand(@"SELECT * FROM PagosOrdenCompra 
+                                             WHERE id_comprobante = @id", cn))
+            {
+                cmd.Parameters.AddWithValue("@id", idComprobante);
+                cn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        pago = new entPagoOrdenCompra
+                        {
+                            IdPago = Convert.ToInt32(dr["id_pago"]),
+                            IdOrdenCompra = Convert.ToInt32(dr["id_orden_compra"]),
+                            IdMetodoPago = Convert.ToInt32(dr["id_metodo_pago"]),
+                            IdComprobante = Convert.ToInt32(dr["id_comprobante"]),
+                            Monto = Convert.ToDecimal(dr["monto"]),
+                            FechaPago = Convert.ToDateTime(dr["fecha_pago"]),
+                            Estado = dr["estado"].ToString(),
+                            Observaciones = dr["observaciones"]?.ToString()
+                        };
+                    }
+                }
+            }
+
+            return pago;
+        }
+
+        public bool AnularPagoOrden(int idComprobante)
+        {
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            using (SqlCommand cmd = new SqlCommand("sp_AnularPagoOrden", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IdComprobante", idComprobante);
+                cn.Open();
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
         public OrdenCompra ObtenerOrdenCompraPorId(int id)
         {
             OrdenCompra orden = null;

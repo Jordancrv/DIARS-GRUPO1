@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-  
-        public class datUsuario
-        {
-            private static readonly datUsuario _instancia = new datUsuario();
-            public static datUsuario Instancia => _instancia;
+
+    public class datUsuario
+    {
+        private static readonly datUsuario _instancia = new datUsuario();
+        public static datUsuario Instancia => _instancia;
 
         public bool InsertarUsuario(entUsuario usuario)
         {
@@ -34,7 +34,7 @@ namespace CapaDatos
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                     
+
                         cmd.Parameters.AddWithValue("@password_hash", (object)usuario.password_hash ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@rol", (object)usuario.rol ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@activo", usuario.activo);
@@ -186,7 +186,7 @@ namespace CapaDatos
                             usuariosDic[id_usuario] = new entUsuario
                             {
                                 id_usuario = id_usuario,
-                             
+
                                 password_hash = dr["password_hash"].ToString(),
                                 rol = dr["rol"].ToString(),
                                 fecha_creacion = Convert.ToDateTime(dr["fecha_creacion"]),
@@ -207,75 +207,72 @@ namespace CapaDatos
             return usuariosDic.Values.ToList();
         }
 
-        //public entUsuario BuscarUsuarioPorId(int id)
-        //    {
-        //        entUsuario usuario = null;
+        public entUsuario BuscarUsuarioPorId(int id)
+        {
+            entUsuario usuario = null;
 
-        //        using (SqlConnection cn = Conexion.Instancia.Conectar())
-        //        {
-        //            SqlCommand cmd = new SqlCommand("sp_BuscarUsuarioPorId", cn);
-        //            cmd.CommandType = CommandType.StoredProcedure;
-        //            cmd.Parameters.AddWithValue("@id_usuario", id);
-
-        //            cn.Open();
-        //            using (SqlDataReader dr = cmd.ExecuteReader())
-        //            {
-        //                if (dr.Read())
-        //                {
-        //                    usuario = new entUsuario
-        //                    {
-        //                        id_usuario = Convert.ToInt32(dr["id_usuario"]),
-        //                        nombres = dr["nombres"].ToString(),
-        //                        apellidos = dr["apellidos"].ToString(),
-        //                        email = dr["email"].ToString(),
-        //                        password_hash = dr["password_hash"].ToString(),
-        //                        rol = dr["rol"].ToString(),
-        //                        fecha_creacion = Convert.ToDateTime(dr["fecha_creacion"]),
-        //                        activo = Convert.ToBoolean(dr["activo"])
-        //                    };
-        //                }
-        //            }
-        //        }
-
-        //        return usuario;
-        //    }
-
-            //public bool ActualizarUsuario(entUsuario usuario)
-            //{
-            //    using (SqlConnection cn = Conexion.Instancia.Conectar())
-            //    {
-            //        SqlCommand cmd = new SqlCommand("sp_ActualizarUsuario", cn);
-            //        cmd.CommandType = CommandType.StoredProcedure;
-
-            //        cmd.Parameters.AddWithValue("@id_usuario", usuario.id_usuario);
-            //        cmd.Parameters.AddWithValue("@nombres", usuario.nombres);
-            //        cmd.Parameters.AddWithValue("@apellidos", usuario.apellidos);
-            //        cmd.Parameters.AddWithValue("@email", usuario.email);
-            //        cmd.Parameters.AddWithValue("@password_hash", usuario.password_hash);
-            //        cmd.Parameters.AddWithValue("@rol", usuario.rol);
-            //        cmd.Parameters.AddWithValue("@activo", usuario.activo);
-
-            //        cn.Open();
-            //        return cmd.ExecuteNonQuery() > 0;
-            //    }
-            //}
-
-            public bool EliminarUsuario(int idUsuario)
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
-                using (SqlConnection cn = Conexion.Instancia.Conectar())
-                {
-                    SqlCommand cmd = new SqlCommand("sp_EliminarUsuario", cn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@id_usuario", idUsuario);
+                SqlCommand cmd = new SqlCommand("sp_BuscarUsuarioPorId", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id_usuario", id);
 
-                    cn.Open();
-                    return cmd.ExecuteNonQuery() > 0;
+                cn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        usuario = new entUsuario
+                        {
+                            id_usuario = Convert.ToInt32(dr["id_usuario"]),
+                          
+     
+                            password_hash = dr["password_hash"].ToString(),
+                            rol = dr["rol"].ToString(),
+                            fecha_creacion = Convert.ToDateTime(dr["fecha_creacion"]),
+                            activo = Convert.ToBoolean(dr["activo"])
+                        };
+                    }
                 }
+            }
+
+            return usuario;
+        }
+
+        public bool ActualizarUsuario(entUsuario usuario)
+        {
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            {
+                SqlCommand cmd = new SqlCommand("sp_ActualizarUsuario", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@id_usuario", usuario.id_usuario);
+                
+                cmd.Parameters.AddWithValue("@password_hash", usuario.password_hash);
+                cmd.Parameters.AddWithValue("@rol", usuario.rol);
+                cmd.Parameters.AddWithValue("@activo", usuario.activo);
+
+                cn.Open();
+                return cmd.ExecuteNonQuery() > 0;
             }
         }
 
+        public bool EliminarUsuario(int idUsuario)
+        {
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            {
+                SqlCommand cmd = new SqlCommand("sp_EliminarUsuario", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id_usuario", idUsuario);
+
+                cn.Open();
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+    }
 
 
 
-    
+
+
 }
