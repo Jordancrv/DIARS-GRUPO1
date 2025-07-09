@@ -16,8 +16,20 @@ namespace CapaEntidad
         public string email { get; set; }
         public bool activo { get; set; }
 
+<<<<<<< Updated upstream
         // Colección de pedidos (opcional)
         public List<entPedidosVenta> Pedidos { get; set; }
+=======
+        // NUEVO:
+        public List<string> telefonos { get; set; }
+        public List<string> correos { get; set; }
+
+        public entClientes()
+        {
+            telefonos = new List<string>();
+            correos = new List<string>();
+        }
+>>>>>>> Stashed changes
     }
     public class entPedidosVenta
     {

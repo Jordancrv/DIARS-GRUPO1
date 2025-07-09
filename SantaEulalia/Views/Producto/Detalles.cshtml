@@ -1,0 +1,54 @@
+﻿@model CapaEntidad.entProductos
+
+@{
+    ViewData["Title"] = "Detalles del Producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles del Producto</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">Código</dt>
+        <dd class="col-sm-9">@Model.codigo</dd>
+
+        <dt class="col-sm-3">Nombre</dt>
+        <dd class="col-sm-9">@Model.nombre</dd>
+
+        <dt class="col-sm-3">Descripción</dt>
+        <dd class="col-sm-9">@Model.descripcion</dd>
+
+        <dt class="col-sm-3">Precio</dt>
+        <dd class="col-sm-9">@Model.precio</dd>
+
+        <dt class="col-sm-3">Precio de Venta</dt>
+        <dd class="col-sm-9">@Model.precioventa</dd>
+
+
+        <dt class="col-sm-3">Stock</dt>
+        <dd class="col-sm-9">@Model.stock</dd>
+
+        <dt class="col-sm-3">Stock Mínimo</dt>
+        <dd class="col-sm-9">@Model.stock_minimo</dd>
+
+        <dt class="col-sm-3">Unidad Medida</dt>
+        <dd class="col-sm-9">@Model.unidad_medida</dd>
+
+        <dt class="col-sm-3">Proveedor</dt>
+        <dd class="col-sm-9">@Model.nombreProveedor</dd>
+
+        <dt class="col-sm-3">Categoría</dt>
+        <dd class="col-sm-9">@Model.nombreCategoria</dd>
+
+        <dt class="col-sm-3">Presentación</dt>
+        <dd class="col-sm-9">@Model.nombrePresentacion</dd>
+
+        <dt class="col-sm-3">Tipo Empaque</dt>
+        <dd class="col-sm-9">@Model.nombreTipoEmpaque</dd>
+
+        <dt class="col-sm-3">Activo</dt>
+        <dd class="col-sm-9">@((Model.activo) ? "Sí" : "No")</dd>
+    </dl>
+
+    <a asp-action="Listar" class="btn btn-secondary">Volver</a>
+</div>

@@ -8,7 +8,23 @@ public class LogProducto
 
     public List<entProductos> ListarProductos()
     {
+<<<<<<< Updated upstream
         return new List<entProductos>();
+=======
+        get
+        {
+            return logProducto.UnicaInstancia;
+        }
+    }
+    #endregion
+
+    // Listar
+
+
+    public List<entProductos> ListarProducto()
+    {
+        return datProducto.Instancia.ListarProductos();
+>>>>>>> Stashed changes
     }
 
     public bool RegistrarProducto(entProductos obj, out string mensaje)
@@ -28,4 +44,23 @@ public class LogProducto
         mensaje = "Producto eliminado";
         return true;
     }
+<<<<<<< Updated upstream
+=======
+
+    // Eliminar
+    public bool EliminarProducto(int idProducto)
+    {
+        return datProducto.Instancia.EliminarProducto(idProducto);
+    }
+
+    public int ObtenerStockMinimo(int idProducto)
+    {
+        return datProducto.Instancia.ObtenerStockMinimo(idProducto);
+    }
+
+
+
+
+
+>>>>>>> Stashed changes
 }

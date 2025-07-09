@@ -1,4 +1,5 @@
 wwwroot\css\dashboard.css
+wwwroot\css\productos.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\dashboard.js
@@ -64,3 +65,5 @@ wwwroot\lib\jquery-validation\LICENSE.md
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\Rotativa.rar
+wwwroot\Rotativa\wkhtmltopdf.exe

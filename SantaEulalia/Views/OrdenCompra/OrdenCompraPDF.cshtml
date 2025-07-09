@@ -1,0 +1,129 @@
+﻿@model CapaEntidad.OrdenCompraComprobanteViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Orden de Compra</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 12px;
+            margin: 40px;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+            .header h1 {
+                margin: 0;
+                font-size: 24px;
+                color: #2c3e50;
+            }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+            .section h3 {
+                background-color: #f2f2f2;
+                padding: 8px;
+                font-size: 16px;
+                border-left: 4px solid #2980b9;
+                margin-bottom: 10px;
+            }
+
+            .section p {
+                margin: 2px 0;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            background-color: #2980b9;
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+
+        td {
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .total {
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 10px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Comprobante de Orden de Compra</h1>
+    </div>
+
+    <div class="section">
+        <h3>Datos del Comprobante</h3>
+        <p><strong>Comprobante:</strong> @Model.Comprobante.tipo @Model.Comprobante.serie-@Model.Comprobante.numero</p>
+    </div>
+
+    <div class="section">
+        <h3>Detalles de la Orden</h3>
+        <p><strong>ID Orden:</strong> @Model.Orden.id_orden_compra</p>
+        <p><strong>Tipo de Orden:</strong> @Model.Orden.tipo_orden</p>
+        <p><strong>Estado:</strong> @Model.Orden.estado</p>
+        <p><strong>Fecha:</strong> @Model.Orden.fecha.ToString("dd/MM/yyyy")</p>
+    </div>
+
+        <div class="section">
+            <h3>Productos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario (S/.)</th>
+                        <th>Subtotal (S/.)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Orden.detalles)
+                    {
+                        <tr>
+                            <td>@item.id_producto</td>
+                            <td>@item.cantidad</td>
+                            <td>@item.precio_unitario.ToString("0.00")</td>
+                            <td>@( (item.cantidad * item.precio_unitario).ToString("0.00") )</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    <div class="total">
+        <p>Total de la Orden: <strong>S/. @Model.Orden.total.ToString("0.00")</strong></p>
+    </div>
+
+    <div class="footer">
+        Este documento fue generado automáticamente. No requiere firma ni sello.
+    </div>
+</body>
+</html>

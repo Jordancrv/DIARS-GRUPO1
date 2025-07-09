@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< Updated upstream
     "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {}
   },
   "projects": {
@@ -14,6 +15,21 @@
             "projectReferences": {
               "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
                 "projectPath": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+=======
+    "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj",
+        "projectName": "CapaDatos",
+        "projectPath": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+>>>>>>> Stashed changes
               }
             }
           }
@@ -23,11 +39,19 @@
         "net472": {}
       }
     },
+<<<<<<< Updated upstream
     "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
       "restore": {
         "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
         "projectName": "CapaEntidad",
         "projectPath": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
+=======
+    "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
+        "projectName": "CapaEntidad",
+        "projectPath": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj",
+>>>>>>> Stashed changes
         "frameworks": {
           "net472": {
             "projectReferences": {}
@@ -38,6 +62,7 @@
         "net472": {}
       }
     },
+<<<<<<< Updated upstream
     "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
       "restore": {
         "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj",
@@ -51,6 +76,21 @@
               },
               "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
                 "projectPath": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+=======
+    "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj",
+        "projectName": "CapaLogica",
+        "projectPath": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaDatos\\CapaDatos.csproj"
+              },
+              "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+>>>>>>> Stashed changes
               }
             }
           }
@@ -60,6 +100,7 @@
         "net472": {}
       }
     },
+<<<<<<< Updated upstream
     "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -68,6 +109,16 @@
         "projectPath": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
         "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
+=======
+    "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+        "projectName": "SantaEulalia",
+        "projectPath": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\SantaEulalia.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\SantaEulalia\\obj\\",
+>>>>>>> Stashed changes
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -84,11 +135,19 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+<<<<<<< Updated upstream
               "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
                 "projectPath": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
               },
               "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
                 "projectPath": "C:\\Users\\USUARIO\\Desktop\\proyectoDiars\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
+=======
+              "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaEntidad\\CapaEntidad.csproj"
+              },
+              "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\Downloads\\DIARS-GRUPO1\\DIARS-GRUPO1\\CapaLogica\\CapaLogica.csproj"
+>>>>>>> Stashed changes
               }
             }
           }
@@ -103,10 +162,25 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[9.0.5, )"
             },
+<<<<<<< Updated upstream
+=======
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Rotativa.AspNetCore": {
+              "target": "Package",
+              "version": "[1.4.0, )"
+            },
+>>>>>>> Stashed changes
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.9.0, )"

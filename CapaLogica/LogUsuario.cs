@@ -13,6 +13,25 @@ public class LogUsuario
 
     public List<entUsuario> ListarUsuarios()
     {
+<<<<<<< Updated upstream
         return new List<entUsuario>();
+=======
+        return datUsuario.Instancia.ListarUsuarios();
+    }
+
+    public entUsuario BuscarPorId(int id)
+    {
+        return datUsuario.Instancia.BuscarUsuarioPorId(id);
+    }
+
+    public bool Editar(entUsuario usuario)
+    {
+        return datUsuario.Instancia.ActualizarUsuario(usuario);
+    }
+
+    public bool Eliminar(int id)
+    {
+        return datUsuario.Instancia.EliminarUsuario(id);
+>>>>>>> Stashed changes
     }
 }

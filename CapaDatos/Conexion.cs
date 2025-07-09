@@ -22,16 +22,20 @@ namespace CapaDatos
 
         }
 
-        #endregion Singleton
+        #endregion Singleton                                            
 
         public SqlConnection Conectar()
         {
             SqlConnection cn = new SqlConnection();
+<<<<<<< Updated upstream
             cn.ConnectionString = "Data Source=DESKTOP-4ULN0AO\\SQLEXPRESS" +
                                   "Initial Catalog=ProyectoDiars;" +
+=======
+            cn.ConnectionString = "Data Source=DESKTOP-4ULN0AO\\SQLEXPRESS;" +
+                                  "Initial Catalog=DiarsAlfa;" +
+>>>>>>> Stashed changes
                                   "Integrated Security=True;";
             return cn;
         }
-     
-    }//hl.a//
+    }
 }
