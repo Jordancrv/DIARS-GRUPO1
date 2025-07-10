@@ -1,0 +1,103 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Cotización de Producto";
+}
+
+<h2>Cotización de Producto</h2>
+
+<!-- Sección 1: Filtro de productos -->
+<div class="card mt-3">
+    <div class="card-header bg-primary text-white">
+        Buscar Producto
+    </div>
+    <div class="card-body">
+        <form asp-action="Cotizacion" method="get">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" name="buscar" class="form-control" placeholder="Nombre o código del producto" />
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+                <div class="col-md-2">
+                    <a href="@Url.Action("CrearProducto", "ClienteCompra")" class="btn btn-success">Agregar Producto</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="@Url.Action("CrearProveedor", "ClienteCompra")" class="btn btn-info">Agregar Proveedor</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Sección 2: Resultados de productos -->
+<div class="card mt-4">
+    <div class="card-header bg-dark text-white">
+        Resultados
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Stock Mínimo</th>
+                    <th>Proveedor</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* Ejemplo estático — se reemplazará por bucle real con modelo *@
+                <tr>
+                    <td>PRD001</td>
+                    <td>Ejemplo Producto</td>
+                    <td>S/ 30.00</td>
+                    <td class="text-danger">3</td> <!-- Destacar si stock < mínimo -->
+                    <td>10</td>
+                    <td>Proveedor SAC</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" href="#">Editar</a>
+                        <a class="btn btn-sm btn-danger" href="#">Eliminar</a>
+                        <a class="btn btn-sm btn-secondary" href="#">Cotizar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Sección 3: Cotizaciones activas -->
+<div class="card mt-4">
+    <div class="card-header bg-secondary text-white">
+        Cotizaciones Activas
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID Cotización</th>
+                    <th>Producto</th>
+                    <th>Proveedor</th>
+                    <th>Precio Cotizado</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* Reemplazar con modelo real *@
+                <tr>
+                    <td>CTZ001</td>
+                    <td>Ejemplo Producto</td>
+                    <td>Proveedor SAC</td>
+                    <td>S/ 28.00</td>
+                    <td>10/06/2025</td>
+                    <td>
+                        <a class="btn btn-sm btn-danger" href="#">Anular</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

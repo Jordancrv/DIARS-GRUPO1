@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CapaEntidad.entUsuario>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Listar";
+}
+
+<h1>Listar</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().id_usuario)</th>
+
+            <th>Correos</th>
+            <th>@Html.DisplayNameFor(model => model.First().password_hash)</th>
+            <th>@Html.DisplayNameFor(model => model.First().rol)</th>
+            <th>@Html.DisplayNameFor(model => model.First().fecha_creacion)</th>
+            <th>@Html.DisplayNameFor(model => model.First().activo)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id_usuario</td>
+
+                <td>
+                    @if (item.correos != null && item.correos.Any())
+                    {
+                        <ul>
+                            @foreach (var correo in item.correos)
+                            {
+                                <li>@correo</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>Sin correos</span>
+                    }
+                </td>
+                <td>@item.password_hash</td>
+                <td>@item.rol</td>
+                <td>@item.fecha_creacion.ToString("yyyy-MM-dd")</td>
+                <td>@(item.activo ? "Sí" : "No")</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id_usuario }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id_usuario }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id_usuario })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

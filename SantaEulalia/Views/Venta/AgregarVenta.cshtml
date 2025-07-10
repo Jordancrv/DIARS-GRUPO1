@@ -1,0 +1,82 @@
+﻿@model SantaEulalia.ViewModels.VentaViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewData["Title"] = "Registrar Venta";
+}
+
+<h2>Registrar Venta</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="Registrar" method="post">
+    <div class="form-group">
+        <label asp-for="ClienteId"></label>
+        <input asp-for="ClienteId" class="form-control" />
+        <span asp-validation-for="ClienteId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UsuarioId">Vendedor ID</label>
+        <input asp-for="UsuarioId" class="form-control" />
+        <span asp-validation-for="UsuarioId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AlmacenId"></label>
+        <input asp-for="AlmacenId" class="form-control" />
+        <span asp-validation-for="AlmacenId" class="text-danger"></span>
+    </div>
+
+    <h3>Detalles de la Venta</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Presentación ID</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Descuento</th>
+                <th>Promoción ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Detalles.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input asp-for="Detalles[@i].PresentacionId" class="form-control" />
+                        <span asp-validation-for="Detalles[@i].PresentacionId" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Detalles[@i].Cantidad" type="number" class="form-control" />
+                        <span asp-validation-for="Detalles[@i].Cantidad" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Detalles[@i].PrecioUnitario" type="number" step="0.01" class="form-control" />
+                        <span asp-validation-for="Detalles[@i].PrecioUnitario" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Detalles[@i].Descuento" type="number" step="0.01" class="form-control" />
+                        <span asp-validation-for="Detalles[@i].Descuento" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Detalles[@i].PromocionId" class="form-control" />
+                        <span asp-validation-for="Detalles[@i].PromocionId" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Registrar Venta</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
