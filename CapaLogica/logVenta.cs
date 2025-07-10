@@ -1,10 +1,6 @@
 ﻿using CapaDatos;
 using CapaEntidad;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaLogica
 {
@@ -15,10 +11,7 @@ namespace CapaLogica
 
         public static logVenta Instancia
         {
-            get
-            {
-                return logVenta.UnicaInstancia;
-            }
+            get { return logVenta.UnicaInstancia; }
         }
         #endregion singleton
 
@@ -34,9 +27,9 @@ namespace CapaLogica
             return datVenta.Instancia.InsertarVenta(venta);
         }
 
-        public bool EditarVenta(entPedidosVenta id_venta)
+        public bool EditarVenta(entPedidosVenta venta)
         {
-            return datVenta.Instancia.EditarVenta(id_venta);
+            return datVenta.Instancia.EditarVenta(venta);
         }
 
         public entPedidosVenta BuscarVenta(int idVenta)
@@ -51,9 +44,4 @@ namespace CapaLogica
 
         #endregion
     }
-
-
-
-
 }
-

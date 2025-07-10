@@ -48,6 +48,7 @@ namespace SantaEulalia.Controllers
             ViewBag.Productos = logProducto.Instancia.ListarProducto();
             ViewBag.Comprobantes = logComprobantePago.Instancia.ListarComprobantesPago();
             ViewBag.Usuarios = logUsuario.Instancia.Listar();
+            ViewBag.PromocionesPorProducto = logPromociones.Instancia.ListarPromocionesActivasPorProducto(); 
 
             return View();
         }
@@ -77,6 +78,7 @@ namespace SantaEulalia.Controllers
             ViewBag.Productos = logProducto.Instancia.ListarProducto();
             ViewBag.Comprobantes = logComprobantePago.Instancia.ListarComprobantesPago();
             ViewBag.Usuarios = logUsuario.Instancia.Listar();
+            ViewBag.PromocionesPorProducto = logPromociones.Instancia.ListarPromocionesActivasPorProducto();
 
             return View(venta);
         }
@@ -162,9 +164,34 @@ namespace SantaEulalia.Controllers
                     return View("EliminarVenta", venta);
                 }
             }
-        
 
 
+        [HttpGet]
+        public IActionResult GetPromocionActivaProducto(int idProducto) // Cambia JsonResult a IActionResult o sigue con JsonResult
+        {
+            try
+            {
+                // Llama a la capa de negocio para obtener la promoción
+                entPromociones promocion = logPromociones.Instancia.BuscarPromocionActivaPorProducto(idProducto);
+
+                if (promocion != null)
+                {
+                    // ¡ELIMINA JsonRequestBehavior.AllowGet! NO ES NECESARIO EN ASP.NET CORE.
+                    return Json(new { success = true, promocion = promocion });
+                }
+                else
+                {
+                    // ¡ELIMINA JsonRequestBehavior.AllowGet!
+                    return Json(new { success = false, message = "No se encontró promoción activa para este producto." });
+                }
+            }
+            catch (System.Exception ex)
+            {
+                // En caso de error, devolver un mensaje de error
+                // ¡ELIMINA JsonRequestBehavior.AllowGet!
+                return Json(new { success = false, message = "Error al buscar promoción: " + ex.Message });
+            }
+        }
 
 
 

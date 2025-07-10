@@ -3,6 +3,7 @@ using CapaLogica;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+
 namespace SantaEulalia.Controllers
 {
     public class PromocionesController : Controller
@@ -64,6 +65,34 @@ namespace SantaEulalia.Controllers
                 return View(promo);
             }
         }
+
+        [HttpGet]
+        public IActionResult GetPromocionActivaProducto(int idProducto) // Cambia JsonResult a IActionResult o sigue con JsonResult
+        {
+            try
+            {
+                // Llama a la capa de negocio para obtener la promoción
+                entPromociones promocion = logPromociones.Instancia.BuscarPromocionActivaPorProducto(idProducto);
+
+                if (promocion != null)
+                {
+                    // ¡ELIMINA JsonRequestBehavior.AllowGet! NO ES NECESARIO EN ASP.NET CORE.
+                    return Json(new { success = true, promocion = promocion });
+                }
+                else
+                {
+                    // ¡ELIMINA JsonRequestBehavior.AllowGet!
+                    return Json(new { success = false, message = "No se encontró promoción activa para este producto." });
+                }
+            }
+            catch (System.Exception ex)
+            {
+                // En caso de error, devolver un mensaje de error
+                // ¡ELIMINA JsonRequestBehavior.AllowGet!
+                return Json(new { success = false, message = "Error al buscar promoción: " + ex.Message });
+            }
+        }
+
 
         //// GET: Formulario para editar
         //[HttpGet]
