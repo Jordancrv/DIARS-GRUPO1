@@ -1,3 +1,4 @@
+
 -- SCRIPT COMPLETO CORREGIDO DE LA BASE DE DATOS DiarsBeta
 CREATE DATABASE DiarsAlfa;
 GO
@@ -21,9 +22,9 @@ CREATE TABLE UsuarioCorreos (
     email VARCHAR(100) UNIQUE,
     PRIMARY KEY (id_usuario, email),
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
-	); 
+	);
 
-
+	
 
 -- Tabla de tipo de cliente
 CREATE TABLE TipoCliente (
@@ -125,7 +126,7 @@ CREATE TABLE CategoriaProductos (
     nombreCategoria VARCHAR(50) NOT NULL
 );
 GO
-
+select  * from PedidosVenta
 CREATE TABLE Presentacion (
     idPresentacion INT PRIMARY KEY IDENTITY(1,1),
     nombrePresentacion VARCHAR(64) NOT NULL
@@ -138,6 +139,8 @@ CREATE TABLE TipoEmpaque (
     material VARCHAR(64) NULL
 );
 GO
+
+select *  from PedidosVenta
 
 -- Tabla de productos
 CREATE TABLE Productos (
@@ -185,7 +188,6 @@ GO
 	GO
 
 
-
 -- Relación producto-promoción
 CREATE TABLE ProductoPromocion (
     id_producto INT,
@@ -195,6 +197,26 @@ CREATE TABLE ProductoPromocion (
     FOREIGN KEY (id_promocion) REFERENCES Promociones(IdPromocion)
 );
 GO
+
+select * from PedidosVenta
+select * from DetallesVenta
+select * from ComprobantesPago
+select * from PagosVenta
+select * from VentaPromocion
+select * from PedidosVenta
+
+
+delete from PedidosVenta
+delete from DetallesVenta
+delete from ComprobantesPago
+delete from PagosVenta
+delete from VentaPromocion
+dbcc CHECKIDENT ('PedidosVenta', RESEED, 0)
+dbcc CHECKIDENT ('DetallesVenta', RESEED, 0)
+dbcc CHECKIDENT ('ComprobantesPago', RESEED, 0)
+dbcc CHECKIDENT ('PagosVenta', RESEED, 0)
+dbcc CHECKIDENT ('VentaPromocion', RESEED, 0)
+
 
 
 
@@ -226,7 +248,7 @@ CREATE TABLE PedidosVenta (
     id_pedido INT IDENTITY(1,1) PRIMARY KEY,
     id_cliente INT REFERENCES Clientes(id_cliente),
     id_usuario INT NULL REFERENCES Usuarios(id_usuario),
-    fecha DATETIME DEFAULT GETDATE(),
+    fecha DATETIME ,
     id_comprobante INT REFERENCES ComprobantesPago(id_comprobante),
     total DECIMAL(12,2),
     total_descuento_productos DECIMAL(12,2),
@@ -235,6 +257,36 @@ CREATE TABLE PedidosVenta (
     estado VARCHAR(20) NOT NULL CHECK (estado IN ('pendiente', 'procesado', 'anulado'))
 );
 GO
+--SELECT OBJECT_NAME(default_constraints.object_id) AS constraint_name,
+--       tables.name AS table_name,
+--       columns.name AS column_name
+--FROM sys.default_constraints
+--INNER JOIN sys.columns 
+--    ON default_constraints.parent_object_id = columns.object_id 
+--    AND default_constraints.parent_column_id = columns.column_id
+--INNER JOIN sys.tables 
+--    ON default_constraints.parent_object_id = tables.object_id
+--WHERE tables.name = 'PedidosVenta' AND columns.name = 'fecha';
+
+--ALTER TABLE PedidosVenta DROP CONSTRAINT DF__PedidosVe__fecha__07C12930;
+
+
+
+
+
+---- Para la tabla PagosVenta
+--SELECT OBJECT_NAME(default_constraints.object_id) AS constraint_name,
+--       tables.name AS table_name,
+--       columns.name AS column_name
+--FROM sys.default_constraints
+--INNER JOIN sys.columns 
+--    ON default_constraints.parent_object_id = columns.object_id 
+--    AND default_constraints.parent_column_id = columns.column_id
+--INNER JOIN sys.tables 
+--    ON default_constraints.parent_object_id = tables.object_id
+--WHERE tables.name = 'PagosVenta' AND columns.name = 'fecha';
+
+--ALTER TABLE PagosVenta DROP CONSTRAINT DF__PagosVent__fecha__17036CC0;
 
 -- Detalles de la venta
 CREATE TABLE DetallesVenta (
@@ -267,7 +319,7 @@ CREATE TABLE PagosVenta (
     id_pedido INT REFERENCES PedidosVenta(id_pedido),
     id_metodo_pago INT REFERENCES MetodosPago(id_metodo_pago),
     monto DECIMAL(12, 2) NOT NULL,
-    fecha DATETIME DEFAULT GETDATE(),
+    fecha DATETIME ,
     estado VARCHAR(20) CHECK (estado IN ('completado', 'anulado', 'pendiente'))
 );
 GO
@@ -312,7 +364,7 @@ CREATE TABLE PagosOrdenCompra (
     observaciones VARCHAR(255)
 );
 go
-
+select  * from ProductoPromocion
 
 ALTER TABLE PagosOrdenCompra
 ADD id_comprobante INT;
@@ -324,7 +376,16 @@ delete from PedidosVenta;
 delete from DetallesVenta;
 delete from ComprobantesPago;
 delete from PagosVenta;
+delete from ventapromocion 
 
+select count(*) from PedidosVenta where estado = 'procesado'
+
+select *  from PedidosVenta
+dbcc CHECKIDENT('PedidosVenta', RESEED,0)
+dbcc CHECKIDENT('DetallesVenta', RESEED,0)
+dbcc CHECKIDENT('ComprobantesPago', RESEED,0)
+dbcc CHECKIDENT('PagosVenta', RESEED,0)
+dbcc CHECKIDENT('ventapromocion', RESEED,0)
 dbcc CHECKIDENT('PedidosVenta', RESEED,0)
 
 select * from  clientes

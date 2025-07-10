@@ -59,91 +59,66 @@
 <body>
     <div class="d-flex">
         <!-- Sidebar -->
-        <div id="sidebar-wrapper" class="bg-dark text-white">
-            <div class="sidebar-heading d-flex align-items-center gap-2 px-3 mb-3">
-                <img src="/lib/img/logo.png" alt="Logo" style="height: 30px;" />
-                <span class="fw-bold">Santa Eulalia</span>
-            </div>
+        <div class="list-group list-group-flush px-2">
+            <div class="text-white text-uppercase small fw-bold mt-3">FPS</div>
 
-            <div class="list-group list-group-flush px-2">
-                <div class="text-white text-uppercase small fw-bold mt-3">Compras</div>
+            <div class="text-white text-uppercase small fw-bold mt-4">Ventas</div>
+            <a class="list-group-item list-group-item-action" href="/ControllerVenta/Listar">
+                <i class="fas fa-shopping-cart"></i> Lista Ventas
+            </a>
+            <a class="list-group-item list-group-item-action" href="/ControllerVenta/Insertar">
+                <i class="fas fa-cart-plus"></i> Agregar Venta
+            </a>
 
-                <a class="list-group-item list-group-item-action" href="@Url.Action("Cotizacion", "ClienteCompra")">
-                    <i class="fas fa-search-dollar"></i> Cotización
-                </a>
+            <div class="text-white text-uppercase small fw-bold mt-4">Clientes</div>
+            <a class="list-group-item list-group-item-action" href="/Cliente/Listar">
+                <i class="fas fa-users"></i> Listar Clientes
+            </a>
+            <a class="list-group-item list-group-item-action" href="/Cliente/InsertarCliente">
+                <i class="fas fa-user-plus"></i> Agregar Cliente
+            </a>
 
-                <a class="list-group-item list-group-item-action" href="@Url.Action("OrdenCompra", "ClienteCompra")">
-                    <i class="fas fa-file-invoice"></i> Orden de Compra
-                </a>
+            <div class="text-white text-uppercase small fw-bold mt-4">Usuarios</div>
+            <a class="list-group-item list-group-item-action" href="/Usuarios/Listar">
+                <i class="fas fa-user-friends"></i> Listar Usuarios
+            </a>
+            <a class="list-group-item list-group-item-action" href="/Usuarios/Registrar">
+                <i class="fas fa-user-plus"></i> Agregar Usuario
+            </a>
 
-                <a class="list-group-item list-group-item-action" href="@Url.Action("Recepcion", "ClienteCompra")">
-                    <i class="fas fa-box-open"></i> Recepción
-                </a>
+            <div class="text-white text-uppercase small fw-bold mt-4">Proveedores</div>
+            <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "Proveedores")">
+                <i class="fas fa-clipboard-list"></i> Listar Proveedores
+            </a>
+            <a class="list-group-item list-group-item-action" href="@Url.Action("Registrar", "Proveedores")">
+                <i class="fas fa-user-plus"></i> Registrar Proveedor
+            </a>
 
-                <a class="list-group-item list-group-item-action" href="@Url.Action("Pago", "ClienteCompra")">
-                    <i class="fas fa-credit-card"></i> Pago
-                </a>
+            <div class="text-white text-uppercase small fw-bold mt-4">Compras</div>
+            <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "OrdenCompra")">
+                <i class="fas fa-file-invoice"></i> Ordenes de Compra
+            </a>
+            <a class="list-group-item list-group-item-action" href="@Url.Action("Crear", "OrdenCompra")">
+                <i class="fas fa-plus-circle"></i> Nueva Orden
+            </a>
 
-                <div class="text-white text-uppercase small fw-bold mt-4">Ventas</div>
-                <a class="list-group-item list-group-item-action" href="/ControllerVenta/Listar">
-                    <i class="fas fa-shopping-cart"></i> Lista Ventas
-                </a>
-                <a class="list-group-item list-group-item-action" href="/ControllerVenta/Insertar">
-                    <i class="fas fa-cart-plus"></i> Agregar Venta
-                </a>
+            <div class="text-white text-uppercase small fw-bold mt-4">Pagos</div>
+            <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "OrdenCompra")">
+                <i class="fas fa-money-check-alt"></i> Pagos Ordenes Compra
+            </a>
 
-                <div class="text-white text-uppercase small fw-bold mt-4">Clientes</div>
-                <a class="list-group-item list-group-item-action" href="/Cliente/Listar">
-                    <i class="fas fa-users"></i> Listar Clientes
-                </a>
-                <a class="list-group-item list-group-item-action" href="/Cliente/InsertarCliente">
-                    <i class="fas fa-user-plus"></i> Agregar Cliente
-                </a>
+            <div class="text-white text-uppercase small fw-bold mt-4">Productos</div>
+            <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "Producto")">
+                <i class="fas fa-boxes"></i> Listar Productos
+            </a>
+            <a class="list-group-item list-group-item-action" href="@Url.Action("Registrar", "Producto")">
+                <i class="fas fa-plus-square"></i> Agregar Producto
+            </a>
 
-                <div class="text-white text-uppercase small fw-bold mt-4">Usuarios</div>
-                <a class="list-group-item list-group-item-action" href="/Usuarios/Listar">
-                    <i class="fas fa-user-friends"></i> Listar Usuarios
-                </a>
-                <a class="list-group-item list-group-item-action" href="/Usuarios/Registrar">
-                    <i class="fas fa-user-plus"></i> Agregar Usuario
-                </a>
-
-                <div class="text-white text-uppercase small fw-bold mt-4">Proveedores</div>
-                <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "Proveedores")">
-                    <i class="fas fa-clipboard-list"></i> Listar Proveedores
-                </a>
-                <a class="list-group-item list-group-item-action" href="@Url.Action("Registrar", "Proveedores")">
-                    <i class="fas fa-user-plus"></i> Registrar Proveedor
-                </a>
-                <div class="text-white text-uppercase small fw-bold mt-3">Compras</div>
-
-                <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "OrdenCompra")">
-                    <i class="fas fa-file-invoice"></i> Ordenes de Compra
-                </a>
-
-                <a class="list-group-item list-group-item-action" href="@Url.Action("Crear", "OrdenCompra")">
-                    <i class="fas fa-plus-circle"></i> Nueva Orden
-                </a>
-                <div class="text-white text-uppercase small fw-bold mt-4">Pagos</div>
-                <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "OrdenCompra")">
-                    <i class="fas fa-money-check-alt"></i> Pagos Ordenes Compra
-                </a>
-                <div class="text-white text-uppercase small fw-bold mt-4">Productos</div>
-
-
-                <a class="list-group-item list-group-item-action" href="@Url.Action("Listar", "Producto")">
-                    <i class="fas fa-boxes"></i> Listar Productos
-                </a>
-
-                <a class="list-group-item list-group-item-action" href="@Url.Action("Registrar", "Producto")">
-                    <i class="fas fa-plus-square"></i> Agregar Producto
-                </a>
-
-
-
-
-
-            </div>
+            <div class="text-white text-uppercase small fw-bold mt-4">Reportes</div>
+            <a class="list-group-item list-group-item-action" href="/Dashboard/Index">
+                <i class="fas fa-chart-pie"></i> Dashboard
+            </a>
         </div>
 
         <!-- Page Content -->
