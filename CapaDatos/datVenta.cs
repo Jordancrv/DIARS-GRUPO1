@@ -345,60 +345,6 @@ namespace CapaDatos
             return resultado;
         }
 
-        public List<entPedidoVenta> ListarVentas()
-        {
-            List<entPedidoVenta> lista = new List<entPedidoVenta>();
-
-            try
-            {
-                using (SqlConnection cn = Conexion.Instancia.Conectar())
-                {
-                    SqlCommand cmd = new SqlCommand("sp_ListarPedidosVenta", cn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cn.Open();
-
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            entPedidoVenta venta = new entPedidoVenta
-                            {
-                                IdPedidoVenta = Convert.ToInt32(dr["id_pedido"]),
-                                Fecha = Convert.ToDateTime(dr["fecha"]),
-                                Estado = dr["estado"].ToString(),
-                                IdCliente = Convert.ToInt32(dr["id_cliente"]),
-                                IdUsuario = dr["id_usuario"] != DBNull.Value ? Convert.ToInt32(dr["id_usuario"]) : 0,
-                                IdComprobante = Convert.ToInt32(dr["id_comprobante"]),
-                                Total = Convert.ToDecimal(dr["total"]),
-                                TotalDescuentoProductos = Convert.ToDecimal(dr["total_descuento_productos"]),
-                                TotalDescuentoPromociones = Convert.ToDecimal(dr["total_descuento_promociones"]),
-                                TotalConDescuento = Convert.ToDecimal(dr["total_con_descuento"]),
-                                Cliente = new entClientes
-                                {
-                                    id_cliente = Convert.ToInt32(dr["id_cliente"]),
-                                    razon_social = dr["razon_social"].ToString()
-                                },
-                                Detalles = new List<entDetalleVenta>()
-                            };
-
-                            // Cargar los detalles de la venta
-                            venta.Detalles = ListarDetallesPorVenta(venta.IdPedidoVenta, cn);
-
-                            lista.Add(venta);
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error al listar ventas: " + ex.Message);
-            }
-
-            return lista;
-        }
-
-
-
 
         private List<entDetalleVenta> ListarDetallesPorVenta(int idPedido, SqlConnection cn)
         {
@@ -409,6 +355,7 @@ namespace CapaDatos
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id_pedido", idPedido);
 
+                // Aquí se abre el segundo DataReader, pero solo si el primero ya se cerró
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
@@ -429,9 +376,234 @@ namespace CapaDatos
                     }
                 }
             }
-
             return detalles;
         }
+
+
+        // *** MÉTODO ListarVentas MODIFICADO PARA USAR LA OPCIÓN 2 ***
+        public List<entPedidoVenta> ListarVentas()
+        {
+            List<entPedidoVenta> listaVentasFinal = new List<entPedidoVenta>(); // Esta será la lista final con detalles
+            List<entPedidoVenta> ventasSinDetalles = new List<entPedidoVenta>(); // Lista temporal para las ventas principales
+
+            try
+            {
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                {
+                    SqlCommand cmd = new SqlCommand("sp_ListarPedidosVenta", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cn.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader()) // Primer DataReader abierto
+                    {
+                        // Paso 1: Leer TODAS las ventas principales y almacenarlas temporalmente.
+                        // El DataReader (dr) permanece abierto solo durante este bucle.
+                        while (dr.Read())
+                        {
+                            entPedidoVenta venta = new entPedidoVenta
+                            {
+                                IdPedidoVenta = Convert.ToInt32(dr["id_pedido"]),
+                                Fecha = Convert.ToDateTime(dr["fecha"]),
+                                Estado = dr["estado"].ToString(),
+                                IdCliente = Convert.ToInt32(dr["id_cliente"]),
+                                IdUsuario = dr["id_usuario"] != DBNull.Value ? Convert.ToInt32(dr["id_usuario"]) : 0,
+                                IdComprobante = Convert.ToInt32(dr["id_comprobante"]),
+                                Total = Convert.ToDecimal(dr["total"]),
+                                TotalDescuentoProductos = Convert.ToDecimal(dr["total_descuento_productos"]),
+                                TotalDescuentoPromociones = Convert.ToDecimal(dr["total_descuento_promociones"]),
+                                TotalConDescuento = Convert.ToDecimal(dr["total_con_descuento"]),
+                                Cliente = new entClientes // Asumo que necesitas cargar el objeto cliente aquí
+                                {
+                                    id_cliente = Convert.ToInt32(dr["id_cliente"])
+                                    // Si hay más propiedades de cliente que vienen de sp_ListarPedidosVenta, cárgalas aquí
+                                    // ejemplo: nombres = dr["nombre_cliente"].ToString()
+                                },
+                                // No inicializamos Detalles aquí, lo haremos en el segundo bucle
+                                Detalles = new List<entDetalleVenta>() // Aunque se asignará después, es buena práctica inicializar
+                            };
+                            ventasSinDetalles.Add(venta);
+                        }
+                    } // CIERRE CRÍTICO: El primer SqlDataReader (dr) se cierra aquí al salir del bloque 'using'.
+
+                    // Paso 2: Ahora que el primer DataReader está cerrado y la conexión está libre,
+                    // iteramos sobre la lista temporal para cargar los detalles.
+                    foreach (var venta in ventasSinDetalles)
+                    {
+                        // Aquí llamamos a ListarDetallesPorVenta.
+                        // Como el DataReader anterior ya está cerrado, este nuevo ExecuteReader
+                        // en ListarDetallesPorVenta puede ejecutarse sin conflicto en la misma conexión 'cn'.
+                        venta.Detalles = ListarDetallesPorVenta(venta.IdPedidoVenta, cn);
+                        listaVentasFinal.Add(venta); // Añadir a la lista final
+                    }
+                } // La conexión 'cn' se cierra aquí al salir del bloque 'using'.
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error al listar ventas: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error inesperado al listar ventas: " + ex.Message);
+            }
+
+            return listaVentasFinal;
+        }
+
+
+        //public List<entPedidoVenta> ListarVentas()
+        //{
+        //    List<entPedidoVenta> lista = new List<entPedidoVenta>();
+
+        //    try
+        //    {
+        //        using (SqlConnection cn = Conexion.Instancia.Conectar())
+        //        {
+        //            SqlCommand cmd = new SqlCommand("sp_ListarPedidosVenta", cn);
+        //            cmd.CommandType = CommandType.StoredProcedure;
+        //            cn.Open();
+
+        //            using (SqlDataReader dr = cmd.ExecuteReader())
+        //            {
+        //                while (dr.Read())
+        //                {
+        //                    entPedidoVenta venta = new entPedidoVenta
+        //                    {
+        //                        IdPedidoVenta = Convert.ToInt32(dr["id_pedido"]),
+        //                        Fecha = Convert.ToDateTime(dr["fecha"]),
+        //                        Estado = dr["estado"].ToString(),
+        //                        IdCliente = Convert.ToInt32(dr["id_cliente"]),
+        //                        IdUsuario = dr["id_usuario"] != DBNull.Value ? Convert.ToInt32(dr["id_usuario"]) : 0,
+        //                        IdComprobante = Convert.ToInt32(dr["id_comprobante"]),
+        //                        Total = Convert.ToDecimal(dr["total"]),
+        //                        TotalDescuentoProductos = Convert.ToDecimal(dr["total_descuento_productos"]),
+        //                        TotalDescuentoPromociones = Convert.ToDecimal(dr["total_descuento_promociones"]),
+        //                        TotalConDescuento = Convert.ToDecimal(dr["total_con_descuento"]),
+        //                        Cliente = new entClientes
+        //                        {
+        //                            id_cliente = Convert.ToInt32(dr["id_cliente"])
+
+        //                        },
+        //                        Detalles = new List<entDetalleVenta>()
+        //                    };
+
+        //                    // Cargar los detalles de la venta
+        //                    venta.Detalles = ListarDetallesPorVenta(venta.IdPedidoVenta, cn);
+
+        //                    lista.Add(venta);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw new Exception("Error al listar ventas: " + ex.Message);
+        //    }
+
+        //    return lista;
+        //}
+
+
+
+
+        //private List<entDetalleVenta> ListarDetallesPorVenta(int idPedido, SqlConnection cn)
+        //{
+        //    List<entDetalleVenta> detalles = new List<entDetalleVenta>();
+
+        //    using (SqlCommand cmd = new SqlCommand("sp_ListarDetallesVentaPorPedido", cn))
+        //    {
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.Parameters.AddWithValue("@id_pedido", idPedido);
+
+        //        using (SqlDataReader dr = cmd.ExecuteReader())
+        //        {
+        //            while (dr.Read())
+        //            {
+        //                entDetalleVenta det = new entDetalleVenta
+        //                {
+        //                    IdDetalle = Convert.ToInt32(dr["id_detalle"]),
+        //                    IdPedido = Convert.ToInt32(dr["id_pedido"]),
+        //                    IdProducto = Convert.ToInt32(dr["id_producto"]),
+        //                    Cantidad = Convert.ToInt32(dr["cantidad"]),
+        //                    PrecioUnitario = Convert.ToDecimal(dr["precio_unitario"]),
+        //                    Subtotal = Convert.ToDecimal(dr["subtotal"]),
+        //                    Descuento = Convert.ToDecimal(dr["descuento"]),
+        //                    TotalConDescuento = Convert.ToDecimal(dr["total_con_descuento"])
+        //                };
+
+        //                detalles.Add(det);
+        //            }
+        //        }
+        //    }
+
+        //    return detalles;
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //public List<entPedidoVenta> ListarVentas()
+        //{
+        //    List<entPedidoVenta> ventas = new List<entPedidoVenta>();
+        //    DataTable dtVentas = new DataTable(); // Usar un DataTable o una lista temporal para almacenar los resultados del primer DataReader
+
+        //    using (SqlConnection cn = new SqlConnection(CadenaConexion.cn))
+        //    {
+        //        cn.Open();
+        //        using (SqlCommand cmdVenta = new SqlCommand("sp_ListarVentas", cn))
+        //        {
+        //            cmdVenta.CommandType = CommandType.StoredProcedure;
+        //            using (SqlDataReader drVenta = cmdVenta.ExecuteReader())
+        //            {
+        //                dtVentas.Load(drVenta); // Carga todos los datos del DataReader en el DataTable. El DataReader se cierra implícitamente.
+        //            }
+        //        } // El DataReader ya está cerrado en este punto.
+
+        //        foreach (DataRow rowVenta in dtVentas.Rows)
+        //        {
+        //            entPedidoVenta venta = new entPedidoVenta
+        //            {
+        //                IdPedido = Convert.ToInt32(rowVenta["id_pedido"]),
+        //                // ... otras propiedades de la venta
+        //            };
+        //            // Ahora puedes llamar a ListarDetallesPorVenta porque el primer DataReader ya está cerrado.
+        //            venta.Detalles = ListarDetallesPorVenta(venta.IdPedido, cn);
+        //            ventas.Add(venta);
+        //        }
+        //    }
+        //    return ventas;
+        //}
+
+
 
 
         public List<entPedidosVenta> ObtenerVentasPorClienteId(int idCliente)

@@ -49,6 +49,24 @@ namespace CapaLogica
 
 
 
+        public entPromociones BuscarPromocionActivaPorProducto(int idProducto)
+        {
+            try
+            {
+                return datPromociones.Instancia.BuscarPromocionActivaPorProducto(idProducto);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en la lógica de negocio al buscar promoción: " + ex.Message);
+            }
+        }
+        public List<PromocionProductoDTO> ListarPromocionesActivasPorProducto()
+        {
+            
+                return datPromociones.Instancia.ListarPromocionesActivasPorProducto();
+            }
+          
+
 
         //// Editar
         //public bool EditarPromocion(entPromociones promocion)
@@ -56,17 +74,22 @@ namespace CapaLogica
         //    return datPromociones.Instancia.EditarPromocion(promocion);
         //}
 
-        //// Buscar por ID
-        //public entPromociones BuscarPromocion(int idPromocion)
-        //{
-        //    return datPromociones.Instancia.BuscarPromocion(idPromocion);
-        //}
+            //// Buscar por ID
+            //public entPromociones BuscarPromocion(int idPromocion)
+            //{
+            //    return datPromociones.Instancia.BuscarPromocion(idPromocion);
+            //}
 
-        //// Eliminar
-        //public bool EliminarPromocion(int idPromocion)
-        //{
-        //    return datPromociones.Instancia.EliminarPromocion(idPromocion);
-        //}
+            //// Eliminar
+            //public bool EliminarPromocion(int idPromocion)
+            //{
+            //    return datPromociones.Instancia.EliminarPromocion(idPromocion);
+            //}
+
+
+
+
+
 
         public List<entTipoPromocion> Listar()
         {
