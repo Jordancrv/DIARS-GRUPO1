@@ -8,49 +8,27 @@
     var textoBusqueda = Context.Request.Query["busqueda"].ToString();
 }
 
-<style>
-    .sticky-bottom-right {
-        position: fixed;
-        bottom: 150px;
-        left: 300px;
-        z-index: 9999;
-    }
-</style>
-
 <div class="container mt-5">
     <h2 class="mb-4">Nuestros Productos</h2>
 
     <!-- Formulario de búsqueda y categoría -->
-    <form method="get" asp-controller="Producto" asp-action="Tienda" class="mb-4">
-        <div class="input-group">
-            <input type="text" name="busqueda" class="form-control" placeholder="Buscar productos..." value="@textoBusqueda" />
+    <form method="get" asp-controller="Producto" asp-action="Tienda" class="form-inline mb-4">
+        <input type="text" name="busqueda" class="form-control mr-2" placeholder="Buscar productos..." value="@textoBusqueda" />
 
-            <select name="categoriaId" class="custom-select">
-                <option value="">Todas las categorías</option>
-                @foreach (var cat in ViewBag.Categorias as List<SelectListItem>)
-                {
-                    <option value="@cat.Value" selected="@(categoriaSeleccionada == cat.Value ? "selected" : null)">
-                        @cat.Text
-                    </option>
-                }
-            </select>
+        <select name="categoriaId" class="form-control mr-2">
+            <option value="">Todas las categorías</option>
+            @foreach (var cat in ViewBag.Categorias as List<SelectListItem>)
+            {
+                <option value="@cat.Value" selected="@(categoriaSeleccionada == cat.Value ? "selected" : null)">
+                    @cat.Text
+                </option>
+            }
+        </select>
 
-            <div class="input-group-append">
-                <button class="btn btn-success" type="submit">
-                    <i class="fa fa-search"></i> Buscar
-                </button>
-            </div>
-        </div>
+        <button type="submit" class="btn btn-success">Buscar</button>
     </form>
 
-    <!-- Scroll-to-top button -->
-    <a href="#" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;"
-       class="btn btn-outline-success btn-sm mt-auto sticky-bottom-right">
-        <i class="fas fa-caret-square-up"></i>
-    </a>
-
-    <br> <br />
-
+    <!-- Productos -->
     <div class="row">
         @if (Model != null && Model.Any())
         {

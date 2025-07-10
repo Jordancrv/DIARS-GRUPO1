@@ -1,5 +1,424 @@
-use DiarsAlfa;
 
+-- SCRIPT COMPLETO CORREGIDO DE LA BASE DE DATOS DiarsBeta
+CREATE DATABASE DiarsAlfa;
+GO
+USE DiarsAlfa;
+GO
+
+
+-- Tabla de usuarios
+CREATE TABLE Usuarios (
+    id_usuario INT IDENTITY(1,1) PRIMARY KEY,
+    password_hash VARCHAR(255) NOT NULL,
+    rol VARCHAR(50) NOT NULL CHECK (rol IN ('admin','vendedor' , 'compras', 'cliente', 'proveedor')),
+    fecha_creacion DATETIME DEFAULT GETDATE(),
+    activo BIT DEFAULT 1
+);
+GO
+
+
+CREATE TABLE UsuarioCorreos (
+    id_usuario INT,
+    email VARCHAR(100) UNIQUE,
+    PRIMARY KEY (id_usuario, email),
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+	);
+
+	
+
+-- Tabla de tipo de cliente
+CREATE TABLE TipoCliente (
+    id_tipo_cliente INT PRIMARY KEY,
+    nombre_tipo VARCHAR(20) NOT NULL
+);
+GO
+
+-- Tabla de clientes
+CREATE TABLE Clientes (
+    id_cliente INT IDENTITY(1,1) PRIMARY KEY,
+    id_tipo_cliente INT NOT NULL,
+    nombres VARCHAR(100),
+    apellidos VARCHAR(100),
+    dni VARCHAR(16),
+    razon_social VARCHAR(100),
+    ruc VARCHAR(11) NULL,
+    direccion TEXT,
+	id_usuario INT NULL REFERENCES Usuarios(id_usuario), 
+    activo BIT DEFAULT 1,
+    FOREIGN KEY (id_tipo_cliente) REFERENCES TipoCliente(id_tipo_cliente)
+);
+GO
+
+
+CREATE TABLE ClienteCorreos (
+    id_cliente INT,
+    email VARCHAR(100),
+    PRIMARY KEY (id_cliente, email),
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
+);
+GO
+
+CREATE TABLE ClienteTelefonos (
+    id_cliente INT,
+    telefono VARCHAR(20),
+    PRIMARY KEY (id_cliente, telefono),
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
+);
+GO
+
+CREATE TABLE Trabajadores (
+    id_trabajador INT IDENTITY(1,1) PRIMARY KEY,
+    id_usuario INT NULL REFERENCES Usuarios(id_usuario), -- Enlace opcional a la cuenta de usuario
+    nombres VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
+    dni CHAR(8) NOT NULL UNIQUE,
+    cargo VARCHAR(50) NULL,
+    fecha_ingreso DATE NULL,
+    activo BIT DEFAULT 1 NOT NULL
+);
+GO
+-- Tabla para almacenar los correos electrónicos de los trabajadores.
+CREATE TABLE TrabajadorCorreo (
+    id_trabajador INT REFERENCES Trabajadores(id_trabajador),
+    email VARCHAR(100) UNIQUE,
+    PRIMARY KEY (id_trabajador, email)
+);
+
+-- Tabla para almacenar los números de teléfono de los trabajadores.
+CREATE TABLE TrabajadorTelefono (
+    id_trabajador INT REFERENCES Trabajadores(id_trabajador),
+    telefono VARCHAR(100) UNIQUE,
+    PRIMARY KEY (id_trabajador, telefono)
+);
+
+-- Tabla de proveedores
+CREATE TABLE Proveedores (
+    id_proveedor INT IDENTITY(1,1) PRIMARY KEY,
+    razon_social VARCHAR(100) NOT NULL,
+    ruc VARCHAR(11) UNIQUE NOT NULL,
+    direccion TEXT,
+    contacto VARCHAR(100),
+	id_usuario INT NULL REFERENCES Usuarios(id_usuario), 
+    activo BIT DEFAULT 1
+);
+GO
+
+CREATE TABLE ProveedorCorreos (
+    id_proveedor INT,
+    email VARCHAR(100),
+    PRIMARY KEY (id_proveedor, email),
+    FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor)
+);
+GO
+
+
+CREATE TABLE ProveedorTelefonos (
+    id_proveedor INT,
+    telefono VARCHAR(20),
+    PRIMARY KEY (id_proveedor, telefono),
+    FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor)
+);
+GO
+
+-- Tabla de categorías de productos
+CREATE TABLE CategoriaProductos (
+    idCategoria INT PRIMARY KEY IDENTITY(1,1),
+    nombreCategoria VARCHAR(50) NOT NULL
+);
+GO
+select  * from PedidosVenta
+CREATE TABLE Presentacion (
+    idPresentacion INT PRIMARY KEY IDENTITY(1,1),
+    nombrePresentacion VARCHAR(64) NOT NULL
+);
+GO
+
+CREATE TABLE TipoEmpaque (
+    idTipoEmpaque INT PRIMARY KEY IDENTITY(1,1),
+    nombreEmpaque VARCHAR(64) NOT NULL,	
+    material VARCHAR(64) NULL
+);
+GO
+
+select *  from PedidosVenta
+
+-- Tabla de productos
+CREATE TABLE Productos (
+    id_producto INT IDENTITY(1,1) PRIMARY KEY,
+    codigo VARCHAR(50) UNIQUE NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10, 2) NOT NULL,
+	precioventa DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    stock INT NOT NULL DEFAULT 0,
+    stock_minimo INT NOT NULL DEFAULT 5,
+    unidad_medida VARCHAR(20),
+    imagen_url VARCHAR(255),
+    id_proveedor INT,
+    idCategoria INT,
+    idPresentacion INT,
+    idTipoEmpaque INT,
+    activo BIT DEFAULT 1,
+    FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor),
+    FOREIGN KEY (idCategoria) REFERENCES CategoriaProductos(idCategoria),
+    FOREIGN KEY (idPresentacion) REFERENCES Presentacion(idPresentacion),
+    FOREIGN KEY (idTipoEmpaque) REFERENCES TipoEmpaque(idTipoEmpaque)
+);
+GO
+
+
+-- Tipo de promoción
+	CREATE TABLE TipoPromocion (
+		id_tipo_promocion INT PRIMARY KEY IDENTITY(1,1),
+		nombre_tipo VARCHAR(50) NOT NULL
+	);
+	GO
+
+	-- Promociones
+	CREATE TABLE Promociones (
+		IdPromocion INT PRIMARY KEY IDENTITY(1,1),
+		NombrePromocion VARCHAR(128) NOT NULL,
+		Descuento DECIMAL(5,2) NOT NULL,
+		FechaInicio DATE NOT NULL,
+		FechaFin DATE NOT NULL,
+		Estado BIT DEFAULT 1,
+		id_tipo_promocion INT NOT NULL,
+		FOREIGN KEY (id_tipo_promocion) REFERENCES TipoPromocion(id_tipo_promocion)
+	);
+	GO
+
+
+-- Relación producto-promoción
+CREATE TABLE ProductoPromocion (
+    id_producto INT,
+    id_promocion INT,
+    PRIMARY KEY (id_producto, id_promocion),
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
+    FOREIGN KEY (id_promocion) REFERENCES Promociones(IdPromocion)
+);
+GO
+
+select * from PedidosVenta
+select * from DetallesVenta
+select * from ComprobantesPago
+select * from PagosVenta
+select * from VentaPromocion
+select * from PedidosVenta
+
+
+delete from PedidosVenta
+delete from DetallesVenta
+delete from ComprobantesPago
+delete from PagosVenta
+delete from VentaPromocion
+dbcc CHECKIDENT ('PedidosVenta', RESEED, 0)
+dbcc CHECKIDENT ('DetallesVenta', RESEED, 0)
+dbcc CHECKIDENT ('ComprobantesPago', RESEED, 0)
+dbcc CHECKIDENT ('PagosVenta', RESEED, 0)
+dbcc CHECKIDENT ('VentaPromocion', RESEED, 0)
+
+
+
+
+-- Comprobantes de pago
+CREATE TABLE ComprobantesPago (
+    id_comprobante INT IDENTITY(1,1) PRIMARY KEY,
+    tipo VARCHAR(50) NOT NULL CHECK (tipo IN ('factura', 'boleta', 'nota_credito')),
+    serie VARCHAR(20)unique ,-- agregar unique para evitar duplicados. 
+    numero VARCHAR(20)unique,--agregar unique para evitar duplicados. 
+    activo BIT DEFAULT 1
+);
+GO
+
+
+
+
+
+-- Métodos de pago
+CREATE TABLE MetodosPago (
+    id_metodo_pago INT IDENTITY(1,1) PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion TEXT,
+    activo BIT DEFAULT 1
+);
+GO
+
+-- Pedidos de venta
+CREATE TABLE PedidosVenta (
+    id_pedido INT IDENTITY(1,1) PRIMARY KEY,
+    id_cliente INT REFERENCES Clientes(id_cliente),
+    id_usuario INT NULL REFERENCES Usuarios(id_usuario),
+    fecha DATETIME ,
+    id_comprobante INT REFERENCES ComprobantesPago(id_comprobante),
+    total DECIMAL(12,2),
+    total_descuento_productos DECIMAL(12,2),
+    total_descuento_promociones DECIMAL(12,2),
+	   total_con_descuento DECIMAL(12,2),
+    estado VARCHAR(20) NOT NULL CHECK (estado IN ('pendiente', 'procesado', 'anulado'))
+);
+GO
+--SELECT OBJECT_NAME(default_constraints.object_id) AS constraint_name,
+--       tables.name AS table_name,
+--       columns.name AS column_name
+--FROM sys.default_constraints
+--INNER JOIN sys.columns 
+--    ON default_constraints.parent_object_id = columns.object_id 
+--    AND default_constraints.parent_column_id = columns.column_id
+--INNER JOIN sys.tables 
+--    ON default_constraints.parent_object_id = tables.object_id
+--WHERE tables.name = 'PedidosVenta' AND columns.name = 'fecha';
+
+--ALTER TABLE PedidosVenta DROP CONSTRAINT DF__PedidosVe__fecha__07C12930;
+
+
+
+
+
+---- Para la tabla PagosVenta
+--SELECT OBJECT_NAME(default_constraints.object_id) AS constraint_name,
+--       tables.name AS table_name,
+--       columns.name AS column_name
+--FROM sys.default_constraints
+--INNER JOIN sys.columns 
+--    ON default_constraints.parent_object_id = columns.object_id 
+--    AND default_constraints.parent_column_id = columns.column_id
+--INNER JOIN sys.tables 
+--    ON default_constraints.parent_object_id = tables.object_id
+--WHERE tables.name = 'PagosVenta' AND columns.name = 'fecha';
+
+--ALTER TABLE PagosVenta DROP CONSTRAINT DF__PagosVent__fecha__17036CC0;
+
+-- Detalles de la venta
+CREATE TABLE DetallesVenta (
+    id_detalle INT IDENTITY(1,1) PRIMARY KEY,
+    id_pedido INT,
+    id_producto INT,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    subtotal DECIMAL(10, 2),
+    descuento DECIMAL(5,2) DEFAULT 0,
+    total_con_descuento DECIMAL(10,2),
+    FOREIGN KEY (id_pedido) REFERENCES PedidosVenta(id_pedido),
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+);
+GO
+
+
+CREATE TABLE VentaPromocion (
+    id_pedido INT,
+    id_promocion INT,
+    PRIMARY KEY (id_pedido, id_promocion),
+    FOREIGN KEY (id_pedido) REFERENCES PedidosVenta(id_pedido),
+    FOREIGN KEY (id_promocion) REFERENCES Promociones(IdPromocion)
+);
+GO
+
+-- Pagos de venta
+CREATE TABLE PagosVenta (
+    id_pago INT IDENTITY(1,1) PRIMARY KEY,
+    id_pedido INT REFERENCES PedidosVenta(id_pedido),
+    id_metodo_pago INT REFERENCES MetodosPago(id_metodo_pago),
+    monto DECIMAL(12, 2) NOT NULL,
+    fecha DATETIME ,
+    estado VARCHAR(20) CHECK (estado IN ('completado', 'anulado', 'pendiente'))
+);
+GO
+
+-- Ordenes de compra
+CREATE TABLE OrdenesCompra (
+    id_orden_compra INT IDENTITY(1,1) PRIMARY KEY,
+    id_proveedor INT NULL REFERENCES  Proveedores(id_proveedor),
+    id_usuario INT REFERENCES Usuarios(id_usuario),
+    fecha DATETIME DEFAULT GETDATE(),
+    estado VARCHAR(20) NOT NULL CHECK (estado IN ('pendiente', 'recibido', 'cancelado')),
+    total DECIMAL(12, 2) NOT NULL,
+	tipo_orden VARCHAR(20) NOT NULL CHECK (tipo_orden IN ('directa', 'licitacion')) DEFAULT 'directa'
+);
+
+GO
+
+-- Detalles de orden de compra
+CREATE TABLE DetallesOrdenCompra (
+    id_detalle INT IDENTITY(1,1) PRIMARY KEY,
+    id_orden_compra INT,
+    id_producto INT,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    subtotal AS (cantidad * precio_unitario),
+    FOREIGN KEY (id_orden_compra) REFERENCES OrdenesCompra(id_orden_compra),
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+);
+GO
+
+
+
+
+
+CREATE TABLE PagosOrdenCompra (
+    id_pago INT IDENTITY(1,1) PRIMARY KEY,
+    id_orden_compra INT REFERENCES OrdenesCompra(id_orden_compra),
+    id_metodo_pago INT REFERENCES MetodosPago(id_metodo_pago),
+    monto DECIMAL(12, 2) NOT NULL,
+    fecha_pago DATETIME DEFAULT GETDATE(),
+    estado VARCHAR(20) CHECK (estado IN ('pendiente', 'completado', 'anulado')),
+    observaciones VARCHAR(255)
+);
+go
+select  * from ProductoPromocion
+
+ALTER TABLE PagosOrdenCompra
+ADD id_comprobante INT;
+ALTER TABLE PagosOrdenCompra
+ADD CONSTRAINT FK_PagosOrdenCompra_Comprobantes
+FOREIGN KEY (id_comprobante) REFERENCES ComprobantesPago(id_comprobante);
+
+delete from PedidosVenta;
+delete from DetallesVenta;
+delete from ComprobantesPago;
+delete from PagosVenta;
+delete from ventapromocion 
+
+select count(*) from PedidosVenta where estado = 'procesado'
+
+select *  from PedidosVenta
+dbcc CHECKIDENT('PedidosVenta', RESEED,0)
+dbcc CHECKIDENT('DetallesVenta', RESEED,0)
+dbcc CHECKIDENT('ComprobantesPago', RESEED,0)
+dbcc CHECKIDENT('PagosVenta', RESEED,0)
+dbcc CHECKIDENT('ventapromocion', RESEED,0)
+dbcc CHECKIDENT('PedidosVenta', RESEED,0)
+
+select * from  clientes
+CREATE TABLE OfertasProveedor (
+    id_oferta INT IDENTITY(1,1) PRIMARY KEY,
+    id_orden_compra INT REFERENCES OrdenesCompra(id_orden_compra),
+    id_proveedor INT REFERENCES Proveedores(id_proveedor),
+    precio_ofertado DECIMAL(12,2) NOT NULL,
+    fecha_oferta DATETIME DEFAULT GETDATE(),
+    observaciones VARCHAR(255)
+);
+go
+
+-- Movimiento de stock
+CREATE TABLE MovimientosStock (
+    id_movimiento INT IDENTITY(1,1) PRIMARY KEY,
+    id_producto INT REFERENCES Productos(id_producto),
+    tipo VARCHAR(20) NOT NULL CHECK (tipo IN ('entrada', 'salida', 'ajuste')),
+    cantidad INT NOT NULL,
+    fecha DATETIME DEFAULT GETDATE(),
+    id_pedido INT NULL REFERENCES PedidosVenta(id_pedido),
+    id_orden_compra INT NULL REFERENCES OrdenesCompra(id_orden_compra),
+    motivo TEXT
+);
+GO
+
+
+
+--------------------------------------------
+-----------------------------------------
+use DiarsAlfa;
+GO
+select *  from tipocliente
 
 -- Inserciones para TipoCliente
 -- Asumiendo que id_tipo_cliente 1 es 'Persona Natural' y 2 es 'Persona Juridica'
@@ -32,8 +451,8 @@ INSERT INTO Usuarios (password_hash, rol, activo) VALUES
 ('HASH_ADMIN_T14', 'admin', 1),         -- id_usuario = 19 (para Trabajador 14)
 ('HASH_COMPRAS_T15', 'compras', 1),     -- id_usuario = 20 (para Trabajador 15)
 
--- Usuarios para 86 clientes adicionales (id_cliente 11 al 250, 86 de ellos tendr n usuario)
--- Usaremos un patr n para los IDs de usuario de clientes, comenzando desde 21
+-- Usuarios para 86 clientes adicionales (id_cliente 11 al 250, 86 de ellos tendrán usuario)
+-- Usaremos un patrón para los IDs de usuario de clientes, comenzando desde 21
 ('HASH_CLIENTE_ADD_1', 'cliente', 1),   -- id_usuario = 21 (para Cliente 11)
 ('HASH_CLIENTE_ADD_2', 'cliente', 1),   -- id_usuario = 22 (para Cliente 12)
 ('HASH_CLIENTE_ADD_3', 'cliente', 1),   -- id_usuario = 23 (para Cliente 13)
@@ -174,40 +593,40 @@ GO
 -- *** 3. INSERCIONES PARA PROVEEDORES ***
 -- 35 proveedores, enlazando algunos a Usuarios con rol 'proveedor'
 INSERT INTO Proveedores (razon_social, ruc, direccion, contacto, id_usuario, activo) VALUES
-('Comercial Andina SRL', '20123456781', 'Av. Per  123, Lima', 'Carlos Ruiz', 6, 1),      -- id_proveedor = 1, id_usuario = 6
-('Alimentos del Sur EIRL', '20456789123', 'Jr. Ayacucho 456, Arequipa', 'Mar a Torres', NULL, 1), -- id_proveedor = 2
-('Distribuidora Santa Anita S.A.C.', '20567891234', 'Calle Comercio 789, Lima', 'Jorge S nchez', NULL, 1), -- id_proveedor = 3
-('Importaciones Per  Norte S.A.', '20678912345', 'Av. Norte 321, Piura', 'Luis C rdenas', NULL, 1), -- id_proveedor = 4
-('Productos Naturales Andinos EIRL', '20789123456', 'Jr. Andino 147, Cusco', 'Sof a Mamani', NULL, 1), -- id_proveedor = 5
+('Comercial Andina SRL', '20123456781', 'Av. Perú 123, Lima', 'Carlos Ruiz', 6, 1),      -- id_proveedor = 1, id_usuario = 6
+('Alimentos del Sur EIRL', '20456789123', 'Jr. Ayacucho 456, Arequipa', 'María Torres', NULL, 1), -- id_proveedor = 2
+('Distribuidora Santa Anita S.A.C.', '20567891234', 'Calle Comercio 789, Lima', 'Jorge Sánchez', NULL, 1), -- id_proveedor = 3
+('Importaciones Perú Norte S.A.', '20678912345', 'Av. Norte 321, Piura', 'Luis Cárdenas', NULL, 1), -- id_proveedor = 4
+('Productos Naturales Andinos EIRL', '20789123456', 'Jr. Andino 147, Cusco', 'Sofía Mamani', NULL, 1), -- id_proveedor = 5
 ('Inversiones La Molina SAC', '20891234567', 'Av. La Molina 876, Lima', 'Pedro Gamarra', NULL, 1), -- id_proveedor = 6
-('Comercializadora Lima Este S.A.C.', '20912345678', 'Calle Lima Este 741, Lima', 'Ana Fern ndez', NULL, 1), -- id_proveedor = 7
+('Comercializadora Lima Este S.A.C.', '20912345678', 'Calle Lima Este 741, Lima', 'Ana Fernández', NULL, 1), -- id_proveedor = 7
 ('Distribuidora Las Palmas S.R.L.', '20111222334', 'Av. Palmas 456, Chiclayo', 'Rosa Bravo', NULL, 1), -- id_proveedor = 8
-('Corporaci n Abarrotes Per  SAC', '20222333445', 'Jr. Abarrotes 154, Lima', 'Carlos Huam n', NULL, 1), -- id_proveedor = 9
+('Corporación Abarrotes Perú SAC', '20222333445', 'Jr. Abarrotes 154, Lima', 'Carlos Huamán', NULL, 1), -- id_proveedor = 9
 ('Mercantil San Juan SRL', '20333444556', 'Av. San Juan 963, Lima', 'Elena Trujillo', 10, 1), -- id_proveedor = 10, id_usuario = 10
-('Tecnolog a Global SAC', '20444555667', 'Av. Innovaci n 101, Lima', 'Andr s Soto', NULL, 1), -- id_proveedor = 11
+('Tecnología Global SAC', '20444555667', 'Av. Innovación 101, Lima', 'Andrés Soto', NULL, 1), -- id_proveedor = 11
 ('Construcciones Sol EIRL', '20555666778', 'Jr. Concreto 202, Arequipa', 'Silvia Ramos', NULL, 1), -- id_proveedor = 12
-('Muebles Modernos SA', '20666777889', 'Calle Dise o 303, Trujillo', 'Roberto Castro', NULL, 1), -- id_proveedor = 13
-('Servicios Industriales Per  SRL', '20777888990', 'Av. Industria 404, Callao', 'Carmen Luna', NULL, 1), -- id_proveedor = 14
-('Ferreter a El Martillo SAC', '20888999001', 'Jr. Herramientas 505, Lima', 'Fernando Vidal', NULL, 1), -- id_proveedor = 15
+('Muebles Modernos SA', '20666777889', 'Calle Diseño 303, Trujillo', 'Roberto Castro', NULL, 1), -- id_proveedor = 13
+('Servicios Industriales Perú SRL', '20777888990', 'Av. Industria 404, Callao', 'Carmen Luna', NULL, 1), -- id_proveedor = 14
+('Ferretería El Martillo SAC', '20888999001', 'Jr. Herramientas 505, Lima', 'Fernando Vidal', NULL, 1), -- id_proveedor = 15
 ('Textiles Peruanos EIRL', '20999000112', 'Jr. Tejidos 606, Cusco', 'Isabel Flores', NULL, 1), -- id_proveedor = 16
-('Electrodom sticos Futuro S.A.C.', '20000111223', 'Av. Voltaje 707, Lima', 'Gustavo Paredes', NULL, 1), -- id_proveedor = 17
-('Gr fica Creativa SRL', '20101213145', 'Calle Imprenta 808, Piura', 'Diana Morales', NULL, 1), -- id_proveedor = 18
-('Comercio Justo Andino SA', '20212324256', 'Jr. Equidad 909, Ayacucho', 'Miguel  ngel', NULL, 1), -- id_proveedor = 19
+('Electrodomésticos Futuro S.A.C.', '20000111223', 'Av. Voltaje 707, Lima', 'Gustavo Paredes', NULL, 1), -- id_proveedor = 17
+('Gráfica Creativa SRL', '20101213145', 'Calle Imprenta 808, Piura', 'Diana Morales', NULL, 1), -- id_proveedor = 18
+('Comercio Justo Andino SA', '20212324256', 'Jr. Equidad 909, Ayacucho', 'Miguel Ángel', NULL, 1), -- id_proveedor = 19
 ('Farmacia La Salud EIRL', '20323435367', 'Av. Medicina 111, Lima', 'Laura Rojas', NULL, 1), -- id_proveedor = 20
-('Panader a Tradici n SAC', '20434546478', 'Calle Horno 222, Chiclayo', 'Ricardo Le n', NULL, 1), -- id_proveedor = 21
-('Librer a El Saber SRL', '20545657589', 'Jr. Letras 333, Lima', 'Patricia Vega', NULL, 1), -- id_proveedor = 22
+('Panadería Tradición SAC', '20434546478', 'Calle Horno 222, Chiclayo', 'Ricardo León', NULL, 1), -- id_proveedor = 21
+('Librería El Saber SRL', '20545657589', 'Jr. Letras 333, Lima', 'Patricia Vega', NULL, 1), -- id_proveedor = 22
 ('Joyas Preciosas EIRL', '20656768690', 'Av. Brillo 444, Ica', 'Manuel Soto', NULL, 1), -- id_proveedor = 23
 ('Sport World SAC', '20767879801', 'Calle Deporte 555, Lima', 'Elena Quispe', NULL, 1), -- id_proveedor = 24
-('Limpieza Eficaz SRL', '20878980812', 'Jr. Frescura 666, Huancayo', 'Julia Guzm n', NULL, 1), -- id_proveedor = 25
-('Hotel Paradiso SA', '20989091923', 'Av. Descanso 777, Puno', 'Sergio D az', NULL, 1), -- id_proveedor = 26
-('Carnes Premium EIRL', '20090102034', 'Jr. Parrilla 888, Lima', 'Marcela Pe a', NULL, 1), -- id_proveedor = 27
-('Insumos Agr colas SAC', '20101112135', 'Av. Cosecha 999, Cajamarca', 'Jorge N  ez', NULL, 1), -- id_proveedor = 28
-('Repuestos Automotrices SRL', '20212223246', 'Calle Motor 121, Lima', 'Ver nica Silva', NULL, 1), -- id_proveedor = 29
-('Vidrier a Transparente EIRL', '20323334357', 'Jr. Cristal 232, Cusco', 'Alberto Vargas', NULL, 1), -- id_proveedor = 30
-('Materiales El ctricos SA', '20434445468', 'Av. Corriente 343, Tacna', 'Susana Polo', NULL, 1), -- id_proveedor = 31
-('Productos Qu micos del Norte SAC', '20545556579', 'Calle F rmula 454, Trujillo', 'Pablo Mendoza', NULL, 1), -- id_proveedor = 32
+('Limpieza Eficaz SRL', '20878980812', 'Jr. Frescura 666, Huancayo', 'Julia Guzmán', NULL, 1), -- id_proveedor = 25
+('Hotel Paradiso SA', '20989091923', 'Av. Descanso 777, Puno', 'Sergio Díaz', NULL, 1), -- id_proveedor = 26
+('Carnes Premium EIRL', '20090102034', 'Jr. Parrilla 888, Lima', 'Marcela Peña', NULL, 1), -- id_proveedor = 27
+('Insumos Agrícolas SAC', '20101112135', 'Av. Cosecha 999, Cajamarca', 'Jorge Núñez', NULL, 1), -- id_proveedor = 28
+('Repuestos Automotrices SRL', '20212223246', 'Calle Motor 121, Lima', 'Verónica Silva', NULL, 1), -- id_proveedor = 29
+('Vidriería Transparente EIRL', '20323334357', 'Jr. Cristal 232, Cusco', 'Alberto Vargas', NULL, 1), -- id_proveedor = 30
+('Materiales Eléctricos SA', '20434445468', 'Av. Corriente 343, Tacna', 'Susana Polo', NULL, 1), -- id_proveedor = 31
+('Productos Químicos del Norte SAC', '20545556579', 'Calle Fórmula 454, Trujillo', 'Pablo Mendoza', NULL, 1), -- id_proveedor = 32
 ('Catering Gourmet SRL', '20656667680', 'Jr. Sabor 565, Lima', 'Andrea Torres', NULL, 1), -- id_proveedor = 33
-('Accesorios M viles EIRL', '20767778791', 'Av. Conexi n 676, Arequipa', 'Diego Rojas', NULL, 1), -- id_proveedor = 34
+('Accesorios Móviles EIRL', '20767778791', 'Av. Conexión 676, Arequipa', 'Diego Rojas', NULL, 1), -- id_proveedor = 34
 ('Seguridad Total SAC', '20878889802', 'Calle Vigilancia 787, Lima', 'Carla Bustamante', NULL, 1); -- id_proveedor = 35
 GO
 
@@ -246,27 +665,27 @@ GO
 
 -- *** 6. INSERCIONES PARA TRABAJADORES ***
 -- 15 trabajadores en total (5 iniciales + 10 adicionales).
--- Solo los roles 'Administrador', 'Vendedor', 'Encargado de Compras' tendr n id_usuario.
--- Se generar n DNIs  nicos.
+-- Solo los roles 'Administrador', 'Vendedor', 'Encargado de Compras' tendrán id_usuario.
+-- Se generarán DNIs únicos.
 	INSERT INTO Trabajadores (id_usuario, nombres, apellidos, dni, cargo, fecha_ingreso, activo) VALUES
 	-- 5 trabajadores iniciales
-	(1, 'Juan', 'P rez Garc a', '78901234', 'Administrador', '2020-01-15', 1), -- id_trabajador = 1, id_usuario = 1
-	(2, 'Mar a', 'L pez D az', '45678901', 'Vendedor', '2021-03-20', 1),     -- id_trabajador = 2, id_usuario = 2
-	(3, 'Pedro', 'Mart nez Soto', '12345678', 'Encargado de Compras', '2019-07-10', 1), -- id_trabajador = 3, id_usuario = 3
-	(7, 'Ana', 'G mez Castro', '90123456', 'Vendedor', '2022-05-01', 1),     -- id_trabajador = 4, id_usuario = 7
-	(NULL, 'Luis', 'Ram rez Flores', '34567890', 'Almacenero', '2023-01-01', 1), -- id_trabajador = 5, sin id_usuario
+	(1, 'Juan', 'Pérez García', '78901234', 'Administrador', '2020-01-15', 1), -- id_trabajador = 1, id_usuario = 1
+	(2, 'María', 'López Díaz', '45678901', 'Vendedor', '2021-03-20', 1),     -- id_trabajador = 2, id_usuario = 2
+	(3, 'Pedro', 'Martínez Soto', '12345678', 'Encargado de Compras', '2019-07-10', 1), -- id_trabajador = 3, id_usuario = 3
+	(7, 'Ana', 'Gómez Castro', '90123456', 'Vendedor', '2022-05-01', 1),     -- id_trabajador = 4, id_usuario = 7
+	(NULL, 'Luis', 'Ramírez Flores', '34567890', 'Almacenero', '2023-01-01', 1), -- id_trabajador = 5, sin id_usuario
 
 	-- 10 trabajadores adicionales
 	(11, 'Carlos', 'Rojas Soto', '23456789', 'Vendedor', '2023-07-01', 1),       -- id_trabajador = 6, id_usuario = 11
-	(12, 'Elena', 'D az Pinedo', '34566890', 'Encargado de Compras', '2022-11-10', 1), -- id_trabajador = 7, id_usuario = 12
-	(13, 'Javier', 'S nchez Ramos', '45678902', 'Vendedor', '2024-02-15', 1),     -- id_trabajador = 8, id_usuario = 13
+	(12, 'Elena', 'Díaz Pinedo', '34566890', 'Encargado de Compras', '2022-11-10', 1), -- id_trabajador = 7, id_usuario = 12
+	(13, 'Javier', 'Sánchez Ramos', '45678902', 'Vendedor', '2024-02-15', 1),     -- id_trabajador = 8, id_usuario = 13
 	(14, 'Lorena', 'Mendoza Quispe', '56789012', 'Administrador', '2020-09-01', 1), -- id_trabajador = 9, id_usuario = 14
-	(15, 'Ricardo', 'Jim nez Flores', '67890123', 'Encargado de Compras', '2021-04-22', 1), -- id_trabajador = 10, id_usuario = 15
+	(15, 'Ricardo', 'Jiménez Flores', '67890123', 'Encargado de Compras', '2021-04-22', 1), -- id_trabajador = 10, id_usuario = 15
 	(16, 'Miguel', 'Torres Salas', '78901235', 'Vendedor', '2024-01-10', 1),      -- id_trabajador = 11, id_usuario = 16
 	(17, 'Paola', 'Soto Bravo', '89012346', 'Encargado de Compras', '2023-03-05', 1), -- id_trabajador = 12, id_usuario = 17
 	(NULL, 'Daniel', 'Bravo Luna', '90123457', 'Limpieza', '2022-09-20', 1),     -- id_trabajador = 13, sin id_usuario
 	(19, 'Carla', 'Quispe Vega', '01234568', 'Administrador', '2021-06-12', 1),  -- id_trabajador = 14, id_usuario = 19
-	(20, 'Fernando', 'D az Rojas', '12345679', 'Vendedor', '2024-04-01', 1);     -- id_trabajador = 15, id_usuario = 20
+	(20, 'Fernando', 'Díaz Rojas', '12345679', 'Vendedor', '2024-04-01', 1);     -- id_trabajador = 15, id_usuario = 20
 	GO
 
 
@@ -292,265 +711,265 @@ GO
 
 -- *** 9. INSERCIONES PARA CLIENTES ***
 -- 250 clientes en total (10 iniciales + 240 adicionales)
--- Se intercalar n Persona Natural (id_tipo_cliente = 1) y Persona Jur dica (id_tipo_cliente = 2).
--- Se asignar  id_usuario a una proporci n de ellos, comenzando con los IDs de usuario del 21 al 106.
+-- Se intercalarán Persona Natural (id_tipo_cliente = 1) y Persona Jurídica (id_tipo_cliente = 2).
+-- Se asignará id_usuario a una proporción de ellos, comenzando con los IDs de usuario del 21 al 106.
 
 INSERT INTO Clientes (id_tipo_cliente, nombres, apellidos, dni, razon_social, ruc, direccion, id_usuario, activo) VALUES
 -- 10 Clientes iniciales
 (1, 'Andrea', 'Vega Salas', '44556677', NULL, NULL, 'Av. Los Sauces 101, Miraflores', 4, 1), -- id_cliente = 1, id_usuario = 4
 (1, 'Roberto', 'Quispe Mamani', '88990011', NULL, NULL, 'Jr. Las Palmeras 202, Comas', 8, 1), -- id_cliente = 2, id_usuario = 8
-(1, 'Sof a', 'Castro R os', '11223344', NULL, NULL, 'Calle El Sol 303, Surco', NULL, 1), -- id_cliente = 3
-(1, 'Diego', 'Flores C rdenas', '55667788', NULL, NULL, 'Av. La Luna 404, San Juan', NULL, 1), -- id_cliente = 4
-(1, 'Valeria', 'N  ez Bravo', '99001122', NULL, NULL, 'Jr. Los Andes 505, Ate', NULL, 1), -- id_cliente = 5
+(1, 'Sofía', 'Castro Ríos', '11223344', NULL, NULL, 'Calle El Sol 303, Surco', NULL, 1), -- id_cliente = 3
+(1, 'Diego', 'Flores Cárdenas', '55667788', NULL, NULL, 'Av. La Luna 404, San Juan', NULL, 1), -- id_cliente = 4
+(1, 'Valeria', 'Núñez Bravo', '99001122', NULL, NULL, 'Jr. Los Andes 505, Ate', NULL, 1), -- id_cliente = 5
 (2, NULL, NULL, NULL, 'Tienda La Esquina SAC', '20123456789', 'Av. Principal 123, Pueblo Libre', 5, 1), -- id_cliente = 6, id_usuario = 5
-(2, NULL, NULL, NULL, 'Minimarket El Vecino EIRL', '20987654321', 'Jr. Comercio 456, Bre a', 9, 1), -- id_cliente = 7, id_usuario = 9
-(2, NULL, NULL, NULL, 'Bodega La Confianza', '10111222334', 'Calle Uni n 789, Lince', NULL, 1), -- id_cliente = 8
-(2, NULL, NULL, NULL, 'Supermercado Express S.A.', '20445566778', 'Av. Central 321, Jes s Mar a', NULL, 1), -- id_cliente = 9
+(2, NULL, NULL, NULL, 'Minimarket El Vecino EIRL', '20987654321', 'Jr. Comercio 456, Breña', 9, 1), -- id_cliente = 7, id_usuario = 9
+(2, NULL, NULL, NULL, 'Bodega La Confianza', '10111222334', 'Calle Unión 789, Lince', NULL, 1), -- id_cliente = 8
+(2, NULL, NULL, NULL, 'Supermercado Express S.A.', '20445566778', 'Av. Central 321, Jesús María', NULL, 1), -- id_cliente = 9
 (2, NULL, NULL, NULL, 'Distribuidora Mayorista XYZ', '20556677889', 'Jr. Industrial 147, La Victoria', NULL, 1), -- id_cliente = 10
 
--- 240 Clientes adicionales (120 Naturales, 120 Jur dicas) con nombres y DNI/RUC ficticios m s realistas
-(1, 'Carlos Alberto', 'Garc a P rez', '70123456', NULL, NULL, 'Av. Arequipa 123, Lince', 21, 1), -- id_cliente = 11, id_usuario = 21
-(1, 'Mar a Fernanda', 'Diaz Rojas', '71234567', NULL, NULL, 'Jr. Puno 456, Cercado de Lima', 22, 1), -- id_cliente = 12, id_usuario = 22
-(1, 'Jos  Luis', 'Soto Vargas', '72345678', NULL, NULL, 'Calle Los Rosales 789, San Isidro', NULL, 1), -- id_cliente = 13
-(1, 'Ana Cecilia', 'Ram rez Huam n', '73456789', NULL, NULL, 'Av. Javier Prado Este 1011, San Borja', 23, 1), -- id_cliente = 14, id_usuario = 23
-(1, 'Luis Fernando', 'Quispe L pez', '74567890', NULL, NULL, 'Jr. Cusco 1213, Magdalena', NULL, 1), -- id_cliente = 15
+-- 240 Clientes adicionales (120 Naturales, 120 Jurídicas) con nombres y DNI/RUC ficticios más realistas
+(1, 'Carlos Alberto', 'García Pérez', '70123456', NULL, NULL, 'Av. Arequipa 123, Lince', 21, 1), -- id_cliente = 11, id_usuario = 21
+(1, 'María Fernanda', 'Diaz Rojas', '71234567', NULL, NULL, 'Jr. Puno 456, Cercado de Lima', 22, 1), -- id_cliente = 12, id_usuario = 22
+(1, 'José Luis', 'Soto Vargas', '72345678', NULL, NULL, 'Calle Los Rosales 789, San Isidro', NULL, 1), -- id_cliente = 13
+(1, 'Ana Cecilia', 'Ramírez Huamán', '73456789', NULL, NULL, 'Av. Javier Prado Este 1011, San Borja', 23, 1), -- id_cliente = 14, id_usuario = 23
+(1, 'Luis Fernando', 'Quispe López', '74567890', NULL, NULL, 'Jr. Cusco 1213, Magdalena', NULL, 1), -- id_cliente = 15
 (1, 'Carmen Rosa', 'Gonzales Quispe', '75678901', NULL, NULL, 'Av. La Paz 1415, Miraflores', 24, 1), -- id_cliente = 16, id_usuario = 24
-(1, 'David Ricardo', 'Vargas C rdenas', '76789012', NULL, NULL, 'Calle Berl n 1617, Barranco', 25, 1), -- id_cliente = 17, id_usuario = 25
-(1, 'Elena Patricia', 'Ramos S nchez', '77890123', NULL, NULL, 'Av. San Mart n 1819, Surquillo', NULL, 1), -- id_cliente = 18
-(1, 'Gabriel Alejandro', 'Mendoza Quispe', '78901234', NULL, NULL, 'Jr. Moquegua 2021, Bre a', 26, 1), -- id_cliente = 19, id_usuario = 26
+(1, 'David Ricardo', 'Vargas Cárdenas', '76789012', NULL, NULL, 'Calle Berlín 1617, Barranco', 25, 1), -- id_cliente = 17, id_usuario = 25
+(1, 'Elena Patricia', 'Ramos Sánchez', '77890123', NULL, NULL, 'Av. San Martín 1819, Surquillo', NULL, 1), -- id_cliente = 18
+(1, 'Gabriel Alejandro', 'Mendoza Quispe', '78901234', NULL, NULL, 'Jr. Moquegua 2021, Breña', 26, 1), -- id_cliente = 19, id_usuario = 26
 (1, 'Isabel Cristina', 'Torres Benites', '79012345', NULL, NULL, 'Calle Los Geranios 2223, Santiago de Surco', NULL, 1), -- id_cliente = 20
-(1, 'Juan Pablo', 'Guti rrez Morales', '80123456', NULL, NULL, 'Av. La Molina 2425, La Molina', 27, 1), -- id_cliente = 21, id_usuario = 27
-(1, 'Laura Sof a', 'Ch vez Rojas', '81234567', NULL, NULL, 'Jr. Ayacucho 2627, Chorrillos', 28, 1), -- id_cliente = 22, id_usuario = 28
-(1, 'Miguel  ngel', 'Silva Benavides', '82345678', NULL, NULL, 'Av. Las Flores 2829, San Juan de Miraflores', NULL, 1), -- id_cliente = 23
-(1, 'Natalia Elizabeth', 'Paredes Sol s', '83456789', NULL, NULL, 'Calle Los Laureles 3031, Ate', 29, 1), -- id_cliente = 24, id_usuario = 29
-(1, ' scar Javier', 'C rdenas Castro', '84567890', NULL, NULL, 'Av. El Ej rcito 3233, San Miguel', NULL, 1), -- id_cliente = 25
-(1, 'Patricia Soledad', 'Salazar Pinedo', '85678901', NULL, NULL, 'Jr. Huancayo 3435, R mac', 30, 1), -- id_cliente = 26, id_usuario = 30
-(1, 'Ricardo Antonio', 'Ferrer D az', '86789012', NULL, NULL, 'Av. Salaverry 3637, Jes s Mar a', 31, 1), -- id_cliente = 27, id_usuario = 31
+(1, 'Juan Pablo', 'Gutiérrez Morales', '80123456', NULL, NULL, 'Av. La Molina 2425, La Molina', 27, 1), -- id_cliente = 21, id_usuario = 27
+(1, 'Laura Sofía', 'Chávez Rojas', '81234567', NULL, NULL, 'Jr. Ayacucho 2627, Chorrillos', 28, 1), -- id_cliente = 22, id_usuario = 28
+(1, 'Miguel Ángel', 'Silva Benavides', '82345678', NULL, NULL, 'Av. Las Flores 2829, San Juan de Miraflores', NULL, 1), -- id_cliente = 23
+(1, 'Natalia Elizabeth', 'Paredes Solís', '83456789', NULL, NULL, 'Calle Los Laureles 3031, Ate', 29, 1), -- id_cliente = 24, id_usuario = 29
+(1, 'Óscar Javier', 'Cárdenas Castro', '84567890', NULL, NULL, 'Av. El Ejército 3233, San Miguel', NULL, 1), -- id_cliente = 25
+(1, 'Patricia Soledad', 'Salazar Pinedo', '85678901', NULL, NULL, 'Jr. Huancayo 3435, Rímac', 30, 1), -- id_cliente = 26, id_usuario = 30
+(1, 'Ricardo Antonio', 'Ferrer Díaz', '86789012', NULL, NULL, 'Av. Salaverry 3637, Jesús María', 31, 1), -- id_cliente = 27, id_usuario = 31
 (1, 'Silvia Liliana', 'Valdez Hurtado', '87890123', NULL, NULL, 'Calle Los Olivos 3839, Los Olivos', NULL, 1), -- id_cliente = 28
-(1, 'Tom s Eduardo', 'G mez N  ez', '88901234', NULL, NULL, 'Av. Tupac Amaru 4041, Comas', 32, 1), -- id_cliente = 29, id_usuario = 32
-(1, ' rsula Mariela', 'Zapata Ruiz', '89012345', NULL, NULL, 'Jr. La Uni n 4243, Pueblo Libre', NULL, 1), -- id_cliente = 30
+(1, 'Tomás Eduardo', 'Gómez Núñez', '88901234', NULL, NULL, 'Av. Tupac Amaru 4041, Comas', 32, 1), -- id_cliente = 29, id_usuario = 32
+(1, 'Úrsula Mariela', 'Zapata Ruiz', '89012345', NULL, NULL, 'Jr. La Unión 4243, Pueblo Libre', NULL, 1), -- id_cliente = 30
 -- Continue with a mix of Natural and Juridical, with id_usuario assignments
-(2, NULL, NULL, NULL, 'Servicios Integrales Per  SAC', '20000000011', 'Av. Argentina 101, Callao', 33, 1), -- id_cliente = 31, id_usuario = 33
+(2, NULL, NULL, NULL, 'Servicios Integrales Perú SAC', '20000000011', 'Av. Argentina 101, Callao', 33, 1), -- id_cliente = 31, id_usuario = 33
 (2, NULL, NULL, NULL, 'Importaciones del Norte SRL', '20000000012', 'Calle Bolognesi 202, Miraflores', NULL, 1), -- id_cliente = 32
-(1, 'Victor Hugo', 'R os Paz', '90123456', NULL, NULL, 'Jr. Ancash 4445, Cercado de Lima', 34, 1), -- id_cliente = 33, id_usuario = 34
-(2, NULL, NULL, NULL, 'Distribuidora del Centro EIRL', '20000000014', 'Av. Wilson 303, Bre a', 35, 1), -- id_cliente = 34, id_usuario = 35
+(1, 'Victor Hugo', 'Ríos Paz', '90123456', NULL, NULL, 'Jr. Ancash 4445, Cercado de Lima', 34, 1), -- id_cliente = 33, id_usuario = 34
+(2, NULL, NULL, NULL, 'Distribuidora del Centro EIRL', '20000000014', 'Av. Wilson 303, Breña', 35, 1), -- id_cliente = 34, id_usuario = 35
 (1, 'Wendy Carolina', 'Soto Quispe', '91234567', NULL, NULL, 'Av. La Marina 4647, San Miguel', NULL, 1), -- id_cliente = 35
-(1, 'Ximena Alessandra', 'V squez Ramos', '92345678', NULL, NULL, 'Calle Los  lamos 4849, Surco', 36, 1), -- id_cliente = 36, id_usuario = 36
-(2, NULL, NULL, NULL, 'Construcciones Andinas SAC', '20000000017', 'Av. Aviaci n 404, San Borja', NULL, 1), -- id_cliente = 37
-(1, 'Yanira Bel n', 'Ch vez Paredes', '93456789', NULL, NULL, 'Jr. Garcilaso de la Vega 5051, Jes s Mar a', 37, 1), -- id_cliente = 38, id_usuario = 37
+(1, 'Ximena Alessandra', 'Vásquez Ramos', '92345678', NULL, NULL, 'Calle Los Álamos 4849, Surco', 36, 1), -- id_cliente = 36, id_usuario = 36
+(2, NULL, NULL, NULL, 'Construcciones Andinas SAC', '20000000017', 'Av. Aviación 404, San Borja', NULL, 1), -- id_cliente = 37
+(1, 'Yanira Belén', 'Chávez Paredes', '93456789', NULL, NULL, 'Jr. Garcilaso de la Vega 5051, Jesús María', 37, 1), -- id_cliente = 38, id_usuario = 37
 (1, 'Zulema Aracely', 'Flores Mendoza', '94567890', NULL, NULL, 'Av. Sucre 5253, Pueblo Libre', NULL, 1), -- id_cliente = 39
-(2, NULL, NULL, NULL, 'Tecnolog a Peruana SRL', '20000000020', 'Av. El Polo 505, Surco', 38, 1), -- id_cliente = 40, id_usuario = 38
-(1, 'Adriana Sof a', 'Ram rez Quispe', '95678901', NULL, NULL, 'Jr. Chiclayo 5455, Miraflores', 39, 1), -- id_cliente = 41, id_usuario = 39
+(2, NULL, NULL, NULL, 'Tecnología Peruana SRL', '20000000020', 'Av. El Polo 505, Surco', 38, 1), -- id_cliente = 40, id_usuario = 38
+(1, 'Adriana Sofía', 'Ramírez Quispe', '95678901', NULL, NULL, 'Jr. Chiclayo 5455, Miraflores', 39, 1), -- id_cliente = 41, id_usuario = 39
 (2, NULL, NULL, NULL, 'Soluciones Digitales EIRL', '20000000022', 'Calle Dean Valdivia 606, San Isidro', NULL, 1), -- id_cliente = 42
-(1, 'Benjam n Mateo', 'Vargas Quispe', '96789012', NULL, NULL, 'Av. Benavides 5657, Miraflores', 40, 1), -- id_cliente = 43, id_usuario = 40
-(2, NULL, NULL, NULL, 'Alimentos del Sur SAC', '20000000024', 'Av. Paseo de la Rep blica 707, La Victoria', NULL, 1), -- id_cliente = 44
-(1, 'Camila Isabel', 'Ferrer Morales', '97890123', NULL, NULL, 'Jr. Contumaz  5859, Cercado de Lima', 41, 1), -- id_cliente = 45, id_usuario = 41
+(1, 'Benjamín Mateo', 'Vargas Quispe', '96789012', NULL, NULL, 'Av. Benavides 5657, Miraflores', 40, 1), -- id_cliente = 43, id_usuario = 40
+(2, NULL, NULL, NULL, 'Alimentos del Sur SAC', '20000000024', 'Av. Paseo de la República 707, La Victoria', NULL, 1), -- id_cliente = 44
+(1, 'Camila Isabel', 'Ferrer Morales', '97890123', NULL, NULL, 'Jr. Contumazá 5859, Cercado de Lima', 41, 1), -- id_cliente = 45, id_usuario = 41
 (1, 'Daniel Arturo', 'Valdez Benites', '98901234', NULL, NULL, 'Av. Grau 6061, Barranco', NULL, 1), -- id_cliente = 46
-(2, NULL, NULL, NULL, 'Transportes El R pido SRL', '20000000027', 'Av. Faucett 808, Callao', 42, 1), -- id_cliente = 47, id_usuario = 42
-(1, 'Estefan a Gabriela', 'N  ez Hurtado', '99012345', NULL, NULL, 'Calle Recavarren 6263, San Isidro', NULL, 1), -- id_cliente = 48
-(1, 'Fernando Javier', 'Zapata C rdenas', '99123456', NULL, NULL, 'Av. Angamos Este 6465, Surquillo', 43, 1), -- id_cliente = 49, id_usuario = 43
-(2, NULL, NULL, NULL, 'Textiles Finos EIRL', '20000000030', 'Jr. Huaraz 909, Bre a', NULL, 1), -- id_cliente = 50
-(1, 'Gisella Andrea', 'Medina Ch vez', '99234567', NULL, NULL, 'Av. Canevaro 6667, Lince', 44, 1), -- id_cliente = 51, id_usuario = 44
+(2, NULL, NULL, NULL, 'Transportes El Rápido SRL', '20000000027', 'Av. Faucett 808, Callao', 42, 1), -- id_cliente = 47, id_usuario = 42
+(1, 'Estefanía Gabriela', 'Núñez Hurtado', '99012345', NULL, NULL, 'Calle Recavarren 6263, San Isidro', NULL, 1), -- id_cliente = 48
+(1, 'Fernando Javier', 'Zapata Cárdenas', '99123456', NULL, NULL, 'Av. Angamos Este 6465, Surquillo', 43, 1), -- id_cliente = 49, id_usuario = 43
+(2, NULL, NULL, NULL, 'Textiles Finos EIRL', '20000000030', 'Jr. Huaraz 909, Breña', NULL, 1), -- id_cliente = 50
+(1, 'Gisella Andrea', 'Medina Chávez', '99234567', NULL, NULL, 'Av. Canevaro 6667, Lince', 44, 1), -- id_cliente = 51, id_usuario = 44
 (2, NULL, NULL, NULL, 'Inversiones Globales SAC', '20000000032', 'Av. Rivera Navarrete 1010, San Isidro', 45, 1), -- id_cliente = 52, id_usuario = 45
-(1, 'Hector Fabi n', 'P rez Salazar', '99345678', NULL, NULL, 'Jr. Puno 6869, Cercado de Lima', NULL, 1), -- id_cliente = 53
-(1, 'Irene Raquel', 'G mez Valdivia', '99456789', NULL, NULL, 'Av. Dos de Mayo 7071, San Isidro', 46, 1), -- id_cliente = 54, id_usuario = 46
+(1, 'Hector Fabián', 'Pérez Salazar', '99345678', NULL, NULL, 'Jr. Puno 6869, Cercado de Lima', NULL, 1), -- id_cliente = 53
+(1, 'Irene Raquel', 'Gómez Valdivia', '99456789', NULL, NULL, 'Av. Dos de Mayo 7071, San Isidro', 46, 1), -- id_cliente = 54, id_usuario = 46
 (2, NULL, NULL, NULL, 'Comercializadora del Sol SRL', '20000000035', 'Calle Schell 1111, Miraflores', NULL, 1), -- id_cliente = 55
-(1, 'Joaqu n Alonso', 'Vargas Huam n', '99567890', NULL, NULL, 'Av. Paseo de la Castellana 7273, Santiago de Surco', 47, 1), -- id_cliente = 56, id_usuario = 47
-(2, NULL, NULL, NULL, 'Log stica Avanzada EIRL', '20000000037', 'Jr. Gamarra 1212, La Victoria', 48, 1), -- id_cliente = 57, id_usuario = 48
-(1, 'Karen Sof a', 'Castro Rojas', '99678901', NULL, NULL, 'Av. Brasil 7475, Jes s Mar a', NULL, 1), -- id_cliente = 58
-(1, 'Leonardo Manuel', 'D az Soto', '99789012', NULL, NULL, 'Calle Los Pinos 7677, Surquillo', 49, 1), -- id_cliente = 59, id_usuario = 49
+(1, 'Joaquín Alonso', 'Vargas Huamán', '99567890', NULL, NULL, 'Av. Paseo de la Castellana 7273, Santiago de Surco', 47, 1), -- id_cliente = 56, id_usuario = 47
+(2, NULL, NULL, NULL, 'Logística Avanzada EIRL', '20000000037', 'Jr. Gamarra 1212, La Victoria', 48, 1), -- id_cliente = 57, id_usuario = 48
+(1, 'Karen Sofía', 'Castro Rojas', '99678901', NULL, NULL, 'Av. Brasil 7475, Jesús María', NULL, 1), -- id_cliente = 58
+(1, 'Leonardo Manuel', 'Díaz Soto', '99789012', NULL, NULL, 'Calle Los Pinos 7677, Surquillo', 49, 1), -- id_cliente = 59, id_usuario = 49
 (2, NULL, NULL, NULL, 'Constructora Futuro SAC', '20000000040', 'Av. Elmer Faucett 1313, San Miguel', NULL, 1), -- id_cliente = 60
-(1, 'Mar a P a', 'Ram rez Salas', '99890123', NULL, NULL, 'Jr. Caman  7879, Cercado de Lima', 50, 1), -- id_cliente = 61, id_usuario = 50
+(1, 'María Pía', 'Ramírez Salas', '99890123', NULL, NULL, 'Jr. Camaná 7879, Cercado de Lima', 50, 1), -- id_cliente = 61, id_usuario = 50
 (2, NULL, NULL, NULL, 'Marketing Innovador SRL', '20000000042', 'Av. Santa Cruz 1414, Miraflores', 51, 1), -- id_cliente = 62, id_usuario = 51
-(1, 'Nicol s Andr s', 'Quispe Vega', '99901234', NULL, NULL, 'Av. La Paz 8081, San Isidro', NULL, 1), -- id_cliente = 63
+(1, 'Nicolás Andrés', 'Quispe Vega', '99901234', NULL, NULL, 'Av. La Paz 8081, San Isidro', NULL, 1), -- id_cliente = 63
 (1, 'Olivia Fernanda', 'Gonzales Bravo', '99912345', NULL, NULL, 'Jr. Miraflores 8283, San Juan de Miraflores', 52, 1), -- id_cliente = 64, id_usuario = 52
-(2, NULL, NULL, NULL, 'Editorial El Saber EIRL', '20000000045', 'Calle Las Orqu deas 1515, San Borja', NULL, 1), -- id_cliente = 65
-(1, 'Pedro Miguel', 'V squez L pez', '99923456', NULL, NULL, 'Av. Los Ficus 8485, Ate', 53, 1), -- id_cliente = 66, id_usuario = 53
+(2, NULL, NULL, NULL, 'Editorial El Saber EIRL', '20000000045', 'Calle Las Orquídeas 1515, San Borja', NULL, 1), -- id_cliente = 65
+(1, 'Pedro Miguel', 'Vásquez López', '99923456', NULL, NULL, 'Av. Los Ficus 8485, Ate', 53, 1), -- id_cliente = 66, id_usuario = 53
 (2, NULL, NULL, NULL, 'Consultores B&C SAC', '20000000047', 'Av. Los Fresnos 1616, La Molina', 54, 1), -- id_cliente = 67, id_usuario = 54
 (1, 'Renata Jimena', 'Torres Benavides', '99934567', NULL, NULL, 'Jr. Las Magnolias 8687, Los Olivos', NULL, 1), -- id_cliente = 68
 (1, 'Sergio Daniel', 'Mendoza Pinedo', '99945678', NULL, NULL, 'Av. Alfredo Mendiola 8889, Comas', 55, 1), -- id_cliente = 69, id_usuario = 55
 (2, NULL, NULL, NULL, 'Industrias del Valle SRL', '20000000050', 'Jr. Cuzco 1717, Cercado de Lima', NULL, 1), -- id_cliente = 70
--- Continuamos el patr n hasta 250 clientes
-(1, 'Valeria Camila', 'Silva Ruiz', '99956789', NULL, NULL, 'Av. Jos  Pardo 9091, Miraflores', 56, 1), -- id_cliente = 71, id_usuario = 56
-(1, 'Walter Alexander', 'Carrillo Luna', '99967890', NULL, NULL, 'Jr. Ica 9293, Bre a', NULL, 1), -- id_cliente = 72
-(2, NULL, NULL, NULL, 'Energ as Renovables EIRL', '20000000053', 'Calle Roma 1818, San Isidro', 57, 1), -- id_cliente = 73, id_usuario = 57
-(1, 'Yolanda Beatr z', 'Huam n Castro', '99978901', NULL, NULL, 'Av. La Cultura 9495, San Juan de Miraflores', NULL, 1), -- id_cliente = 74
-(1, 'Zoe Nicole', 'Salazar D az', '99989012', NULL, NULL, 'Jr. Amazonas 9697, Cercado de Lima', 58, 1), -- id_cliente = 75, id_usuario = 58
+-- Continuamos el patrón hasta 250 clientes
+(1, 'Valeria Camila', 'Silva Ruiz', '99956789', NULL, NULL, 'Av. José Pardo 9091, Miraflores', 56, 1), -- id_cliente = 71, id_usuario = 56
+(1, 'Walter Alexander', 'Carrillo Luna', '99967890', NULL, NULL, 'Jr. Ica 9293, Breña', NULL, 1), -- id_cliente = 72
+(2, NULL, NULL, NULL, 'Energías Renovables EIRL', '20000000053', 'Calle Roma 1818, San Isidro', 57, 1), -- id_cliente = 73, id_usuario = 57
+(1, 'Yolanda Beatríz', 'Huamán Castro', '99978901', NULL, NULL, 'Av. La Cultura 9495, San Juan de Miraflores', NULL, 1), -- id_cliente = 74
+(1, 'Zoe Nicole', 'Salazar Díaz', '99989012', NULL, NULL, 'Jr. Amazonas 9697, Cercado de Lima', 58, 1), -- id_cliente = 75, id_usuario = 58
 (2, NULL, NULL, NULL, 'Desarrollos Inmobiliarios SAC', '20000000056', 'Av. Javier Prado Oeste 1919, San Isidro', NULL, 1), -- id_cliente = 76
-(1, 'Alejandra Victoria', 'Garc a Ch vez', '99990123', NULL, NULL, 'Av. Pardo y Aliaga 9899, San Isidro', 59, 1), -- id_cliente = 77, id_usuario = 59
-(2, NULL, NULL, NULL, 'Servicios Financieros del Per  SRL', '20000000058', 'Av. Ricardo Palma 2020, Miraflores', 60, 1), -- id_cliente = 78, id_usuario = 60
-(1, 'Bruno Sebasti n', 'L pez Vargas', '99991234', NULL, NULL, 'Calle Los Halcones 10001, Chorrillos', NULL, 1), -- id_cliente = 79
-(1, 'Cecilia Andrea', 'Quispe C rdenas', '99992345', NULL, NULL, 'Av. Del R o 10002, Pueblo Libre', 61, 1), -- id_cliente = 80, id_usuario = 61
-(2, NULL, NULL, NULL, 'Gr ficos Modernos EIRL', '20000000061', 'Jr. Cajamarca 2121, Magdalena', NULL, 1), -- id_cliente = 81
-(1, 'Daniela Fernanda', 'S nchez Bravo', '99993456', NULL, NULL, 'Av. La Paz 10003, Santiago de Surco', 62, 1), -- id_cliente = 82, id_usuario = 62
-(2, NULL, NULL, NULL, 'Tecnolog as del Ma ana SAC', '20000000063', 'Av. Arequipa 2222, San Isidro', 63, 1), -- id_cliente = 83, id_usuario = 63
-(1, 'Emilio Jos ', 'Morales Benites', '99994567', NULL, NULL, 'Calle Manco C pac 10004, La Victoria', NULL, 1), -- id_cliente = 84
-(2, NULL, NULL, NULL, 'Exportadora Per  SRL', '20000000065', 'Av. Larco 2323, Miraflores', 64, 1), -- id_cliente = 85, id_usuario = 64
-(1, 'Fabiola Bel n', 'Torres Pinedo', '99995678', NULL, NULL, 'Jr. Huaraz 10005, Bre a', 65, 1), -- id_cliente = 86, id_usuario = 65
-(2, NULL, NULL, NULL, 'Servicios M dicos A1 EIRL', '20000000067', 'Av. Prescott 2424, San Isidro', NULL, 1), -- id_cliente = 87
+(1, 'Alejandra Victoria', 'García Chávez', '99990123', NULL, NULL, 'Av. Pardo y Aliaga 9899, San Isidro', 59, 1), -- id_cliente = 77, id_usuario = 59
+(2, NULL, NULL, NULL, 'Servicios Financieros del Perú SRL', '20000000058', 'Av. Ricardo Palma 2020, Miraflores', 60, 1), -- id_cliente = 78, id_usuario = 60
+(1, 'Bruno Sebastián', 'López Vargas', '99991234', NULL, NULL, 'Calle Los Halcones 10001, Chorrillos', NULL, 1), -- id_cliente = 79
+(1, 'Cecilia Andrea', 'Quispe Cárdenas', '99992345', NULL, NULL, 'Av. Del Río 10002, Pueblo Libre', 61, 1), -- id_cliente = 80, id_usuario = 61
+(2, NULL, NULL, NULL, 'Gráficos Modernos EIRL', '20000000061', 'Jr. Cajamarca 2121, Magdalena', NULL, 1), -- id_cliente = 81
+(1, 'Daniela Fernanda', 'Sánchez Bravo', '99993456', NULL, NULL, 'Av. La Paz 10003, Santiago de Surco', 62, 1), -- id_cliente = 82, id_usuario = 62
+(2, NULL, NULL, NULL, 'Tecnologías del Mañana SAC', '20000000063', 'Av. Arequipa 2222, San Isidro', 63, 1), -- id_cliente = 83, id_usuario = 63
+(1, 'Emilio José', 'Morales Benites', '99994567', NULL, NULL, 'Calle Manco Cápac 10004, La Victoria', NULL, 1), -- id_cliente = 84
+(2, NULL, NULL, NULL, 'Exportadora Perú SRL', '20000000065', 'Av. Larco 2323, Miraflores', 64, 1), -- id_cliente = 85, id_usuario = 64
+(1, 'Fabiola Belén', 'Torres Pinedo', '99995678', NULL, NULL, 'Jr. Huaraz 10005, Breña', 65, 1), -- id_cliente = 86, id_usuario = 65
+(2, NULL, NULL, NULL, 'Servicios Médicos A1 EIRL', '20000000067', 'Av. Prescott 2424, San Isidro', NULL, 1), -- id_cliente = 87
 (1, 'Gonzalo Rodrigo', 'Valdez Hurtado', '99996789', NULL, NULL, 'Av. Primavera 10006, Surco', 66, 1), -- id_cliente = 88, id_usuario = 66
 (2, NULL, NULL, NULL, 'Comercio Exterior SAC', '20000000069', 'Av. Guardia Civil 2525, San Borja', 67, 1), -- id_cliente = 89, id_usuario = 67
-(1, 'Helena Sof a', 'Zapata Ruiz', '99997890', NULL, NULL, 'Jr. Jun n 10007, Cercado de Lima', NULL, 1), -- id_cliente = 90
-(2, NULL, NULL, NULL, 'Soluciones El ctricas SRL', '20000000071', 'Av. Separadora Industrial 2626, Ate', 68, 1), -- id_cliente = 91, id_usuario = 68
+(1, 'Helena Sofía', 'Zapata Ruiz', '99997890', NULL, NULL, 'Jr. Junín 10007, Cercado de Lima', NULL, 1), -- id_cliente = 90
+(2, NULL, NULL, NULL, 'Soluciones Eléctricas SRL', '20000000071', 'Av. Separadora Industrial 2626, Ate', 68, 1), -- id_cliente = 91, id_usuario = 68
 (1, 'Ignacio Felipe', 'Miranda Flores', '99998901', NULL, NULL, 'Calle Los Sauces 10008, San Miguel', NULL, 1), -- id_cliente = 92
-(2, NULL, NULL, NULL, 'Servicios Tur sticos del Per  EIRL', '20000000073', 'Av. Angamos Oeste 2727, Miraflores', 69, 1), -- id_cliente = 93, id_usuario = 69
-(1, 'Jimena Bel n', 'Paredes Sol s', '99999012', NULL, NULL, 'Av. Salaverry 10009, Jes s Mar a', 70, 1), -- id_cliente = 94, id_usuario = 70
+(2, NULL, NULL, NULL, 'Servicios Turísticos del Perú EIRL', '20000000073', 'Av. Angamos Oeste 2727, Miraflores', 69, 1), -- id_cliente = 93, id_usuario = 69
+(1, 'Jimena Belén', 'Paredes Solís', '99999012', NULL, NULL, 'Av. Salaverry 10009, Jesús María', 70, 1), -- id_cliente = 94, id_usuario = 70
 (2, NULL, NULL, NULL, 'Textiles Andinos SAC', '20000000075', 'Jr. Puno 2828, Cercado de Lima', NULL, 1), -- id_cliente = 95
-(1, 'Kevin Mat as', 'Rivera Benavides', '99999123', NULL, NULL, 'Av. Arenales 10010, Lince', 71, 1), -- id_cliente = 96, id_usuario = 71
-(2, NULL, NULL, NULL, 'Eventos y Conciertos SRL', '20000000077', 'Av. Faustino S nchez Carri n 2929, San Isidro', 72, 1), -- id_cliente = 97, id_usuario = 72
-(1, 'Luc a Camila', 'Saavedra C rdenas', '99999234', NULL, NULL, 'Calle Comandante Espinar 10011, Miraflores', NULL, 1), -- id_cliente = 98
-(2, NULL, NULL, NULL, 'Panader a y Pasteler a La Ideal EIRL', '20000000079', 'Av. Reducto 3030, Miraflores', 73, 1), -- id_cliente = 99, id_usuario = 73
-(1, 'Manuel Antonio', 'Ch vez L pez', '99999345', NULL, NULL, 'Jr. Ucayali 10012, Cercado de Lima', NULL, 1), -- id_cliente = 100
-(2, NULL, NULL, NULL, 'Educaci n Virtual SAC', '20000000081', 'Av. La Fontana 3131, La Molina', 74, 1), -- id_cliente = 101, id_usuario = 74
-(1, 'Nuria Esther', 'Flores Rojas', '99999456', NULL, NULL, 'Av. Tingo Mar a 10013, Bre a', 75, 1), -- id_cliente = 102, id_usuario = 75
+(1, 'Kevin Matías', 'Rivera Benavides', '99999123', NULL, NULL, 'Av. Arenales 10010, Lince', 71, 1), -- id_cliente = 96, id_usuario = 71
+(2, NULL, NULL, NULL, 'Eventos y Conciertos SRL', '20000000077', 'Av. Faustino Sánchez Carrión 2929, San Isidro', 72, 1), -- id_cliente = 97, id_usuario = 72
+(1, 'Lucía Camila', 'Saavedra Cárdenas', '99999234', NULL, NULL, 'Calle Comandante Espinar 10011, Miraflores', NULL, 1), -- id_cliente = 98
+(2, NULL, NULL, NULL, 'Panadería y Pastelería La Ideal EIRL', '20000000079', 'Av. Reducto 3030, Miraflores', 73, 1), -- id_cliente = 99, id_usuario = 73
+(1, 'Manuel Antonio', 'Chávez López', '99999345', NULL, NULL, 'Jr. Ucayali 10012, Cercado de Lima', NULL, 1), -- id_cliente = 100
+(2, NULL, NULL, NULL, 'Educación Virtual SAC', '20000000081', 'Av. La Fontana 3131, La Molina', 74, 1), -- id_cliente = 101, id_usuario = 74
+(1, 'Nuria Esther', 'Flores Rojas', '99999456', NULL, NULL, 'Av. Tingo María 10013, Breña', 75, 1), -- id_cliente = 102, id_usuario = 75
 (2, NULL, NULL, NULL, 'Servicios Contables Profesionales SRL', '20000000083', 'Calle El Sauce 3232, San Isidro', NULL, 1), -- id_cliente = 103
-(1, ' scar Ra l', 'Garc a Salas', '99999567', NULL, NULL, 'Av. Los Pr ceres 10014, Santiago de Surco', 76, 1), -- id_cliente = 104, id_usuario = 76
+(1, 'Óscar Raúl', 'García Salas', '99999567', NULL, NULL, 'Av. Los Próceres 10014, Santiago de Surco', 76, 1), -- id_cliente = 104, id_usuario = 76
 (2, NULL, NULL, NULL, 'Recursos Humanos Global EIRL', '20000000085', 'Av. Del Parque Norte 3333, San Borja', 77, 1), -- id_cliente = 105, id_usuario = 77
 (1, 'Pamela Ximena', 'Herrera Quispe', '99999678', NULL, NULL, 'Jr. Libertad 10015, Magdalena', NULL, 1), -- id_cliente = 106
-(2, NULL, NULL, NULL, 'F brica de Muebles Modernos SAC', '20000000087', 'Av. Garcilaso de la Vega 3434, Cercado de Lima', 78, 1), -- id_cliente = 107, id_usuario = 78
-(1, 'Ra l Alberto', 'Inca Paredes', '99999789', NULL, NULL, 'Av. Universitaria 10016, Los Olivos', 79, 1), -- id_cliente = 108, id_usuario = 79
-(2, NULL, NULL, NULL, 'Productos Agr colas del Campo SRL', '20000000089', 'Av. Pardo 3535, Miraflores', NULL, 1), -- id_cliente = 109
-(1, 'Samantha Nicole', 'Ju rez Soto', '99999890', NULL, NULL, 'Calle Los Claveles 10017, Surquillo', 80, 1), -- id_cliente = 110, id_usuario = 80
-(2, NULL, NULL, NULL, 'Consultor a Ambiental EIRL', '20000000091', 'Av. Arequipa 3636, Lince', 81, 1), -- id_cliente = 111, id_usuario = 81
-(1, 'Thiago Gabriel', 'Luna Morales', '99999901', NULL, NULL, 'Jr. Apur mac 10018, R mac', NULL, 1), -- id_cliente = 112
+(2, NULL, NULL, NULL, 'Fábrica de Muebles Modernos SAC', '20000000087', 'Av. Garcilaso de la Vega 3434, Cercado de Lima', 78, 1), -- id_cliente = 107, id_usuario = 78
+(1, 'Raúl Alberto', 'Inca Paredes', '99999789', NULL, NULL, 'Av. Universitaria 10016, Los Olivos', 79, 1), -- id_cliente = 108, id_usuario = 79
+(2, NULL, NULL, NULL, 'Productos Agrícolas del Campo SRL', '20000000089', 'Av. Pardo 3535, Miraflores', NULL, 1), -- id_cliente = 109
+(1, 'Samantha Nicole', 'Juárez Soto', '99999890', NULL, NULL, 'Calle Los Claveles 10017, Surquillo', 80, 1), -- id_cliente = 110, id_usuario = 80
+(2, NULL, NULL, NULL, 'Consultoría Ambiental EIRL', '20000000091', 'Av. Arequipa 3636, Lince', 81, 1), -- id_cliente = 111, id_usuario = 81
+(1, 'Thiago Gabriel', 'Luna Morales', '99999901', NULL, NULL, 'Jr. Apurímac 10018, Rímac', NULL, 1), -- id_cliente = 112
 (2, NULL, NULL, NULL, 'Agencia de Viajes y Turismo SAC', '20000000093', 'Av. Carlos Izaguirre 3737, Los Olivos', 82, 1), -- id_cliente = 113, id_usuario = 82
-(1, 'Ursula Mar a', 'Medina Ch vez', '99999912', NULL, NULL, 'Av. Bolognesi 10019, Barranco', 83, 1), -- id_cliente = 114, id_usuario = 83
+(1, 'Ursula María', 'Medina Chávez', '99999912', NULL, NULL, 'Av. Bolognesi 10019, Barranco', 83, 1), -- id_cliente = 114, id_usuario = 83
 (2, NULL, NULL, NULL, 'Servicios de Limpieza Integral SRL', '20000000095', 'Calle Diez Canseco 3838, Miraflores', NULL, 1), -- id_cliente = 115
-(1, 'Valeria Celeste', 'Nieto P rez', '99999923', NULL, NULL, 'Av. La Paz 10020, Miraflores', 84, 1), -- id_cliente = 116, id_usuario = 84
+(1, 'Valeria Celeste', 'Nieto Pérez', '99999923', NULL, NULL, 'Av. La Paz 10020, Miraflores', 84, 1), -- id_cliente = 116, id_usuario = 84
 (2, NULL, NULL, NULL, 'Restaurante Sabor Peruano EIRL', '20000000097', 'Av. Jose Larco 3939, Miraflores', 85, 1), -- id_cliente = 117, id_usuario = 85
-(1, 'William Ernesto', 'Ortiz Ramos', '99999934', NULL, NULL, 'Jr. Gral. Garz n 10021, Jes s Mar a', NULL, 1), -- id_cliente = 118
-(2, NULL, NULL, NULL, 'Centro M dico Especializado SAC', '20000000099', 'Av. Cuba 4040, Jes s Mar a', 86, 1), -- id_cliente = 119, id_usuario = 86
-(1, 'Yamileth Lizbeth', 'Palacios Salda a', '99999945', NULL, NULL, 'Av. Wilson 10022, Cercado de Lima', NULL, 1), -- id_cliente = 120
+(1, 'William Ernesto', 'Ortiz Ramos', '99999934', NULL, NULL, 'Jr. Gral. Garzón 10021, Jesús María', NULL, 1), -- id_cliente = 118
+(2, NULL, NULL, NULL, 'Centro Médico Especializado SAC', '20000000099', 'Av. Cuba 4040, Jesús María', 86, 1), -- id_cliente = 119, id_usuario = 86
+(1, 'Yamileth Lizbeth', 'Palacios Saldaña', '99999945', NULL, NULL, 'Av. Wilson 10022, Cercado de Lima', NULL, 1), -- id_cliente = 120
 (2, NULL, NULL, NULL, 'Farmacias del Pueblo SRL', '20000000101', 'Av. Garcilaso de la Vega 4141, Cercado de Lima', 87, 1), -- id_cliente = 121, id_usuario = 87
-(1, 'Alexandra Bel n', 'Quispe Mamani', '99999956', NULL, NULL, 'Jr. Puno 10023, Cercado de Lima', 88, 1), -- id_cliente = 122, id_usuario = 88
-(2, NULL, NULL, NULL, 'Ferretar a El Maestro EIRL', '20000000103', 'Av. Colonial 4242, Callao', NULL, 1), -- id_cliente = 123
-(1, 'Benito Jos ', 'Reyes S nchez', '99999967', NULL, NULL, 'Av. Argentina 10024, Callao', 89, 1), -- id_cliente = 124, id_usuario = 89
-(2, NULL, NULL, NULL, 'Confecciones del Valle SAC', '20000000105', 'Jr. Jun n 4343, R mac', NULL, 1), -- id_cliente = 125
+(1, 'Alexandra Belén', 'Quispe Mamani', '99999956', NULL, NULL, 'Jr. Puno 10023, Cercado de Lima', 88, 1), -- id_cliente = 122, id_usuario = 88
+(2, NULL, NULL, NULL, 'Ferretaría El Maestro EIRL', '20000000103', 'Av. Colonial 4242, Callao', NULL, 1), -- id_cliente = 123
+(1, 'Benito José', 'Reyes Sánchez', '99999967', NULL, NULL, 'Av. Argentina 10024, Callao', 89, 1), -- id_cliente = 124, id_usuario = 89
+(2, NULL, NULL, NULL, 'Confecciones del Valle SAC', '20000000105', 'Jr. Junín 4343, Rímac', NULL, 1), -- id_cliente = 125
 (1, 'Carla Daniela', 'Ramos Soto', '99999978', NULL, NULL, 'Av. Abancay 10025, Cercado de Lima', 90, 1), -- id_cliente = 126, id_usuario = 90
-(2, NULL, NULL, NULL, 'Vigilancia y Seguridad Integral SRL', '20000000107', 'Av. Nicol s Ayll n 4444, La Victoria', 91, 1), -- id_cliente = 127, id_usuario = 91
-(1, 'Diego Fabi n', 'Salazar Vega', '99999989', NULL, NULL, 'Calle General C rdova 10026, Miraflores', NULL, 1), -- id_cliente = 128
-(2, NULL, NULL, NULL, 'Dise o Gr fico Creativo EIRL', '20000000109', 'Av. Comandante Espinar 4545, Miraflores', 92, 1), -- id_cliente = 129, id_usuario = 92
-(1, 'Eliana Sof a', 'Torres Bravo', '99999990', NULL, NULL, 'Jr. Pachacutec 10027, Jes s Mar a', NULL, 1), -- id_cliente = 130
+(2, NULL, NULL, NULL, 'Vigilancia y Seguridad Integral SRL', '20000000107', 'Av. Nicolás Ayllón 4444, La Victoria', 91, 1), -- id_cliente = 127, id_usuario = 91
+(1, 'Diego Fabián', 'Salazar Vega', '99999989', NULL, NULL, 'Calle General Córdova 10026, Miraflores', NULL, 1), -- id_cliente = 128
+(2, NULL, NULL, NULL, 'Diseño Gráfico Creativo EIRL', '20000000109', 'Av. Comandante Espinar 4545, Miraflores', 92, 1), -- id_cliente = 129, id_usuario = 92
+(1, 'Eliana Sofía', 'Torres Bravo', '99999990', NULL, NULL, 'Jr. Pachacutec 10027, Jesús María', NULL, 1), -- id_cliente = 130
 (2, NULL, NULL, NULL, 'Estudios de Arquitectura Moderna SAC', '20000000111', 'Av. Dos de Mayo 4646, San Isidro', 93, 1), -- id_cliente = 131, id_usuario = 93
-(1, 'Franco Sebasti n', 'Ugarte R os', '99999991', NULL, NULL, 'Av. Pardo y Aliaga 10028, San Isidro', 94, 1), -- id_cliente = 132, id_usuario = 94
-(2, NULL, NULL, NULL, 'Joyer a Fina y Accesorios SRL', '20000000113', 'Calle Las Begonias 4747, San Isidro', NULL, 1), -- id_cliente = 133
-(1, 'Gaby Estefan a', 'Vargas Castro', '99999992', NULL, NULL, 'Av. Rep blica de Panam  10029, Miraflores', 95, 1), -- id_cliente = 134, id_usuario = 95
+(1, 'Franco Sebastián', 'Ugarte Ríos', '99999991', NULL, NULL, 'Av. Pardo y Aliaga 10028, San Isidro', 94, 1), -- id_cliente = 132, id_usuario = 94
+(2, NULL, NULL, NULL, 'Joyería Fina y Accesorios SRL', '20000000113', 'Calle Las Begonias 4747, San Isidro', NULL, 1), -- id_cliente = 133
+(1, 'Gaby Estefanía', 'Vargas Castro', '99999992', NULL, NULL, 'Av. República de Panamá 10029, Miraflores', 95, 1), -- id_cliente = 134, id_usuario = 95
 (2, NULL, NULL, NULL, 'Agencia de Publicidad Creativa EIRL', '20000000115', 'Av. Arequipa 4848, Lince', NULL, 1), -- id_cliente = 135
-(1, 'H ctor Manuel', 'Zapata Huam n', '99999993', NULL, NULL, 'Jr. Gamarra 10030, La Victoria', 96, 1), -- id_cliente = 136, id_usuario = 96
-(2, NULL, NULL, NULL, 'Muebler a Artesanal SAC', '20000000117', 'Av. 28 de Julio 4949, Miraflores', 97, 1), -- id_cliente = 137, id_usuario = 97
-(1, 'Iv n Marcelo', 'Alvares C rdenas', '99999994', NULL, NULL, 'Av. Petit Thouars 10031, Miraflores', NULL, 1), -- id_cliente = 138
-(2, NULL, NULL, NULL, 'Cl nica Veterinaria Amigos SRL', '20000000119', 'Jr. Washington 5050, Cercado de Lima', 98, 1), -- id_cliente = 139, id_usuario = 98
-(1, 'Jazm n Isabel', 'Benavides Quispe', '99999995', NULL, NULL, 'Av. Faustino S nchez Carri n 10032, San Isidro', NULL, 1), -- id_cliente = 140
+(1, 'Héctor Manuel', 'Zapata Huamán', '99999993', NULL, NULL, 'Jr. Gamarra 10030, La Victoria', 96, 1), -- id_cliente = 136, id_usuario = 96
+(2, NULL, NULL, NULL, 'Mueblería Artesanal SAC', '20000000117', 'Av. 28 de Julio 4949, Miraflores', 97, 1), -- id_cliente = 137, id_usuario = 97
+(1, 'Iván Marcelo', 'Alvares Cárdenas', '99999994', NULL, NULL, 'Av. Petit Thouars 10031, Miraflores', NULL, 1), -- id_cliente = 138
+(2, NULL, NULL, NULL, 'Clínica Veterinaria Amigos SRL', '20000000119', 'Jr. Washington 5050, Cercado de Lima', 98, 1), -- id_cliente = 139, id_usuario = 98
+(1, 'Jazmín Isabel', 'Benavides Quispe', '99999995', NULL, NULL, 'Av. Faustino Sánchez Carrión 10032, San Isidro', NULL, 1), -- id_cliente = 140
 (2, NULL, NULL, NULL, 'Catering y Eventos Gourmet EIRL', '20000000121', 'Av. La Encalada 5151, Surco', 99, 1), -- id_cliente = 141, id_usuario = 99
-(1, 'Kevin Andr s', 'C rdenas Luna', '99999996', NULL, NULL, 'Calle Los Pinos 10033, Surquillo', 100, 1), -- id_cliente = 142, id_usuario = 100
-(2, NULL, NULL, NULL, 'Spa y Centro de Belleza Armon a SAC', '20000000123', 'Av. Camino Real 5252, San Isidro', NULL, 1), -- id_cliente = 143
-(1, 'Laura Gabriela', 'D az Morales', '99999997', NULL, NULL, 'Av. Javier Prado Este 10034, San Borja', 101, 1), -- id_cliente = 144, id_usuario = 101
+(1, 'Kevin Andrés', 'Cárdenas Luna', '99999996', NULL, NULL, 'Calle Los Pinos 10033, Surquillo', 100, 1), -- id_cliente = 142, id_usuario = 100
+(2, NULL, NULL, NULL, 'Spa y Centro de Belleza Armonía SAC', '20000000123', 'Av. Camino Real 5252, San Isidro', NULL, 1), -- id_cliente = 143
+(1, 'Laura Gabriela', 'Díaz Morales', '99999997', NULL, NULL, 'Av. Javier Prado Este 10034, San Borja', 101, 1), -- id_cliente = 144, id_usuario = 101
 (2, NULL, NULL, NULL, 'Centro de Idiomas Global SRL', '20000000125', 'Av. Angamos Este 5353, Surquillo', 102, 1), -- id_cliente = 145, id_usuario = 102
 (1, 'Mario Alejandro', 'Escobar Pinedo', '99999998', NULL, NULL, 'Jr. Gamarra 10035, La Victoria', NULL, 1), -- id_cliente = 146
-(2, NULL, NULL, NULL, 'Repuestos Automotrices El Motor EIRL', '20000000127', 'Av. Rep blica de Chile 5454, Jes s Mar a', 103, 1), -- id_cliente = 147, id_usuario = 103
-(1, 'Natalia Camila', 'Ferrer Paredes', '99999999', NULL, NULL, 'Av. Salaverry 10036, Jes s Mar a', NULL, 1), -- id_cliente = 148
-(2, NULL, NULL, NULL, 'Emprendimientos Tecnol gicos SAC', '20000000129', 'Av. San Felipe 5555, Jes s Mar a', 104, 1), -- id_cliente = 149, id_usuario = 104
-(1, 'Omar David', 'G mez R os', '00000001', NULL, NULL, 'Jr. Cuzco 10037, Cercado de Lima', NULL, 1), -- id_cliente = 150
+(2, NULL, NULL, NULL, 'Repuestos Automotrices El Motor EIRL', '20000000127', 'Av. República de Chile 5454, Jesús María', 103, 1), -- id_cliente = 147, id_usuario = 103
+(1, 'Natalia Camila', 'Ferrer Paredes', '99999999', NULL, NULL, 'Av. Salaverry 10036, Jesús María', NULL, 1), -- id_cliente = 148
+(2, NULL, NULL, NULL, 'Emprendimientos Tecnológicos SAC', '20000000129', 'Av. San Felipe 5555, Jesús María', 104, 1), -- id_cliente = 149, id_usuario = 104
+(1, 'Omar David', 'Gómez Ríos', '00000001', NULL, NULL, 'Jr. Cuzco 10037, Cercado de Lima', NULL, 1), -- id_cliente = 150
 (2, NULL, NULL, NULL, 'Seguridad y Resguardo 24/7 SRL', '20000000131', 'Av. Comandante Espinar 5656, Miraflores', 105, 1), -- id_cliente = 151, id_usuario = 105
-(1, 'Paola Ximena', 'Huam n Vargas', '00000002', NULL, NULL, 'Av. La Paz 10038, Miraflores', 106, 1), -- id_cliente = 152, id_usuario = 106
+(1, 'Paola Ximena', 'Huamán Vargas', '00000002', NULL, NULL, 'Av. La Paz 10038, Miraflores', 106, 1), -- id_cliente = 152, id_usuario = 106
 (2, NULL, NULL, NULL, 'Limpieza y Mantenimiento Urbano EIRL', '20000000133', 'Av. 28 de Julio 5757, La Victoria', NULL, 1), -- id_cliente = 153
-(1, 'Renzo Daniel', 'Inca Sol s', '00000003', NULL, NULL, 'Calle Cantuarias 10039, Miraflores', NULL, 1), -- id_cliente = 154
-(2, NULL, NULL, NULL, 'Gesti n Documental y Archivo SAC', '20000000135', 'Av. Benavides 5858, Miraflores', NULL, 1), -- id_cliente = 155
-(1, 'Sandra Milagros', 'Ju rez Torrez', '00000004', NULL, NULL, 'Jr. Huaraz 10040, Bre a', NULL, 1), -- id_cliente = 156
+(1, 'Renzo Daniel', 'Inca Solís', '00000003', NULL, NULL, 'Calle Cantuarias 10039, Miraflores', NULL, 1), -- id_cliente = 154
+(2, NULL, NULL, NULL, 'Gestión Documental y Archivo SAC', '20000000135', 'Av. Benavides 5858, Miraflores', NULL, 1), -- id_cliente = 155
+(1, 'Sandra Milagros', 'Juárez Torrez', '00000004', NULL, NULL, 'Jr. Huaraz 10040, Breña', NULL, 1), -- id_cliente = 156
 (2, NULL, NULL, NULL, 'Transportes Terrestres Nacionales SRL', '20000000137', 'Av. Los Faisanes 5959, Chorrillos', NULL, 1), -- id_cliente = 157
-(1, 'Tom s Leonardo', 'L pez Benavides', '00000005', NULL, NULL, 'Av. Las Gardenias 10041, Santiago de Surco', NULL, 1), -- id_cliente = 158
+(1, 'Tomás Leonardo', 'López Benavides', '00000005', NULL, NULL, 'Av. Las Gardenias 10041, Santiago de Surco', NULL, 1), -- id_cliente = 158
 (2, NULL, NULL, NULL, 'Imprenta y Publicidad Express EIRL', '20000000139', 'Calle Las Camelias 6060, San Isidro', NULL, 1), -- id_cliente = 159
-(1, ' rsula Cristina', 'Mendoza Quispe', '00000006', NULL, NULL, 'Av. Guardia Civil 10042, San Borja', NULL, 1), -- id_cliente = 160
-(2, NULL, NULL, NULL, 'Equipos M dicos e Insumos SAC', '20000000141', 'Av. Canad  6161, La Victoria', NULL, 1), -- id_cliente = 161
-(1, 'V ctor Manuel', 'N  ez Bravo', '00000007', NULL, NULL, 'Jr. Arequipa 10043, Cercado de Lima', NULL, 1), -- id_cliente = 162
+(1, 'Úrsula Cristina', 'Mendoza Quispe', '00000006', NULL, NULL, 'Av. Guardia Civil 10042, San Borja', NULL, 1), -- id_cliente = 160
+(2, NULL, NULL, NULL, 'Equipos Médicos e Insumos SAC', '20000000141', 'Av. Canadá 6161, La Victoria', NULL, 1), -- id_cliente = 161
+(1, 'Víctor Manuel', 'Núñez Bravo', '00000007', NULL, NULL, 'Jr. Arequipa 10043, Cercado de Lima', NULL, 1), -- id_cliente = 162
 (2, NULL, NULL, NULL, 'Desarrollo de Software a Medida SRL', '20000000143', 'Av. Del Sol 6262, Surco', NULL, 1), -- id_cliente = 163
-(1, 'Wendy Carolina', 'Ortiz Zapata', '00000008', NULL, NULL, 'Av. Salaverry 10044, Jes s Mar a', NULL, 1), -- id_cliente = 164
-(2, NULL, NULL, NULL, 'Asesor a Legal y Corporativa EIRL', '20000000145', 'Calle Diez Canseco 6363, Miraflores', NULL, 1), -- id_cliente = 165
-(1, 'Ximena Alexandra', 'P rez Ruiz', '00000009', NULL, NULL, 'Av. Los Conquistadores 10045, San Isidro', NULL, 1), -- id_cliente = 166
-(2, NULL, NULL, NULL, 'Art culos de Oficina y Papeler a SAC', '20000000147', 'Av. Petit Thouars 6464, Lince', NULL, 1), -- id_cliente = 167
+(1, 'Wendy Carolina', 'Ortiz Zapata', '00000008', NULL, NULL, 'Av. Salaverry 10044, Jesús María', NULL, 1), -- id_cliente = 164
+(2, NULL, NULL, NULL, 'Asesoría Legal y Corporativa EIRL', '20000000145', 'Calle Diez Canseco 6363, Miraflores', NULL, 1), -- id_cliente = 165
+(1, 'Ximena Alexandra', 'Pérez Ruiz', '00000009', NULL, NULL, 'Av. Los Conquistadores 10045, San Isidro', NULL, 1), -- id_cliente = 166
+(2, NULL, NULL, NULL, 'Artículos de Oficina y Papelería SAC', '20000000147', 'Av. Petit Thouars 6464, Lince', NULL, 1), -- id_cliente = 167
 (1, 'Yadira Marisol', 'Quispe Salas', '00000010', NULL, NULL, 'Jr. Rufino Torrico 10046, Cercado de Lima', NULL, 1), -- id_cliente = 168
 (2, NULL, NULL, NULL, 'Comercio y Representaciones SRL', '20000000149', 'Av. Arequipa 6565, Miraflores', NULL, 1), -- id_cliente = 169
-(1, 'Zulema Ang lica', 'Ramos Silva', '00000011', NULL, NULL, 'Av. Pardo y Aliaga 10047, San Isidro', NULL, 1), -- id_cliente = 170
-(2, NULL, NULL, NULL, 'Gesti n de Proyectos y Obras EIRL', '20000000151', 'Av. Jos  Galvez Barrenechea 6666, Lince', NULL, 1), -- id_cliente = 171
-(1, 'Alberto Fabi n', 'S nchez Vargas', '00000012', NULL, NULL, 'Av. Sucre 10048, Pueblo Libre', NULL, 1), -- id_cliente = 172
-(2, NULL, NULL, NULL, 'Servicios de Jardiner a y Paisajismo SAC', '20000000153', 'Av. San Borja Sur 6767, San Borja', NULL, 1), -- id_cliente = 173
-(1, 'Brenda Sof a', 'Torres Zapata', '00000013', NULL, NULL, 'Jr. Ancash 10049, Cercado de Lima', NULL, 1), -- id_cliente = 174
-(2, NULL, NULL, NULL, 'Restaurante Fusi n Criolla SRL', '20000000155', 'Calle Schell 6868, Miraflores', NULL, 1), -- id_cliente = 175
-(1, 'Cristian Eduardo', 'Ugarte Ch vez', '00000014', NULL, NULL, 'Av. La Paz 10050, Miraflores', NULL, 1), -- id_cliente = 176
-(2, NULL, NULL, NULL, 'Lavander a Industrial y Hogar EIRL', '20000000157', 'Jr. Carabaya 6969, Cercado de Lima', NULL, 1), -- id_cliente = 177
-(1, 'Daniela Michelle', 'Vargas D az', '00000015', NULL, NULL, 'Av. Las Begonias 10051, San Isidro', NULL, 1), -- id_cliente = 178
+(1, 'Zulema Angélica', 'Ramos Silva', '00000011', NULL, NULL, 'Av. Pardo y Aliaga 10047, San Isidro', NULL, 1), -- id_cliente = 170
+(2, NULL, NULL, NULL, 'Gestión de Proyectos y Obras EIRL', '20000000151', 'Av. José Galvez Barrenechea 6666, Lince', NULL, 1), -- id_cliente = 171
+(1, 'Alberto Fabián', 'Sánchez Vargas', '00000012', NULL, NULL, 'Av. Sucre 10048, Pueblo Libre', NULL, 1), -- id_cliente = 172
+(2, NULL, NULL, NULL, 'Servicios de Jardinería y Paisajismo SAC', '20000000153', 'Av. San Borja Sur 6767, San Borja', NULL, 1), -- id_cliente = 173
+(1, 'Brenda Sofía', 'Torres Zapata', '00000013', NULL, NULL, 'Jr. Ancash 10049, Cercado de Lima', NULL, 1), -- id_cliente = 174
+(2, NULL, NULL, NULL, 'Restaurante Fusión Criolla SRL', '20000000155', 'Calle Schell 6868, Miraflores', NULL, 1), -- id_cliente = 175
+(1, 'Cristian Eduardo', 'Ugarte Chávez', '00000014', NULL, NULL, 'Av. La Paz 10050, Miraflores', NULL, 1), -- id_cliente = 176
+(2, NULL, NULL, NULL, 'Lavandería Industrial y Hogar EIRL', '20000000157', 'Jr. Carabaya 6969, Cercado de Lima', NULL, 1), -- id_cliente = 177
+(1, 'Daniela Michelle', 'Vargas Díaz', '00000015', NULL, NULL, 'Av. Las Begonias 10051, San Isidro', NULL, 1), -- id_cliente = 178
 (2, NULL, NULL, NULL, 'Eventos Corporativos Premium SAC', '20000000159', 'Av. Conquistadores 7070, San Isidro', NULL, 1), -- id_cliente = 179
-(1, 'Emilio Rafael', 'Vega Huam n', '00000016', NULL, NULL, 'Av. Primavera 10052, Surco', NULL, 1), -- id_cliente = 180
+(1, 'Emilio Rafael', 'Vega Huamán', '00000016', NULL, NULL, 'Av. Primavera 10052, Surco', NULL, 1), -- id_cliente = 180
 (2, NULL, NULL, NULL, 'Desarrollos Web y Apps SRL', '20000000161', 'Jr. Paruro 7171, Cercado de Lima', NULL, 1), -- id_cliente = 181
-(1, 'Fernanda Celeste', 'Zapata L pez', '00000017', NULL, NULL, 'Av. Los Pr ceres 10053, Santiago de Surco', NULL, 1), -- id_cliente = 182
-(2, NULL, NULL, NULL, 'Equipos de Seguridad Electr nica EIRL', '20000000163', 'Av. La Molina 7272, La Molina', NULL, 1), -- id_cliente = 183
-(1, 'Gabriela Alejandra', 'Alvares P rez', '00000018', NULL, NULL, 'Calle Los Laureles 10054, Ate', NULL, 1), -- id_cliente = 184
-(2, NULL, NULL, NULL, 'Agencia de Modelaje y Talento SAC', '20000000165', 'Av. Paseo de la Rep blica 7373, La Victoria', NULL, 1), -- id_cliente = 185
+(1, 'Fernanda Celeste', 'Zapata López', '00000017', NULL, NULL, 'Av. Los Próceres 10053, Santiago de Surco', NULL, 1), -- id_cliente = 182
+(2, NULL, NULL, NULL, 'Equipos de Seguridad Electrónica EIRL', '20000000163', 'Av. La Molina 7272, La Molina', NULL, 1), -- id_cliente = 183
+(1, 'Gabriela Alejandra', 'Alvares Pérez', '00000018', NULL, NULL, 'Calle Los Laureles 10054, Ate', NULL, 1), -- id_cliente = 184
+(2, NULL, NULL, NULL, 'Agencia de Modelaje y Talento SAC', '20000000165', 'Av. Paseo de la República 7373, La Victoria', NULL, 1), -- id_cliente = 185
 (1, 'Hugo Ricardo', 'Benavides Quispe', '00000019', NULL, NULL, 'Jr. Gamarra 10055, La Victoria', NULL, 1), -- id_cliente = 186
-(2, NULL, NULL, NULL, 'Servicios de Fumigaci n y Control de Plagas SRL', '20000000167', 'Av. Las Am ricas 7474, Lince', NULL, 1), -- id_cliente = 187
+(2, NULL, NULL, NULL, 'Servicios de Fumigación y Control de Plagas SRL', '20000000167', 'Av. Las Américas 7474, Lince', NULL, 1), -- id_cliente = 187
 (1, 'Isabella Victoria', 'Castro Salas', '00000020', NULL, NULL, 'Av. Sucre 10056, Pueblo Libre', NULL, 1), -- id_cliente = 188
 (2, NULL, NULL, NULL, 'Consultores de Marketing Digital EIRL', '20000000169', 'Av. Angamos Oeste 7575, Miraflores', NULL, 1), -- id_cliente = 189
-(1, 'Juan David', 'D az Morales', '00000021', NULL, NULL, 'Jr. Lampa 10057, Cercado de Lima', NULL, 1), -- id_cliente = 190
-(2, NULL, NULL, NULL, 'Librer a y Bazar El Lector SAC', '20000000171', 'Av. Benavides 7676, Miraflores', NULL, 1), -- id_cliente = 191
-(1, 'Karen Sof a', 'Escobar Pinedo', '00000022', NULL, NULL, 'Av. Del Ej rcito 10058, San Isidro', NULL, 1), -- id_cliente = 192
-(2, NULL, NULL, NULL, 'Inversiones en Bienes Ra ces SRL', '20000000173', 'Calle San Mart n 7777, Miraflores', NULL, 1), -- id_cliente = 193
-(1, 'Luis Fernando', 'Ferrer Paredes', '00000023', NULL, NULL, 'Jr. Mir  Quesada 10059, Cercado de Lima', NULL, 1), -- id_cliente = 194
-(2, NULL, NULL, NULL, 'Productos Org nicos Saludables EIRL', '20000000175', 'Av. Comandante Espinar 7878, Miraflores', NULL, 1), -- id_cliente = 195
-(1, 'Mar a Emilia', 'G mez R os', '00000024', NULL, NULL, 'Av. Paseo de la Castellana 10060, Santiago de Surco', NULL, 1), -- id_cliente = 196
-(2, NULL, NULL, NULL, 'F brica de Ropa y Accesorios SAC', '20000000177', 'Jr. Az ngaro 7979, Cercado de Lima', NULL, 1), -- id_cliente = 197
-(1, 'Nicol s Alejandro', 'Huam n Vargas', '00000025', NULL, NULL, 'Av. El Polo 10061, Surco', NULL, 1), -- id_cliente = 198
-(2, NULL, NULL, NULL, 'Servicios de Traducci n Profesional SRL', '20000000179', 'Av. Arambur  8080, San Isidro', NULL, 1), -- id_cliente = 199
-(1, 'Olivia Patricia', 'Inca Sol s', '00000026', NULL, NULL, 'Av. De Las Artes Norte 10062, San Borja', NULL, 1), -- id_cliente = 200
+(1, 'Juan David', 'Díaz Morales', '00000021', NULL, NULL, 'Jr. Lampa 10057, Cercado de Lima', NULL, 1), -- id_cliente = 190
+(2, NULL, NULL, NULL, 'Librería y Bazar El Lector SAC', '20000000171', 'Av. Benavides 7676, Miraflores', NULL, 1), -- id_cliente = 191
+(1, 'Karen Sofía', 'Escobar Pinedo', '00000022', NULL, NULL, 'Av. Del Ejército 10058, San Isidro', NULL, 1), -- id_cliente = 192
+(2, NULL, NULL, NULL, 'Inversiones en Bienes Raíces SRL', '20000000173', 'Calle San Martín 7777, Miraflores', NULL, 1), -- id_cliente = 193
+(1, 'Luis Fernando', 'Ferrer Paredes', '00000023', NULL, NULL, 'Jr. Miró Quesada 10059, Cercado de Lima', NULL, 1), -- id_cliente = 194
+(2, NULL, NULL, NULL, 'Productos Orgánicos Saludables EIRL', '20000000175', 'Av. Comandante Espinar 7878, Miraflores', NULL, 1), -- id_cliente = 195
+(1, 'María Emilia', 'Gómez Ríos', '00000024', NULL, NULL, 'Av. Paseo de la Castellana 10060, Santiago de Surco', NULL, 1), -- id_cliente = 196
+(2, NULL, NULL, NULL, 'Fábrica de Ropa y Accesorios SAC', '20000000177', 'Jr. Azángaro 7979, Cercado de Lima', NULL, 1), -- id_cliente = 197
+(1, 'Nicolás Alejandro', 'Huamán Vargas', '00000025', NULL, NULL, 'Av. El Polo 10061, Surco', NULL, 1), -- id_cliente = 198
+(2, NULL, NULL, NULL, 'Servicios de Traducción Profesional SRL', '20000000179', 'Av. Aramburú 8080, San Isidro', NULL, 1), -- id_cliente = 199
+(1, 'Olivia Patricia', 'Inca Solís', '00000026', NULL, NULL, 'Av. De Las Artes Norte 10062, San Borja', NULL, 1), -- id_cliente = 200
 (2, NULL, NULL, NULL, 'Soluciones en Redes y Telecomunicaciones EIRL', '20000000181', 'Jr. Puno 8181, Cercado de Lima', NULL, 1), -- id_cliente = 201
-(1, 'Pedro Jos ', 'Ju rez Torrez', '00000027', NULL, NULL, 'Av. Salaverry 10063, Jes s Mar a', NULL, 1), -- id_cliente = 202
-(2, NULL, NULL, NULL, 'Estudios de Fotograf a y Video SAC', '20000000183', 'Av. Javier Prado Este 8282, San Isidro', NULL, 1), -- id_cliente = 203
-(1, 'Quispe Mar a', 'Luna Morales', '00000028', NULL, NULL, 'Calle Los Cedros 10064, San Isidro', NULL, 1), -- id_cliente = 204
+(1, 'Pedro José', 'Juárez Torrez', '00000027', NULL, NULL, 'Av. Salaverry 10063, Jesús María', NULL, 1), -- id_cliente = 202
+(2, NULL, NULL, NULL, 'Estudios de Fotografía y Video SAC', '20000000183', 'Av. Javier Prado Este 8282, San Isidro', NULL, 1), -- id_cliente = 203
+(1, 'Quispe María', 'Luna Morales', '00000028', NULL, NULL, 'Calle Los Cedros 10064, San Isidro', NULL, 1), -- id_cliente = 204
 (2, NULL, NULL, NULL, 'Consultora de Negocios y Estrategia SRL', '20000000185', 'Av. Angamos Oeste 8383, Miraflores', NULL, 1), -- id_cliente = 205
-(1, 'Rafael Antonio', 'Medina Ch vez', '00000029', NULL, NULL, 'Av. Dos de Mayo 10065, San Isidro', NULL, 1), -- id_cliente = 206
+(1, 'Rafael Antonio', 'Medina Chávez', '00000029', NULL, NULL, 'Av. Dos de Mayo 10065, San Isidro', NULL, 1), -- id_cliente = 206
 (2, NULL, NULL, NULL, 'Sistemas de Seguridad Alarmas EIRL', '20000000187', 'Av. Caminos del Inca 8484, Surco', NULL, 1), -- id_cliente = 207
-(1, 'Sandra Elizabeth', 'Nieto P rez', '00000030', NULL, NULL, 'Jr. Zepita 10066, Cercado de Lima', NULL, 1), -- id_cliente = 208
-(2, NULL, NULL, NULL, 'Colegio Biling e San Marcos SAC', '20000000189', 'Av. Caminos del Inca 8585, Surco', NULL, 1), -- id_cliente = 209
-(1, 'Tom s Gabriel', 'Ortiz Ramos', '00000031', NULL, NULL, 'Av. La Paz 10067, Miraflores', NULL, 1), -- id_cliente = 210
-(2, NULL, NULL, NULL, 'Centro de Rehabilitaci n F sica SRL', '20000000191', 'Calle Roma 8686, San Isidro', NULL, 1), -- id_cliente = 211
-(1, ' rsula Raquel', 'Palacios Salda a', '00000032', NULL, NULL, 'Av. Pardo y Aliaga 10068, San Isidro', NULL, 1), -- id_cliente = 212
-(2, NULL, NULL, NULL, 'Agencia de Aduanas y Comercio Exterior EIRL', '20000000193', 'Av. Jos  Pardo 8787, Miraflores', NULL, 1), -- id_cliente = 213
-(1, 'V ctor Manuel', 'Quispe Mamani', '00000033', NULL, NULL, 'Jr. Las Moras 10069, Los Olivos', NULL, 1), -- id_cliente = 214
+(1, 'Sandra Elizabeth', 'Nieto Pérez', '00000030', NULL, NULL, 'Jr. Zepita 10066, Cercado de Lima', NULL, 1), -- id_cliente = 208
+(2, NULL, NULL, NULL, 'Colegio Bilingüe San Marcos SAC', '20000000189', 'Av. Caminos del Inca 8585, Surco', NULL, 1), -- id_cliente = 209
+(1, 'Tomás Gabriel', 'Ortiz Ramos', '00000031', NULL, NULL, 'Av. La Paz 10067, Miraflores', NULL, 1), -- id_cliente = 210
+(2, NULL, NULL, NULL, 'Centro de Rehabilitación Física SRL', '20000000191', 'Calle Roma 8686, San Isidro', NULL, 1), -- id_cliente = 211
+(1, 'Úrsula Raquel', 'Palacios Saldaña', '00000032', NULL, NULL, 'Av. Pardo y Aliaga 10068, San Isidro', NULL, 1), -- id_cliente = 212
+(2, NULL, NULL, NULL, 'Agencia de Aduanas y Comercio Exterior EIRL', '20000000193', 'Av. José Pardo 8787, Miraflores', NULL, 1), -- id_cliente = 213
+(1, 'Víctor Manuel', 'Quispe Mamani', '00000033', NULL, NULL, 'Jr. Las Moras 10069, Los Olivos', NULL, 1), -- id_cliente = 214
 (2, NULL, NULL, NULL, 'Estudios Contables y Tributarios SAC', '20000000195', 'Av. El Polo 8888, Surco', NULL, 1), -- id_cliente = 215
 (1, 'Wendy Alexandra', 'Ramos Soto', '00000034', NULL, NULL, 'Av. Las Lomas 10070, La Molina', NULL, 1), -- id_cliente = 216
-(2, NULL, NULL, NULL, 'Tienda de Ropa Deportiva SRL', '20000000197', 'Jr. Huancayo 8989, Bre a', NULL, 1), -- id_cliente = 217
-(1, 'Ximena Bel n', 'Reyes S nchez', '00000035', NULL, NULL, 'Av. Brasil 10071, Jes s Mar a', NULL, 1), -- id_cliente = 218
+(2, NULL, NULL, NULL, 'Tienda de Ropa Deportiva SRL', '20000000197', 'Jr. Huancayo 8989, Breña', NULL, 1), -- id_cliente = 217
+(1, 'Ximena Belén', 'Reyes Sánchez', '00000035', NULL, NULL, 'Av. Brasil 10071, Jesús María', NULL, 1), -- id_cliente = 218
 (2, NULL, NULL, NULL, 'Servicios de Catering y Banquetes EIRL', '20000000199', 'Av. Sucre 9090, Pueblo Libre', NULL, 1), -- id_cliente = 219
 (1, 'Yadira Cecilia', 'Salazar Vega', '00000036', NULL, NULL, 'Jr. Ancash 10072, Cercado de Lima', NULL, 1), -- id_cliente = 220
-(2, NULL, NULL, NULL, 'Consultor a en TI e Infraestructura SAC', '20000000201', 'Av. Arequipa 9191, Miraflores', NULL, 1), -- id_cliente = 221
+(2, NULL, NULL, NULL, 'Consultoría en TI e Infraestructura SAC', '20000000201', 'Av. Arequipa 9191, Miraflores', NULL, 1), -- id_cliente = 221
 (1, 'Zoe Lizbeth', 'Torres Bravo', '00000037', NULL, NULL, 'Av. Primavera 10073, Surco', NULL, 1), -- id_cliente = 222
 (2, NULL, NULL, NULL, 'Lavacar y Detailing Automotriz SRL', '20000000203', 'Calle Bolognesi 9292, Miraflores', NULL, 1), -- id_cliente = 223
-(1, 'Alonso Fabi n', 'Ugarte R os', '00000038', NULL, NULL, 'Av. Angamos Oeste 10074, Miraflores', NULL, 1), -- id_cliente = 224
-(2, NULL, NULL, NULL, 'Asesor a de Seguros y Riesgos EIRL', '20000000205', 'Jr. Cusco 9393, Magdalena', NULL, 1), -- id_cliente = 225
+(1, 'Alonso Fabián', 'Ugarte Ríos', '00000038', NULL, NULL, 'Av. Angamos Oeste 10074, Miraflores', NULL, 1), -- id_cliente = 224
+(2, NULL, NULL, NULL, 'Asesoría de Seguros y Riesgos EIRL', '20000000205', 'Jr. Cusco 9393, Magdalena', NULL, 1), -- id_cliente = 225
 (1, 'Beatriz Elena', 'Vargas Castro', '00000039', NULL, NULL, 'Av. Dos de Mayo 10075, San Isidro', NULL, 1), -- id_cliente = 226
 (2, NULL, NULL, NULL, 'Distribuidora de Productos de Limpieza SAC', '20000000207', 'Av. Guardia Civil 9494, San Borja', NULL, 1), -- id_cliente = 227
-(1, 'Carlos Eduardo', 'Vega Huam n', '00000040', NULL, NULL, 'Jr. Quilca 10076, Cercado de Lima', NULL, 1), -- id_cliente = 228
-(2, NULL, NULL, NULL, 'Academia de Baile y Arte SRL', '20000000209', 'Av. San Felipe 9595, Jes s Mar a', NULL, 1), -- id_cliente = 229
-(1, 'Daniela Michelle', 'Zapata L pez', '00000041', NULL, NULL, 'Av. Arambur  10077, San Isidro', NULL, 1), -- id_cliente = 230
-(2, NULL, NULL, NULL, 'Centro Psicol gico Integral EIRL', '20000000211', 'Calle Diez Canseco 9696, Miraflores', NULL, 1), -- id_cliente = 231
-(1, 'El as Gabriel', 'Alvares P rez', '00000042', NULL, NULL, 'Av. Arequipa 10078, Lince', NULL, 1), -- id_cliente = 232
-(2, NULL, NULL, NULL, 'Jugueter a El Mundo Feliz SAC', '20000000213', 'Av. Benavides 9797, Miraflores', NULL, 1), -- id_cliente = 233
-(1, 'Fernanda Sof a', 'Benavides Quispe', '00000043', NULL, NULL, 'Jr. Gamarra 10079, La Victoria', NULL, 1), -- id_cliente = 234
-(2, NULL, NULL, NULL, 'Peluquer a y Spa Urbano SRL', '20000000215', 'Av. La Paz 9898, Miraflores', NULL, 1), -- id_cliente = 235
-(1, 'Gustavo Andr s', 'Castro Salas', '00000044', NULL, NULL, 'Av. Pardo y Aliaga 10080, San Isidro', NULL, 1), -- id_cliente = 236
-(2, NULL, NULL, NULL, 'Estudios de Grabaci n Musical EIRL', '20000000217', 'Av. El Polo 9999, Surco', NULL, 1), -- id_cliente = 237
-(1, 'Hilary Nicole', 'D az Morales', '00000045', NULL, NULL, 'Calle Enrique Palacios 10081, Miraflores', NULL, 1), -- id_cliente = 238
-(2, NULL, NULL, NULL, 'Tienda de Electr nica y Gadgets SAC', '20000000219', 'Av. Primavera 10000, Surco', NULL, 1), -- id_cliente = 239
+(1, 'Carlos Eduardo', 'Vega Huamán', '00000040', NULL, NULL, 'Jr. Quilca 10076, Cercado de Lima', NULL, 1), -- id_cliente = 228
+(2, NULL, NULL, NULL, 'Academia de Baile y Arte SRL', '20000000209', 'Av. San Felipe 9595, Jesús María', NULL, 1), -- id_cliente = 229
+(1, 'Daniela Michelle', 'Zapata López', '00000041', NULL, NULL, 'Av. Aramburú 10077, San Isidro', NULL, 1), -- id_cliente = 230
+(2, NULL, NULL, NULL, 'Centro Psicológico Integral EIRL', '20000000211', 'Calle Diez Canseco 9696, Miraflores', NULL, 1), -- id_cliente = 231
+(1, 'Elías Gabriel', 'Alvares Pérez', '00000042', NULL, NULL, 'Av. Arequipa 10078, Lince', NULL, 1), -- id_cliente = 232
+(2, NULL, NULL, NULL, 'Juguetería El Mundo Feliz SAC', '20000000213', 'Av. Benavides 9797, Miraflores', NULL, 1), -- id_cliente = 233
+(1, 'Fernanda Sofía', 'Benavides Quispe', '00000043', NULL, NULL, 'Jr. Gamarra 10079, La Victoria', NULL, 1), -- id_cliente = 234
+(2, NULL, NULL, NULL, 'Peluquería y Spa Urbano SRL', '20000000215', 'Av. La Paz 9898, Miraflores', NULL, 1), -- id_cliente = 235
+(1, 'Gustavo Andrés', 'Castro Salas', '00000044', NULL, NULL, 'Av. Pardo y Aliaga 10080, San Isidro', NULL, 1), -- id_cliente = 236
+(2, NULL, NULL, NULL, 'Estudios de Grabación Musical EIRL', '20000000217', 'Av. El Polo 9999, Surco', NULL, 1), -- id_cliente = 237
+(1, 'Hilary Nicole', 'Díaz Morales', '00000045', NULL, NULL, 'Calle Enrique Palacios 10081, Miraflores', NULL, 1), -- id_cliente = 238
+(2, NULL, NULL, NULL, 'Tienda de Electrónica y Gadgets SAC', '20000000219', 'Av. Primavera 10000, Surco', NULL, 1), -- id_cliente = 239
 (1, 'Isaac Mateo', 'Escobar Pinedo', '00000046', NULL, NULL, 'Av. Javier Prado Este 10082, San Borja', NULL, 1), -- id_cliente = 240
-(2, NULL, NULL, NULL, 'Servicios de Courier y Mensajer a SRL', '20000000221', 'Jr. Miro Quesada 10001, Cercado de Lima', NULL, 1), -- id_cliente = 241
+(2, NULL, NULL, NULL, 'Servicios de Courier y Mensajería SRL', '20000000221', 'Jr. Miro Quesada 10001, Cercado de Lima', NULL, 1), -- id_cliente = 241
 (1, 'Jacqueline Lizbeth', 'Ferrer Paredes', '00000047', NULL, NULL, 'Av. Universitaria 10083, Los Olivos', NULL, 1), -- id_cliente = 242
-(2, NULL, NULL, NULL, 'Comercializadora de Productos Qu micos EIRL', '20000000223', 'Av. San Juan 10002, San Juan de Miraflores', NULL, 1), -- id_cliente = 243
-(1, 'Kevin Alexander', 'G mez R os', '00000048', NULL, NULL, 'Av. Huaylas 10084, Chorrillos', NULL, 1), -- id_cliente = 244
-(2, NULL, NULL, NULL, 'Asesor a Nutricional y Deportiva SAC', '20000000225', 'Av. Los Constructores 10003, La Molina', NULL, 1), -- id_cliente = 245
-(1, 'Lorena Andrea', 'Huam n Vargas', '00000049', NULL, NULL, 'Jr. Paruro 10085, Cercado de Lima', NULL, 1), -- id_cliente = 246
-(2, NULL, NULL, NULL, 'Venta de Art culos para el Hogar SRL', '20000000227', 'Av. Salaverry 10004, Jes s Mar a', NULL, 1), -- id_cliente = 247
-(1, 'Marco Antonio', 'Inca Sol s', '00000050', NULL, NULL, 'Calle Los Robles 10086, Surquillo', NULL, 1), -- id_cliente = 248
-(2, NULL, NULL, NULL, 'Servicios de Plomer a y Gasfiter a EIRL', '20000000229', 'Av. La Paz 10005, Miraflores', NULL, 1), -- id_cliente = 249
-(1, 'Nancy Patricia', 'Ju rez Torrez', '00000051', NULL, NULL, 'Jr. Jun n 10087, R mac', NULL, 1); -- id_cliente = 250
+(2, NULL, NULL, NULL, 'Comercializadora de Productos Químicos EIRL', '20000000223', 'Av. San Juan 10002, San Juan de Miraflores', NULL, 1), -- id_cliente = 243
+(1, 'Kevin Alexander', 'Gómez Ríos', '00000048', NULL, NULL, 'Av. Huaylas 10084, Chorrillos', NULL, 1), -- id_cliente = 244
+(2, NULL, NULL, NULL, 'Asesoría Nutricional y Deportiva SAC', '20000000225', 'Av. Los Constructores 10003, La Molina', NULL, 1), -- id_cliente = 245
+(1, 'Lorena Andrea', 'Huamán Vargas', '00000049', NULL, NULL, 'Jr. Paruro 10085, Cercado de Lima', NULL, 1), -- id_cliente = 246
+(2, NULL, NULL, NULL, 'Venta de Artículos para el Hogar SRL', '20000000227', 'Av. Salaverry 10004, Jesús María', NULL, 1), -- id_cliente = 247
+(1, 'Marco Antonio', 'Inca Solís', '00000050', NULL, NULL, 'Calle Los Robles 10086, Surquillo', NULL, 1), -- id_cliente = 248
+(2, NULL, NULL, NULL, 'Servicios de Plomería y Gasfitería EIRL', '20000000229', 'Av. La Paz 10005, Miraflores', NULL, 1), -- id_cliente = 249
+(1, 'Nancy Patricia', 'Juárez Torrez', '00000051', NULL, NULL, 'Jr. Junín 10087, Rímac', NULL, 1); -- id_cliente = 250
 
 GO
 
@@ -563,7 +982,7 @@ INSERT INTO ClienteCorreos (id_cliente, email) VALUES
 (7, 'ventas@elvecino.pe'), (8, 'info@laconfianza.com'), (9, 'gerencia@supermercadoexpress.com'),
 (10, 'compras@distribuidoraxyz.com');
 
--- Correos para los 240 clientes adicionales (continuando la numeraci n)
+-- Correos para los 240 clientes adicionales (continuando la numeración)
 INSERT INTO ClienteCorreos (id_cliente, email) VALUES
 (1, 'andrea.vega@example.com'),
 (2, 'roberto.quispe@example.com'),
@@ -824,7 +1243,7 @@ INSERT INTO ClienteTelefonos (id_cliente, telefono) VALUES
 (1, '991234567'), (2, '982345678'), (3, '973456789'), (4, '964567890'), (5, '955678901'),
 (6, '946789012'), (7, '937890123'), (8, '928901234'), (9, '919012345'), (10, '900123456');
 
--- Tel fonos para los 240 clientes adicionales (continuando la numeraci n)
+-- Teléfonos para los 240 clientes adicionales (continuando la numeración)
 INSERT INTO ClienteTelefonos (id_cliente, telefono) VALUES
 (11, '900000011'), (12, '900000012'), (13, '900000013'), (14, '900000014'), (15, '900000015'),
 (16, '900000016'), (17, '900000017'), (18, '900000018'), (19, '900000019'), (20, '900000020'),
@@ -881,10 +1300,10 @@ GO
 INSERT INTO CategoriaProductos (nombreCategoria) VALUES --20 filas-
 ('Alimentos'),
 ('Bebidas'),
-('L cteos'),
+('Lácteos'),
 ('Limpieza'),
 ('Conservas'),
-('Panader a'),
+('Panadería'),
 ('Abarrotes secos'),
 ('Enlatados'),
 ('Snacks'),
@@ -897,7 +1316,7 @@ INSERT INTO CategoriaProductos (nombreCategoria) VALUES --20 filas-
 ('Salsas y Condimentos'),	
 ('Dulces y Postres'),
 ('Cuidado Personal'),
-('Art culos para el Hogar'),
+('Artículos para el Hogar'),
 ('Mascotas');   
 		
 
@@ -909,19 +1328,19 @@ INSERT INTO Presentacion (nombrePresentacion) VALUES -- 26 filas--
 ('Lata'),		
 ('Paquete'),
 ('Sachet'), 
-('Bid n'),
+('Bidón'),
 ('Tubo'),
 ('Roll-on'),
 ('Barra'),
 ('Ampolla'),
 ('Estuche'),
 ('Granel'),
-('Envase al vac o'),
+('Envase al vacío'),
 ('Flow-pack'),		
 ('Bandeja'),
-('Bl ster'),
+('Blíster'),
 ('Frasco'),
-('Gal n'),
+('Galón'),
 ('Unidad'),
 ('Display'),
 ('Doypack'),
@@ -933,35 +1352,35 @@ INSERT INTO Presentacion (nombrePresentacion) VALUES -- 26 filas--
 
 --TIPO EMPAQUE
 INSERT INTO TipoEmpaque (nombreEmpaque, material) VALUES  --38--
-('Empaque pl stico', 'Pl stico'),
-('Empaque de cart n', 'Cart n'),
-('Empaque met lico', 'Metal'),
+('Empaque plástico', 'Plástico'),
+('Empaque de cartón', 'Cartón'),
+('Empaque metálico', 'Metal'),
 ('Empaque de vidrio', 'Vidrio'),
 ('Empaque biodegradable', 'Fibra vegetal'),	
 ('Empaque laminado', 'Multicapa'),
 ('Empaque de papel', 'Papel'),
-('Empaque flexible', 'Pl stico/Aluminio'),
-('Empaque al vac o', 'Pl stico'),
+('Empaque flexible', 'Plástico/Aluminio'),
+('Empaque al vacío', 'Plástico'),
 ('Empaque de tela', 'Tela'),
-('Bl ster de PVC', 'PVC'),
+('Blíster de PVC', 'PVC'),
 ('Tarrina de PP', 'Polipropileno'),
 ('Botella PET', 'PET'),
 ('Frasco de vidrio oscuro', 'Vidrio'),
-('Envase Tetrapak', 'Cart n/Aluminio/Pl stico'),
+('Envase Tetrapak', 'Cartón/Aluminio/Plástico'),
 ('Saco de rafia', 'Polipropileno tejido'),
-('Red de malla', 'Pl stico'),
+('Red de malla', 'Plástico'),
 ('Bolsa Stand-up Pouch', 'Multicapa flexible'),
-('Cilindro de cart n', 'Cart n'),
-('Estuche tipo bl ster', 'Cart n/Pl stico'),
-('C psula de gelatina', 'Gelatina'),
-('Pel cula adherente', 'Pl stico'),
-('Malla el stica', 'Elastom rico'),
+('Cilindro de cartón', 'Cartón'),
+('Estuche tipo blíster', 'Cartón/Plástico'),
+('Cápsula de gelatina', 'Gelatina'),
+('Película adherente', 'Plástico'),
+('Malla elástica', 'Elastomérico'),
 ('Bolsa doypack con zipper', 'Multicapa flexible'),
-('Tapa de rosca', 'Pl stico/Metal'),
-('Bote de conserva herm tico', 'Metal'),
+('Tapa de rosca', 'Plástico/Metal'),
+('Bote de conserva hermético', 'Metal'),
 ('Botella de aluminio', 'Aluminio'),
-('Caja con ventana', 'Cart n/Pl stico'),
-('Rollo film estirable', 'Pl stico'),
+('Caja con ventana', 'Cartón/Plástico'),
+('Rollo film estirable', 'Plástico'),
 ('Bolsa de papel kraft', 'Papel Kraft');
 Go
 
@@ -969,57 +1388,57 @@ Go
 INSERT INTO Productos (codigo, nombre, descripcion, precio, precioventa, stock, stock_minimo, unidad_medida, id_proveedor, idCategoria, idPresentacion, idTipoEmpaque, activo,imagen_url) VALUES
 -- Alimentos (idCategoria = 1)
 ('PROD001', 'Arroz Superior Extra', 'Arroz blanco de grano largo, ideal para todo tipo de comidas.', 5.50, 6.60, 500, 50, 'kg', 1, 1, 1, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/30568837-512-512/20349946.jpg'),
-('PROD002', 'Az car Rubia Especial', 'Az car de ca a, granulada, para uso diario.', 4.20, 5.04, 700, 70, 'kg', 3, 1, 1, 1, 1,'https://acdn-us.mitiendanube.com/stores/099/082/products/azucar-organica-yin-yang1-b7756c17855b19949615712460340405-1024-1024.jpg'),
-('PROD003', 'Fideos Spaguetti Delgados', 'Fideos de trigo duro, cocci n r pida.', 3.80, 4.56, 400, 40, 'paquete', 7, 1, 5, 2, 1,'https://vegaperu.vtexassets.com/arquivos/ids/160023/7754137001166.jpg?v=637907572249300000'),
-('PROD004', 'Harina Preparada Blancaflor', 'Harina de trigo fortificada, para reposter a.', 6.10, 7.32, 300, 30, 'kg', 1, 1, 5, 2, 1,'https://oechsle.vteximg.com.br/arquivos/ids/1856711-1000-1000/image-75141ec8bf96407890ed1721c03de574.jpg?v=637495322349930000'),
-('PROD005', 'Arroz Jazm n Arom tico', 'Arroz arom tico de alta calidad.', 7.00, 8.40, 250, 25, 'kg', 2, 1, 1, 1, 1,'https://mahatmarice.com/wp-content/uploads/2019/05/2_Jasmine_Mahatma_mock.png'),
-('PROD006', 'Az car Blanca Refinada', 'Az car extrafina, ideal para postres.', 4.50, 5.40, 600, 60, 'kg', 3, 1, 1, 1, 1,'https://mahatmarice.com/wp-content/uploads/2019/05/2_Jasmine_Mahatma_mock.png'),
+('PROD002', 'Azúcar Rubia Especial', 'Azúcar de caña, granulada, para uso diario.', 4.20, 5.04, 700, 70, 'kg', 3, 1, 1, 1, 1,'https://acdn-us.mitiendanube.com/stores/099/082/products/azucar-organica-yin-yang1-b7756c17855b19949615712460340405-1024-1024.jpg'),
+('PROD003', 'Fideos Spaguetti Delgados', 'Fideos de trigo duro, cocción rápida.', 3.80, 4.56, 400, 40, 'paquete', 7, 1, 5, 2, 1,'https://vegaperu.vtexassets.com/arquivos/ids/160023/7754137001166.jpg?v=637907572249300000'),
+('PROD004', 'Harina Preparada Blancaflor', 'Harina de trigo fortificada, para repostería.', 6.10, 7.32, 300, 30, 'kg', 1, 1, 5, 2, 1,'https://oechsle.vteximg.com.br/arquivos/ids/1856711-1000-1000/image-75141ec8bf96407890ed1721c03de574.jpg?v=637495322349930000'),
+('PROD005', 'Arroz Jazmín Aromático', 'Arroz aromático de alta calidad.', 7.00, 8.40, 250, 25, 'kg', 2, 1, 1, 1, 1,'https://mahatmarice.com/wp-content/uploads/2019/05/2_Jasmine_Mahatma_mock.png'),
+('PROD006', 'Azúcar Blanca Refinada', 'Azúcar extrafina, ideal para postres.', 4.50, 5.40, 600, 60, 'kg', 3, 1, 1, 1, 1,'https://mahatmarice.com/wp-content/uploads/2019/05/2_Jasmine_Mahatma_mock.png'),
 ('PROD007', 'Fideos Tornillo', 'Fideos en forma de espiral, perfectos para salsas.', 3.90, 4.68, 350, 35, 'paquete', 7, 1, 5, 2, 1,'https://benoti.pe/wp-content/uploads/2021/02/tornillo-1.png'),
-('PROD008', 'Harina Sin Preparar', 'Harina de trigo sin aditivos, para panader a.', 5.80, 6.96, 280, 28, 'kg', 1, 1, 5, 2, 1,'https://plazavea.vteximg.com.br/arquivos/ids/15681712-450-450/20146331.jpg?v=637959756492270000'),
+('PROD008', 'Harina Sin Preparar', 'Harina de trigo sin aditivos, para panadería.', 5.80, 6.96, 280, 28, 'kg', 1, 1, 5, 2, 1,'https://plazavea.vteximg.com.br/arquivos/ids/15681712-450-450/20146331.jpg?v=637959756492270000'),
 ('PROD009', 'Arroz Parbolizado', 'Arroz precocido, no se pega.', 6.20, 7.44, 200, 20, 'kg', 2, 1, 1, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/27595662-450-450/58985.jpg?v=638319169668970000'),
-('PROD010', 'Az car Light en Caja', 'Mezcla de az car y edulcorante.', 8.50, 10.20, 150, 15, 'caja', 3, 1, 3, 2, 1,'https://plazavea.vteximg.com.br/arquivos/ids/27479370-418-418/120154.jpg'),
+('PROD010', 'Azúcar Light en Caja', 'Mezcla de azúcar y edulcorante.', 8.50, 10.20, 150, 15, 'caja', 3, 1, 3, 2, 1,'https://plazavea.vteximg.com.br/arquivos/ids/27479370-418-418/120154.jpg'),
 -- Bebidas (idCategoria = 2)
 ('PROD011', 'Gaseosa Inca Kola 1.5L', 'Bebida gaseosa sabor nacional.', 7.50, 9.00, 800, 80, 'L', 11, 2, 2, 1, 1,'https://tofuu.getjusto.com/orioneat-local/resized2/z5v6tpyp9RrddKfNK-2400-x.webp'),
-('PROD012', 'Jugo de Naranja 1L', 'Jugo natural de naranja, sin az car a adida.', 9.00, 5.80, 300, 30, 'L', 4, 2, 2, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXjzVHW8JK2xIIzQNEKFUuwvpQAQpMPLbqwQ&s'),
+('PROD012', 'Jugo de Naranja 1L', 'Jugo natural de naranja, sin azúcar añadida.', 9.00, 10.80, 300, 30, 'L', 4, 2, 2, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXjzVHW8JK2xIIzQNEKFUuwvpQAQpMPLbqwQ&s'),
 ('PROD013', 'Agua Mineral San Mateo 600ml', 'Agua pura de manantial.', 2.00, 2.40, 1000, 100, 'ml', 6, 2, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/312677-450-450/830010.jpg?v=637219605308370000'),
-('PROD014', 'Gaseosa Coca Cola 2.25L', 'Bebida gaseosa cl sica.', 9.00, 10.80, 750, 75, 'L', 11, 2, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/529986-450-450/20100019.jpg?v=638774158092130000'),
-('PROD015', 'Jugo de Durazno 1L', 'Jugo concentrado de durazno.', 8.50, 4.20, 280, 28, 'L', 4, 2, 2, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/724663/frontal-4584.jpg?v=638621159549600000'),
-('PROD016', 'Agua de Mesa Cielo 2.5L', 'Agua purificada para consumo diario.', 3.50, 2.20, 900, 90, 'L', 4, 2, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/29322561-450-450/1046239002.jpg?v=638593270216670000'),
-('PROD017', 'Gaseosa Kola Real 3L', 'Bebida gaseosa econ mica.', 8.00, 6.60, 600, 60, 'L', 4, 2, 2, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHYQhr9aACIll5Bk-Jb9Kwhz2H1jnhRXEc1A&s'),
-('PROD018', 'Jugo de Pi a en Lata', 'Jugo de pi a concentrado.', 4.00, 4.80, 200, 20, 'L', 6, 2, 4, 3, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXgmlrdZvZ4kXVB6mDPsBh4KQZdPU62_lnPQ&s'),
+('PROD014', 'Gaseosa Coca Cola 2.25L', 'Bebida gaseosa clásica.', 9.00, 10.80, 750, 75, 'L', 11, 2, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/529986-450-450/20100019.jpg?v=638774158092130000'),
+('PROD015', 'Jugo de Durazno 1L', 'Jugo concentrado de durazno.', 8.50, 10.20, 280, 28, 'L', 4, 2, 2, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/724663/frontal-4584.jpg?v=638621159549600000'),
+('PROD016', 'Agua de Mesa Cielo 2.5L', 'Agua purificada para consumo diario.', 3.50, 4.20, 900, 90, 'L', 4, 2, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/29322561-450-450/1046239002.jpg?v=638593270216670000'),
+('PROD017', 'Gaseosa Kola Real 3L', 'Bebida gaseosa económica.', 8.00, 9.60, 600, 60, 'L', 4, 2, 2, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHYQhr9aACIll5Bk-Jb9Kwhz2H1jnhRXEc1A&s'),
+('PROD018', 'Jugo de Piña en Lata', 'Jugo de piña concentrado.', 4.00, 4.80, 200, 20, 'L', 6, 2, 4, 3, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXgmlrdZvZ4kXVB6mDPsBh4KQZdPU62_lnPQ&s'),
 ('PROD019', 'Agua con Gas San Luis 1.5L', 'Agua mineral con gas.', 4.50, 5.40, 400, 40, 'L', 6, 2, 2, 1, 1,'https://corporacionliderperu.com/51360-large_default/san-luis-agua-mineral-x-625-ml-con-gas.jpg'),
-('PROD020', 'Bebida Energ tica Volt', 'Bebida energizante para mayor rendimiento.', 6.00, 7.20, 150, 15, 'ml', 4, 2, 2, 1, 1,'https://media.falabella.com/tottusPE/41450899_1/w=1500,h=1500,fit=pad')
+('PROD020', 'Bebida Energética Volt', 'Bebida energizante para mayor rendimiento.', 6.00, 7.20, 150, 15, 'ml', 4, 2, 2, 1, 1,'https://media.falabella.com/tottusPE/41450899_1/w=1500,h=1500,fit=pad')
 
 INSERT INTO Productos (codigo, nombre, descripcion, precio, precioventa, stock, stock_minimo, unidad_medida, id_proveedor, idCategoria, idPresentacion, idTipoEmpaque, activo,imagen_url) VALUES
--- L cteos (idCategoria = 3)
+-- Lácteos (idCategoria = 3)
 ('PROD021', 'Leche Evaporada Gloria', 'Leche evaporada entera, ideal para cocinar.', 4.80, 5.76, 600, 60, 'L', 3, 3, 4, 3, 1,'https://corporacionliderperu.com/50720-large_default/gloria-leche-tarro-azul-gde-x-390-gr.jpg'),
-('PROD022', 'Yogurt Batido Vainilla 1kg', 'Yogurt cremoso sabor vainilla.', 9.50, 7.40, 350, 35, 'kg', 9, 3, 2, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/364830-800-auto?v=637286400137500000&width=800&height=auto&aspect=true'),
+('PROD022', 'Yogurt Batido Vainilla 1kg', 'Yogurt cremoso sabor vainilla.', 9.50, 11.40, 350, 35, 'kg', 9, 3, 2, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/364830-800-auto?v=637286400137500000&width=800&height=auto&aspect=true'),
 ('PROD023', 'Queso Fresco Ganadero', 'Queso fresco de vaca, suave.', 15.00, 18.00, 100, 10, 'kg', 9, 3, 16, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToEEGjISPasE25dG1BjchyAcpXZtJXjpA_lA&s'), -- Bandeja
 ('PROD024', 'Leche Fresca UHT Gloria', 'Leche fresca pasteurizada, larga vida.', 5.20, 6.24, 550, 55, 'L', 3, 3, 2, 1, 1,'https://media.falabella.com/tottusPE/10168696_1/w=800,h=800,fit=pad'),
-('PROD025', 'Yogurt Griego Natural', 'Yogurt espeso y cremoso.', 12.00, 11.40, 200, 20, 'kg', 9, 3, 2, 1, 1,'https://pilandina.com.bo/wp-content/uploads/2023/07/YOGURT-GRECO-NATURAL-TRIPLE-CERO-BOLSA-1KG.webp'),
+('PROD025', 'Yogurt Griego Natural', 'Yogurt espeso y cremoso.', 12.00, 14.40, 200, 20, 'kg', 9, 3, 2, 1, 1,'https://pilandina.com.bo/wp-content/uploads/2023/07/YOGURT-GRECO-NATURAL-TRIPLE-CERO-BOLSA-1KG.webp'),
 ('PROD026', 'Mantequilla Sin Sal', 'Mantequilla pura de leche.', 7.80, 9.36, 180, 18, 'unidad', 9, 3, 3, 2, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv_-0KxxNXaiRkhPSWxFRLSfvIvnky9BWXBw&s'),
 ('PROD027', 'Leche Condensada Gloria', 'Leche azucarada y concentrada.', 6.50, 7.80, 300, 30, 'L', 3, 3, 4, 3, 1,'https://plazavea.vteximg.com.br/arquivos/ids/1504479-450-450/20070084.jpg?v=637546439258970000'),
-('PROD028', 'Yogurt Frutado Fresa 1kg', 'Yogurt con trozos de fresa.', 9.80, 8.76, 320, 32, 'kg', 9, 3, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/22976332-512-512/20326320.jpg'),
-('PROD029', 'Queso Edam Semi-duro', 'Queso holand s, sabor suave.', 25.00, 30.00, 50, 5, 'kg', 9, 3, 16, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlLSLriLcPe4rrVwpn7I8EGEB-TXhHYiKxmA&s'), -- Bandeja
+('PROD028', 'Yogurt Frutado Fresa 1kg', 'Yogurt con trozos de fresa.', 9.80, 11.76, 320, 32, 'kg', 9, 3, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/22976332-512-512/20326320.jpg'),
+('PROD029', 'Queso Edam Semi-duro', 'Queso holandés, sabor suave.', 25.00, 30.00, 50, 5, 'kg', 9, 3, 16, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlLSLriLcPe4rrVwpn7I8EGEB-TXhHYiKxmA&s'), -- Bandeja
 ('PROD030', 'Crema de Leche Gloria', 'Crema de leche para postres y salsas.', 5.00, 6.00, 250, 25, 'L', 3, 3, 4, 3, 1,'https://plazavea.vteximg.com.br/arquivos/ids/553531-1000-1000/971923.jpg?v=637426554958700000'),
 
 -- Limpieza (idCategoria = 4)
-('PROD031', 'Detergente Ariel L quido 1L', 'Detergente concentrado para ropa.', 18.00, 21.60, 300, 30, 'L', 18, 4, 2, 1, 1,'https://vegaperu.vtexassets.com/arquivos/ids/160451-800-450?v=637931094549630000&width=800&height=450&aspect=true'),
-('PROD032', 'Lej a Clorox 1L', 'Desinfectante y blanqueador.', 6.50, 7.80, 400, 40, 'L', 19, 4, 2, 1, 1,'https://production-tailoy-repo-magento-statics.s3.amazonaws.com/imagenes/872x872/productos/i/l/e/lejia-tradicional-x-1000-g-clorox-57981-default-1.jpg'),
+('PROD031', 'Detergente Ariel Líquido 1L', 'Detergente concentrado para ropa.', 18.00, 21.60, 300, 30, 'L', 18, 4, 2, 1, 1,'https://vegaperu.vtexassets.com/arquivos/ids/160451-800-450?v=637931094549630000&width=800&height=450&aspect=true'),
+('PROD032', 'Lejía Clorox 1L', 'Desinfectante y blanqueador.', 6.50, 7.80, 400, 40, 'L', 19, 4, 2, 1, 1,'https://production-tailoy-repo-magento-statics.s3.amazonaws.com/imagenes/872x872/productos/i/l/e/lejia-tradicional-x-1000-g-clorox-57981-default-1.jpg'),
 ('PROD033', 'Lavavajillas Sapolio 500ml', 'Limpiador concentrado para vajilla.', 4.20, 5.04, 500, 50, 'ml', 2, 4, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/15681259-450-450/1003047005.jpg?v=637959753556270000'),
 ('PROD034', 'Limpiador Multiusos Poett 900ml', 'Limpiador desinfectante para superficies.', 8.00, 9.60, 350, 35, 'ml', 19, 4, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/26368633-418-418/20236178.jpg'),
-('PROD035', 'Jab n de Tocador Lux', 'Jab n para el cuerpo, fragancia floral.', 3.00, 3.60, 700, 70, 'unidad', 19, 4, 5, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/26368633-418-418/20236178.jpg'),
-('PROD036', 'Detergente en Polvo Bol var 1kg', 'Detergente para ropa, alto rendimiento.', 12.00, 14.40, 450, 45, 'kg', 1, 4, 5, 1, 1,'https://media.falabella.com/tottusPE/43331117_8/w=800,h=800,fit=pad'),
+('PROD035', 'Jabón de Tocador Lux', 'Jabón para el cuerpo, fragancia floral.', 3.00, 3.60, 700, 70, 'unidad', 19, 4, 5, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/26368633-418-418/20236178.jpg'),
+('PROD036', 'Detergente en Polvo Bolívar 1kg', 'Detergente para ropa, alto rendimiento.', 12.00, 14.40, 450, 45, 'kg', 1, 4, 5, 1, 1,'https://media.falabella.com/tottusPE/43331117_8/w=800,h=800,fit=pad'),
 ('PROD037', 'Suavizante Downy 800ml', 'Suavizante de ropa, aroma duradero.', 10.50, 12.60, 280, 28, 'ml', 18, 4, 2, 1, 1,'https://mercadoacasa.com/wp-content/uploads/2020/06/7501001155841.jpg'),
 ('PROD038', 'Desinfectante Lysol Aerosol', 'Desinfectante de ambientes y superficies.', 15.00, 18.00, 150, 15, 'unidad', 19, 4, 4, 3, 1,'https://media.falabella.com/tottusPE/42225012_1/w=1500,h=1500,fit=pad'),
-('PROD039', 'Limpiador de Ba os Cif', 'Limpiador potente para ba os.', 9.00, 10.80, 200, 20, 'L', 19, 4, 2, 1, 1,'https://media.falabella.com/sodimacPE/2620316_01/w=1500,h=1500,fit=pad'),
-('PROD040', 'Jab n L quido para Manos', 'Jab n antibacterial para manos.', 7.00, 8.40, 300, 30, 'L', 2, 4, 2, 1, 1,'https://walmarthn.vtexassets.com/arquivos/ids/360688/Jab-n-Equate-Liquido-Para-Manos-Clear-222ml-1-3408.jpg?v=638419459905870000'),
+('PROD039', 'Limpiador de Baños Cif', 'Limpiador potente para baños.', 9.00, 10.80, 200, 20, 'L', 19, 4, 2, 1, 1,'https://media.falabella.com/sodimacPE/2620316_01/w=1500,h=1500,fit=pad'),
+('PROD040', 'Jabón Líquido para Manos', 'Jabón antibacterial para manos.', 7.00, 8.40, 300, 30, 'L', 2, 4, 2, 1, 1,'https://walmarthn.vtexassets.com/arquivos/ids/360688/Jab-n-Equate-Liquido-Para-Manos-Clear-222ml-1-3408.jpg?v=638419459905870000'),
 
 -- Conservas (idCategoria = 5)
-('PROD041', 'At n en Aceite Florida', 'At n desmenuzado en aceite vegetal.', 6.00, 7.20, 500, 50, 'unidad', 2, 5, 4, 3, 1,'https://wongfood.vtexassets.com/arquivos/ids/472711-800-auto?v=637675300360000000&width=800&height=auto&aspect=true'),
+('PROD041', 'Atún en Aceite Florida', 'Atún desmenuzado en aceite vegetal.', 6.00, 7.20, 500, 50, 'unidad', 2, 5, 4, 3, 1,'https://wongfood.vtexassets.com/arquivos/ids/472711-800-auto?v=637675300360000000&width=800&height=auto&aspect=true'),
 ('PROD042', 'Sardinas en Salsa de Tomate', 'Sardinas enlatadas en salsa.', 4.50, 5.40, 400, 40, 'unidad', 2, 5, 4, 3, 1,'https://images.ctfassets.net/vkdsye91qcu6/6pp4rln2X6HJYnTDdL9w25/985bad66e04cadc731ffe1afd4fbfaad/PORTOLOA-SARDINA-TOMATE-TINAPON-AF.webp'),
-('PROD043', 'Duraznos en Alm bar', 'Duraznos en mitades enlatados.', 8.00, 9.60, 300, 30, 'unidad', 2, 5, 4, 3, 1,'https://plazavea.vteximg.com.br/arquivos/ids/29362482-450-450/965773.jpg?v=638600338853900000'),
-('PROD044', 'At n en Agua Primor', 'At n desmenuzado en agua.', 6.20, 7.44, 480, 48, 'unidad', 1, 5, 4, 3, 1,'https://plazavea.vteximg.com.br/arquivos/ids/30632038-450-450/20328065.jpg?v=638758945006370000'),
+('PROD043', 'Duraznos en Almíbar', 'Duraznos en mitades enlatados.', 8.00, 9.60, 300, 30, 'unidad', 2, 5, 4, 3, 1,'https://plazavea.vteximg.com.br/arquivos/ids/29362482-450-450/965773.jpg?v=638600338853900000'),
+('PROD044', 'Atún en Agua Primor', 'Atún desmenuzado en agua.', 6.20, 7.44, 480, 48, 'unidad', 1, 5, 4, 3, 1,'https://plazavea.vteximg.com.br/arquivos/ids/30632038-450-450/20328065.jpg?v=638758945006370000'),
 ('PROD045', 'Leche de Tigre en Conserva', 'Base para ceviche, lista para usar.', 10.00, 12.00, 200, 20, 'unidad', 2, 5, 4, 3, 1,'https://heathotsauce.com/cdn/shop/files/leche-de-tigre-pepper-sauce-102821_700x700.png?v=1748589768'),
 ('PROD046', 'Palmitos en Rodajas', 'Palmitos tiernos en conserva.', 9.50, 11.40, 180, 18, 'unidad', 2, 5, 4, 3, 1,'https://metroio.vtexassets.com/arquivos/ids/343219-800-auto?v=638180575934370000&width=800&height=auto&aspect=true'),
 ('PROD047', 'Choclo Desgranado en Lata', 'Choclo tierno, listo para usar.', 5.00, 6.00, 350, 35, 'unidad', 2, 5, 4, 3, 1,'https://plazavea.vteximg.com.br/arquivos/ids/553419-450-450/20062913.jpg?v=637426551154430000'),
@@ -1027,75 +1446,75 @@ INSERT INTO Productos (codigo, nombre, descripcion, precio, precioventa, stock, 
 ('PROD049', 'Pulpa de Tomate en Lata', 'Tomate triturado para salsas.', 5.50, 6.60, 280, 28, 'unidad', 2, 5, 4, 3, 1,'https://media.falabella.com/tottusPE/43273646_1/w=1500,h=1500,fit=pad'),
 ('PROD050', 'Champignones Laminados en Conserva', 'Hongos laminados en salmuera.', 7.00, 8.40, 250, 25, 'unidad', 2, 5, 4, 3, 1,'https://dojiw2m9tvv09.cloudfront.net/49572/product/champinoneslaminadosenconservalahortelana7830.jpg'),
 
--- Panader a (idCategoria = 6)
-('PROD051', 'Pan de Molde Blanco', 'Pan suave para s ndwiches.', 7.00, 8.40, 200, 20, 'paquete', 17, 6, 5, 1, 1,'https://metroio.vtexassets.com/arquivos/ids/571797-800-auto?v=638744711707530000&width=800&height=auto&aspect=true'),
+-- Panadería (idCategoria = 6)
+('PROD051', 'Pan de Molde Blanco', 'Pan suave para sándwiches.', 7.00, 8.40, 200, 20, 'paquete', 17, 6, 5, 1, 1,'https://metroio.vtexassets.com/arquivos/ids/571797-800-auto?v=638744711707530000&width=800&height=auto&aspect=true'),
 ('PROD052', 'Galletas Soda Field', 'Galletas saladas, ideales para el desayuno.', 3.50, 4.20, 600, 60, 'paquete', 1, 6, 5, 1, 1,'https://oechsle.vteximg.com.br/arquivos/ids/14862197-1000-1000/image-e001f659c83d4e39ace0bfd958ba4912.jpg?v=638281577045430000'),
 ('PROD053', 'Bizcocho Vainilla Grande', 'Bizcocho esponjoso sabor vainilla.', 12.00, 14.40, 100, 10, 'unidad', 2, 6, 3, 2, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThHQ1NLd3YiT8H6CyzoiCB-S-R-J33uYeXTA&s'),
 ('PROD054', 'Pan de Molde Integral', 'Pan integral con fibra.', 8.00, 9.60, 180, 18, 'paquete', 17, 6, 5, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEAlrZeL1y3x0OxgtwHahkhGs8UYUMuw0OMg&s'),
-('PROD055', 'Galletas Vainilla Casino', 'Galletas dulces con crema de vainilla.', 4.00, 1.20, 550, 55, 'paquete', 1, 6, 5, 1, 1,'https://metroio.vtexassets.com/arquivos/ids/579285/348641003-01-81531.jpg?v=638791367516230000'),
-('PROD056', 'Pan Baguette Precocido', 'Pan r stico, listo para hornear.', 5.00, 6.00, 150, 15, 'unidad', 2, 6, 5, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/543813-800-auto?v=637879983111700000&width=800&height=auto&aspect=true'),
-('PROD057', 'Galletas de Agua', 'Galletas ligeras y crocantes.', 3.20, 0.80, 400, 40, 'paquete', 1, 6, 5, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/16382186-512-512/20256758.jpg'),
+('PROD055', 'Galletas Vainilla Casino', 'Galletas dulces con crema de vainilla.', 4.00, 4.80, 550, 55, 'paquete', 1, 6, 5, 1, 1,'https://metroio.vtexassets.com/arquivos/ids/579285/348641003-01-81531.jpg?v=638791367516230000'),
+('PROD056', 'Pan Baguette Precocido', 'Pan rústico, listo para hornear.', 5.00, 6.00, 150, 15, 'unidad', 2, 6, 5, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/543813-800-auto?v=637879983111700000&width=800&height=auto&aspect=true'),
+('PROD057', 'Galletas de Agua', 'Galletas ligeras y crocantes.', 3.20, 3.84, 400, 40, 'paquete', 1, 6, 5, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/16382186-512-512/20256758.jpg'),
 ('PROD058', 'Queque Marmoleado', 'Bizcocho de vainilla y chocolate.', 15.00, 18.00, 80, 8, 'unidad', 2, 6, 3, 2, 1,'https://plazavea.vteximg.com.br/arquivos/ids/28560450-450-450/20146143.jpg?v=638382246811200000'),
-('PROD059', 'Pan Ciabatta Congelado', 'Pan artesanal, ideal para acompa ar.', 6.00, 7.20, 120, 12, 'unidad', 2, 6, 5, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/29585768-450-450/20189340.jpg?v=638631072569670000'),
+('PROD059', 'Pan Ciabatta Congelado', 'Pan artesanal, ideal para acompañar.', 6.00, 7.20, 120, 12, 'unidad', 2, 6, 5, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/29585768-450-450/20189340.jpg?v=638631072569670000'),
 ('PROD060', 'Galletas Morochas', 'Galletas de chocolate con crema.', 4.50, 5.40, 500, 50, 'paquete', 1, 6, 5, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/342248-450-450/198967.jpg?v=637280980148500000'),
 
 -- Abarrotes secos (idCategoria = 7)
-('PROD061', 'Lenteja Baby 500gr', 'Lentejas peque as, cocci n r pida.', 4.00, 4.80, 300, 30, 'gr', 2, 7, 1, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/503870/Lentejas-Beb-Bolsa-500-g-LENTEJ-BB-VN-500gr-1-135984909.jpg?v=637743905442300000'),
+('PROD061', 'Lenteja Baby 500gr', 'Lentejas pequeñas, cocción rápida.', 4.00, 4.80, 300, 30, 'gr', 2, 7, 1, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/503870/Lentejas-Beb-Bolsa-500-g-LENTEJ-BB-VN-500gr-1-135984909.jpg?v=637743905442300000'),
 ('PROD062', 'Frijol Canario 1kg', 'Frijoles secos, ideales para guisos.', 6.50, 7.80, 250, 25, 'kg', 2, 7, 1, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/30213071-512-512/20376371.jpg'),
 ('PROD063', 'Sal Fina Marina 1kg', 'Sal de mesa y cocina.', 2.50, 3.00, 700, 70, 'kg', 2, 7, 5, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/561008-418-418/20130448.jpg'),
-('PROD064', 'Aceite Vegetal Primor 1L', 'Aceite de girasol, para fre r y cocinar.', 10.00, 12.00, 500, 50, 'L', 1, 7, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/30632030-450-450/20281566.jpg?v=638758944609130000'),
-('PROD065', 'Arroz Extra Coste o 5kg', 'Arroz de alta calidad, para toda la familia.', 25.00, 30.00, 150, 15, 'kg', 2, 7, 1, 1, 1,'https://realplaza.vtexassets.com/arquivos/ids/20646711/image-120f38a72a3a456184945648c36cb3f5.jpg?v=637800393551500000'),
-('PROD066', 'Az car Blanca Cartavio 5kg', 'Az car refinada de alta pureza.', 20.00, 24.00, 180, 18, 'kg', 2, 7, 1, 1, 1,'https://realplaza.vtexassets.com/arquivos/ids/30946627/image-3c2d6274c6e04bc88032d8e81a0bd8a3.jpg?v=638037067761470000'),
+('PROD064', 'Aceite Vegetal Primor 1L', 'Aceite de girasol, para freír y cocinar.', 10.00, 12.00, 500, 50, 'L', 1, 7, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/30632030-450-450/20281566.jpg?v=638758944609130000'),
+('PROD065', 'Arroz Extra Costeño 5kg', 'Arroz de alta calidad, para toda la familia.', 25.00, 30.00, 150, 15, 'kg', 2, 7, 1, 1, 1,'https://realplaza.vtexassets.com/arquivos/ids/20646711/image-120f38a72a3a456184945648c36cb3f5.jpg?v=637800393551500000'),
+('PROD066', 'Azúcar Blanca Cartavio 5kg', 'Azúcar refinada de alta pureza.', 20.00, 24.00, 180, 18, 'kg', 2, 7, 1, 1, 1,'https://realplaza.vtexassets.com/arquivos/ids/30946627/image-3c2d6274c6e04bc88032d8e81a0bd8a3.jpg?v=638037067761470000'),
 ('PROD067', 'Garbanzo Seco 500gr', 'Garbanzos para guisos y ensaladas.', 4.50, 5.40, 280, 28, 'gr', 2, 7, 1, 1, 1,'https://media.falabella.com/tottusPE/10167820_1/w=800,h=800,fit=pad'),
 ('PROD068', 'Sal Yodada Fortificada 1kg', 'Sal con yodo, esencial para la salud.', 2.80, 3.36, 650, 65, 'kg', 2, 7, 5, 1, 1,'https://http2.mlstatic.com/D_NQ_NP_678066-MLM41891277508_052020-O.webp'),
 ('PROD069', 'Aceite de Palma Soya 1L', 'Aceite vegetal para uso general.', 9.00, 10.80, 400, 40, 'L', 2, 7, 2, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/4159435-512-512/107285.jpg'),
-('PROD070', 'Lenteja Pardina 1kg', 'Lentejas de cocci n lenta, muy sabrosas.', 5.00, 6.00, 220, 22, 'kg', 2, 7, 1, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2ilRA4kVfOvwB-ppPm8qtLO5jj4FgP4DDlg&s'),
+('PROD070', 'Lenteja Pardina 1kg', 'Lentejas de cocción lenta, muy sabrosas.', 5.00, 6.00, 220, 22, 'kg', 2, 7, 1, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2ilRA4kVfOvwB-ppPm8qtLO5jj4FgP4DDlg&s'),
 
 -- Enlatados (idCategoria = 8)
 ('PROD071', 'Leche de Coco en Lata', 'Leche de coco para postres y curries.', 7.00, 8.40, 200, 20, 'unidad', 2, 8, 4, 3, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfH41tCORp0WhAVoM90guoRJEVEwXzqrX9IQ&s'),
 ('PROD072', 'Tomates Pelados Enteros', 'Tomates maduros enlatados.', 4.00, 4.80, 300, 30, 'unidad', 2, 8, 4, 3, 1,'https://http2.mlstatic.com/D_NQ_NP_887424-MLA43206363690_082020-O.webp'),
-('PROD073', 'Champi ones Enteros en Lata', 'Champi ones en salmuera.', 6.50, 7.80, 250, 25, 'unidad', 2, 8, 4, 3, 1,'https://plazavea.vteximg.com.br/arquivos/ids/23048702-450-450/20326541.jpg?v=638060635530030000'),
-('PROD074', 'Pimiento Morr n en Tiras', 'Pimientos rojos enlatados.', 5.80, 6.96, 220, 22, 'unidad', 2, 8, 4, 3, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOcW69heqnQyxUT5-f654RNLy0cCHG2urtkA&s'),
-('PROD075', 'Ma z Dulce en Lata', 'Granos de ma z dulce.', 4.20, 5.04, 350, 35, 'unidad', 2, 8, 4, 3, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzzE7-boCjZ7bZal6FLif0talObv9f0nNCog&s'),
+('PROD073', 'Champiñones Enteros en Lata', 'Champiñones en salmuera.', 6.50, 7.80, 250, 25, 'unidad', 2, 8, 4, 3, 1,'https://plazavea.vteximg.com.br/arquivos/ids/23048702-450-450/20326541.jpg?v=638060635530030000'),
+('PROD074', 'Pimiento Morrón en Tiras', 'Pimientos rojos enlatados.', 5.80, 6.96, 220, 22, 'unidad', 2, 8, 4, 3, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOcW69heqnQyxUT5-f654RNLy0cCHG2urtkA&s'),
+('PROD075', 'Maíz Dulce en Lata', 'Granos de maíz dulce.', 4.20, 5.04, 350, 35, 'unidad', 2, 8, 4, 3, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzzE7-boCjZ7bZal6FLif0talObv9f0nNCog&s'),
 ('PROD076', 'Frejoles Rojos en Salsa', 'Frejoles listos para servir.', 5.20, 6.24, 280, 28, 'unidad', 2, 8, 4, 3, 1,'https://media.falabella.com/tottusPE/43423852_1/w=800,h=800,fit=pad'),
 ('PROD077', 'Garbanzos Cocidos en Lata', 'Garbanzos listos para usar.', 4.70, 5.64, 270, 27, 'unidad', 2, 8, 4, 3, 1,'https://plazavea.vteximg.com.br/arquivos/ids/30578623-512-512/20282632.jpg'),
 ('PROD078', 'Sopa de Tomate Condensada', 'Sopa concentrada de tomate.', 3.50, 4.20, 300, 30, 'unidad', 2, 8, 4, 3, 1,'https://hebmx.vtexassets.com/arquivos/ids/648865/660693_74613616.jpg?v=638520849372700000'),
-('PROD079', 'Crema de Champi ones en Lata', 'Crema concentrada de champi ones.', 4.80, 5.76, 290, 29, 'unidad', 2, 8, 4, 3, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn0tII3uz3vIc4hw9PTlF6HdimG1VB2NqUYg&s'),
+('PROD079', 'Crema de Champiñones en Lata', 'Crema concentrada de champiñones.', 4.80, 5.76, 290, 29, 'unidad', 2, 8, 4, 3, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn0tII3uz3vIc4hw9PTlF6HdimG1VB2NqUYg&s'),
 ('PROD080', 'Leche Evaporada Light', 'Leche evaporada baja en grasa.', 4.90, 5.88, 250, 25, 'unidad', 3, 8, 4, 3, 1,'https://media.falabella.com/tottusPE/43273631_1/w=800,h=800,fit=pad'),
 
 -- Snacks (idCategoria = 9)
-('PROD081', 'Papas Lays Cl sicas 150gr', 'Papas fritas crujientes.', 4.00, 4.80, 500, 50, 'gr', 21, 9, 1, 1, 1,'https://vegaperu.vtexassets.com/arquivos/ids/167257-800-450?v=638622119937270000&width=800&height=450&aspect=true'),
-('PROD082', 'Galletas Ritz Saladas', 'Galletas saladas para acompa ar.', 3.80, 4.56, 400, 40, 'paquete', 21, 9, 5, 1, 1,'https://media.falabella.com/tottusPE/43113666_1/w=1500,h=1500,fit=pad'),
-('PROD083', 'Man  Salado 200gr', 'Man  tostado y salado.', 6.00, 7.20, 300, 30, 'gr', 2, 9, 1, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/29321994-450-450/20237013.jpg?v=638592612125900000'),
-('PROD084', 'Chifles de Pl tano', 'Snack de pl tano frito, t pico peruano.', 3.50, 4.20, 450, 45, 'bolsa', 2, 9, 1, 1, 1,'https://selvaproduce.com/wp-content/uploads/2022/12/DHeinz5-3.jpg'),
-('PROD085', 'Cancha Serrana 250gr', 'Ma z tostado, snack andino.', 3.00, 3.60, 550, 55, 'bolsa', 2, 9, 1, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/439385/Canchita-Serrana-Picante-Cuisine-Co-Pote-160-g-1-205063732.jpg?v=637571690912470000'),
+('PROD081', 'Papas Lays Clásicas 150gr', 'Papas fritas crujientes.', 4.00, 4.80, 500, 50, 'gr', 21, 9, 1, 1, 1,'https://vegaperu.vtexassets.com/arquivos/ids/167257-800-450?v=638622119937270000&width=800&height=450&aspect=true'),
+('PROD082', 'Galletas Ritz Saladas', 'Galletas saladas para acompañar.', 3.80, 4.56, 400, 40, 'paquete', 21, 9, 5, 1, 1,'https://media.falabella.com/tottusPE/43113666_1/w=1500,h=1500,fit=pad'),
+('PROD083', 'Maní Salado 200gr', 'Maní tostado y salado.', 6.00, 7.20, 300, 30, 'gr', 2, 9, 1, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/29321994-450-450/20237013.jpg?v=638592612125900000'),
+('PROD084', 'Chifles de Plátano', 'Snack de plátano frito, típico peruano.', 3.50, 4.20, 450, 45, 'bolsa', 2, 9, 1, 1, 1,'https://selvaproduce.com/wp-content/uploads/2022/12/DHeinz5-3.jpg'),
+('PROD085', 'Cancha Serrana 250gr', 'Maíz tostado, snack andino.', 3.00, 3.60, 550, 55, 'bolsa', 2, 9, 1, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/439385/Canchita-Serrana-Picante-Cuisine-Co-Pote-160-g-1-205063732.jpg?v=637571690912470000'),
 ('PROD086', 'Papas Pringles Original', 'Papas en forma de tubo.', 12.00, 14.40, 150, 15, 'unidad', 18, 9, 3, 2, 1,'https://media.falabella.com/tottusPE/43273652_1/public'),
 ('PROD087', 'Galletas Oreo Chocolate', 'Galletas de chocolate rellenas.', 4.20, 5.04, 380, 38, 'paquete', 21, 9, 5, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/29228266-1000-1000/20020807.jpg?v=638567711707500000'),
-('PROD088', 'Mix de Frutos Secos', 'Mezcla de man , pasas, almendras.', 10.00, 12.00, 100, 10, 'bolsa', 2, 9, 1, 1, 1,'https://metroio.vtexassets.com/arquivos/ids/325507/890743-1.jpg?v=638180568501270000'),
-('PROD089', 'Tortillas de Ma z Nachos', 'Tortillas triangulares para dipear.', 7.00, 8.40, 250, 25, 'bolsa', 2, 9, 1, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/491379-800-auto?v=637714713635270000&width=800&height=auto&aspect=true'),
-('PROD090', 'Cereal Barra de Avena', 'Barra energ tica de avena y frutas.', 2.50, 3.00, 600, 60, 'unidad', 6, 9, 6, 1, 1,'https://metroio.vtexassets.com/arquivos/ids/501539/BARRAS-NATURE-VALLEY-12UN-AVENA-MIEL-1-249400.jpg?v=638368766183000000'),
+('PROD088', 'Mix de Frutos Secos', 'Mezcla de maní, pasas, almendras.', 10.00, 12.00, 100, 10, 'bolsa', 2, 9, 1, 1, 1,'https://metroio.vtexassets.com/arquivos/ids/325507/890743-1.jpg?v=638180568501270000'),
+('PROD089', 'Tortillas de Maíz Nachos', 'Tortillas triangulares para dipear.', 7.00, 8.40, 250, 25, 'bolsa', 2, 9, 1, 1, 1,'https://wongfood.vtexassets.com/arquivos/ids/491379-800-auto?v=637714713635270000&width=800&height=auto&aspect=true'),
+('PROD090', 'Cereal Barra de Avena', 'Barra energética de avena y frutas.', 2.50, 3.00, 600, 60, 'unidad', 6, 9, 6, 1, 1,'https://metroio.vtexassets.com/arquivos/ids/501539/BARRAS-NATURE-VALLEY-12UN-AVENA-MIEL-1-249400.jpg?v=638368766183000000'),
 
 -- Granos y cereales (idCategoria = 10)
 ('PROD091', 'Quinua Blanca 500gr', 'Grano andino de alto valor nutricional.', 8.00, 9.60, 200, 20, 'gr', 2, 10, 1, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/570022-450-450/20207387.jpg?v=637431607828230000'),
-('PROD092', 'Kiwicha 250gr', 'Cereal andino, fuente de prote nas.', 7.50, 9.00, 180, 18, 'gr', 2, 10, 1, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwM1ium2kq7QjbMDUR491YrLauUzbwYH7h8w&s'),
-('PROD093', 'Avena Instant nea 400gr', 'Avena precocida para desayuno.', 5.00, 6.00, 300, 30, 'gr', 1, 10, 5, 1, 1,'https://http2.mlstatic.com/D_NQ_NP_984140-MLA43895322328_102020-O.webp'),
+('PROD092', 'Kiwicha 250gr', 'Cereal andino, fuente de proteínas.', 7.50, 9.00, 180, 18, 'gr', 2, 10, 1, 1, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwM1ium2kq7QjbMDUR491YrLauUzbwYH7h8w&s'),
+('PROD093', 'Avena Instantánea 400gr', 'Avena precocida para desayuno.', 5.00, 6.00, 300, 30, 'gr', 1, 10, 5, 1, 1,'https://http2.mlstatic.com/D_NQ_NP_984140-MLA43895322328_102020-O.webp'),
 ('PROD094', 'Cebada Perlada 1kg', 'Cebada para sopas y guisos.', 4.00, 4.80, 250, 25, 'kg', 2, 10, 1, 1, 1,'https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/bfn/bfn07942/y/2.jpg'),
 ('PROD095', 'Trigo Entero 1kg', 'Trigo para preparaciones diversas.', 4.20, 5.04, 220, 22, 'kg', 2, 10, 1, 1, 1,'https://plazavea.vteximg.com.br/arquivos/ids/30213096-512-512/20356937.jpg'),
 ('PROD096', 'Maca en Polvo 100gr', 'Superalimento andino.', 15.00, 18.00, 80, 8, 'gr', 2, 10, 5, 1, 1,'https://biosphare.cl/wp-content/uploads/2022/06/MACA-POLVO-X-100-GR-AVANTI.webp'),
 ('PROD097', 'Amaranto 250gr', 'Grano andino similar a la quinua.', 7.80, 9.36, 150, 15, 'gr', 2, 10, 1, 1, 1,'https://mushukyuyay.org/wp-content/uploads/2023/12/amaranto-1.jpg'),
-('PROD098', 'Cereal de Ma z Hojuelas', 'Hojuelas de ma z para el desayuno.', 9.00, 10.80, 280, 28, 'caja', 6, 10, 3, 2, 1,'https://plazavea.vteximg.com.br/arquivos/ids/30267032-512-512/20213739.jpg'),
+('PROD098', 'Cereal de Maíz Hojuelas', 'Hojuelas de maíz para el desayuno.', 9.00, 10.80, 280, 28, 'caja', 6, 10, 3, 2, 1,'https://plazavea.vteximg.com.br/arquivos/ids/30267032-512-512/20213739.jpg'),
 ('PROD099', 'Granola con Frutos Secos', 'Mezcla de cereales y frutos secos.', 11.00, 13.20, 120, 12, 'bolsa', 2, 10, 1, 1, 1,'https://nutrimix.pe/wp-content/uploads/2022/12/16-Granola-con-fruto-secos-y-miel-de-abeja-bolsa-350gr-nutrimix.webp'),
-('PROD100', 'Semillas de Ch a 200gr', 'Semillas ricas en omega-3.', 9.50, 11.40, 100, 10, 'gr', 2, 10, 1, 1, 1,'https://metroio.vtexassets.com/arquivos/ids/372411/SEMILLAS-DE-CHIA-RENACER-X-200-GR-1-238825.jpg?v=638180588212330000'),
+('PROD100', 'Semillas de Chía 200gr', 'Semillas ricas en omega-3.', 9.50, 11.40, 100, 10, 'gr', 2, 10, 1, 1, 1,'https://metroio.vtexassets.com/arquivos/ids/372411/SEMILLAS-DE-CHIA-RENACER-X-200-GR-1-238825.jpg?v=638180588212330000'),
 
 -- Frutas y Verduras (idCategoria = 11)
 ('PROD101', 'Manzana Roja Fresca', 'Manzana de temporada, dulce y crujiente.', 2.50, 3.00, 150, 15, 'kg', 27, 11, 16, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/181288-1000-1000/63609.jpg?v=636023738294230000'),
-('PROD102', 'Pl tano de Seda', 'Pl tano maduro, ideal para consumo directo.', 1.80, 2.16, 200, 20, 'kg', 27, 11, 16, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/29450552-184-184/772631.jpg?v=638616384640530000'),
-('PROD103', 'Papa Amarilla Org nica', 'Papa de alta calidad para pur  o fritura.', 3.00, 3.60, 300, 30, 'kg', 28, 11, 1, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/1265150-1000-1000/124903.jpg?v=637520242280830000'),
+('PROD102', 'Plátano de Seda', 'Plátano maduro, ideal para consumo directo.', 1.80, 2.16, 200, 20, 'kg', 27, 11, 16, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/29450552-184-184/772631.jpg?v=638616384640530000'),
+('PROD103', 'Papa Amarilla Orgánica', 'Papa de alta calidad para puré o fritura.', 3.00, 3.60, 300, 30, 'kg', 28, 11, 1, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/1265150-1000-1000/124903.jpg?v=637520242280830000'),
 ('PROD104', 'Tomate Redondo', 'Tomate fresco para ensaladas y guisos.', 2.20, 2.64, 250, 25, 'kg', 27, 11, 1, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/26403047-184-184/20349980.jpg?v=638205752940900000'),
 ('PROD105', 'Cebolla Roja Grande', 'Cebolla fresca para diversas preparaciones.', 1.50, 1.80, 400, 40, 'kg', 28, 11, 1, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/518589-184-184/844123.jpg?v=637417681771730000'),
 ('PROD106', 'Uva Red Globe', 'Uvas frescas sin pepa, dulces.', 8.00, 9.60, 80, 8, 'kg', 27, 16, 1, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/646260-184-184/601559.jpg?v=637443522649900000'),
 ('PROD107', 'Zanahoria Fresca', 'Zanahoria crujiente para ensaladas.', 1.20, 1.44, 350, 35, 'kg', 28, 11, 1, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/30249489-184-184/20426773.jpg?v=638682051884130000'),
-('PROD108', 'Lim n Sutil', 'Limones peque os y jugosos.', 1.00, 1.20, 500, 50, 'kg', 27, 11, 1, 1, 1, 'https://metroio.vtexassets.com/arquivos/ids/543990-800-auto?v=638620979677000000&width=800&height=auto&aspect=true'),
+('PROD108', 'Limón Sutil', 'Limones pequeños y jugosos.', 1.00, 1.20, 500, 50, 'kg', 27, 11, 1, 1, 1, 'https://metroio.vtexassets.com/arquivos/ids/543990-800-auto?v=638620979677000000&width=800&height=auto&aspect=true'),
 ('PROD109', 'Palta Fuerte', 'Palta cremosa, ideal para ensaladas y guacamole.', 6.00, 7.20, 100, 10, 'unidad', 27, 11, 16, 1, 1, 'https://wongfood.vtexassets.com/arquivos/ids/526196/3951-01-6479.jpg?v=637817098886800000'),
 ('PROD110', 'Lechuga Americana', 'Lechuga fresca y crujiente.', 2.00, 2.40, 120, 12, 'unidad', 28, 11, 16, 1, 1, 'https://metroio.vtexassets.com/arquivos/ids/275823/4027-1.jpg?v=638179302575670000'),
 
@@ -1103,26 +1522,26 @@ INSERT INTO Productos (codigo, nombre, descripcion, precio, precioventa, stock, 
 ('PROD111', 'Pechuga de Pollo Fresca', 'Pechuga de pollo sin hueso ni piel.', 18.00, 21.60, 50, 5, 'kg', 27, 12, 16, 9, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqGC6KUo5WGv-135VS7w6EbkwDx9fauP9zfg&s'),
 ('PROD112', 'Carne Molida de Res', 'Carne de res molida, magra.', 22.00, 26.40, 40, 4, 'kg', 27, 12, 16, 9, 1, 'https://finecut.pe/wp-content/uploads/2024/07/carne-molida-especial.jpg'),
 ('PROD113', 'Salchicha Frankfurt', 'Salchichas de cerdo, ahumadas.', 8.50, 10.20, 60, 6, 'paquete', 27, 12, 5, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/2446146-450-450/20151584.jpg?v=637677553389100000'),
-('PROD114', 'Jam n Ingl s Feteado', 'Jam n cocido en lonchas.', 12.00, 14.40, 30, 3, 'paquete', 27, 12, 5, 1, 1, 'https://metroio.vtexassets.com/arquivos/ids/353796/3420-01-7837.jpg?v=638180580046870000'),
+('PROD114', 'Jamón Inglés Feteado', 'Jamón cocido en lonchas.', 12.00, 14.40, 30, 3, 'paquete', 27, 12, 5, 1, 1, 'https://metroio.vtexassets.com/arquivos/ids/353796/3420-01-7837.jpg?v=638180580046870000'),
 ('PROD115', 'Chorizo Parrillero', 'Chorizos frescos para parrilla.', 10.00, 12.00, 35, 3, 'paquete', 27, 12, 5, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScmQZPjyLduwXlMGsBsSA84Jbz5alzKezouw&s'),
 ('PROD116', 'Costilla de Cerdo', 'Costilla de cerdo para asar.', 16.00, 19.20, 25, 2, 'kg', 27, 12, 16, 9, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY_ba7iXE5euoDG_rR2BWfHr9OtRwO2gOjng&s'),
 ('PROD117', 'Hamburguesa de Res', 'Hamburguesas de carne de res.', 14.00, 16.80, 45, 4, 'paquete', 27, 12, 5, 1, 1, 'https://wongfood.vtexassets.com/arquivos/ids/748317-800-auto?v=638724843786500000&width=800&height=auto&aspect=true'),
 ('PROD118', 'Tocino Ahumado Feteado', 'Tocino en lonchas, ahumado.', 9.00, 10.80, 20, 2, 'paquete', 27, 12, 5, 1, 1, 'https://wongfood.vtexassets.com/arquivos/ids/624948-800-auto?v=638155678913370000&width=800&height=auto&aspect=true'),
 ('PROD119', 'Pavo Molido', 'Carne de pavo molida, baja en grasa.', 19.00, 22.80, 30, 3, 'kg', 27, 12, 16, 9, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/16381014-450-450/20121040.jpg?v=637970148288030000'),
-('PROD120', 'Mortadela Cl sica', 'Embutido de cerdo, suave.', 7.00, 8.40, 50, 5, 'paquete', 27, 12, 5, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQybkcq3N0UUvvSP4ROiBDrZ8YDgKS4PzDv9Q&s'),
+('PROD120', 'Mortadela Clásica', 'Embutido de cerdo, suave.', 7.00, 8.40, 50, 5, 'paquete', 27, 12, 5, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQybkcq3N0UUvvSP4ROiBDrZ8YDgKS4PzDv9Q&s'),
 
 -- Pescados y Mariscos (idCategoria = 13)
 ('PROD121', 'Filete de Merluza Congelado', 'Filete de pescado sin espinas.', 20.00, 24.00, 30, 3, 'kg', 27, 13, 5, 9, 1, 'https://metroio.vtexassets.com/arquivos/ids/576238-800-auto?v=638772465941770000&width=800&height=auto&aspect=true'),
 ('PROD122', 'Langostinos Pelados Congelados', 'Langostinos listos para cocinar.', 28.00, 33.60, 20, 2, 'kg', 27, 13, 5, 9, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/28722534-418-418/20220600.jpg'),
-('PROD123', 'At n Fresco en Lomo', 'Lomo de at n fresco.', 35.00, 42.00, 15, 1, 'kg', 27, 13, 16, 9, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5PNyc2kVgl5Ice332ckf4HB6azIHBj6O4wg&s'),
-('PROD124', 'Calamares Anillos Congelados', 'Anillos de calamar listos para fre r.', 15.00, 18.00, 25, 2, 'kg', 27, 13, 5, 9, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEPIf2WTWBAsziYxgeheSV4MjKh6ZBsprNLw&s'),
-('PROD125', 'Salm n Fresco Filete', 'Filete de salm n, rico en Omega 3.', 40.00, 48.00, 10, 1, 'kg', 27, 13, 16, 9, 1, 'https://wongfood.vtexassets.com/arquivos/ids/279222-800-auto?v=636870708303870000&width=800&height=auto&aspect=true'),
+('PROD123', 'Atún Fresco en Lomo', 'Lomo de atún fresco.', 35.00, 42.00, 15, 1, 'kg', 27, 13, 16, 9, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5PNyc2kVgl5Ice332ckf4HB6azIHBj6O4wg&s'),
+('PROD124', 'Calamares Anillos Congelados', 'Anillos de calamar listos para freír.', 15.00, 18.00, 25, 2, 'kg', 27, 13, 5, 9, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEPIf2WTWBAsziYxgeheSV4MjKh6ZBsprNLw&s'),
+('PROD125', 'Salmón Fresco Filete', 'Filete de salmón, rico en Omega 3.', 40.00, 48.00, 10, 1, 'kg', 27, 13, 16, 9, 1, 'https://wongfood.vtexassets.com/arquivos/ids/279222-800-auto?v=636870708303870000&width=800&height=auto&aspect=true'),
 
 -- Congelados (idCategoria = 14)
-('PROD126', 'Papas Fritas Pre-fritas', 'Papas congeladas, listas para fre r.', 8.00, 9.60, 100, 10, 'kg', 17, 14, 1, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDxoQ4anPoPEEkWmVxTGRacVwUlMWzUCD7dg&s'),
+('PROD126', 'Papas Fritas Pre-fritas', 'Papas congeladas, listas para freír.', 8.00, 9.60, 100, 10, 'kg', 17, 14, 1, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDxoQ4anPoPEEkWmVxTGRacVwUlMWzUCD7dg&s'),
 ('PROD127', 'Verduras Mixtas Congeladas', 'Mezcla de vegetales congelados.', 7.50, 9.00, 80, 8, 'kg', 17, 14, 1, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/330233-512-512/20149836.jpg'),
 ('PROD128', 'Nuggets de Pollo', 'Nuggets de pollo empanizados.', 12.00, 14.40, 70, 7, 'paquete', 17, 14, 5, 1, 1, 'https://media.falabella.com/tottusPE/10225435_11/w=1500,h=1500,fit=pad'),
-('PROD129', 'Pizza Congelada Jam n y Queso', 'Pizza lista para hornear.', 15.00, 18.00, 50, 5, 'unidad', 17, 14, 5, 2, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0mzyxtzHB5b7ZPAXaHgzeDt3U2pirMJUPHg&s'),
+('PROD129', 'Pizza Congelada Jamón y Queso', 'Pizza lista para hornear.', 15.00, 18.00, 50, 5, 'unidad', 17, 14, 5, 2, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0mzyxtzHB5b7ZPAXaHgzeDt3U2pirMJUPHg&s'),
 ('PROD130', 'Helado de Vainilla 1L', 'Helado cremoso sabor vainilla.', 10.00, 12.00, 60, 6, 'L', 17, 14, 23, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/28884622-512-512/20392572-1.jpg'),
 
 -- Aceites y Vinagres (idCategoria = 15)
@@ -1130,12 +1549,12 @@ INSERT INTO Productos (codigo, nombre, descripcion, precio, precioventa, stock, 
 ('PROD132', 'Vinagre Blanco 1L', 'Vinagre de alcohol para cocina y limpieza.', 5.00, 6.00, 150, 15, 'L', 2, 15, 2, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/28473285-418-418/20146591.jpg'),
 ('PROD133', 'Aceite de Girasol 3L', 'Aceite vegetal para uso general.', 28.00, 33.60, 80, 8, 'L', 1, 15, 7, 1, 1, 'https://metroio.vtexassets.com/arquivos/ids/570334/Aceite-de-Girasol-Cuisine-Co-3L-1-284909.jpg?v=638742009683230000'),
 ('PROD134', 'Vinagre de Manzana 750ml', 'Vinagre natural de manzana.', 8.00, 9.60, 90, 9, 'ml', 2, 15, 18, 4, 1, 'https://rimage.ripley.com.pe/home.ripley/Attachment/MKP/5200/PMP20000691180/full_image-1.png'),
-('PROD135', 'Aceite de Coco Org nico', 'Aceite de coco virgen, s lido.', 18.00, 21.60, 70, 7, 'gr', 5, 15, 23, 4, 1, 'https://organaperu.vtexassets.com/arquivos/ids/155680/606110254083.jpg?v=637618909968330000'),
+('PROD135', 'Aceite de Coco Orgánico', 'Aceite de coco virgen, sólido.', 18.00, 21.60, 70, 7, 'gr', 5, 15, 23, 4, 1, 'https://organaperu.vtexassets.com/arquivos/ids/155680/606110254083.jpg?v=637618909968330000'),
 
 -- Salsas y Condimentos (idCategoria = 16)
-('PROD136', 'Mayonesa Hellmanns 500gr', 'Mayonesa cremosa para acompa ar.', 9.00, 10.80, 200, 20, 'gr', 1, 16, 18, 4, 1, 'https://f.fcdn.app/imgs/ad987d/suchinasa.com/suchuy/ce4d/original/catalogo/21811_21811_1/460x460/mayonesa-hellmanns-950cc-mayonesa-hellmanns-950cc.jpg'),
-('PROD137', 'Ketchup Heinz 400gr', 'Salsa de tomate cl sica.', 7.50, 9.00, 180, 18, 'gr', 1, 16, 18, 4, 1, 'https://m.media-amazon.com/images/I/71w24XN4PuL._UF894,1000_QL80_.jpg'),
-('PROD138', 'Mostaza Dijon', 'Mostaza picante estilo franc s.', 10.00, 12.00, 80, 8, 'gr', 1, 16, 18, 4, 1, 'https://metroio.vtexassets.com/arquivos/ids/397289/Mostaza-Dij-n-American-Classic-340g-1-350549076.jpg?v=638180795457530000'),
+('PROD136', 'Mayonesa Hellmanns 500gr', 'Mayonesa cremosa para acompañar.', 9.00, 10.80, 200, 20, 'gr', 1, 16, 18, 4, 1, 'https://f.fcdn.app/imgs/ad987d/suchinasa.com/suchuy/ce4d/original/catalogo/21811_21811_1/460x460/mayonesa-hellmanns-950cc-mayonesa-hellmanns-950cc.jpg'),
+('PROD137', 'Ketchup Heinz 400gr', 'Salsa de tomate clásica.', 7.50, 9.00, 180, 18, 'gr', 1, 16, 18, 4, 1, 'https://m.media-amazon.com/images/I/71w24XN4PuL._UF894,1000_QL80_.jpg'),
+('PROD138', 'Mostaza Dijon', 'Mostaza picante estilo francés.', 10.00, 12.00, 80, 8, 'gr', 1, 16, 18, 4, 1, 'https://metroio.vtexassets.com/arquivos/ids/397289/Mostaza-Dij-n-American-Classic-340g-1-350549076.jpg?v=638180795457530000'),
 ('PROD139', 'Sal de Mesa Fina', 'Sal yodada para uso diario.', 2.00, 2.40, 500, 50, 'kg', 2, 16, 5, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/12353523-418-418/20140345.jpg'),
 ('PROD140', 'Pimienta Negra Molida', 'Pimienta negra en polvo.', 5.00, 6.00, 120, 12, 'gr', 2, 16, 18, 4, 1, 'https://metroio.vtexassets.com/arquivos/ids/374884-800-auto?v=638180589488470000&width=800&height=auto&aspect=true'),
 
@@ -1146,62 +1565,62 @@ INSERT INTO Productos (codigo, nombre, descripcion, precio, precioventa, stock, 
 ('PROD144', 'Caramelos Surtidos Bolsa', 'Caramelos de diferentes sabores.', 3.00, 3.60, 300, 30, 'bolsa', 21, 17, 1, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/419691-512-512/20146444.jpg'),
 ('PROD145', 'Flan en Polvo para Preparar', 'Mezcla para flan casero.', 2.80, 3.36, 180, 18, 'sachet', 1, 17, 6, 1, 1, 'https://media.falabella.com/tottusPE/42517872_1/w=1500,h=1500,fit=pad'),
 -- Cuidado Personal (idCategoria = 18)
-('PROD146', 'Champ  Anticaspa 400ml', 'Champ  para el control de la caspa.', 15.00, 18.00, 80, 8, 'ml', 19, 18, 2, 1, 1, 'https://kamill.vteximg.com.br/arquivos/ids/156540-1000-1000/08095090000040.jpg?v=637428879287000000'),
-('PROD147', 'Acondicionador Reparador 400ml', 'Acondicionador para cabello da ado.', 14.00, 16.80, 70, 7, 'ml', 19, 18, 2, 1, 1, 'https://wongfood.vtexassets.com/arquivos/ids/550710-800-auto?v=637897911836800000&width=800&height=auto&aspect=true'),
-('PROD148', 'Pasta Dental Blanqueadora', 'Pasta dental para dientes m s blancos.', 8.00, 9.60, 120, 12, 'unidad', 19, 18, 8, 1, 1, 'https://media.falabella.com/tottusPE/40854911_1/w=1500,h=1500,fit=pad'),
-('PROD149', 'Jab n L quido Corporal', 'Jab n para el cuerpo, hidratante.', 10.00, 12.00, 90, 9, 'L', 19, 18, 2, 1, 1, 'https://metroio.vtexassets.com/arquivos/ids/540370/982368-01-161831.jpg?v=638593725747300000'),
-('PROD150', 'Desodorante Roll-on', 'Desodorante de larga duraci n.', 7.00, 8.40, 100, 10, 'unidad', 19, 18, 9, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxMnulwTMlbiVCnZzm-2E1ymj-qMY4Dyc7fQ&s'),
+('PROD146', 'Champú Anticaspa 400ml', 'Champú para el control de la caspa.', 15.00, 18.00, 80, 8, 'ml', 19, 18, 2, 1, 1, 'https://kamill.vteximg.com.br/arquivos/ids/156540-1000-1000/08095090000040.jpg?v=637428879287000000'),
+('PROD147', 'Acondicionador Reparador 400ml', 'Acondicionador para cabello dañado.', 14.00, 16.80, 70, 7, 'ml', 19, 18, 2, 1, 1, 'https://wongfood.vtexassets.com/arquivos/ids/550710-800-auto?v=637897911836800000&width=800&height=auto&aspect=true'),
+('PROD148', 'Pasta Dental Blanqueadora', 'Pasta dental para dientes más blancos.', 8.00, 9.60, 120, 12, 'unidad', 19, 18, 8, 1, 1, 'https://media.falabella.com/tottusPE/40854911_1/w=1500,h=1500,fit=pad'),
+('PROD149', 'Jabón Líquido Corporal', 'Jabón para el cuerpo, hidratante.', 10.00, 12.00, 90, 9, 'L', 19, 18, 2, 1, 1, 'https://metroio.vtexassets.com/arquivos/ids/540370/982368-01-161831.jpg?v=638593725747300000'),
+('PROD150', 'Desodorante Roll-on', 'Desodorante de larga duración.', 7.00, 8.40, 100, 10, 'unidad', 19, 18, 9, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxMnulwTMlbiVCnZzm-2E1ymj-qMY4Dyc7fQ&s'),
 
--- Art culos para el Hogar (idCategoria = 19)
-('PROD151', 'Papel Higi nico Doble Hoja', 'Papel higi nico suave y resistente.', 15.00, 18.00, 100, 10, 'paquete', 25, 19, 5, 1, 1, 'https://www.ofimarket.pe/cdn/shop/files/30242657_600x600_crop_center.jpg?v=1696348294'),
+-- Artículos para el Hogar (idCategoria = 19)
+('PROD151', 'Papel Higiénico Doble Hoja', 'Papel higiénico suave y resistente.', 15.00, 18.00, 100, 10, 'paquete', 25, 19, 5, 1, 1, 'https://www.ofimarket.pe/cdn/shop/files/30242657_600x600_crop_center.jpg?v=1696348294'),
 ('PROD152', 'Servilletas de Papel', 'Servilletas absorbentes.', 5.00, 6.00, 150, 15, 'paquete', 25, 19, 5, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/28619629-418-418/102487-1.jpg'),
 ('PROD153', 'Bolsas de Basura Grandes', 'Bolsas resistentes para residuos.', 8.00, 9.60, 80, 8, 'paquete', 25, 19, 5, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIP7wsCKlqzY8GZhp_7N0wmIyFcBbUbaVPkQ&s'),
-('PROD154', 'Detergente para Ropa L quido 3L', 'Detergente concentrado para lavadora.', 30.00, 36.00, 60, 6, 'L', 25, 19, 7, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/16382551-450-450/20282220.jpg?v=637970177819700000'),
+('PROD154', 'Detergente para Ropa Líquido 3L', 'Detergente concentrado para lavadora.', 30.00, 36.00, 60, 6, 'L', 25, 19, 7, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/16382551-450-450/20282220.jpg?v=637970177819700000'),
 ('PROD155', 'Limpiador de Pisos Multiusos', 'Limpiador para todo tipo de pisos.', 12.00, 14.40, 70, 7, 'L', 25, 19, 2, 1, 1, 'https://promart.vteximg.com.br/arquivos/ids/6865172-1000-1000/image-09555014e57b48f993068668d835b64c.jpg?v=638146620158400000'),
 
 -- Mascotas (idCategoria = 20)
 ('PROD156', 'Alimento para Perro Adulto 3kg', 'Alimento balanceado para perros adultos.', 35.00, 42.00, 50, 5, 'kg', 27, 20, 1, 1, 1, 'https://metroio.vtexassets.com/arquivos/ids/363950/Alimento-para-Perros-Dogui-Adulto-3kg-1-316180313.jpg?v=638180584102900000'),
 ('PROD157', 'Arena Sanitaria para Gato 5kg', 'Arena absorbente para gatos.', 20.00, 24.00, 40, 4, 'kg', 27, 20, 1, 1, 1, 'https://oechsle.vteximg.com.br/arquivos/ids/16108804-1000-1000/image-6c10522801e24a6e9a6b5497db3fc325.jpg?v=638296803908230000'),
 ('PROD158', 'Snacks para Perro Huesitos', 'Premios para perros, sabor carne.', 10.00, 12.00, 80, 8, 'paquete', 27, 20, 5, 1, 1, 'https://www.superpet.pe/on/demandware.static/-/Sites-SuperPet-master-catalog/default/dw41c9d04f/images/peque-huesitos-500g.jpg'),
-('PROD159', 'Comida H meda para Gato Lata', 'Alimento h medo para gatos.', 4.00, 4.80, 100, 10, 'unidad', 27, 20, 4, 3, 1, 'https://oechsle.vteximg.com.br/arquivos/ids/16483357-1000-1000/image-de1ed3caddad439dbbebab45809a80df.jpg?v=638328599140970000'),
+('PROD159', 'Comida Húmeda para Gato Lata', 'Alimento húmedo para gatos.', 4.00, 4.80, 100, 10, 'unidad', 27, 20, 4, 3, 1, 'https://oechsle.vteximg.com.br/arquivos/ids/16483357-1000-1000/image-de1ed3caddad439dbbebab45809a80df.jpg?v=638328599140970000'),
 ('PROD160', 'Juguete para Perro Pelota', 'Pelota resistente para juegos.', 8.00, 9.60, 60, 6, 'unidad', 27, 20, 20, 1, 1, 'https://metroio.vtexassets.com/arquivos/ids/375123-800-auto?v=638180589621100000&width=800&height=auto&aspect=true'),
 
--- Productos Adicionales (mezcla de categor as)
-('PROD161', 'Caf  Tostado y Molido 250gr', 'Caf  de aroma intenso.', 12.00, 14.40, 150, 15, 'gr', 1, 1, 1, 1, 1, 'https://oechsle.vteximg.com.br/arquivos/ids/19758759-1000-1000/1683082722818_a.jpg?v=638671573626670000'),
-('PROD162', 'T  Filtrante Variado', 'Caja de t s de diferentes sabores.', 8.00, 9.60, 100, 10, 'caja', 1, 2, 3, 2, 1, 'https://media.falabella.com/tottusPE/42099493_1/w=800,h=800,fit=pad'),
+-- Productos Adicionales (mezcla de categorías)
+('PROD161', 'Café Tostado y Molido 250gr', 'Café de aroma intenso.', 12.00, 14.40, 150, 15, 'gr', 1, 1, 1, 1, 1, 'https://oechsle.vteximg.com.br/arquivos/ids/19758759-1000-1000/1683082722818_a.jpg?v=638671573626670000'),
+('PROD162', 'Té Filtrante Variado', 'Caja de tés de diferentes sabores.', 8.00, 9.60, 100, 10, 'caja', 1, 2, 3, 2, 1, 'https://media.falabella.com/tottusPE/42099493_1/w=800,h=800,fit=pad'),
 ('PROD163', 'Galletas de Arroz Integral', 'Galletas ligeras y saludables.', 5.00, 6.00, 200, 20, 'paquete', 2, 9, 5, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMdMYVrCGvKNlPU-bZFHTU7UKKiHOi2joZLQ&s'),
 ('PROD164', 'Miel de Abeja Pura 500gr', 'Miel natural de abeja.', 18.00, 21.60, 70, 7, 'gr', 5, 1, 18, 4, 1, 'https://florayfauna.vtexassets.com/arquivos/ids/157657-800-auto?v=637602499510370000&width=800&height=auto&aspect=true'),
-('PROD165', 'Barra de Cereal Frutos Rojos', 'Barra energ tica con frutas.', 3.50, 1.20, 250, 25, 'unidad', 6, 9, 6, 1, 1, 'https://http2.mlstatic.com/D_Q_NP_837128-MLU74128441019_012024-O.webp'),
+('PROD165', 'Barra de Cereal Frutos Rojos', 'Barra energética con frutas.', 3.50, 4.20, 250, 25, 'unidad', 6, 9, 6, 1, 1, 'https://http2.mlstatic.com/D_Q_NP_837128-MLU74128441019_012024-O.webp'),
 ('PROD166', 'Mermelada de Durazno 300gr', 'Mermelada natural de durazno.', 8.00, 9.60, 90, 9, 'gr', 2, 17, 18, 4, 1, 'https://media.falabella.com/tottusPE/40765299_1/w=1500,h=1500,fit=pad'),
-('PROD167', 'At n en Aceite de Oliva', 'At n de alta calidad en aceite de oliva.', 7.50, 9.00, 180, 18, 'unidad', 2, 5, 4, 3, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/28323677-450-450/20236262.jpg?v=638352900503230000'),
+('PROD167', 'Atún en Aceite de Oliva', 'Atún de alta calidad en aceite de oliva.', 7.50, 9.00, 180, 18, 'unidad', 2, 5, 4, 3, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/28323677-450-450/20236262.jpg?v=638352900503230000'),
 ('PROD168', 'Aceitunas Verdes Deshuesadas', 'Aceitunas en salmuera.', 6.00, 7.20, 150, 15, 'frasco', 2, 5, 18, 4, 1, 'https://wongfood.vtexassets.com/arquivos/ids/434338-800-auto?v=637553964431100000&width=800&height=auto&aspect=true'),
 ('PROD169', 'Vinagre Tinto de Vino', 'Vinagre para ensaladas y cocina.', 6.50, 7.80, 120, 12, 'L', 2, 15, 2, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/550624-1000-1000/1243.jpg?v=637425699808300000'),
 ('PROD170', 'Salsa de Tomate Lista', 'Salsa para pastas, lista para usar.', 5.00, 6.00, 200, 20, 'frasco', 2, 16, 18, 4, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/15002669-512-512/20282829.jpg'),
 ('PROD171', 'Gelatina en Polvo Fresa', 'Gelatina para postres.', 2.00, 2.40, 300, 30, 'sachet', 1, 17, 6, 1, 1, 'https://metroio.vtexassets.com/arquivos/ids/499372/332010001-01-63003.jpg?v=638357637957400000'),
 ('PROD172', 'Crema Dental Sensible', 'Pasta dental para dientes sensibles.', 9.00, 10.80, 100, 10, 'unidad', 19, 18, 8, 1, 1, 'https://wongfood.vtexassets.com/arquivos/ids/707978-800-auto?v=638513915150600000&width=800&height=auto&aspect=true'),
-('PROD173', 'Jab n en Barra Antibacterial', 'Jab n para manos y cuerpo.', 2.50, 3.00, 400, 40, 'unidad', 19, 18, 10, 2, 1, 'https://www.protex-soap.com/content/dam/cp-sites/personal-care/protex-relaunch/latam/products/jab%C3%B3n-antibacterial-protex-avena-110-g.jpg'),
+('PROD173', 'Jabón en Barra Antibacterial', 'Jabón para manos y cuerpo.', 2.50, 3.00, 400, 40, 'unidad', 19, 18, 10, 2, 1, 'https://www.protex-soap.com/content/dam/cp-sites/personal-care/protex-relaunch/latam/products/jab%C3%B3n-antibacterial-protex-avena-110-g.jpg'),
 ('PROD174', 'Esponja de Limpieza Cocina', 'Esponja abrasiva para vajilla.', 1.50, 1.80, 300, 30, 'unidad', 25, 19, 20, 1, 1, 'https://promart.vteximg.com.br/arquivos/ids/7832824-1000-1000/image-3083c12effa14034afbba112058602f2.jpg?v=638429140692230000'),
-('PROD175', 'Bolsas para Congelar Alimentos', 'Bolsas con cierre herm tico.', 7.00, 8.40, 100, 10, 'paquete', 25, 19, 5, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/8125921-450-450/912691.jpg?v=637829559844100000'),
+('PROD175', 'Bolsas para Congelar Alimentos', 'Bolsas con cierre hermético.', 7.00, 8.40, 100, 10, 'paquete', 25, 19, 5, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/8125921-450-450/912691.jpg?v=637829559844100000'),
 ('PROD176', 'Alimento para Gato Adulto 1kg', 'Alimento balanceado para gatos adultos.', 15.00, 18.00, 60, 6, 'kg', 27, 20, 1, 1, 1, 'https://promart.vteximg.com.br/arquivos/ids/471824-444-444/image-0a25531fe71a49ab9c2dc462e87ccb5e.jpg?v=637287870363830000'),
 ('PROD177', 'Galletas para Perro Cachorro', 'Premios para cachorros.', 8.50, 10.20, 70, 7, 'paquete', 27, 20, 5, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/598002-450-450/20116585.jpg?v=637436674031530000'),
 ('PROD178', 'Shampoo para Mascotas', 'Shampoo suave para perros y gatos.', 12.00, 14.40, 50, 5, 'L', 27, 20, 2, 1, 1, 'https://wongfood.vtexassets.com/arquivos/ids/580012-800-auto?v=637993933650470000&width=800&height=auto&aspect=true'),
-('PROD179', 'Juguete para Gato Rat n', 'Juguete interactivo para gatos.', 5.00, 6.00, 80, 8, 'unidad', 27, 20, 20, 1, 1, 'https://wongfood.vtexassets.com/arquivos/ids/516950/JUGUETE-PARA-GATOS-CATNIP-RATON-1-254617937.jpg?v=637789953707370000'),
+('PROD179', 'Juguete para Gato Ratón', 'Juguete interactivo para gatos.', 5.00, 6.00, 80, 8, 'unidad', 27, 20, 20, 1, 1, 'https://wongfood.vtexassets.com/arquivos/ids/516950/JUGUETE-PARA-GATOS-CATNIP-RATON-1-254617937.jpg?v=637789953707370000'),
 ('PROD180', 'Arroz Integral 1kg', 'Arroz con alto contenido de fibra.', 6.00, 7.20, 200, 20, 'kg', 1, 1, 1, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQpjibzv4MjRX_V7jA5ne9V4jtTP0nGYPPhw&s'),
 ('PROD181', 'Leche de Almendras 1L', 'Bebida vegetal sin lactosa.', 10.00, 12.00, 100, 10, 'L', 4, 2, 2, 1, 1, 'https://www.lapurita.com/cdn/shop/files/Leche_de_Almendras_La_Purita_Bebida_de_almendras_1sachet_2.jpg?v=1739808160&width=1024'),
 ('PROD182', 'Queso Parmesano Rallado', 'Queso para pastas y ensaladas.', 18.00, 21.60, 50, 5, 'gr', 9, 3, 23, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/28992412-450-450/27649.jpg?v=638489376318900000'),
-('PROD183', 'Detergente de Ropa en C psulas', 'Detergente en formato de c psulas.', 25.00, 30.00, 40, 4, 'caja', 18, 4, 3, 2, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/29252857-418-418/image-5fa77a0f431442e99a7addd0795f9cee.jpg'),
-('PROD184', 'Sopa Instant nea Pollo', 'Sopa r pida de pollo.', 3.00, 3.60, 200, 20, 'sachet', 1, 1, 6, 1, 1, 'https://www.tiendaperuonline.com/cdn/shop/products/7_8544d6e2-5a89-41b2-b428-1aa50a094772.png?v=1667308158'),
+('PROD183', 'Detergente de Ropa en Cápsulas', 'Detergente en formato de cápsulas.', 25.00, 30.00, 40, 4, 'caja', 18, 4, 3, 2, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/29252857-418-418/image-5fa77a0f431442e99a7addd0795f9cee.jpg'),
+('PROD184', 'Sopa Instantánea Pollo', 'Sopa rápida de pollo.', 3.00, 3.60, 200, 20, 'sachet', 1, 1, 6, 1, 1, 'https://www.tiendaperuonline.com/cdn/shop/products/7_8544d6e2-5a89-41b2-b428-1aa50a094772.png?v=1667308158'),
 ('PROD185', 'Pan Integral con Semillas', 'Pan saludable con semillas.', 9.00, 10.80, 100, 10, 'paquete', 17, 6, 5, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/20143890-450-450/20283501.jpg?v=638019806388000000'),
-('PROD186', 'Lentejas Rojas 500gr', 'Lentejas de cocci n r pida.', 4.50, 5.40, 250, 25, 'gr', 2, 7, 1, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7GfSPlIKRinzPU6HF7wYxIs1K2EQzo6cB-Q&s'),
-('PROD187', 'Esp rragos en Lata', 'Esp rragos verdes en conserva.', 8.00, 9.60, 120, 12, 'unidad', 2, 5, 4, 3, 1, 'https://http2.mlstatic.com/D_NQ_NP_944129-MLC49189266093_022022-O.webp'),
+('PROD186', 'Lentejas Rojas 500gr', 'Lentejas de cocción rápida.', 4.50, 5.40, 250, 25, 'gr', 2, 7, 1, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7GfSPlIKRinzPU6HF7wYxIs1K2EQzo6cB-Q&s'),
+('PROD187', 'Espárragos en Lata', 'Espárragos verdes en conserva.', 8.00, 9.60, 120, 12, 'unidad', 2, 5, 4, 3, 1, 'https://http2.mlstatic.com/D_NQ_NP_944129-MLC49189266093_022022-O.webp'),
 ('PROD188', 'Papas Onduladas Sabor Queso', 'Papas fritas con sabor a queso.', 4.20, 5.04, 300, 30, 'gr', 21, 9, 1, 1, 1, 'https://http2.mlstatic.com/D_NQ_NP_966102-MLU69244434888_052023-O.webp'),
 ('PROD189', 'Cereal de Avena con Miel', 'Cereal para el desayuno.', 10.00, 12.00, 150, 15, 'caja', 6, 10, 3, 2, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYcNDQuPBY-iuSaitOvLQjVjEXX5onK2kMGA&s'),
 ('PROD190', 'Naranjas Frescas', 'Naranjas jugosas para zumo.', 2.80, 3.36, 200, 20, 'kg', 27, 11, 1, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRula6hbT6VyBVUSfF3Smtc4sJeOBWa0kanMQ&s'),
 ('PROD191', 'Pechuga de Pavo Feteada', 'Pechuga de pavo cocida en lonchas.', 15.00, 18.00, 40, 4, 'paquete', 27, 12, 5, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAcUIpbcodgFMy6A1O6igdAZu24wZs-eRAHQ&s'),
 ('PROD192', 'Tilapia Congelada Filete', 'Filete de tilapia sin piel.', 18.00, 21.60, 25, 2, 'kg', 27, 13, 5, 9, 1, 'https://jetextramar.com/wp-content/uploads/2020/07/pechuga-de-pavo-a-cortadas.jpg'),
-('PROD193', 'Br coli Congelado', 'Br coli en floretes congelados.', 6.00, 7.20, 90, 9, 'kg', 17, 14, 1, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL1ZwFYUbBfTYNO-6JaPoPkV6vrMzKC2GV8g&s'),
-('PROD194', 'Aceite de Ma z 1L', 'Aceite vegetal ligero.', 9.50, 11.40, 120, 12, 'L', 1, 15, 2, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/31513012-450-450/20088050.jpg?v=638857745687730000'),
-('PROD195', 'Salsa Picante Roja', 'Salsa de aj  picante.', 7.00, 8.40, 80, 8, 'frasco', 2, 16, 18, 4, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtaR9eWLh2k3xdws9Dq0eKPKRgG4U7dFa62A&s'),
+('PROD193', 'Brócoli Congelado', 'Brócoli en floretes congelados.', 6.00, 7.20, 90, 9, 'kg', 17, 14, 1, 1, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL1ZwFYUbBfTYNO-6JaPoPkV6vrMzKC2GV8g&s'),
+('PROD194', 'Aceite de Maíz 1L', 'Aceite vegetal ligero.', 9.50, 11.40, 120, 12, 'L', 1, 15, 2, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/31513012-450-450/20088050.jpg?v=638857745687730000'),
+('PROD195', 'Salsa Picante Roja', 'Salsa de ají picante.', 7.00, 8.40, 80, 8, 'frasco', 2, 16, 18, 4, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtaR9eWLh2k3xdws9Dq0eKPKRgG4U7dFa62A&s'),
 ('PROD196', 'Chocolates en Caja Surtidos', 'Caja de bombones de chocolate.', 20.00, 24.00, 50, 5, 'caja', 21, 17, 3, 2, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/28885615-512-512/20127584.jpg'),
 ('PROD197', 'Enjuague Bucal Menta', 'Enjuague bucal refrescante.', 12.00, 14.40, 70, 7, 'ml', 19, 18, 2, 1, 1, 'https://plazavea.vteximg.com.br/arquivos/ids/22278099-418-418/20026852001-1.jpg'),
 ('PROD198', 'Limpiador de Vidrios Aerosol', 'Limpiador para cristales.', 9.00, 10.80, 60, 6, 'unidad', 25, 19, 4, 3, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj1qH04AJnkc-UbWEuM5TgGVCEba3gnG_CfQ&s'),
@@ -1219,9 +1638,9 @@ INSERT INTO TipoPromocion (nombre_tipo) VALUES
 ('Compra X, lleva Y con descuento'),
 ('Combo promocional'),
 ('Puntos dobles'),
-('Env o gratis'),
-('Cup n de descuento'),
-('Oferta rel mpago');
+('Envío gratis'),
+('Cupón de descuento'),
+('Oferta relámpago');
 GO
 
 
@@ -1235,47 +1654,57 @@ INSERT INTO Promociones (NombrePromocion, Descuento, FechaInicio, FechaFin, Esta
 ('Promo Junio - S/8', 8.00, '2024-06-01', '2024-06-30', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Descuento fijo')),
 ('Compra X, Lleva Y Julio', 20.00, '2024-07-01', '2024-07-15', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Compra X, lleva Y con descuento')),
 ('Puntos Dobles Agosto', 0.00, '2024-08-01', '2024-08-31', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Puntos dobles')),
-('Env o Gratis Septiembre', 0.00, '2024-09-01', '2024-09-30', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Env o gratis')),
-('Cup n Octubre - 15%', 15.00, '2024-10-01', '2024-10-31', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Cup n de descuento')),
-('Oferta Rel mpago Noviembre', 25.00, '2024-11-10', '2024-11-10', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Oferta rel mpago')),
+('Envío Gratis Septiembre', 0.00, '2024-09-01', '2024-09-30', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Envío gratis')),
+('Cupón Octubre - 15%', 15.00, '2024-10-01', '2024-10-31', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Cupón de descuento')),
+('Oferta Relámpago Noviembre', 25.00, '2024-11-10', '2024-11-10', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Oferta relámpago')),
 ('Descuento Diciembre - 20%', 20.00, '2024-12-01', '2024-12-31', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Descuento por porcentaje')),
-('Combo Navide o 2024', 18.00, '2024-12-10', '2024-12-25', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Combo promocional')),
+('Combo Navideño 2024', 18.00, '2024-12-10', '2024-12-25', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Combo promocional')),
 
 -- Promociones de 2025 (hasta la fecha actual)
 ('Descuento Enero 2025 - 8%', 8.00, '2025-01-01', '2025-01-31', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Descuento por porcentaje')),
 ('Promo Febrero - S/10', 10.00, '2025-02-01', '2025-02-28', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Descuento fijo')),
 ('2x1 en Snacks Marzo', 50.00, '2025-03-01', '2025-03-15', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = '2x1')),
-('Producto Gratis Panader a', 100.00, '2025-04-01', '2025-04-30', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Producto gratis')),
+('Producto Gratis Panadería', 100.00, '2025-04-01', '2025-04-30', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Producto gratis')),
 ('Descuento Mayo - 15%', 15.00, '2025-05-01', '2025-05-31', 0, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Descuento por porcentaje')),
 ('Promo Junio - S/6', 6.00, '2025-06-01', '2025-06-30', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Descuento fijo')),
 ('Compra X, Lleva Y Julio', 25.00, '2025-07-01', '2025-07-15', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Compra X, lleva Y con descuento')),
 ('Puntos Dobles Verano', 0.00, '2025-07-01', '2025-07-31', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Puntos dobles')),
-('Env o Gratis Compras Grandes', 0.00, '2025-07-01', '2025-08-31', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Env o gratis')),
-('Cup n JULIO25 - 10%', 10.00, '2025-07-05', '2025-07-20', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Cup n de descuento')),
-('Oferta Rel mpago Arroz', 18.00, '2025-07-07', '2025-07-07', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Oferta rel mpago')),
+('Envío Gratis Compras Grandes', 0.00, '2025-07-01', '2025-08-31', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Envío gratis')),
+('Cupón JULIO25 - 10%', 10.00, '2025-07-05', '2025-07-20', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Cupón de descuento')),
+('Oferta Relámpago Arroz', 18.00, '2025-07-07', '2025-07-07', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Oferta relámpago')),
 ('Descuento por Volumen Bebidas', 10.00, '2025-07-01', '2025-07-31', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Descuento por volumen')),
 ('Combo Parrillero', 12.00, '2025-07-01', '2025-07-31', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Combo promocional')),
-('Descuento L cteos Frescos 7%', 7.00, '2025-07-01', '2025-07-14', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Descuento por porcentaje')),
+('Descuento Lácteos Frescos 7%', 7.00, '2025-07-01', '2025-07-14', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Descuento por porcentaje')),
 ('2x1 en Yogures Seleccionados', 50.00, '2025-07-08', '2025-07-15', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = '2x1')),
-('Gratis 1 Caf  por Compra de 2', 100.00, '2025-07-01', '2025-07-31', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Producto gratis'));
+('Gratis 1 Café por Compra de 2', 100.00, '2025-07-01', '2025-07-31', 1, (SELECT id_tipo_promocion FROM TipoPromocion WHERE nombre_tipo = 'Producto gratis'));
 GO
 
 
 
-
+INSERT INTO ComprobantesPago (tipo, serie, numero) VALUES
+('factura', 'CP001', '000001'),
+('factura', 'CP002', '000002'),
+('boleta', 'CP003', '000003'),
+('boleta', 'CP004', '000004'),
+('nota_credito', 'CP005', '000005'),
+('nota_credito', 'CP006', '000006'),
+('factura', 'CP007', '000007'),
+('boleta', 'CP008', '000008'),
+('factura', 'CP009', '000009'),
+('nota_credito', 'CP010', '000010');
 
 
 INSERT INTO MetodosPago (nombre, descripcion) VALUES
 ('Efectivo', 'Pago realizado en efectivo al momento de la entrega'),
-('Transferencia bancaria', 'Dep sito directo a cuenta bancaria'),
-('Yape', 'Pago v a Yape'),
-('Plin', 'Pago v a Plin'),
-('Tarjeta de d bito', 'Pago con tarjeta de d bito en POS'),
-('Tarjeta de cr dito', 'Pago con tarjeta de cr dito en POS'),
+('Transferencia bancaria', 'Depósito directo a cuenta bancaria'),
+('Yape', 'Pago vía Yape'),
+('Plin', 'Pago vía Plin'),
+('Tarjeta de débito', 'Pago con tarjeta de débito en POS'),
+('Tarjeta de crédito', 'Pago con tarjeta de crédito en POS'),
 ('Cheque', 'Pago con cheque empresarial'),
 ('Pago contra entrega', 'Pago al momento de recibir el pedido'),
-('Dep sito en agente', 'Dep sito en agente autorizado'),
-('Billetera digital', 'Pago a trav s de billetera digital distinta a Yape/Plin');
+('Depósito en agente', 'Depósito en agente autorizado'),
+('Billetera digital', 'Pago a través de billetera digital distinta a Yape/Plin');
 
 
 
@@ -1291,15 +1720,15 @@ INSERT INTO MetodosPago (nombre, descripcion) VALUES
 -- Variables para almacenar los ID generados
 DECLARE @id1 INT, @id2 INT, @id3 INT;
 
--- Inserci n 1
+-- Inserción 1
 INSERT INTO Usuarios (password_hash, rol) VALUES ('hash123', 'admin');
 SET @id1 = SCOPE_IDENTITY();
 
--- Inserci n 2
+-- Inserción 2
 INSERT INTO Usuarios (password_hash, rol) VALUES ('hash456', 'admin');
 SET @id2 = SCOPE_IDENTITY();
 
--- Inserci n 3
+-- Inserción 3
 INSERT INTO Usuarios (password_hash, rol) VALUES ('admin123hash', 'admin');
 SET @id3 = SCOPE_IDENTITY();
 
@@ -1320,6 +1749,8 @@ GO
 
 --eliminar identitis--
  --DBCC CHECKIDENT ('Usuarios', RESEED, 0); 
+
+
 
 
 

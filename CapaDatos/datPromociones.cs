@@ -72,6 +72,83 @@ namespace CapaDatos
             }
         }
 
+
+        // NUEVO MÉTODO: BuscarPromocionActivaPorProducto
+        public entPromociones BuscarPromocionActivaPorProducto(int idProducto)
+        {
+            entPromociones objPromocion = null;
+            try
+            {
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                {
+                    SqlCommand cmd = new SqlCommand("sp_BuscarPromocionActivaPorProductoSimple", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id_producto", idProducto);
+
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            objPromocion = new entPromociones()
+                            {
+                                IdPromocion = Convert.ToInt32(dr["IdPromocion"]),
+                                NombrePromocion = dr["NombrePromocion"].ToString(),
+                                Descuento = Convert.ToDecimal(dr["Descuento"]),
+                                TipoPromocion = dr["TipoPromocion"].ToString()
+                                // FechaInicio y FechaFin no son estrictamente necesarias aquí si solo buscas aplicarla
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores: loguear el error para depuración
+                Console.WriteLine("Error en datPromociones.BuscarPromocionActivaPorProducto: " + ex.Message);
+                objPromocion = null;
+            }
+            return objPromocion;
+        }
+        public List<PromocionProductoDTO> ListarPromocionesActivasPorProducto()
+        {
+            List<PromocionProductoDTO> lista = new List<PromocionProductoDTO>();
+            try
+            {
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                {
+                    // Usamos el procedimiento almacenado que definiremos a continuación
+                    SqlCommand cmd = new SqlCommand("sp_ListarPromocionesActivasPorProducto", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            lista.Add(new PromocionProductoDTO()
+                            {
+                                IdPromocion = Convert.ToInt32(dr["IdPromocion"]),
+                                NombrePromocion = dr["NombrePromocion"].ToString(),
+                                Descuento = Convert.ToDecimal(dr["Descuento"]),
+                                TipoPromocion = dr["TipoPromocion"].ToString(),
+                                IdProducto = Convert.ToInt32(dr["id_producto"])
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error en datPromociones.ListarPromocionesActivasPorProducto: " + ex.Message);
+                throw ex; // Relanza la excepción para que sea manejada en la capa de negocio/controlador
+            }
+            return lista;
+        }
+
+
+
+
         public bool InhabilitarPromocion(int idPromocion)
         {
             using (SqlConnection cn = Conexion.Instancia.Conectar())

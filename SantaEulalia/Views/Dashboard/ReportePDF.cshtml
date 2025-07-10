@@ -1,0 +1,66 @@
+﻿@model SantaEulalia.Controllers.ResumenVentasViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Reporte de Ventas</title>
+    <style>
+        body { font-family: Arial; font-size: 12px; color: #333; }
+        h2 { text-align: center; color: #2c3e50; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #999; padding: 5px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .summary { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Reporte de Resumen de Ventas</h2>
+
+    <div class="summary">
+        <p><strong>Total de Ventas:</strong> @Model.TotalVentas</p>
+        <p><strong>Total Ingresos:</strong> S/ @Model.TotalIngresos.ToString("F2")</p>
+    </div>
+
+    <h4>Ventas por Fecha</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Total (S/)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.VentasPorFecha)
+            {
+                    <tr>
+                        <td>@item.Fecha.ToString("yyyy-MM-dd")</td>
+                        <td>@item.Total.ToString("F2")</td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Ventas por Estado</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Estado</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var estado in Model.VentasPorEstado)
+            {
+                    <tr>
+                        <td>@estado.Estado</td>
+                        <td>@estado.Cantidad</td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
