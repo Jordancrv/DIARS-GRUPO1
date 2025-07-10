@@ -1262,17 +1262,7 @@ GO
 
 
 
-INSERT INTO ComprobantesPago (tipo, serie, numero) VALUES
-('factura', 'CP001', '000001'),
-('factura', 'CP002', '000002'),
-('boleta', 'CP003', '000003'),
-('boleta', 'CP004', '000004'),
-('nota_credito', 'CP005', '000005'),
-('nota_credito', 'CP006', '000006'),
-('factura', 'CP007', '000007'),
-('boleta', 'CP008', '000008'),
-('factura', 'CP009', '000009'),
-('nota_credito', 'CP010', '000010');
+
 
 
 INSERT INTO MetodosPago (nombre, descripcion) VALUES
