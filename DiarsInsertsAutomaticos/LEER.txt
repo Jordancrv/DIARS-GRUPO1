@@ -1,0 +1,36 @@
+Este script en Python inserta automáticamente registros en las tablas PedidosVenta, DetallesVenta, ComprobantesPago y PagosVenta de SQL Server, incluso si tu aplicación principal está en C#.
+
+Bulk Insert Pedidos
+
+Requisitos:
+
+Python 3 instalado
+
+Librería pyodbc (instalar con pip install pyodbc)
+
+ODBC Driver 17 for SQL Server instalado
+
+Configuración:
+
+Abre el archivo bulk_insert_pedidos.py
+
+Localiza la variable CONN_STR y ajusta tu servidor y base de datos. Por ejemplo:
+CONN_STR = (
+'DRIVER={ODBC Driver 17 for SQL Server};'
+'SERVER=MI_SERVIDOR;'
+'DATABASE=MiBaseDatos;'
+'Trusted_Connection=yes;'
+)
+
+Cómo ejecutar:
+
+Abre una terminal o línea de comandos.
+
+Ve al directorio donde guardaste el script, por ejemplo:
+cd C:\Users\USER\Desktop\RamaCandado\DIARS-GRUPO1\DiarsInsertsAutomaticos
+Ejecuta el comando:
+python DiarsInserts.py
+
+Verás en pantalla un contador que indica cuántos pedidos se han insertado.
+
+Para cambiar la cantidad de pedidos, edita la variable NUM_PEDIDOS al inicio del script.
