@@ -12,7 +12,7 @@ namespace SantaEulalia.Controllers
         [HttpPost]
         public IActionResult AgregarCarrito(int id, int cantidad)
         {
-            var producto = logProducto.Instancia.BuscarProducto(id);
+            var producto = logProducto.Instancia.BuscarProductoPorId(id);
             if (producto == null)
                 return NotFound();
 

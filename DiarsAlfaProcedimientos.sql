@@ -27,9 +27,6 @@ END;
 
 GO
 
------------------------------------------Para que el sistema elijga automaticamente el 
-----------------------menor precio ------------------------
-
 CREATE or alter  PROCEDURE AdjudicarLicitacion (
     @id_orden_compra INT
 )
@@ -53,8 +50,6 @@ BEGIN
 END;
 GO
 
------------PROCEDIMIENTOS ALMACENADOS---------------------------
--------------------------------------------------------------
 -------------PROCESO PARA USUARIO-----------------------
 -- Insertar usuario con correo
 CREATE OR ALTER PROCEDURE sp_InsertarUsuario
@@ -86,6 +81,13 @@ BEGIN
 END
 GO
 
+CREATE OR ALTER PROCEDURE sp_ObtenerClientePorUsuario
+    @id_usuario INT
+AS
+BEGIN
+    SELECT * FROM Clientes WHERE id_usuario = @id_usuario
+END
+GO
 
 
 -- Listar usuarios
@@ -796,7 +798,164 @@ BEGIN
     WHERE id_tipo_promocion = @id_tipo_promocion;
 END;
 GO
+------------------
+CREATE OR ALTER PROCEDURE sp_ListarPedidosCompleto
+AS
+BEGIN
+    SET NOCOUNT ON;
 
+    SELECT 
+        pv.id_pedido,
+        pv.id_cliente,
+        c.razon_social AS nombre_cliente,
+        pv.id_usuario,
+        nombres AS nombre_usuario,
+        pv.fecha,
+        pv.id_comprobante,
+        cp.tipo + ' - ' + cp.serie + '-' + cp.numero AS comprobante,
+        pv.total,
+        pv.total_descuento_productos,
+        pv.total_descuento_promociones,
+        pv.total_con_descuento,
+        pv.estado
+    FROM PedidosVenta pv
+    INNER JOIN Clientes c ON pv.id_cliente = c.id_cliente
+    LEFT JOIN Usuarios u ON pv.id_usuario = u.id_usuario
+    LEFT JOIN ComprobantesPago cp ON pv.id_comprobante = cp.id_comprobante
+    WHERE pv.estado = 'procesado'
+    ORDER BY pv.fecha DESC;
+END
+GO
+------------------
+CREATE OR ALTER PROCEDURE sp_ActualizarStockProducto
+    @id_producto INT,
+    @cantidad INT
+AS
+BEGIN
+    UPDATE Productos
+    SET stock = stock - @cantidad
+    WHERE id_producto = @id_producto
+      AND stock >= @cantidad; -- Validación mínima
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_BuscarPedidoPorId
+    @id_pedido INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        pv.*, 
+        c.razon_social AS nombre_cliente,
+        nombres AS nombre_usuario,
+        cp.tipo, cp.serie, cp.numero
+    FROM PedidosVenta pv
+    INNER JOIN Clientes c ON pv.id_cliente = c.id_cliente
+    LEFT JOIN Usuarios u ON pv.id_usuario = u.id_usuario
+    LEFT JOIN ComprobantesPago cp ON pv.id_comprobante = cp.id_comprobante
+    WHERE pv.id_pedido = @id_pedido;
+END
+GO
+-----------------
+CREATE OR ALTER PROCEDURE InsertarPedidoVenta
+    @id_cliente INT,
+    @id_usuario INT = NULL,
+    @id_comprobante INT,
+    @total DECIMAL(12,2),
+    @total_descuento_productos DECIMAL(12,2),
+    @total_descuento_promociones DECIMAL(12,2),
+    @total_con_descuento DECIMAL(12,2),
+    @estado VARCHAR(20),
+    @fecha DATETIME,
+    @es_delivery BIT = 0,
+    @Detalles DetalleVentaType READONLY
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        BEGIN TRAN;
+
+        -- Insertar en PedidosVenta
+        INSERT INTO PedidosVenta (
+            id_cliente, id_usuario, id_comprobante, total,
+            total_descuento_productos, total_descuento_promociones,
+            total_con_descuento, estado, fecha, es_delivery
+        )
+        VALUES (
+            @id_cliente, @id_usuario, @id_comprobante,
+            @total, @total_descuento_productos,
+            @total_descuento_promociones, @total_con_descuento, @estado, @fecha, @es_delivery
+        );
+
+        DECLARE @id_pedido INT = SCOPE_IDENTITY();
+
+        -- Insertar en DetallesVenta
+        INSERT INTO DetallesVenta (
+            id_pedido, id_producto, cantidad,
+            precio_unitario, subtotal, descuento, total_con_descuento
+        )
+        SELECT
+            @id_pedido, id_producto, cantidad,
+            precio_unitario, subtotal, descuento, total_con_descuento
+        FROM @Detalles;
+
+        COMMIT;
+        SELECT @id_pedido AS id_pedido; 
+    END TRY
+    BEGIN CATCH
+        ROLLBACK;
+        THROW;
+    END CATCH
+END
+------------
+CREATE OR ALTER PROCEDURE sp_ObtenerPedidoPorId
+    @id_pedido INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        p.id_pedido,
+        p.fecha,
+        p.estado,
+        p.total,
+        p.total_descuento_productos,
+        p.total_descuento_promociones,
+        p.total_con_descuento,
+        p.es_delivery, 
+        p.id_cliente,
+        c.razon_social,
+        c.ruc,
+        c.direccion,
+        c.activo AS cliente_activo,
+        cp.id_comprobante,
+        cp.tipo,
+        cp.serie,
+        cp.numero,
+        u.id_usuario,
+        u.rol
+    FROM PedidosVenta p
+    INNER JOIN Clientes c ON p.id_cliente = c.id_cliente
+    INNER JOIN ComprobantesPago cp ON p.id_comprobante = cp.id_comprobante
+    LEFT JOIN Usuarios u ON p.id_usuario = u.id_usuario
+    WHERE p.id_pedido = @id_pedido;
+
+    -- Segundo SELECT para los detalles
+    SELECT 
+        d.id_detalle,
+        d.id_producto,
+        d.cantidad,
+        d.precio_unitario,
+        d.subtotal,
+        d.descuento,
+        d.total_con_descuento,
+        pr.nombre AS nombre_producto
+    FROM DetallesVenta d
+    INNER JOIN Productos pr ON d.id_producto = pr.id_producto
+    WHERE d.id_pedido = @id_pedido;
+END
 ---------------------------PROC. PRODUCTO-PROMCIONES---------------
 CREATE TYPE ProductosPromocionType AS TABLE (
     id_producto INT
@@ -943,57 +1102,7 @@ CREATE TYPE DetalleVentaType AS TABLE (
 );
 go
 
-CREATE or alter PROCEDURE InsertarPedidoVenta
-    @id_cliente INT,
-    @id_usuario INT = NULL,
-    @id_comprobante INT,
-    @total DECIMAL(12,2),
-    @total_descuento_productos DECIMAL(12,2),
-    @total_descuento_promociones DECIMAL(12,2),
-    @total_con_descuento DECIMAL(12,2),
-    @estado VARCHAR(20),
-	@fecha DATETIME,
-    @Detalles DetalleVentaType READONLY -- Este es un tipo de tabla (debes crearlo si no lo tienes aún)
-AS
-BEGIN
-    SET NOCOUNT ON;
 
-    BEGIN TRY
-        BEGIN TRAN;
-
-        -- Insertar en PedidosVenta
-        INSERT INTO PedidosVenta (
-            id_cliente, id_usuario, id_comprobante, total,
-            total_descuento_productos, total_descuento_promociones,
-            total_con_descuento, estado, fecha
-        )
-        VALUES (
-            @id_cliente, @id_usuario, @id_comprobante,
-            @total, @total_descuento_productos,
-            @total_descuento_promociones, @total_con_descuento, @estado, @fecha
-        );
-
-        DECLARE @id_pedido INT = SCOPE_IDENTITY();
-
-        -- Insertar en DetallesVenta
-        INSERT INTO DetallesVenta (
-            id_pedido, id_producto, cantidad,
-            precio_unitario, subtotal, descuento, total_con_descuento
-        )
-        SELECT
-            @id_pedido, id_producto, cantidad,
-            precio_unitario, subtotal, descuento, total_con_descuento
-        FROM @Detalles;
-
-        COMMIT;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK;
-
-        THROW;
-    END CATCH
-END
-GO
 
 CREATE or alter PROCEDURE sp_ObtenerDescuentoPromocion
     @idProducto INT,

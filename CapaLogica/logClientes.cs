@@ -57,6 +57,10 @@ namespace CapaLogica
             return datCliente.Instancia.EliminarCliente(idCliente);
         }
 
+        public entClientes ObtenerClientePorUsuarioId(int idUsuario)
+        {
+            return datCliente.Instancia.BuscarClientePorUsuarioId(idUsuario);
+        }
 
 
 

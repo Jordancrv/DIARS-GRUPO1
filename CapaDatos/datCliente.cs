@@ -345,20 +345,36 @@ namespace CapaDatos
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
+        public entClientes BuscarClientePorUsuarioId(int idUsuario)
+        {
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            {
+                SqlCommand cmd = new SqlCommand("sp_ObtenerClientePorUsuario", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id_usuario", idUsuario);
 
-        //public bool DesactivarCliente(int idCliente)
-        //{
-        //    using (SqlConnection cn = Conexion.Instancia.Conectar())
-        //    {
-        //        SqlCommand cmd = new SqlCommand("sp_DesactivarCliente", cn)
-        //        {
-        //            CommandType = CommandType.StoredProcedure
-        //        };
-        //        cmd.Parameters.AddWithValue("@id_cliente", idCliente);
-        //        cn.Open();
-        //        return cmd.ExecuteNonQuery() > 0;
-        //    }
-        //}
+                cn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        return new entClientes
+                        {
+                            id_cliente = Convert.ToInt32(dr["id_cliente"]),
+                            nombres = dr["nombres"].ToString(),
+                            apellidos = dr["apellidos"].ToString(),
+                            dni = dr["dni"].ToString(),
+                            razon_social = dr["razon_social"].ToString(),
+                            ruc = dr["ruc"].ToString(),
+                            direccion = dr["direccion"].ToString(),
+                            activo = Convert.ToBoolean(dr["activo"])
+                        };
+                    }
+                }
+            }
+
+            return null;
+        }
 
 
     }

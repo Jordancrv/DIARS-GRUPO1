@@ -126,7 +126,7 @@ CREATE TABLE CategoriaProductos (
     nombreCategoria VARCHAR(50) NOT NULL
 );
 GO
-select  * from PedidosVenta
+
 CREATE TABLE Presentacion (
     idPresentacion INT PRIMARY KEY IDENTITY(1,1),
     nombrePresentacion VARCHAR(64) NOT NULL
@@ -140,7 +140,6 @@ CREATE TABLE TipoEmpaque (
 );
 GO
 
-select *  from PedidosVenta
 
 -- Tabla de productos
 CREATE TABLE Productos (
@@ -198,12 +197,6 @@ CREATE TABLE ProductoPromocion (
 );
 GO
 
-select * from PedidosVenta
-select * from DetallesVenta
-select * from ComprobantesPago
-select * from PagosVenta
-select * from VentaPromocion
-select * from PedidosVenta
 
 
 delete from PedidosVenta
@@ -257,36 +250,10 @@ CREATE TABLE PedidosVenta (
     estado VARCHAR(20) NOT NULL CHECK (estado IN ('pendiente', 'procesado', 'anulado'))
 );
 GO
---SELECT OBJECT_NAME(default_constraints.object_id) AS constraint_name,
---       tables.name AS table_name,
---       columns.name AS column_name
---FROM sys.default_constraints
---INNER JOIN sys.columns 
---    ON default_constraints.parent_object_id = columns.object_id 
---    AND default_constraints.parent_column_id = columns.column_id
---INNER JOIN sys.tables 
---    ON default_constraints.parent_object_id = tables.object_id
---WHERE tables.name = 'PedidosVenta' AND columns.name = 'fecha';
+ALTER TABLE PedidosVenta
+ADD es_delivery BIT DEFAULT 0;
+GO
 
---ALTER TABLE PedidosVenta DROP CONSTRAINT DF__PedidosVe__fecha__07C12930;
-
-
-
-
-
----- Para la tabla PagosVenta
---SELECT OBJECT_NAME(default_constraints.object_id) AS constraint_name,
---       tables.name AS table_name,
---       columns.name AS column_name
---FROM sys.default_constraints
---INNER JOIN sys.columns 
---    ON default_constraints.parent_object_id = columns.object_id 
---    AND default_constraints.parent_column_id = columns.column_id
---INNER JOIN sys.tables 
---    ON default_constraints.parent_object_id = tables.object_id
---WHERE tables.name = 'PagosVenta' AND columns.name = 'fecha';
-
---ALTER TABLE PagosVenta DROP CONSTRAINT DF__PagosVent__fecha__17036CC0;
 
 -- Detalles de la venta
 CREATE TABLE DetallesVenta (
@@ -302,6 +269,8 @@ CREATE TABLE DetallesVenta (
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
 );
 GO
+
+
 
 
 CREATE TABLE VentaPromocion (

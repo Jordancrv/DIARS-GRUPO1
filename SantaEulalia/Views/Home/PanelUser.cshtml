@@ -1,0 +1,53 @@
+﻿@model CapaEntidad.entClientes
+
+@{
+    ViewData["Title"] = "Mi Cuenta";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml"; // Asegúrate que existe
+}
+
+<section class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">👤 Mi Cuenta</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-4 text-muted">Nombres</div>
+                        <div class="col-sm-8 fw-semibold">@Model.nombres</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 text-muted">Apellidos</div>
+                        <div class="col-sm-8 fw-semibold">@Model.apellidos</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 text-muted">Razón Social</div>
+                        <div class="col-sm-8 fw-semibold">@Model.razon_social</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 text-muted">RUC</div>
+                        <div class="col-sm-8 fw-semibold">@Model.ruc</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 text-muted">Dirección</div>
+                        <div class="col-sm-8 fw-semibold">@Model.direccion</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 text-muted">Correo</div>
+                        <div class="col-sm-8 fw-semibold">@Model.email</div>
+                    </div>
+
+                    <div class="text-end mt-4">
+                        <a href="@Url.Action("Tienda", "Producto")" class="btn btn-outline-success">
+                            🛒 Ir a la Tienda
+                        </a>
+                        <a href="@Url.Action("CerrarSesion", "Login")" class="btn btn-outline-danger ms-2">
+                            Cerrar Sesión
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

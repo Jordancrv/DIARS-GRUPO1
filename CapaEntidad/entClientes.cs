@@ -18,7 +18,7 @@ namespace CapaEntidad
         public string ruc { get; set; }
         public string direccion { get; set; }
         public string idUsuario { get; set; } // Usuario que creó el cliente    
-
+        public string email { get; set; }
         public bool activo { get; set; }
 
         // NUEVO:

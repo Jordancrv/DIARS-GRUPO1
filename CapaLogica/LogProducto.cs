@@ -29,23 +29,21 @@ public class logProducto
     {
         return datProducto.Instancia.InsertarProducto(producto);
     }
-
+    public entProductos BuscarProductoPorId(int id)
+    {
+        return datProducto.Instancia.BuscarProductoPorId(id);
+    }
     // Editar
     public bool EditarProducto(entProductos producto)
     {
         return datProducto.Instancia.EditarProducto(producto);
     }
 
-    // Buscar
-    public entProductos BuscarProducto(int idProducto)
-    {
-        return datProducto.Instancia.BuscarProducto(idProducto);
-    }
 
     // Eliminar
-    public bool EliminarProducto(int idProducto)
+    public bool EliminarProducto(int id)
     {
-        return datProducto.Instancia.EliminarProducto(idProducto);
+        return datProducto.Instancia.EliminarProducto(id);
     }
 
     public int ObtenerStockMinimo(int idProducto)

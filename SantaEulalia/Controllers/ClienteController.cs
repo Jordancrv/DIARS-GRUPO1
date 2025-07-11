@@ -142,6 +142,25 @@ namespace SantaEulalia.Controllers
                 var cliente = logClientes.Instancia.BuscarCliente(id);
                 return View("EliminarCliente", cliente);
             }
+
+        }
+
+        public IActionResult MiCuenta()
+        {
+            var idUsuario = HttpContext.Session.GetInt32("id_usuario");
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var cliente = logClientes.Instancia.ObtenerClientePorUsuarioId(idUsuario.Value);
+            if (cliente == null)
+            {
+                ViewBag.Mensaje = "No se encontraron datos del cliente.";
+                return View();
+            }
+
+            return View(cliente);
         }
     }
 }
