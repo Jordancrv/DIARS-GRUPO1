@@ -437,6 +437,7 @@
     <Compile Include="entComprobantePago.cs" />
     <Compile Include="entDespacho.cs" />
     <Compile Include="entDetalleOrdenCompra.cs" />
+    <Compile Include="entDetalleVenta.cs" />
     <Compile Include="entEstado.cs" />
     <Compile Include="entLineaProducto.cs" />
     <Compile Include="entMarca.cs" />

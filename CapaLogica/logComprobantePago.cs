@@ -6,6 +6,7 @@ namespace CapaLogica
 {
     public class logComprobantePago
     {
+  
         private static readonly logComprobantePago _instancia = new logComprobantePago();
         public static logComprobantePago Instancia => _instancia;
 
@@ -13,18 +14,24 @@ namespace CapaLogica
         {
             return datComprobantePago.Instancia.ObtenerPorId(id);
         }
+
         public int RegistrarPagoOrden(entPagoOrdenCompra pago)
         {
             return datOrdenCompra.Instancia.RegistrarPagoOrden(pago);
         }
 
-        public List<entComprobantePago> ListarComprobantesPago()
+        public List<entComprobantePago> Listar()
         {
-
-            return datComprobantePago.Instancia.ListarComprobantesPago(); 
-
+            return datComprobantePago.Instancia.ListarComprobantesPago();
         }
 
-
+        public List<entComprobantePago> ListarComprobantesPago()
+        {
+            return datComprobantePago.Instancia.ListarComprobantesPago();
+        }
+        public decimal ObtenerDescuentoPromocion(int idProducto)
+        {
+            return datVenta.Instancia.ObtenerDescuentoPromocion(idProducto);
+        }
     }
 }

@@ -6,14 +6,10 @@ namespace CapaLogica
 {
     public class logVenta
     {
-        #region singleton
+        #region Singleton
         private static readonly logVenta UnicaInstancia = new logVenta();
-
-        public static logVenta Instancia
-        {
-            get { return logVenta.UnicaInstancia; }
-        }
-        #endregion singleton
+        public static logVenta Instancia => UnicaInstancia;
+        #endregion
 
         #region Métodos
 
@@ -21,26 +17,19 @@ namespace CapaLogica
         {
             return datVenta.Instancia.ListarVentas();
         }
+
         public List<entPedidoVenta> ListarVentasProcesadas()
         {
             return datVenta.Instancia.ListarPedidosProcesados();
         }
-
-
-
-
 
         public bool InsertarVenta(entPedidoVenta venta)
         {
             return datVenta.Instancia.InsertarVenta(venta);
         }
 
-        public bool EditarVenta(entPedidosVenta venta)
-        {
-            return datVenta.Instancia.EditarVenta(venta);
-        }
 
-        public entPedidosVenta BuscarVenta(int idVenta)
+        public entPedidoVenta BuscarVenta(int idVenta)
         {
             return datVenta.Instancia.BuscarVentaPorId(idVenta);
         }
@@ -48,6 +37,11 @@ namespace CapaLogica
         public bool EliminarVenta(int idVenta)
         {
             return datVenta.Instancia.AnularVenta(idVenta);
+        }
+
+        public decimal ObtenerDescuentoPromocion(int idProducto)
+        {
+            return datVenta.Instancia.ObtenerDescuentoPromocion(idProducto);
         }
 
         #endregion

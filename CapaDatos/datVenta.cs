@@ -27,14 +27,11 @@ namespace CapaDatos
 
         public bool InsertarVenta(entPedidoVenta pedido)
         {
-            SqlCommand cmd = null;
-            bool resultado = false;
-
             try
             {
                 using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    cmd = new SqlCommand("InsertarPedidoVenta", cn); // Asegúrate que el SP se llama así
+                    SqlCommand cmd = new SqlCommand("InsertarPedidoVenta", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@id_cliente", pedido.IdCliente);
@@ -44,146 +41,133 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("@total_descuento_productos", pedido.TotalDescuentoProductos);
                     cmd.Parameters.AddWithValue("@total_descuento_promociones", pedido.TotalDescuentoPromociones);
                     cmd.Parameters.AddWithValue("@total_con_descuento", pedido.TotalConDescuento);
-                    cmd.Parameters.AddWithValue("@fecha", pedido.Fecha);
                     cmd.Parameters.AddWithValue("@estado", pedido.Estado);
+                    cmd.Parameters.AddWithValue("@fecha", pedido.Fecha);
 
-                    // Crear DataTable para detalles
-                    DataTable dtDetalles = new DataTable();
-                    dtDetalles.Columns.Add("id_producto", typeof(int));
-                    dtDetalles.Columns.Add("cantidad", typeof(int));
-                    dtDetalles.Columns.Add("precio_unitario", typeof(decimal));
-                    dtDetalles.Columns.Add("subtotal", typeof(decimal));
-                    dtDetalles.Columns.Add("descuento", typeof(decimal));
-                    dtDetalles.Columns.Add("total_con_descuento", typeof(decimal));
+                    // Detalles
+                    DataTable tablaDetalles = new DataTable();
+                    tablaDetalles.Columns.Add("id_producto", typeof(int));
+                    tablaDetalles.Columns.Add("cantidad", typeof(int));
+                    tablaDetalles.Columns.Add("precio_unitario", typeof(decimal));
+                    tablaDetalles.Columns.Add("subtotal", typeof(decimal));
+                    tablaDetalles.Columns.Add("descuento", typeof(decimal));
+                    tablaDetalles.Columns.Add("total_con_descuento", typeof(decimal));
 
-                    foreach (var detalle in pedido.Detalles)
+                    foreach (var item in pedido.Detalles)
                     {
-                        dtDetalles.Rows.Add(
-                            detalle.IdProducto,
-                            detalle.Cantidad,
-                            detalle.PrecioUnitario,
-                            detalle.Subtotal,
-                            detalle.Descuento,
-                            detalle.TotalConDescuento
-                        );
+                        tablaDetalles.Rows.Add(item.IdProducto, item.Cantidad, item.PrecioUnitario,
+                                               item.Subtotal, item.Descuento, item.TotalConDescuento);
                     }
 
-                    SqlParameter paramDetalles = cmd.Parameters.AddWithValue("@Detalles", dtDetalles);
-                    paramDetalles.SqlDbType = SqlDbType.Structured;
-                    paramDetalles.TypeName = "DetalleVentaType"; // Asegúrate que sea el nombre correcto
+                    SqlParameter pDetalles = cmd.Parameters.AddWithValue("@Detalles", tablaDetalles);
+                    pDetalles.SqlDbType = SqlDbType.Structured;
+                    pDetalles.TypeName = "DetalleVentaType";
 
                     cn.Open();
-                    cmd.ExecuteNonQuery();
-                    resultado = true;
+                    object result = cmd.ExecuteScalar(); // <- captura el ID retornado por el SP
+                    if (result != null)
+                    {
+                        pedido.IdPedidoVenta = Convert.ToInt32(result);
+                    }
                 }
+
+                return true;
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 throw new Exception("Error al insertar venta: " + ex.Message);
             }
-
-            return resultado;
         }
 
-        public decimal ObtenerDescuentoPromocion(int idProducto)
-        {
-            decimal descuento = 0;
 
-            using (SqlConnection cn = Conexion.Instancia.Conectar())
-            {
-                SqlCommand cmd = new SqlCommand("sp_ObtenerDescuentoPromocion", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@idProducto", idProducto);
-
-                SqlParameter outputParam = new SqlParameter("@descuento", SqlDbType.Decimal);
-                outputParam.Precision = 5;
-                outputParam.Scale = 2;
-                outputParam.Direction = ParameterDirection.Output;
-                cmd.Parameters.Add(outputParam);
-
-                cn.Open();
-                cmd.ExecuteNonQuery();
-
-                if (outputParam.Value != DBNull.Value)
-                    descuento = (decimal)outputParam.Value;
-            }
-
-            return descuento;
-        }
-
-        public entPedidosVenta ObtenerVentaPorId(int idPedido)
+        public entPedidoVenta BuscarVentaPorId(int id_pedido)
         {
             SqlCommand cmd = null;
-            entPedidosVenta pedido = null;
+            entPedidoVenta venta = null;
 
             try
             {
                 using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    cmd = new SqlCommand("sp_ObtenerVentaPorId", cn);
+                    cmd = new SqlCommand("sp_ObtenerPedidoPorId", cn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@id_pedido", idPedido);
+                    cmd.Parameters.AddWithValue("@id_pedido", id_pedido);
 
                     cn.Open();
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         if (dr.Read())
                         {
-                            pedido = new entPedidosVenta
+                            venta = new entPedidoVenta
                             {
-                                id_pedido = Convert.ToInt32(dr["id_pedido"]),
-                                fecha = Convert.ToDateTime(dr["fecha"]),
-                                estado = dr["estado"].ToString(),
-                                //total = Convert.ToDecimal(dr["total"]),
-                                id_cliente = Convert.ToInt32(dr["id_cliente"]),
+                                IdPedidoVenta = Convert.ToInt32(dr["id_pedido"]),
+                                Fecha = Convert.ToDateTime(dr["fecha"]),
+                                Estado = dr["estado"].ToString(),
+                                Total = Convert.ToDecimal(dr["total"]),
+                                TotalDescuentoProductos = Convert.ToDecimal(dr["total_descuento_productos"]),
+                                TotalDescuentoPromociones = Convert.ToDecimal(dr["total_descuento_promociones"]),
+                                TotalConDescuento = Convert.ToDecimal(dr["total_con_descuento"]),
+
+                                // 👇 Agrega aquí:
+                                EsDelivery = Convert.ToBoolean(dr["es_delivery"]),
+
+                                IdCliente = Convert.ToInt32(dr["id_cliente"]),
                                 Cliente = new entClientes
                                 {
                                     id_cliente = Convert.ToInt32(dr["id_cliente"]),
                                     razon_social = dr["razon_social"].ToString(),
                                     ruc = dr["ruc"].ToString(),
                                     direccion = dr["direccion"].ToString(),
-                                    //telefono = dr["telefono"].ToString(),
-                                    // email = dr["email"].ToString(),
-                                    activo = Convert.ToBoolean(dr["activo"])
+                                    activo = Convert.ToBoolean(dr["cliente_activo"])
+                                },
+
+                                Comprobante = new entComprobantePago
+                                {
+                                    id_comprobante = Convert.ToInt32(dr["id_comprobante"]),
+                                    tipo = dr["tipo"].ToString(),
+                                    serie = dr["serie"].ToString(),
+                                    numero = dr["numero"].ToString()
+                                },
+
+                                Usuario = new entUsuario
+                                {
+                                    id_usuario = Convert.ToInt32(dr["id_usuario"]),
+                                    rol = dr["rol"].ToString()
                                 }
                             };
                         }
 
-                        if (pedido != null)
+
+                        if (venta != null)
                         {
                             dr.NextResult();
-                            pedido.Detalles = new List<entDetallesVenta>();
+                            venta.Detalles = new List<entDetalleVenta>();
 
                             while (dr.Read())
                             {
-                                pedido.Detalles.Add(new entDetallesVenta
+                                venta.Detalles.Add(new entDetalleVenta
                                 {
-                                    id_detalle = Convert.ToInt32(dr["id_detalle"]),
-                                    id_producto = Convert.ToInt32(dr["id_producto"]),
-                                    cantidad = Convert.ToInt32(dr["cantidad"]),
-                                    precio_unitario = Convert.ToDecimal(dr["precio_unitario"]),
-                                    //subtotal = Convert.ToDecimal(dr["subtotal"]),
-                                    Producto = new entProductos
-                                    {
-                                        id_producto = Convert.ToInt32(dr["id_producto"]),
-                                        nombre = dr["nombre_producto"].ToString(),
-                                        descripcion = dr["descripcion"].ToString()
-                                        // Puedes agregar más campos si tienes
-                                    }
+                                    IdProducto = Convert.ToInt32(dr["id_producto"]),
+                                    Cantidad = Convert.ToInt32(dr["cantidad"]),
+                                    PrecioUnitario = Convert.ToDecimal(dr["precio_unitario"]),
+                                    Subtotal = Convert.ToDecimal(dr["subtotal"]),
+                                    Descuento = Convert.ToDecimal(dr["descuento"]),
+                                    TotalConDescuento = Convert.ToDecimal(dr["total_con_descuento"])
                                 });
                             }
                         }
                     }
                 }
             }
-            catch (SqlException e)
+            catch (SqlException ex)
             {
-                throw new Exception("Error al obtener venta por ID: " + e.Message);
+                throw new Exception("Error al buscar venta por ID: " + ex.Message);
             }
 
-            return pedido;
+            return venta;
         }
+
+
 
         public List<entPedidoVenta> ListarPedidosProcesados()
         {
@@ -458,135 +442,7 @@ namespace CapaDatos
             return resultado;
         }
 
-
-        public entPedidosVenta BuscarVentaPorId(int id_pedido)
-        {
-            SqlCommand cmd = null;
-            entPedidosVenta venta = null;
-
-            try
-            {
-                using (SqlConnection cn = Conexion.Instancia.Conectar())
-                {
-                    cmd = new SqlCommand("sp_BuscarVentaPorId", cn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@id_pedido", id_pedido);
-
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            venta = new entPedidosVenta
-                            {
-                                id_pedido = Convert.ToInt32(dr["id_pedido"]),
-                                fecha = Convert.ToDateTime(dr["fecha"]),
-                                estado = dr["estado"].ToString(),
-                                id_cliente = Convert.ToInt32(dr["id_cliente"]),
-                                Cliente = new entClientes
-                                {
-                                    id_cliente = Convert.ToInt32(dr["id_cliente"]),
-                                    razon_social = dr["razon_social"].ToString(),
-                                    ruc = dr["ruc"].ToString(),
-                                    direccion = dr["direccion"].ToString(),
-                                    //  telefono = dr["telefono"].ToString(),
-                                    //  email = dr["email"].ToString(),
-                                    activo = Convert.ToBoolean(dr["activo"])
-                                }
-                            };
-                        }
-
-                        if (venta != null)
-                        {
-                            dr.NextResult();
-                            venta.Detalles = new List<entDetallesVenta>();
-
-                            while (dr.Read())
-                            {
-                                venta.Detalles.Add(new entDetallesVenta
-                                {
-                                    id_detalle = Convert.ToInt32(dr["id_detalle"]),
-                                    id_producto = Convert.ToInt32(dr["id_producto"]),
-                                    cantidad = Convert.ToInt32(dr["cantidad"]),
-                                    precio_unitario = Convert.ToDecimal(dr["precio_unitario"]),
-
-                                    Producto = new entProductos
-                                    {
-                                        id_producto = Convert.ToInt32(dr["id_producto"]),
-                                        nombre = dr["nombre_producto"].ToString(),
-                                        descripcion = dr["descripcion"].ToString()
-                                    }
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                venta = null;
-            }
-
-            return venta;
-        }
-
-
-        public bool EditarVenta(entPedidosVenta pedido)
-        {
-            SqlCommand cmd = null;
-            bool resultado = false;
-
-            try
-            {
-                using (SqlConnection cn = Conexion.Instancia.Conectar())
-                {
-                    cmd = new SqlCommand("sp_ActualizarPedidoVenta", cn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue("@id_pedido", pedido.id_pedido);
-                    cmd.Parameters.AddWithValue("@id_cliente", pedido.id_cliente);
-                    cmd.Parameters.AddWithValue("@estado", pedido.estado);
-
-                    DataTable dtDetalles = new DataTable();
-                    dtDetalles.Columns.Add("id_producto", typeof(int));
-                    dtDetalles.Columns.Add("cantidad", typeof(int));
-                    dtDetalles.Columns.Add("precio_unitario", typeof(decimal));
-                    dtDetalles.Columns.Add("subtotal", typeof(decimal));
-
-                    foreach (var detalle in pedido.Detalles)
-                    {
-                        dtDetalles.Rows.Add(
-                            detalle.id_producto,
-                            detalle.cantidad,
-                            detalle.precio_unitario,
-                            detalle.subtotal
-                        );
-                    }
-
-                    SqlParameter paramDetalles = cmd.Parameters.AddWithValue("@Detalles", dtDetalles);
-                    paramDetalles.SqlDbType = SqlDbType.Structured;
-                    paramDetalles.TypeName = "DetallePedidoType";
-
-                    SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Bit)
-                    {
-                        Direction = ParameterDirection.Output
-                    };
-                    cmd.Parameters.Add(paramResultado);
-
-                    cn.Open();
-                    cmd.ExecuteNonQuery();
-
-                    resultado = Convert.ToBoolean(paramResultado.Value);
-                }
-            }
-            catch (SqlException)
-            {
-                resultado = false;
-            }
-
-            return resultado;
-        }
-
+        
 
         public bool InsertarComprobante(entComprobantePago comprobante)
         {
@@ -688,6 +544,82 @@ namespace CapaDatos
             }
 
             return resumen;
+        }
+
+        public bool InsertarPedidoVenta(entPedidoVenta pedido)
+        {
+            bool resultado = false;
+
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            using (SqlCommand cmd = new SqlCommand("InsertarPedidoVenta", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                // Parámetros simples
+                cmd.Parameters.AddWithValue("@id_cliente", pedido.IdCliente);
+                cmd.Parameters.AddWithValue("@id_usuario", pedido.IdUsuario);
+                cmd.Parameters.AddWithValue("@id_comprobante", pedido.IdComprobante);
+                cmd.Parameters.AddWithValue("@total", pedido.Total);
+                cmd.Parameters.AddWithValue("@total_descuento_productos", pedido.TotalDescuentoProductos);
+                cmd.Parameters.AddWithValue("@total_descuento_promociones", pedido.TotalDescuentoPromociones);
+                cmd.Parameters.AddWithValue("@total_con_descuento", pedido.TotalConDescuento);
+                cmd.Parameters.AddWithValue("@estado", pedido.Estado);
+
+                // Tipo tabla: Detalles
+                DataTable detalles = new DataTable();
+                detalles.Columns.Add("id_producto", typeof(int));
+                detalles.Columns.Add("cantidad", typeof(int));
+                detalles.Columns.Add("precio_unitario", typeof(decimal));
+                detalles.Columns.Add("subtotal", typeof(decimal));
+                detalles.Columns.Add("descuento", typeof(decimal));
+                detalles.Columns.Add("total_con_descuento", typeof(decimal));
+
+                foreach (var item in pedido.Detalles)
+                {
+                    detalles.Rows.Add(item.IdProducto, item.Cantidad, item.PrecioUnitario, item.Subtotal, item.Descuento, item.TotalConDescuento);
+                }
+
+                SqlParameter detallesParam = cmd.Parameters.AddWithValue("@Detalles", detalles);
+                detallesParam.SqlDbType = SqlDbType.Structured;
+                detallesParam.TypeName = "DetalleVentaType";
+
+                cn.Open();
+                resultado = cmd.ExecuteNonQuery() > 0;
+            }
+
+            return resultado;
+
+
+        }
+
+        public decimal ObtenerDescuentoPromocion(int idProducto)
+        {
+            decimal descuento = 0;
+
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            using (SqlCommand cmd = new SqlCommand("sp_ObtenerDescuentoPromocion", cn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@idProducto", idProducto);
+
+                SqlParameter output = new SqlParameter("@descuento", SqlDbType.Decimal)
+                {
+                    Direction = ParameterDirection.Output,
+                    Precision = 5,
+                    Scale = 2
+                };
+                cmd.Parameters.Add(output);
+
+                cn.Open();
+                cmd.ExecuteNonQuery();
+
+                if (output.Value != DBNull.Value)
+                {
+                    descuento = Convert.ToDecimal(output.Value);
+                }
+            }
+
+            return descuento;
         }
         #endregion Métodos
 
