@@ -943,7 +943,11 @@ CREATE TYPE DetalleVentaType AS TABLE (
 );
 go
 
-CREATE or alter PROCEDURE InsertarPedidoVenta
+ALTER TABLE PedidosVenta
+ADD es_delivery BIT DEFAULT 0;
+
+
+CREATE OR ALTER PROCEDURE InsertarPedidoVenta
     @id_cliente INT,
     @id_usuario INT = NULL,
     @id_comprobante INT,
@@ -952,8 +956,9 @@ CREATE or alter PROCEDURE InsertarPedidoVenta
     @total_descuento_promociones DECIMAL(12,2),
     @total_con_descuento DECIMAL(12,2),
     @estado VARCHAR(20),
-	@fecha DATETIME,
-    @Detalles DetalleVentaType READONLY -- Este es un tipo de tabla (debes crearlo si no lo tienes aún)
+    @fecha DATETIME,
+    @es_delivery BIT = 0,
+    @Detalles DetalleVentaType READONLY
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -965,12 +970,12 @@ BEGIN
         INSERT INTO PedidosVenta (
             id_cliente, id_usuario, id_comprobante, total,
             total_descuento_productos, total_descuento_promociones,
-            total_con_descuento, estado, fecha
+            total_con_descuento, estado, fecha, es_delivery
         )
         VALUES (
             @id_cliente, @id_usuario, @id_comprobante,
             @total, @total_descuento_productos,
-            @total_descuento_promociones, @total_con_descuento, @estado, @fecha
+            @total_descuento_promociones, @total_con_descuento, @estado, @fecha, @es_delivery
         );
 
         DECLARE @id_pedido INT = SCOPE_IDENTITY();
@@ -986,14 +991,15 @@ BEGIN
         FROM @Detalles;
 
         COMMIT;
+        SELECT @id_pedido AS id_pedido; -- Devuelve el ID del nuevo pedido
     END TRY
     BEGIN CATCH
         ROLLBACK;
-
         THROW;
     END CATCH
 END
 GO
+
 
 CREATE or alter PROCEDURE sp_ObtenerDescuentoPromocion
     @idProducto INT,
@@ -1040,21 +1046,28 @@ BEGIN
     SET NOCOUNT ON;
 
     SELECT 
-        id_pedido,
-        id_cliente,
-        id_usuario,
-        fecha,
-        id_comprobante,
-        total,
-        total_descuento_productos,
-        total_descuento_promociones,
-        total_con_descuento,
-        estado
-    FROM PedidosVenta where estado = 'Procesado'
-    ORDER BY fecha DESC;
+        pv.id_pedido,
+        pv.id_cliente,
+        c.razon_social AS nombre_cliente,
+        pv.id_usuario,
+        nombres AS nombre_usuario,
+        pv.fecha,
+        pv.id_comprobante,
+        cp.tipo + ' - ' + cp.serie + '-' + cp.numero AS comprobante,
+        pv.total,
+        pv.total_descuento_productos,
+        pv.total_descuento_promociones,
+        pv.total_con_descuento,
+        pv.estado
+    FROM PedidosVenta pv
+    INNER JOIN Clientes c ON pv.id_cliente = c.id_cliente
+    LEFT JOIN Usuarios u ON pv.id_usuario = u.id_usuario
+    LEFT JOIN ComprobantesPago cp ON pv.id_comprobante = cp.id_comprobante
+    WHERE pv.estado = 'procesado'
+    ORDER BY pv.fecha DESC;
 END
-go
-select *  from PedidosVenta
+GO
+
 
 
 
@@ -1426,4 +1439,50 @@ BEGIN
 END
 go
 
+CREATE OR ALTER PROCEDURE sp_ObtenerPedidoPorId
+    @id_pedido INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        p.id_pedido,
+        p.fecha,
+        p.estado,
+        p.total,
+        p.total_descuento_productos,
+        p.total_descuento_promociones,
+        p.total_con_descuento,
+        p.es_delivery, 
+        p.id_cliente,
+        c.razon_social,
+        c.ruc,
+        c.direccion,
+        c.activo AS cliente_activo,
+        cp.id_comprobante,
+        cp.tipo,
+        cp.serie,
+        cp.numero,
+        u.id_usuario,
+        u.rol
+    FROM PedidosVenta p
+    INNER JOIN Clientes c ON p.id_cliente = c.id_cliente
+    INNER JOIN ComprobantesPago cp ON p.id_comprobante = cp.id_comprobante
+    LEFT JOIN Usuarios u ON p.id_usuario = u.id_usuario
+    WHERE p.id_pedido = @id_pedido;
+
+    -- Segundo SELECT para los detalles
+    SELECT 
+        d.id_detalle,
+        d.id_producto,
+        d.cantidad,
+        d.precio_unitario,
+        d.subtotal,
+        d.descuento,
+        d.total_con_descuento,
+        pr.nombre AS nombre_producto
+    FROM DetallesVenta d
+    INNER JOIN Productos pr ON d.id_producto = pr.id_producto
+    WHERE d.id_pedido = @id_pedido;
+END
 
