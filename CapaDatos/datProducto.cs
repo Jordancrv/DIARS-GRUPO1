@@ -116,130 +116,88 @@ namespace CapaDatos
             return insertado;
         }
 
-        public bool EditarProducto(entProductos producto)
+        public bool EditarProducto(entProductos p)
         {
-            SqlCommand cmd = null;
-            bool editado = false;
-
-            try
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("sp_EditarProducto", cn);
+                SqlCommand cmd = new SqlCommand("sp_EditarProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@id_producto", producto.id_producto);
-                cmd.Parameters.AddWithValue("@codigo", producto.codigo);
-                cmd.Parameters.AddWithValue("@nombre", producto.nombre);
-                cmd.Parameters.AddWithValue("@descripcion", producto.descripcion ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@precio", producto.precio);
-                cmd.Parameters.AddWithValue("@precioventa", producto.precioventa);
-                cmd.Parameters.AddWithValue("@stock", producto.stock);
-                cmd.Parameters.AddWithValue("@stock_minimo", producto.stock_minimo);
-                cmd.Parameters.AddWithValue("@unidad_medida", producto.unidad_medida ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@id_proveedor", producto.id_proveedor);
-                cmd.Parameters.AddWithValue("@idCategoria", producto.idCategoria);
-                cmd.Parameters.AddWithValue("@idPresentacion", producto.idPresentacion);
-                cmd.Parameters.AddWithValue("@idTipoEmpaque", producto.idTipoEmpaque);
-                cmd.Parameters.AddWithValue("@activo", producto.activo);
-                cmd.Parameters.AddWithValue("@imagen_url", producto.imagen_url ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@id_producto", p.id_producto);
+                cmd.Parameters.AddWithValue("@codigo", p.codigo);
+                cmd.Parameters.AddWithValue("@nombre", p.nombre);
+                cmd.Parameters.AddWithValue("@descripcion", p.descripcion);
+                cmd.Parameters.AddWithValue("@precio", p.precio);
+                cmd.Parameters.AddWithValue("@precioventa", p.precioventa);
+                cmd.Parameters.AddWithValue("@stock", p.stock);
+                cmd.Parameters.AddWithValue("@stock_minimo", p.stock_minimo);
+                cmd.Parameters.AddWithValue("@unidad_medida", p.unidad_medida);
+                cmd.Parameters.AddWithValue("@id_proveedor", p.id_proveedor);
+                cmd.Parameters.AddWithValue("@idCategoria", p.idCategoria);
+                cmd.Parameters.AddWithValue("@idPresentacion", p.idPresentacion);
+                cmd.Parameters.AddWithValue("@idTipoEmpaque", p.idTipoEmpaque);
+                cmd.Parameters.AddWithValue("@activo", p.activo);
+                cmd.Parameters.AddWithValue("@imagen_url", p.imagen_url);
 
                 cn.Open();
-                editado = cmd.ExecuteNonQuery() > 0;
+                cmd.ExecuteNonQuery();
+                return true;
             }
-            catch (SqlException e)
-            {
-                throw new Exception("Error al editar producto: " + e.Message, e);
-            }
-            finally
-            {
-                cmd?.Connection?.Close();
-            }
-
-            return editado;
         }
 
-        public entProductos BuscarProducto(int id_producto)
-        {
-            SqlCommand cmd = null;
-            entProductos producto = null;
 
-            try
+        public entProductos BuscarProductoPorId(int id)
+        {
+            entProductos p = null;
+
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("sp_BuscarProducto", cn);
+                SqlCommand cmd = new SqlCommand("sp_BuscarProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@id_producto", id_producto);
+                cmd.Parameters.AddWithValue("@id_producto", id);
 
                 cn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                if (dr.Read())
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    producto = new entProductos
+                    if (dr.Read())
                     {
-                        id_producto = Convert.ToInt32(dr["id_producto"]),
-                        codigo = dr["codigo"].ToString(),
-                        nombre = dr["nombre"].ToString(),
-                        descripcion = dr["descripcion"].ToString(),
-                        precio = Convert.ToDecimal(dr["precio"]),
-                        precioventa = Convert.ToDecimal(dr["precioventa"]),
-                        stock = Convert.ToInt32(dr["stock"]),
-                        stock_minimo = Convert.ToInt32(dr["stock_minimo"]),
-                        unidad_medida = dr["unidad_medida"].ToString(),
-                        id_proveedor = Convert.ToInt32(dr["id_proveedor"]),
-                        idCategoria = Convert.ToInt32(dr["idCategoria"]),
-                        idPresentacion = Convert.ToInt32(dr["idPresentacion"]),
-                        idTipoEmpaque = Convert.ToInt32(dr["idTipoEmpaque"]),
-                        activo = Convert.ToBoolean(dr["activo"]),
-                        imagen_url = dr["imagen_url"]?.ToString(),
-
-                        // Propiedades de navegación
-                        nombreProveedor = dr["nombreProveedor"]?.ToString(),
-                        nombreCategoria = dr["nombreCategoria"]?.ToString(),
-                        nombrePresentacion = dr["nombrePresentacion"]?.ToString(),
-                        nombreTipoEmpaque = dr["nombreTipoEmpaque"]?.ToString()
-                    };
+                        p = new entProductos
+                        {
+                            id_producto = Convert.ToInt32(dr["id_producto"]),
+                            codigo = dr["codigo"].ToString(),
+                            nombre = dr["nombre"].ToString(),
+                            descripcion = dr["descripcion"].ToString(),
+                            precio = Convert.ToDecimal(dr["precio"]),
+                            precioventa = Convert.ToDecimal(dr["precioventa"]),
+                            stock = Convert.ToInt32(dr["stock"]),
+                            stock_minimo = Convert.ToInt32(dr["stock_minimo"]),
+                            unidad_medida = dr["unidad_medida"].ToString(),
+                            id_proveedor = Convert.ToInt32(dr["id_proveedor"]),
+                            idCategoria = Convert.ToInt32(dr["idCategoria"]),
+                            idPresentacion = Convert.ToInt32(dr["idPresentacion"]),
+                            idTipoEmpaque = Convert.ToInt32(dr["idTipoEmpaque"]),
+                            activo = Convert.ToBoolean(dr["activo"]),
+                            imagen_url = dr["imagen_url"].ToString()
+                        };
+                    }
                 }
-
-                dr.Close();
-            }
-            catch (SqlException e)
-            {
-                throw new Exception("Error al buscar producto: " + e.Message, e);
-            }
-            finally
-            {
-                cmd?.Connection?.Close();
             }
 
-            return producto;
+            return p;
         }
 
         public bool EliminarProducto(int id_producto)
         {
-            SqlCommand cmd = null;
-            bool eliminado = false;
-
-            try
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("sp_EliminarProducto", cn);
+                SqlCommand cmd = new SqlCommand("sp_EliminarProducto", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id_producto", id_producto);
 
                 cn.Open();
-                eliminado = cmd.ExecuteNonQuery() > 0;
+                int filas = cmd.ExecuteNonQuery();
+                return filas > 0;
             }
-            catch (SqlException e)
-            {
-                throw new Exception("Error al eliminar producto: " + e.Message, e);
-            }
-            finally
-            {
-                cmd?.Connection?.Close();
-            }
-
-            return eliminado;
         }
 
         public int ObtenerStockMinimo(int idProducto)

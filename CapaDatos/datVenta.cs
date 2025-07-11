@@ -442,7 +442,34 @@ namespace CapaDatos
             return resultado;
         }
 
-        
+        public bool EditarProducto(entProductos p)
+        {
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            {
+                SqlCommand cmd = new SqlCommand("sp_EditarProducto", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@id_producto", p.id_producto);
+                cmd.Parameters.AddWithValue("@codigo", p.codigo);
+                cmd.Parameters.AddWithValue("@nombre", p.nombre);
+                cmd.Parameters.AddWithValue("@descripcion", p.descripcion);
+                cmd.Parameters.AddWithValue("@precio", p.precio);
+                cmd.Parameters.AddWithValue("@precioventa", p.precioventa);
+                cmd.Parameters.AddWithValue("@stock", p.stock);
+                cmd.Parameters.AddWithValue("@stock_minimo", p.stock_minimo);
+                cmd.Parameters.AddWithValue("@unidad_medida", p.unidad_medida);
+                cmd.Parameters.AddWithValue("@id_proveedor", p.id_proveedor);
+                cmd.Parameters.AddWithValue("@idCategoria", p.idCategoria);
+                cmd.Parameters.AddWithValue("@idPresentacion", p.idPresentacion);
+                cmd.Parameters.AddWithValue("@idTipoEmpaque", p.idTipoEmpaque);
+                cmd.Parameters.AddWithValue("@activo", p.activo);
+                cmd.Parameters.AddWithValue("@imagen_url", p.imagen_url);
+
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+        }
 
         public bool InsertarComprobante(entComprobantePago comprobante)
         {

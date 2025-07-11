@@ -1,0 +1,16 @@
+﻿@model CapaEntidad.entClientes
+
+@{
+    ViewData["Title"] = "Mi Cuenta";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>Mi Cuenta</h2>
+<table class="table">
+    <tr><th>Nombre</th><td>@Model.nombres @Model.apellidos</td></tr>
+    <tr><th>DNI</th><td>@Model.dni</td></tr>
+    <tr><th>Razon Social</th><td>@Model.razon_social</td></tr>
+    <tr><th>RUC</th><td>@Model.ruc</td></tr>
+    <tr><th>Dirección</th><td>@Model.direccion</td></tr>
+    <tr><th>Estado</th><td>@(Model.activo ? "Activo" : "Inactivo")</td></tr>
+</table>
