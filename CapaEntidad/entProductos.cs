@@ -27,7 +27,7 @@ namespace CapaEntidad
         public int idPresentacion { get; set; }
         public int idTipoEmpaque { get; set; }
 
-        // Propiedades de navegación (opcional si usas ViewModel)
+        // Propiedades de la navegación (opcional si usas ViewModel)
         public string nombreProveedor { get; set; }
         public string nombreCategoria { get; set; }
         public string nombrePresentacion { get; set; }
