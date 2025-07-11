@@ -1,0 +1,18 @@
+﻿@model CapaEntidad.entProveedores
+
+@{
+    ViewBag.Title = "Eliminar Proveedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Confirmar Eliminación</h2>
+
+<div class="alert alert-danger">
+    <p>¿Está seguro de que desea eliminar el proveedor <strong>@Model.razon_social</strong>?</p>
+</div>
+
+<form asp-action="Eliminar">
+    <input type="hidden" asp-for="id_proveedor" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+</form>

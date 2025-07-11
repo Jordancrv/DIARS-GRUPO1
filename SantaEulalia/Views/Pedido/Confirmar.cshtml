@@ -1,0 +1,83 @@
+﻿@model List<CapaEntidad.entDetalleVenta>
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewBag.Title = "Confirmar Pedido";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+
+    var total = 0m;
+}
+
+<div class="container mt-5">
+    <div class="card shadow p-4 bg-white">
+        <h3 class="text-success mb-4">Resumen del Carrito</h3>
+
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead class="table-success">
+                    <tr>
+                        <th>ID Producto</th>
+                        <th>Precio Unitario</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model)
+                    {
+                        total += p.TotalConDescuento;
+                        <tr>
+                            <td>@p.IdProducto</td>
+                            <td>S/ @p.PrecioUnitario.ToString("F2")</td>
+                            <td>@p.Cantidad</td>
+                            <td>S/ @p.TotalConDescuento.ToString("F2")</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="3" class="text-end">Total:</th>
+                        <th class="text-success">S/ @total.ToString("F2")</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <form asp-action="ConfirmarPedido" method="post">
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <label for="idCliente" class="form-label">ID Cliente</label>
+                    <input type="number" name="idCliente" class="form-control" required />
+                </div>
+
+                <div class="col-md-6">
+                    <label for="idComprobante" class="form-label">Tipo de Comprobante</label>
+                    <select name="idComprobante" class="form-select" required>
+                        <option value="">-- Seleccione --</option>
+                        @foreach (var comp in ViewBag.Comprobantes as List<SelectListItem>)
+                        {
+                            <option value="@comp.Value">@comp.Text</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <label for="idMetodoPago" class="form-label">Método de Pago</label>
+                    <select name="idMetodoPago" class="form-select" required>
+                        <option value="">-- Seleccione --</option>
+                        @foreach (var metodo in ViewBag.MetodosPago as List<SelectListItem>)
+                        {
+                            <option value="@metodo.Value">@metodo.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success btn-lg px-5">
+                    <i class="fas fa-check-circle"></i> Confirmar y Registrar Pedido
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

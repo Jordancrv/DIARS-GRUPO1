@@ -1,0 +1,343 @@
+﻿
+@model CapaEntidad.entPedidoVenta
+
+@{
+    ViewBag.Title = "Registrar Venta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var productos = ViewBag.Productos as List<CapaEntidad.entProductos>;
+    var clientes = ViewBag.Clientes as List<CapaEntidad.entClientes>;
+    var comprobantes = ViewBag.Comprobantes as List<CapaEntidad.entComprobantePago>;
+    var usuarios = ViewBag.Usuarios as List<CapaEntidad.entUsuario>;
+}
+
+<h2 class="mb-4">Nueva Venta</h2>
+
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+{
+    <div class="alert alert-danger">
+        @foreach (var e in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@e.ErrorMessage</div>
+        }
+    </div>
+}
+
+<form asp-action="Insertar" method="post">
+    <div class="mb-3">
+        <label asp-for="IdCliente" class="form-label">Cliente</label>
+        <select asp-for="IdCliente" class="form-select" required>
+            <option value="">-- Seleccionar Cliente --</option>
+            @foreach (var c in clientes)
+            {
+                <option value="@c.id_cliente">@c.nombres</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="IdUsuario" class="form-label">Usuario</label>
+        <select asp-for="IdUsuario" class="form-select" required>
+            <option value="">-- Seleccionar Usuario --</option>
+            @foreach (var u in usuarios)
+            {
+                <option value="@u.id_usuario">@u.id_usuario</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="IdComprobante" class="form-label">Comprobante</label>
+        <select asp-for="IdComprobante" class="form-select" required>
+            <option value="">-- Seleccionar Comprobante --</option>
+            @foreach (var cp in comprobantes)
+            {
+                <option value="@cp.id_comprobante">@cp.tipo</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Fecha" class="form-label">Fecha de Venta</label>
+        <input asp-for="Fecha" class="form-control" type="date" readonly value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <input type="hidden" asp-for="IdUsuario" value="@ViewBag.IdUsuario" />
+
+    <h5>Detalles de Productos</h5>
+    <table class="table table-bordered table-dark" id="detalleTable">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>% Descuento (Promo)</th>
+                <th>Promoción Aplicada</th>
+                <th>Subtotal Original</th>
+                <th>Total c/ Desc.</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-success mb-3" onclick="agregarDetalle()">+ Agregar Producto</button>
+
+    <div class="mb-3">
+        <label class="form-label">Total Original (sin descuentos):</label>
+        <input class="form-control" id="totalVentaOriginal" readonly value="0.00" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Total Descuento por Promociones:</label>
+        <input class="form-control" id="totalDescuentoPromocionesDisplay" readonly value="0.00" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Total con Descuento Final:</label>
+        <input class="form-control" id="totalVentaFinalConDescuento" readonly value="0.00" />
+    </div>
+
+    <input type="hidden" name="Total" id="inputTotalVenta" value="0.00" />
+    <input type="hidden" name="TotalDescuentoProductos" id="inputTotalDescuentoProductos" value="0.00" />
+    <input type="hidden" name="TotalDescuentoPromociones" id="inputTotalDescuentoPromociones" value="0.00" />
+    <input type="hidden" name="TotalConDescuento" id="inputTotalConDescuento" value="0.00" />
+
+    <div class="mb-3">
+        <label asp-for="Estado" class="form-label">Estado</label>
+        <select asp-for="Estado" class="form-select" required>
+            <option value="pendiente">pendiente</option>
+            <option value="procesado">procesado</option>
+            <option value="anulado">anulado</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar Venta</button>
+    <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <script>
+        const productos = [];
+        const promocionesPorProducto = [];
+
+        @if (ViewBag.Productos != null)
+        {
+                foreach (var p in ViewBag.Productos)
+                {
+                        <text>
+                            productos.push({
+                                id_producto: @p.id_producto,
+                                nombre: "@p.nombre.Replace("\"", "\\\"")",
+                                precioventa: @p.precioventa,
+                                precio: @p.precio
+                            });
+                        </text>
+                }
+        }
+
+        @if (ViewBag.PromocionesPorProducto != null)
+        {
+                // Asumo que PromocionProductoDTO tiene propiedades como IdProducto, IdPromocion, NombrePromocion, Descuento, TipoPromocion
+                foreach (var pp in ViewBag.PromocionesPorProducto)
+                {
+                        <text>
+                            promocionesPorProducto.push({
+                                IdProducto: @pp.IdProducto,
+                                IdPromocion: @pp.IdPromocion,
+                                NombrePromocion: "@pp.NombrePromocion.Replace("\"", "\\\"")",
+                                Descuento: @pp.Descuento,
+                                TipoPromocion: "@pp.TipoPromocion.Replace("\"", "\\\"")"
+                            });
+                        </text>
+                }
+        }
+
+        function agregarDetalle() {
+            const table = document.querySelector("#detalleTable tbody");
+            const index = table.rows.length;
+            const row = document.createElement("tr");
+
+            let productosOptions = '<option value="">-- Seleccionar --</option>';
+            productos.forEach(p => {
+                productosOptions += `<option value="${p.id_producto}" data-precioventa="${p.precioventa}" data-preciocompra="${p.precio}">${p.nombre}</option>`;
+            });
+
+            row.innerHTML = `
+                <td>
+                    <select name="Detalles[${index}].IdProducto" class="form-select productoSelect" onchange="manejarSeleccionProducto(this)" required>
+                        ${productosOptions}
+                    </select>
+                </td>
+                <td>
+                    <input type="number" name="Detalles[${index}].Cantidad"
+                               class="form-control cantidad" min="1" value="1"
+                               onchange="actualizarCalculosFila(this)" required />
+                </td>
+                <td>
+                    <input type="number" name="Detalles[${index}].PrecioUnitario"
+                               class="form-control precio-display" readonly />
+                    <input type="hidden" class="precio-original-producto" value="0" />
+                </td>
+                <td>
+                    <input type="number" name="Detalles[${index}].Descuento"
+                               class="form-control descuento-promocion" min="0" max="100" value="0" readonly />
+                    <input type="hidden" name="Detalles[${index}].IdPromocion" class="id-promocion-aplicada" value="0" />
+                    <input type="hidden" class="tipo-promocion-aplicada" value="" />
+                </td>
+                <td>
+                    <input type="text" class="form-control nombre-promocion-aplicada" readonly value="" />
+                </td>
+                <td class="subtotal-original-display">0.00</td>
+                <td>
+                    <span class="total-con-descuento-fila-display">0.00</span>
+                    <input type="hidden" name="Detalles[${index}].TotalConDescuento"
+                               class="input-total-con-descuento-fila" value="0.00" />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm"
+                                onclick="eliminarFila(this)">X</button>
+                </td>
+            `;
+            table.appendChild(row);
+            // Llama a manejarSeleccionProducto para aplicar la lógica de promo al producto por defecto
+            manejarSeleccionProducto(row.querySelector(".productoSelect"));
+        }
+
+        async function manejarSeleccionProducto(selectElement) {
+            const row = selectElement.closest("tr");
+            const opt = selectElement.options[selectElement.selectedIndex];
+            const idProducto = parseInt(opt.value);
+            const pv = parseFloat(opt.getAttribute("data-precioventa")) || 0; // Precio de venta original del producto
+            const pc = parseFloat(opt.getAttribute("data-preciocompra")) || 0; // Precio de compra
+
+            const precioDisplayInput = row.querySelector(".precio-display");
+            const precioOriginalProductoInput = row.querySelector(".precio-original-producto");
+            const descuentoPromocionInput = row.querySelector(".descuento-promocion");
+            const nombrePromocionAplicadaInput = row.querySelector(".nombre-promocion-aplicada");
+            const idPromocionAplicadaInput = row.querySelector(".id-promocion-aplicada");
+            const tipoPromocionAplicadaInput = row.querySelector(".tipo-promocion-aplicada");
+            const cantidadInput = row.querySelector(".cantidad");
+
+            // Resetear valores de la fila a los del producto sin promo ANTES de aplicar cualquier lógica de promoción
+            precioDisplayInput.value = pv.toFixed(2);
+            precioOriginalProductoInput.value = pv.toFixed(2); // Guardamos el precio original para cálculos posteriores
+            descuentoPromocionInput.value = "0";
+            nombrePromocionAplicadaInput.value = "";
+            idPromocionAplicadaInput.value = "0";
+            tipoPromocionAplicadaInput.value = "";
+
+            if (pv < pc) {
+                alert(`Advertencia: Precio de venta (S/. ${pv.toFixed(2)}) es menor que el precio de compra (S/. ${pc.toFixed(2)}).`);
+                selectElement.selectedIndex = 0; // Resetea la selección del producto
+                precioDisplayInput.value = "";
+                precioOriginalProductoInput.value = "0";
+                cantidadInput.value = "0"; // Resetear cantidad a 0 o 1, según tu preferencia
+                actualizarCalculosFila(cantidadInput); // Recalcular con los valores reseteados
+                return;
+            }
+
+            let promoAplicable = null;
+            if (idProducto > 0) {
+                // Buscamos la promoción en el array cargado de ViewBag
+                promoAplicable = promocionesPorProducto.find(p => p.IdProducto === idProducto);
+            }
+
+            let precioUnitarioConDescuento = pv; // Inicializar con el precio de venta original
+            let descuentoPorcentajeEfectivo = 0;
+
+            if (promoAplicable) {
+                nombrePromocionAplicadaInput.value = promoAplicable.NombrePromocion;
+                idPromocionAplicadaInput.value = promoAplicable.IdPromocion;
+                tipoPromocionAplicadaInput.value = promoAplicable.TipoPromocion;
+
+                if (promoAplicable.TipoPromocion === 'Descuento fijo') {
+                    // Aplicar descuento fijo directamente
+                    precioUnitarioConDescuento = pv - promoAplicable.Descuento;
+                    // Calcular el porcentaje efectivo que representa ese descuento fijo sobre el precio unitario original
+                    descuentoPorcentajeEfectivo = (promoAplicable.Descuento / pv) * 100;
+
+                } else if (promoAplicable.TipoPromocion === 'Descuento por porcentaje') {
+                    // Aplicar descuento por porcentaje
+                    precioUnitarioConDescuento = pv * (1 - (promoAplicable.Descuento / 100));
+                    descuentoPorcentajeEfectivo = promoAplicable.Descuento;
+                }
+
+                // Asegurarse de que el precio unitario no sea negativo debido a la promoción (aunque me indicaste que no esperas estos errores)
+                if (precioUnitarioConDescuento < 0) precioUnitarioConDescuento = 0;
+                // Asegurarse de que el porcentaje de descuento efectivo no sea negativo o mayor a 100% (si se calculó)
+                if (descuentoPorcentajeEfectivo < 0) descuentoPorcentajeEfectivo = 0;
+                if (descuentoPorcentajeEfectivo > 100) descuentoPorcentajeEfectivo = 100;
+            }
+
+            // Actualizar los inputs de la fila con los valores calculados
+            precioDisplayInput.value = precioUnitarioConDescuento.toFixed(2);
+            descuentoPromocionInput.value = descuentoPorcentajeEfectivo.toFixed(2);
+
+            // Después de aplicar la lógica de promoción al precio unitario,
+            // llamar a actualizarCalculosFila para que calcule el subtotal y el total de la fila
+            // basándose en el precio unitario con descuento y la cantidad.
+            actualizarCalculosFila(cantidadInput); // Pasa el input de cantidad para que `actualizarCalculosFila` pueda usar `element.closest('tr')`
+        }
+
+        // Esta función ahora solo se encarga de calcular subtotales y totales de fila
+        // basándose en el precio unitario YA CALCULADO (con o sin descuento) y la cantidad.
+        function actualizarCalculosFila(element) {
+            const row = element.closest("tr");
+            const qty = parseFloat(row.querySelector(".cantidad").value) || 0;
+            const precioOriginalProducto = parseFloat(row.querySelector(".precio-original-producto").value) || 0; // Precio original del producto (sin descuento)
+            const precioUnitarioFinal = parseFloat(row.querySelector(".precio-display").value) || 0; // Precio unitario CON descuento (si aplica)
+
+            const subtotalOriginalFila = qty * precioOriginalProducto; // Subtotal sin ningún descuento
+            const totalConDescuentoFila = qty * precioUnitarioFinal; // Total de la fila con el descuento unitario aplicado
+
+            row.querySelector(".subtotal-original-display").innerText = subtotalOriginalFila.toFixed(2);
+            row.querySelector(".total-con-descuento-fila-display").innerText = totalConDescuentoFila.toFixed(2);
+            row.querySelector(".input-total-con-descuento-fila").value = totalConDescuentoFila.toFixed(2);
+
+            actualizarTotalesGlobales();
+        }
+
+        function actualizarTotalesGlobales() {
+            let sumTotalOriginalVenta = 0;
+            let sumTotalFinalVentaConDescuento = 0;
+            let sumTotalDescuentoPromociones = 0; // Este es el descuento total aplicado por promociones
+
+            document.querySelectorAll("#detalleTable tbody tr").forEach(row => {
+                const qty = parseFloat(row.querySelector(".cantidad").value) || 0;
+                const precioOriginalProducto = parseFloat(row.querySelector(".precio-original-producto").value) || 0;
+                const precioUnitarioFinal = parseFloat(row.querySelector(".precio-display").value) || 0; // Precio ya con descuento unitario aplicado
+
+                const subtotalOriginalFila = qty * precioOriginalProducto;
+                const totalConDescuentoFila = qty * precioUnitarioFinal;
+
+                sumTotalOriginalVenta += subtotalOriginalFila;
+                sumTotalFinalVentaConDescuento += totalConDescuentoFila;
+
+                // El descuento por promoción para esta fila es la diferencia entre el subtotal original de la fila y el total con descuento de la fila
+                sumTotalDescuentoPromociones += (subtotalOriginalFila - totalConDescuentoFila);
+            });
+
+            document.getElementById("totalVentaOriginal").value = sumTotalOriginalVenta.toFixed(2);
+            // Nos aseguramos de que el descuento total no sea negativo (aunque con la nueva lógica, no debería pasar si los precios y descuentos son válidos)
+            document.getElementById("totalDescuentoPromocionesDisplay").value = Math.max(0, sumTotalDescuentoPromociones).toFixed(2);
+            document.getElementById("totalVentaFinalConDescuento").value = sumTotalFinalVentaConDescuento.toFixed(2);
+
+            // Hidden inputs para enviar al controlador
+            document.getElementById("inputTotalVenta").value = sumTotalOriginalVenta.toFixed(2);
+            document.getElementById("inputTotalDescuentoProductos").value = Math.max(0, sumTotalDescuentoPromociones).toFixed(2);
+            document.getElementById("inputTotalDescuentoPromociones").value = Math.max(0, sumTotalDescuentoPromociones).toFixed(2);
+            document.getElementById("inputTotalConDescuento").value = sumTotalFinalVentaConDescuento.toFixed(2);
+        }
+
+        function eliminarFila(btn) {
+            btn.closest("tr").remove();
+            actualizarTotalesGlobales();
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // No es necesario llamar a manejarSeleccionProducto en cada fila si se agregan dinámicamente.
+            // La llamada ya está en agregarDetalle().
+            // Solo aseguramos que si hay alguna fila precargada (no es tu caso aquí), se inicialicen.
+            // Para tu caso, con agregarDetalle, basta con el actualizarTotalesGlobales inicial.
+            actualizarTotalesGlobales();
+        });
+    </script>
+}

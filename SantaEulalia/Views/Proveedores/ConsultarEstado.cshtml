@@ -1,0 +1,24 @@
+﻿@model CapaEntidad.entProveedores
+@{
+    ViewBag.Title = "Estado del Proveedor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Estado del Proveedor</h2>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <h5 class="card-title">@Model.razon_social</h5>
+        <p><strong>RUC:</strong> @Model.ruc</p>
+        <p><strong>Contacto:</strong> @Model.contacto</p>
+        <p><strong>Dirección:</strong> @Model.direccion</p>
+        <p><strong>Usuario:</strong> @(Model.id_usuario != null ? Model.id_usuario.ToString() : "Sin usuario")</p>
+        <p>
+            <strong>Estado:</strong>
+            <span class="badge bg-@(Model.activo ? "success" : "danger")">
+                @(Model.activo ? "Activo" : "Inactivo")
+            </span>
+        </p>
+        <a href="@Url.Action("Listar")" class="btn btn-secondary">Volver</a>
+    </div>
+</div>

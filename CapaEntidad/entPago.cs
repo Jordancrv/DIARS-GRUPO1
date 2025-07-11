@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaEntidad
 {
     public class entPago
     {
         public int PagoId { get; set; }
-        public entMetodoPago MetodoPago { get; set; }
+        public MetodoPago MetodoPago { get; set; } // ✅ Aquí corregido el tipo
         public entEstado Estado { get; set; }
         public decimal Monto { get; set; }
         public DateTime FechaPago { get; set; }

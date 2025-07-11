@@ -1,60 +1,97 @@
-﻿@{
-    ViewBag.Title = "Dashboard";
+﻿@model SantaEulalia.Controllers.ResumenVentasViewModel
+@{
+    ViewBag.Title = "Dashboard de Ventas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid mt-4">
-    <h2 class="text-light mb-4">Dashboard General</h2>
+<h2 class="mb-4">Resumen de Ventas</h2>
 
-    <div class="row g-4">
-        <!-- Tarjeta de Productos -->
-        <div class="col-md-4">
-            <div class="card shadow border-0 text-white bg-gradient bg-primary">
-                <div class="card-body d-flex align-items-center">
-                    <i class="fas fa-box fa-2x me-3"></i>
-                    <div>
-                        <h5 class="card-title mb-0">Total Productos</h5>
-                        <h3 class="fw-bold">0</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="mb-4">
+    <a href="@Url.Action("ExportarPDF", "Dashboard")" class="btn btn-danger">
+        <i class="fas fa-file-pdf"></i> Exportar PDF
+    </a>
+</div>
 
-        <!-- Tarjeta de Ventas -->
-        <div class="col-md-4">
-            <div class="card shadow border-0 text-white bg-gradient bg-success">
-                <div class="card-body d-flex align-items-center">
-                    <i class="fas fa-shopping-cart fa-2x me-3"></i>
-                    <div>
-                        <h5 class="card-title mb-0">Ventas Hoy</h5>
-                        <h3 class="fw-bold">0</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta de Ganancias -->
-        <div class="col-md-4">
-            <div class="card shadow border-0 text-white bg-gradient bg-warning">
-                <div class="card-body d-flex align-items-center">
-                    <i class="fas fa-dollar-sign fa-2x me-3"></i>
-                    <div>
-                        <h5 class="card-title mb-0">Ganancias</h5>
-                        <h3 class="fw-bold">$0.00</h3>
-                    </div>
-                </div>
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card bg-success text-white">
+            <div class="card-body text-center">
+                <h5>Total Ventas</h5>
+                <h2>@Model.TotalVentas</h2>
             </div>
         </div>
     </div>
-
-    <!-- Sección inferior opcional -->
-    <div class="row mt-5">
-        <div class="col-12">
-            <div class="card bg-dark text-white shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Resumen</h5>
-                    <p class="card-text">Ya gentita aquí iran gráficas o tablas resumen</p>
-                </div>
+    <div class="col-md-4 mb-4">
+        <div class="card bg-info text-white">
+            <div class="card-body text-center">
+                <h5>Total Ingresos</h5>
+                <h2>S/ @Model.TotalIngresos.ToString("F2")</h2>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Gráfico de ventas por fecha -->
+<div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+        <i class="fas fa-chart-line"></i> Ventas por Fecha
+    </div>
+    <div class="card-body">
+        <canvas id="ventasPorFechaChart"></canvas>
+    </div>
+</div>
+
+<!-- Gráfico de ventas por estado -->
+<div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+        <i class="fas fa-chart-pie"></i> Ventas por Estado
+    </div>
+    <div class="card-body">
+        <canvas id="ventasPorEstadoChart"></canvas>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Ventas por Fecha
+        const ctxFecha = document.getElementById('ventasPorFechaChart').getContext('2d');
+        const ventasPorFecha = new Chart(ctxFecha, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.VentasPorFecha.Select(v => v.Fecha.ToString("yyyy-MM-dd")))),
+                datasets: [{
+                    label: 'Total S/',
+                    data: @Html.Raw(Json.Serialize(Model.VentasPorFecha.Select(v => v.Total))),
+                    backgroundColor: 'rgba(0, 191, 255, 0.2)',
+                    borderColor: 'rgba(0, 191, 255, 1)',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Ventas por Estado
+        const ctxEstado = document.getElementById('ventasPorEstadoChart').getContext('2d');
+        const ventasPorEstado = new Chart(ctxEstado, {
+            type: 'doughnut',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.VentasPorEstado.Select(v => v.Estado))),
+                datasets: [{
+                    label: 'Cantidad',
+                    data: @Html.Raw(Json.Serialize(Model.VentasPorEstado.Select(v => v.Cantidad))),
+                    backgroundColor: ['#28a745', '#ffc107', '#dc3545', '#17a2b8']
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+}

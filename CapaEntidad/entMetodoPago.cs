@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace CapaEntidad
 {
-    public class entMetodoPago
+    public class MetodoPago
     {
-        public int MetodoPagoId { get; set; }
-        public string Descripcion { get; set; }
-
-        public override string ToString() => Descripcion;
+        public int id_metodo_pago { get; set; }
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
+        public bool activo { get; set; }
     }
 }
+
+
