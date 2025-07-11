@@ -83,70 +83,64 @@ namespace CapaDatos
             return lista;
         }
 
-        public bool InsertarCliente(entClientes cliente)
+        public bool InsertarComprobante(string tipoComprobante, out string serieGenerada, out string numeroGenerado)
         {
-            bool result = false;
+            serieGenerada = string.Empty;
+            numeroGenerado = string.Empty;
 
-            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            // Utilizamos el método Conectar() de tu clase Conexion
+            using (SqlConnection connection = Conexion.Instancia.Conectar())
             {
-                cn.Open();
-                SqlTransaction transaction = cn.BeginTransaction();
-
                 try
                 {
-                    // Insertar cliente
-                    using (SqlCommand cmd = new SqlCommand("sp_InsertarCliente", cn, transaction))
+                    using (SqlCommand command = new SqlCommand("sp_InsertarComprobantePago", connection))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@id_tipo_cliente", cliente.id_tipo_cliente);
-                        cmd.Parameters.AddWithValue("@nombres", (object)cliente.nombres ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@apellidos", (object)cliente.apellidos ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@dni", (object)cliente.dni ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@razon_social", (object)cliente.razon_social ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@ruc", (object)cliente.ruc ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@direccion", (object)cliente.direccion ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@id_usuario", (object)cliente.idUsuario ?? DBNull.Value); // Nuevo parámetro para el usuario que crea el cliente
-                        cmd.Parameters.AddWithValue("@activo", cliente.activo);
+                        command.CommandType = CommandType.StoredProcedure;
 
-                        int idGenerado = Convert.ToInt32(cmd.ExecuteScalar());
+                        // Parámetro de entrada para el tipo de comprobante
+                        command.Parameters.AddWithValue("@tipo", tipoComprobante);
 
-                        // Insertar correos
-                        foreach (var correo in cliente.correos)
-                        {
-                            using (SqlCommand cmdCorreo = new SqlCommand("sp_InsertarClienteCorreo", cn, transaction))
-                            {
-                                cmdCorreo.CommandType = CommandType.StoredProcedure;
-                                cmdCorreo.Parameters.AddWithValue("@id_cliente", idGenerado);
-                                cmdCorreo.Parameters.AddWithValue("@correo", correo);
-                                cmdCorreo.ExecuteNonQuery();
-                            }
-                        }
+                        // Parámetros de salida para la serie y el número generados
+                        SqlParameter serieOutParam = new SqlParameter("@serie_out", SqlDbType.VarChar, 20);
+                        serieOutParam.Direction = ParameterDirection.Output;
+                        command.Parameters.Add(serieOutParam);
 
-                        // Insertar teléfonos
-                        foreach (var telefono in cliente.telefonos)
-                        {
-                            using (SqlCommand cmdTel = new SqlCommand("sp_InsertarClienteTelefono", cn, transaction))
-                            {
-                                cmdTel.CommandType = CommandType.StoredProcedure;
-                                cmdTel.Parameters.AddWithValue("@id_cliente", idGenerado);
-                                cmdTel.Parameters.AddWithValue("@telefono", telefono);
-                                cmdTel.ExecuteNonQuery();
-                            }
-                        }
+                        SqlParameter numeroOutParam = new SqlParameter("@numero_out", SqlDbType.VarChar, 20);
+                        numeroOutParam.Direction = ParameterDirection.Output;
+                        command.Parameters.Add(numeroOutParam);
+
+                        connection.Open(); // Abre la conexión obtenida de tu clase Conexion
+                        command.ExecuteNonQuery();
+
+                        // Obtener los valores de los parámetros de salida
+                        serieGenerada = serieOutParam.Value.ToString();
+                        numeroGenerado = numeroOutParam.Value.ToString();
+
+                        Console.WriteLine($"Comprobante '{tipoComprobante}' insertado exitosamente.");
+                        Console.WriteLine($"Serie generada: {serieGenerada}");
+                        Console.WriteLine($"Número generado: {numeroGenerado}");
+                        return true;
                     }
-
-                    transaction.Commit();
-                    result = true;
+                }
+                catch (SqlException ex)
+                {
+                    // Manejo de errores específicos de SQL (ej. tipo de comprobante no válido)
+                    Console.WriteLine($"Error de SQL al insertar comprobante: {ex.Message}");
+                    return false;
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
-                    // Aquí puedes loguear el error: ex.Message
-                    throw new Exception("Error al insertar el cliente: " + ex.Message);
+                    // Manejo de otros errores
+                    Console.WriteLine($"Ocurrió un error inesperado: {ex.Message}");
+                    return false;
+                }
+                finally
+                {
+                    // El 'using' statement para SqlConnection se encarga de cerrar la conexión
+                    // automáticamente cuando sale del bloque, incluso si hay una excepción.
+                    // No es necesario llamar a connection.Close() explícitamente aquí.
                 }
             }
-
-            return result;
         }
 
 

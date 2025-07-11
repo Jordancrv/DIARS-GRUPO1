@@ -942,8 +942,7 @@ CREATE TYPE DetalleVentaType AS TABLE (
     total_con_descuento DECIMAL(10,2)
 );
 go
-
-CREATE or alter PROCEDURE InsertarPedidoVenta
+CREATE OR ALTER PROCEDURE InsertarPedidoVenta
     @id_cliente INT,
     @id_usuario INT = NULL,
     @id_comprobante INT,
@@ -952,46 +951,35 @@ CREATE or alter PROCEDURE InsertarPedidoVenta
     @total_descuento_promociones DECIMAL(12,2),
     @total_con_descuento DECIMAL(12,2),
     @estado VARCHAR(20),
-	@fecha DATETIME,
-    @Detalles DetalleVentaType READONLY -- Este es un tipo de tabla (debes crearlo si no lo tienes aún)
+    @fecha DATETIME,
+    @Detalles DetalleVentaType READONLY
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    BEGIN TRY
-        BEGIN TRAN;
+    -- Insertar en PedidosVenta
+    INSERT INTO PedidosVenta (
+        id_cliente, id_usuario, id_comprobante, total,
+        total_descuento_productos, total_descuento_promociones,
+        total_con_descuento, estado, fecha
+    )
+    VALUES (
+        @id_cliente, @id_usuario, @id_comprobante,
+        @total, @total_descuento_productos,
+        @total_descuento_promociones, @total_con_descuento, @estado, @fecha
+    );
 
-        -- Insertar en PedidosVenta
-        INSERT INTO PedidosVenta (
-            id_cliente, id_usuario, id_comprobante, total,
-            total_descuento_productos, total_descuento_promociones,
-            total_con_descuento, estado, fecha
-        )
-        VALUES (
-            @id_cliente, @id_usuario, @id_comprobante,
-            @total, @total_descuento_productos,
-            @total_descuento_promociones, @total_con_descuento, @estado, @fecha
-        );
+    DECLARE @id_pedido INT = SCOPE_IDENTITY();
 
-        DECLARE @id_pedido INT = SCOPE_IDENTITY();
-
-        -- Insertar en DetallesVenta
-        INSERT INTO DetallesVenta (
-            id_pedido, id_producto, cantidad,
-            precio_unitario, subtotal, descuento, total_con_descuento
-        )
-        SELECT
-            @id_pedido, id_producto, cantidad,
-            precio_unitario, subtotal, descuento, total_con_descuento
-        FROM @Detalles;
-
-        COMMIT;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK;
-
-        THROW;
-    END CATCH
+    -- Insertar en DetallesVenta
+    INSERT INTO DetallesVenta (
+        id_pedido, id_producto, cantidad,
+        precio_unitario, subtotal, descuento, total_con_descuento
+    )
+    SELECT
+        @id_pedido, id_producto, cantidad,
+        precio_unitario, subtotal, descuento, total_con_descuento
+    FROM @Detalles;
 END
 GO
 
@@ -1033,6 +1021,9 @@ BEGIN
     ORDER BY pv.fecha DESC;
 END;
 GO
+
+
+exec sp_ListarPedidosVenta
 
 CREATE OR ALTER PROCEDURE sp_ListarPedidosCompleto
 AS
@@ -1077,6 +1068,30 @@ BEGIN
     WHERE dv.id_pedido = @id_pedido;
 END
 GO
+
+---para detalles
+CREATE or alter  PROCEDURE sp_ObtenerPedidoVentaPorId
+    @id_pedido INT
+AS
+BEGIN
+    SELECT 
+        id_pedido AS IdPedidoVenta,
+        id_cliente AS IdCliente,
+        id_usuario AS IdUsuario,
+        fecha AS Fecha,
+        id_comprobante AS IdComprobante,
+        total AS Total,
+        total_descuento_productos AS TotalDescuentoProductos,
+        total_descuento_promociones AS TotalDescuentoPromociones,
+        total_con_descuento AS TotalConDescuento,
+        estado AS Estado
+    FROM PedidosVenta
+    WHERE id_pedido = @id_pedido
+END
+go 
+select  *  from DetallesVenta
+
+
 
 CREATE OR ALTER PROCEDURE sp_AnularPedidoVenta
     @id_pedido INT
@@ -1147,6 +1162,23 @@ BEGIN
     UPDATE PagosVenta SET estado = 'anulado' WHERE id_pago = @id_pago;
 END;
 GO
+
+
+CREATE OR ALTER PROCEDURE sp_ActualizarStock
+    @id_producto INT,
+    @nuevo_stock INT
+AS
+BEGIN
+    UPDATE Productos
+    SET stock = @nuevo_stock
+    WHERE id_producto = @id_producto;
+END;
+go
+
+select  * from productos
+
+
+
 
 ----ORDENES DE COMPRA---------
 
@@ -1426,4 +1458,138 @@ BEGIN
 END
 go
 
+-- comprobantes ----------------
+---------------------------------------------------------------
 
+
+
+--CREATE OR ALTER PROCEDURE sp_InsertarComprobantePago
+--    @tipo VARCHAR(50),
+--    @serie_out VARCHAR(20) OUTPUT,
+--    @numero_out VARCHAR(20) OUTPUT
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+
+--    DECLARE @prefijoSerie VARCHAR(10);
+--    DECLARE @prefijoNumero INT;
+--    DECLARE @nuevaSerie VARCHAR(20);
+--    DECLARE @nuevoNumero VARCHAR(20);
+
+--    -- Validación del tipo
+--    IF @tipo NOT IN ('boleta', 'factura', 'nota_credito')
+--    BEGIN
+--        RAISERROR('Tipo de comprobante no válido.', 16, 1);
+--        RETURN;
+--    END
+
+--    -- Prefijos por tipo
+--    SET @prefijoSerie = 
+--        CASE @tipo
+--            WHEN 'boleta' THEN 'B001'
+--            WHEN 'factura' THEN 'F001'
+--            WHEN 'nota_credito' THEN 'NC01'
+--        END;
+
+--    -- Obtener el último número según tipo
+--    SELECT @prefijoNumero = 
+--        ISNULL(MAX(CAST(numero AS INT)), 0)
+--    FROM ComprobantesPago
+--    WHERE tipo = @tipo;
+
+--    -- Incrementar número
+--    SET @prefijoNumero = @prefijoNumero + 1;
+
+--    -- Formatear número con ceros a la izquierda
+--    SET @nuevoNumero = RIGHT(REPLICATE('0', 6) + CAST(@prefijoNumero AS VARCHAR), 6);
+
+--    -- Generar serie completa
+--    SET @nuevaSerie = @prefijoSerie + '_' + @nuevoNumero;
+
+--    -- Insertar nuevo comprobante
+--    INSERT INTO ComprobantesPago (tipo, serie, numero)
+--    VALUES (@tipo, @nuevaSerie, @nuevoNumero);
+
+--    -- Devolver los valores generados
+--    SET @serie_out = @nuevaSerie;
+--    SET @numero_out = @nuevoNumero;
+--END;
+--GO
+select * from pedidosventa where id_pedido= 10001
+select * from ComprobantesPago where id_comprobante= 10008
+CREATE OR ALTER PROCEDURE sp_InsertarComprobantePago
+    @tipo VARCHAR(50),
+    @serie_out VARCHAR(20) OUTPUT,
+    @numero_out VARCHAR(20) OUTPUT,
+    @id_comprobante_out INT OUTPUT -- Nuevo parámetro de salida para el ID
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @prefijoSerie VARCHAR(10);
+    DECLARE @prefijoNumero INT;
+    DECLARE @nuevaSerie VARCHAR(20);
+    DECLARE @nuevoNumero VARCHAR(20);
+    DECLARE @lastInsertedId INT; -- Variable para capturar el ID
+
+    -- Validación del tipo
+    IF @tipo NOT IN ('boleta', 'factura', 'nota_credito')
+    BEGIN
+        RAISERROR('Tipo de comprobante no válido.', 16, 1);
+        RETURN;
+    END
+
+    -- Prefijos por tipo
+    SET @prefijoSerie = 
+        CASE @tipo
+            WHEN 'boleta' THEN 'B001'
+            WHEN 'factura' THEN 'F001'
+            WHEN 'nota_credito' THEN 'NC01'
+        END;
+
+    -- Obtener el último número según tipo
+    -- Asegúrate de que tu columna 'numero' en ComprobantesPago sea de tipo INT si quieres usar MAX(CAST(numero AS INT))
+    -- Si 'numero' es VARCHAR, y solo contiene el número (ej. "000112"), esto funcionará.
+    -- Si 'numero' contiene la serie también (ej. "B001_000112"), necesitarías extraer solo la parte numérica.
+    -- Asumo que 'numero' es solo la parte numérica, o que sabes cómo extraerla.
+    -- Si tu columna 'numero' en la tabla es solo el '000112', esto es correcto.
+    -- Si tu columna 'numero' en la tabla es la serie completa 'B001_000112', entonces esta línea debe ser:
+    /*
+    SELECT @prefijoNumero = 
+        ISNULL(MAX(CAST(RIGHT(numero, 6) AS INT)), 0) -- Extrae los últimos 6 caracteres y los convierte a INT
+    FROM ComprobantesPago
+    WHERE tipo = @tipo
+    AND serie LIKE @prefijoSerie + '%'; -- Asegura que solo consideras números de la misma serie prefijo
+    */
+    -- Basándome en tu sp original, parece que 'numero' solo almacena '000112'. Si es así, tu línea original está bien.
+    SELECT @prefijoNumero = 
+        ISNULL(MAX(CAST(numero AS INT)), 0)
+    FROM ComprobantesPago
+    WHERE tipo = @tipo;
+
+    -- Incrementar número
+    SET @prefijoNumero = @prefijoNumero + 1;
+
+    -- Formatear número con ceros a la izquierda
+    SET @nuevoNumero = RIGHT(REPLICATE('0', 6) + CAST(@prefijoNumero AS VARCHAR), 6);
+
+    -- Generar serie completa
+    SET @nuevaSerie = @prefijoSerie + '_' + @nuevoNumero;
+
+    -- Insertar nuevo comprobante
+    INSERT INTO ComprobantesPago (tipo, serie, numero)
+    VALUES (@tipo, @nuevaSerie, @nuevoNumero);
+
+    -- Capturar el ID recién insertado
+    SET @lastInsertedId = SCOPE_IDENTITY();
+
+    -- Devolver los valores generados
+    SET @serie_out = @nuevaSerie;
+    SET @numero_out = @nuevoNumero;
+    SET @id_comprobante_out = @lastInsertedId; -- Devolver el ID
+END;
+go
+
+
+
+select count(* ) from ComprobantesPago

@@ -19,6 +19,7 @@ namespace CapaEntidad
         public decimal TotalDescuentoPromociones { get; set; }
         public decimal TotalConDescuento { get; set; }
         public string Estado { get; set; }
+        public string TipoComprobante { get; set; }
 
         // Relaciones (no se mapean directamente, solo para mostrar)
         public entComprobantePago Comprobante { get; set; }

@@ -1,14 +1,15 @@
-﻿using System;
+﻿using CapaEntidad;
+using Microsoft.Win32;
+using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using CapaEntidad;
-using Microsoft.Win32;
-using static System.Net.Mime.MediaTypeNames;
 using static CapaEntidad.Class1;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CapaDatos
 {
@@ -230,49 +231,110 @@ namespace CapaDatos
             return lista;
         }
 
-        public bool AnularVenta(int ventaId, out string mensaje)
+        public bool AnularVenta(int idPedido)
         {
-            SqlCommand cmd = null;
             bool resultado = false;
-            mensaje = string.Empty;
 
             try
             {
-                SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("sp_AnularVenta", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@VentaId", ventaId);
-                SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Bit)
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    Direction = ParameterDirection.Output
-                };
-                cmd.Parameters.Add(paramResultado);
+                    using (SqlCommand cmd = new SqlCommand("sp_AnularPedidoVenta", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@id_pedido", idPedido);
 
-                SqlParameter paramMensaje = new SqlParameter("@Mensaje", SqlDbType.VarChar, 500)
-                {
-                    Direction = ParameterDirection.Output
-                };
-                cmd.Parameters.Add(paramMensaje);
-
-                cn.Open();
-                cmd.ExecuteNonQuery();
-
-                resultado = Convert.ToBoolean(paramResultado.Value);
-                mensaje = paramMensaje.Value.ToString();
+                        cn.Open();
+                        int filasAfectadas = cmd.ExecuteNonQuery();
+                        resultado = filasAfectadas > 0;
+                    }
+                }
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
-                mensaje = "Error al anular venta: " + e.Message;
                 resultado = false;
-            }
-            finally
-            {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
-                    cmd.Connection.Close();
             }
 
             return resultado;
         }
+
+
+
+        public entPedidoVenta ObtenerPedidoVentaPorId(int id_pedido)
+        {
+            entPedidoVenta pedido = null;
+
+            using (SqlConnection cn = Conexion.Instancia.Conectar())
+            {
+                cn.Open();
+
+                // Obtener datos generales del pedido
+                using (SqlCommand cmd = new SqlCommand("sp_ObtenerPedidoVentaPorId", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id_pedido", id_pedido);
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            pedido = new entPedidoVenta
+                            {
+                                IdPedidoVenta = Convert.ToInt32(dr["IdPedidoVenta"]),
+                                IdCliente = Convert.ToInt32(dr["IdCliente"]),
+                                IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
+                                Fecha = Convert.ToDateTime(dr["Fecha"]),
+                                IdComprobante = Convert.ToInt32(dr["IdComprobante"]),
+                                Total = Convert.ToDecimal(dr["Total"]),
+                                TotalDescuentoProductos = Convert.ToDecimal(dr["TotalDescuentoProductos"]),
+                                TotalDescuentoPromociones = Convert.ToDecimal(dr["TotalDescuentoPromociones"]),
+                                TotalConDescuento = Convert.ToDecimal(dr["TotalConDescuento"]),
+                                Estado = dr["Estado"].ToString(),
+                                Detalles = new List<entDetalleVenta>()
+                            };
+                        }
+                    } // <-- El DataReader se cierra aquí
+                }
+
+                // Ya es seguro usar otro comando con la misma conexión
+                if (pedido != null)
+                {
+                    using (SqlCommand cmdDetalle = new SqlCommand("SELECT * FROM DetallesVenta WHERE id_pedido = @id_pedido", cn))
+                    {
+                        cmdDetalle.Parameters.AddWithValue("@id_pedido", id_pedido);
+
+                        using (SqlDataReader drDetalle = cmdDetalle.ExecuteReader())
+                        {
+                            while (drDetalle.Read())
+                            {
+                                var detalle = new entDetalleVenta
+                                {
+                                    IdDetalle = Convert.ToInt32(drDetalle["id_detalle"]),
+                                    IdPedido = Convert.ToInt32(drDetalle["id_pedido"]),
+                                    IdProducto = Convert.ToInt32(drDetalle["id_producto"]),
+                                    Cantidad = Convert.ToInt32(drDetalle["cantidad"]),
+                                    PrecioUnitario = Convert.ToDecimal(drDetalle["precio_unitario"]),
+                                    Subtotal = Convert.ToDecimal(drDetalle["subtotal"]),
+                                    Descuento = Convert.ToDecimal(drDetalle["descuento"]),
+                                    TotalConDescuento = Convert.ToDecimal(drDetalle["total_con_descuento"])
+                                };
+                                pedido.Detalles.Add(detalle);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return pedido;
+        }
+
+
+
+
+
+
+
+
 
 
         private List<entDetalleVenta> ListarDetallesPorVenta(int idPedido, SqlConnection cn)
@@ -309,11 +371,77 @@ namespace CapaDatos
         }
 
 
-        // *** MÉTODO ListarVentas MODIFICADO PARA USAR LA OPCIÓN 2 ***
+        //// *** MÉTODO ListarVentas MODIFICADO PARA USAR LA OPCIÓN 2 ***
+        //public List<entPedidoVenta> ListarVentas()
+        //{
+        //    List<entPedidoVenta> listaVentasFinal = new List<entPedidoVenta>(); // Esta será la lista final con detalles
+        //    List<entPedidoVenta> ventasSinDetalles = new List<entPedidoVenta>(); // Lista temporal para las ventas principales
+
+        //    try
+        //    {
+        //        using (SqlConnection cn = Conexion.Instancia.Conectar())
+        //        {
+        //            SqlCommand cmd = new SqlCommand("sp_ListarPedidosVenta", cn);
+        //            cmd.CommandType = CommandType.StoredProcedure;
+        //            cn.Open();
+
+        //            using (SqlDataReader dr = cmd.ExecuteReader()) // Primer DataReader abierto
+        //            {
+        //                // Paso 1: Leer TODAS las ventas principales y almacenarlas temporalmente.
+        //                // El DataReader (dr) permanece abierto solo durante este bucle.
+        //                while (dr.Read())
+        //                {
+        //                    entPedidoVenta venta = new entPedidoVenta
+        //                    {
+        //                        IdPedidoVenta = Convert.ToInt32(dr["id_pedido"]),
+        //                        Fecha = Convert.ToDateTime(dr["fecha"]),
+        //                        Estado = dr["estado"].ToString(),
+        //                        IdCliente = Convert.ToInt32(dr["id_cliente"]),
+        //                        IdUsuario = dr["id_usuario"] != DBNull.Value ? Convert.ToInt32(dr["id_usuario"]) : 0,
+        //                        IdComprobante = Convert.ToInt32(dr["id_comprobante"]),
+        //                        Total = Convert.ToDecimal(dr["total"]),
+        //                        TotalDescuentoProductos = Convert.ToDecimal(dr["total_descuento_productos"]),
+        //                        TotalDescuentoPromociones = Convert.ToDecimal(dr["total_descuento_promociones"]),
+        //                        TotalConDescuento = Convert.ToDecimal(dr["total_con_descuento"]),
+        //                        Cliente = new entClientes // Asumo que necesitas cargar el objeto cliente aquí
+        //                        {
+        //                            id_cliente = Convert.ToInt32(dr["id_cliente"])
+        //                            // Si hay más propiedades de cliente que vienen de sp_ListarPedidosVenta, cárgalas aquí
+        //                            // ejemplo: nombres = dr["nombre_cliente"].ToString()
+        //                        },
+        //                        // No inicializamos Detalles aquí, lo haremos en el segundo bucle
+        //                        Detalles = new List<entDetalleVenta>() // Aunque se asignará después, es buena práctica inicializar
+        //                    };
+        //                    ventasSinDetalles.Add(venta);
+        //                }
+        //            } // CIERRE CRÍTICO: El primer SqlDataReader (dr) se cierra aquí al salir del bloque 'using'.
+
+        //            // Paso 2: Ahora que el primer DataReader está cerrado y la conexión está libre,
+        //            // iteramos sobre la lista temporal para cargar los detalles.
+        //            foreach (var venta in ventasSinDetalles)
+        //            {
+        //                // Aquí llamamos a ListarDetallesPorVenta.
+        //                // Como el DataReader anterior ya está cerrado, este nuevo ExecuteReader
+        //                // en ListarDetallesPorVenta puede ejecutarse sin conflicto en la misma conexión 'cn'.
+        //                venta.Detalles = ListarDetallesPorVenta(venta.IdPedidoVenta, cn);
+        //                listaVentasFinal.Add(venta); // Añadir a la lista final
+        //            }
+        //        } // La conexión 'cn' se cierra aquí al salir del bloque 'using'.
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw new Exception("Error al listar ventas: " + ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error inesperado al listar ventas: " + ex.Message);
+        //    }
+
+        //    return listaVentasFinal;
+        //}
         public List<entPedidoVenta> ListarVentas()
         {
-            List<entPedidoVenta> listaVentasFinal = new List<entPedidoVenta>(); // Esta será la lista final con detalles
-            List<entPedidoVenta> ventasSinDetalles = new List<entPedidoVenta>(); // Lista temporal para las ventas principales
+            List<entPedidoVenta> listaVentas = new List<entPedidoVenta>();
 
             try
             {
@@ -323,10 +451,8 @@ namespace CapaDatos
                     cmd.CommandType = CommandType.StoredProcedure;
                     cn.Open();
 
-                    using (SqlDataReader dr = cmd.ExecuteReader()) // Primer DataReader abierto
+                    using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        // Paso 1: Leer TODAS las ventas principales y almacenarlas temporalmente.
-                        // El DataReader (dr) permanece abierto solo durante este bucle.
                         while (dr.Read())
                         {
                             entPedidoVenta venta = new entPedidoVenta
@@ -334,37 +460,24 @@ namespace CapaDatos
                                 IdPedidoVenta = Convert.ToInt32(dr["id_pedido"]),
                                 Fecha = Convert.ToDateTime(dr["fecha"]),
                                 Estado = dr["estado"].ToString(),
-                                IdCliente = Convert.ToInt32(dr["id_cliente"]),
-                                IdUsuario = dr["id_usuario"] != DBNull.Value ? Convert.ToInt32(dr["id_usuario"]) : 0,
-                                IdComprobante = Convert.ToInt32(dr["id_comprobante"]),
-                                Total = Convert.ToDecimal(dr["total"]),
-                                TotalDescuentoProductos = Convert.ToDecimal(dr["total_descuento_productos"]),
-                                TotalDescuentoPromociones = Convert.ToDecimal(dr["total_descuento_promociones"]),
-                                TotalConDescuento = Convert.ToDecimal(dr["total_con_descuento"]),
-                                Cliente = new entClientes // Asumo que necesitas cargar el objeto cliente aquí
-                                {
-                                    id_cliente = Convert.ToInt32(dr["id_cliente"])
-                                    // Si hay más propiedades de cliente que vienen de sp_ListarPedidosVenta, cárgalas aquí
-                                    // ejemplo: nombres = dr["nombre_cliente"].ToString()
-                                },
-                                // No inicializamos Detalles aquí, lo haremos en el segundo bucle
-                                Detalles = new List<entDetalleVenta>() // Aunque se asignará después, es buena práctica inicializar
-                            };
-                            ventasSinDetalles.Add(venta);
-                        }
-                    } // CIERRE CRÍTICO: El primer SqlDataReader (dr) se cierra aquí al salir del bloque 'using'.
 
-                    // Paso 2: Ahora que el primer DataReader está cerrado y la conexión está libre,
-                    // iteramos sobre la lista temporal para cargar los detalles.
-                    foreach (var venta in ventasSinDetalles)
-                    {
-                        // Aquí llamamos a ListarDetallesPorVenta.
-                        // Como el DataReader anterior ya está cerrado, este nuevo ExecuteReader
-                        // en ListarDetallesPorVenta puede ejecutarse sin conflicto en la misma conexión 'cn'.
-                        venta.Detalles = ListarDetallesPorVenta(venta.IdPedidoVenta, cn);
-                        listaVentasFinal.Add(venta); // Añadir a la lista final
+                                IdCliente = dr["id_cliente"] != DBNull.Value ? Convert.ToInt32(dr["id_cliente"]) : 0,
+                                IdUsuario = dr["id_usuario"] != DBNull.Value ? Convert.ToInt32(dr["id_usuario"]) : 0,
+                                IdComprobante = dr["id_comprobante"] != DBNull.Value ? Convert.ToInt32(dr["id_comprobante"]) : 0,
+
+                                Total = dr["total"] != DBNull.Value ? Convert.ToDecimal(dr["total"]) : 0m,
+                                TotalDescuentoProductos = dr["total_descuento_productos"] != DBNull.Value ? Convert.ToDecimal(dr["total_descuento_productos"]) : 0m,
+                                TotalDescuentoPromociones = dr["total_descuento_promociones"] != DBNull.Value ? Convert.ToDecimal(dr["total_descuento_promociones"]) : 0m,
+                                TotalConDescuento = dr["total_con_descuento"] != DBNull.Value ? Convert.ToDecimal(dr["total_con_descuento"]) : 0m,
+
+                                 Cliente = new entClientes { id_cliente = Convert.ToInt32(dr["id_cliente"]) },
+                                Usuario = new entUsuario { id_usuario = Convert.ToInt32(dr["id_usuario"]) }
+                            };
+
+                            listaVentas.Add(venta);
+                        }
                     }
-                } // La conexión 'cn' se cierra aquí al salir del bloque 'using'.
+                }
             }
             catch (SqlException ex)
             {
@@ -375,8 +488,9 @@ namespace CapaDatos
                 throw new Exception("Error inesperado al listar ventas: " + ex.Message);
             }
 
-            return listaVentasFinal;
+            return listaVentas;
         }
+
         public List<entPedidosVenta> ObtenerVentasPorClienteId(int idCliente)
         {
             SqlCommand cmd = null;
@@ -422,115 +536,50 @@ namespace CapaDatos
         }
 
 
-        public bool AnularVenta(int ventaId)
+      
+        public entPedidoVenta BuscarVentaPorId(int id_pedido)
         {
-            SqlCommand cmd = null;
-            bool resultado = false;
-
-            try
-            {
-                SqlConnection cn = Conexion.Instancia.Conectar();
-                cmd = new SqlCommand("sp_AnularVenta", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@VentaId", ventaId);
-
-                SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Bit)
-                {
-                    Direction = ParameterDirection.Output
-                };
-                cmd.Parameters.Add(paramResultado);
-
-                cn.Open();
-                cmd.ExecuteNonQuery();
-
-                resultado = Convert.ToBoolean(paramResultado.Value);
-            }
-            catch (SqlException)
-            {
-                resultado = false;
-            }
-            finally
-            {
-                if (cmd != null && cmd.Connection.State == ConnectionState.Open)
-                    cmd.Connection.Close();
-            }
-
-            return resultado;
-        }
-
-
-        public entPedidosVenta BuscarVentaPorId(int id_pedido)
-        {
-            SqlCommand cmd = null;
-            entPedidosVenta venta = null;
+            entPedidoVenta pedido = null;
 
             try
             {
                 using (SqlConnection cn = Conexion.Instancia.Conectar())
                 {
-                    cmd = new SqlCommand("sp_BuscarVentaPorId", cn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@id_pedido", id_pedido);
-
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (SqlCommand cmd = new SqlCommand("sp_ObtenerPedidoVentaPorId", cn))
                     {
-                        if (dr.Read())
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@id_pedido", id_pedido);
+
+                        cn.Open();
+                        using (SqlDataReader dr = cmd.ExecuteReader())
                         {
-                            venta = new entPedidosVenta
+                            if (dr.Read())
                             {
-                                id_pedido = Convert.ToInt32(dr["id_pedido"]),
-                                fecha = Convert.ToDateTime(dr["fecha"]),
-                                estado = dr["estado"].ToString(),
-                                id_cliente = Convert.ToInt32(dr["id_cliente"]),
-                                Cliente = new entClientes
+                                pedido = new entPedidoVenta
                                 {
-                                    id_cliente = Convert.ToInt32(dr["id_cliente"]),
-                                    razon_social = dr["razon_social"].ToString(),
-                                    ruc = dr["ruc"].ToString(),
-                                    direccion = dr["direccion"].ToString(),
-                                    //  telefono = dr["telefono"].ToString(),
-                                    //  email = dr["email"].ToString(),
-                                    activo = Convert.ToBoolean(dr["activo"])
-                                }
-                            };
-                        }
-
-                        if (venta != null)
-                        {
-                            dr.NextResult();
-                            venta.Detalles = new List<entDetallesVenta>();
-
-                            while (dr.Read())
-                            {
-                                venta.Detalles.Add(new entDetallesVenta
-                                {
-                                    id_detalle = Convert.ToInt32(dr["id_detalle"]),
-                                    id_producto = Convert.ToInt32(dr["id_producto"]),
-                                    cantidad = Convert.ToInt32(dr["cantidad"]),
-                                    precio_unitario = Convert.ToDecimal(dr["precio_unitario"]),
-
-                                    Producto = new entProductos
-                                    {
-                                        id_producto = Convert.ToInt32(dr["id_producto"]),
-                                        nombre = dr["nombre_producto"].ToString(),
-                                        descripcion = dr["descripcion"].ToString()
-                                    }
-                                });
+                                    IdPedidoVenta = Convert.ToInt32(dr["IdPedidoVenta"]),
+                                    IdCliente = Convert.ToInt32(dr["IdCliente"]),
+                                    IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
+                                    Fecha = Convert.ToDateTime(dr["Fecha"]),
+                                    IdComprobante = Convert.ToInt32(dr["IdComprobante"]),
+                                    Total = Convert.ToDecimal(dr["Total"]),
+                                    TotalDescuentoProductos = Convert.ToDecimal(dr["TotalDescuentoProductos"]),
+                                    TotalDescuentoPromociones = Convert.ToDecimal(dr["TotalDescuentoPromociones"]),
+                                    TotalConDescuento = Convert.ToDecimal(dr["TotalConDescuento"]),
+                                    Estado = dr["Estado"].ToString()
+                                };
                             }
                         }
                     }
                 }
             }
-            catch (SqlException)
+            catch (Exception ex)
             {
-                venta = null;
+                throw new Exception("Error al obtener el pedido: " + ex.Message);
             }
 
-            return venta;
+            return pedido;
         }
-
-
         public bool EditarVenta(entPedidosVenta pedido)
         {
             SqlCommand cmd = null;
@@ -587,6 +636,34 @@ namespace CapaDatos
             return resultado;
         }
 
+        public bool AnularPedidoVenta(int id_pedido)
+        {
+            bool resultado = false;
+
+            try
+            {
+                using (SqlConnection cn = Conexion.Instancia.Conectar())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_AnularPedidoVenta", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@id_pedido", id_pedido);
+
+                        cn.Open();
+                        int filasAfectadas = cmd.ExecuteNonQuery();
+
+                        resultado = filasAfectadas > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Puedes loguear el error o lanzar la excepción si lo necesitas
+                Console.WriteLine("Error al anular pedido: " + ex.Message);
+            }
+
+            return resultado;
+        }
 
         public bool InsertarComprobante(entComprobantePago comprobante)
         {
@@ -688,7 +765,27 @@ namespace CapaDatos
             }
 
             return resumen;
+
         }
+
+
+        public bool ActualizarStock(int idProducto, int nuevoStock)
+        {
+            using (SqlConnection con = Conexion.Instancia.Conectar())
+            {
+                SqlCommand cmd = new SqlCommand("sp_ActualizarStock", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id_producto", idProducto);
+                cmd.Parameters.AddWithValue("@nuevo_stock", nuevoStock);
+
+                con.Open();
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+
+
+
+
         #endregion Métodos
 
     }

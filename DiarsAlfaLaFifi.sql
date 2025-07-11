@@ -229,11 +229,7 @@ CREATE TABLE ComprobantesPago (
     activo BIT DEFAULT 1
 );
 GO
-
-
-
-
-
+select count(*)  from pedidosventa
 -- Métodos de pago
 CREATE TABLE MetodosPago (
     id_metodo_pago INT IDENTITY(1,1) PRIMARY KEY,
@@ -242,6 +238,8 @@ CREATE TABLE MetodosPago (
     activo BIT DEFAULT 1
 );
 GO
+
+select * from ComprobantesPago
 
 -- Pedidos de venta
 CREATE TABLE PedidosVenta (
@@ -268,8 +266,7 @@ GO
 --    ON default_constraints.parent_object_id = tables.object_id
 --WHERE tables.name = 'PedidosVenta' AND columns.name = 'fecha';
 
---ALTER TABLE PedidosVenta DROP CONSTRAINT DF__PedidosVe__fecha__07C12930;
-
+--ALTER TABLE PedidosVenta DROP CONSTRAINT DF__PedidosVe__fecha__07C12930;slecsle
 
 
 
@@ -336,7 +333,7 @@ CREATE TABLE OrdenesCompra (
 );
 
 GO
-
+select count(*) from PedidosVenta
 -- Detalles de orden de compra
 CREATE TABLE DetallesOrdenCompra (
     id_detalle INT IDENTITY(1,1) PRIMARY KEY,
@@ -349,7 +346,7 @@ CREATE TABLE DetallesOrdenCompra (
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
 );
 GO
-
+select*  from ComprobantesPago
 
 
 

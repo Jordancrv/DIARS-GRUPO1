@@ -52,9 +52,9 @@ public class logProducto
     {
         return datProducto.Instancia.ObtenerStockMinimo(idProducto);
     }
-
-
-
-
+    public bool ActualizarStock(int idProducto, int nuevoStock)
+    {
+        return datVenta.Instancia.ActualizarStock(idProducto, nuevoStock);
+    }
 
 }

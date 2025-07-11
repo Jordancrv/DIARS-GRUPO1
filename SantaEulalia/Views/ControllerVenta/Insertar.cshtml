@@ -1,4 +1,4 @@
-﻿
+﻿@* Insertar.cshtml *@
 @model CapaEntidad.entPedidoVenta
 
 @{
@@ -6,23 +6,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var productos = ViewBag.Productos as List<CapaEntidad.entProductos>;
     var clientes = ViewBag.Clientes as List<CapaEntidad.entClientes>;
-    var comprobantes = ViewBag.Comprobantes as List<CapaEntidad.entComprobantePago>;
     var usuarios = ViewBag.Usuarios as List<CapaEntidad.entUsuario>;
 }
 
 <h2 class="mb-4">Nueva Venta</h2>
 
-@if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
-{
-    <div class="alert alert-danger">
-        @foreach (var e in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-        {
-            <div>@e.ErrorMessage</div>
-        }
-    </div>
-}
+@* Muestra todos los errores de validación *@
+@Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
-<form asp-action="Insertar" method="post">
+@using (Html.BeginForm("Insertar", "ControllerVenta", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Selección de cliente -->
     <div class="mb-3">
         <label asp-for="IdCliente" class="form-label">Cliente</label>
         <select asp-for="IdCliente" class="form-select" required>
@@ -32,8 +28,10 @@
                 <option value="@c.id_cliente">@c.nombres</option>
             }
         </select>
+        <span asp-validation-for="IdCliente" class="text-danger"></span>
     </div>
 
+    <!-- Selección de usuario -->
     <div class="mb-3">
         <label asp-for="IdUsuario" class="form-label">Usuario</label>
         <select asp-for="IdUsuario" class="form-select" required>
@@ -43,26 +41,35 @@
                 <option value="@u.id_usuario">@u.id_usuario</option>
             }
         </select>
+        <span asp-validation-for="IdUsuario" class="text-danger"></span>
     </div>
 
+    <!-- Radios de tipo de comprobante -->
     <div class="mb-3">
-        <label asp-for="IdComprobante" class="form-label">Comprobante</label>
-        <select asp-for="IdComprobante" class="form-select" required>
-            <option value="">-- Seleccionar Comprobante --</option>
-            @foreach (var cp in comprobantes)
-            {
-                <option value="@cp.id_comprobante">@cp.tipo</option>
-            }
-        </select>
+        <label class="form-label">Tipo de Comprobante</label><br />
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" asp-for="TipoComprobante" value="boleta" id="rboBoleta" />
+            <label class="form-check-label" for="rboBoleta">Boleta</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" asp-for="TipoComprobante" value="factura" id="rboFactura" />
+            <label class="form-check-label" for="rboFactura">Factura</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" asp-for="TipoComprobante" value="nota_credito" id="rboNota" />
+            <label class="form-check-label" for="rboNota">Nota de Crédito</label>
+        </div>
+        <span asp-validation-for="TipoComprobante" class="text-danger"></span>
     </div>
 
+    <!-- Fecha de venta -->
     <div class="mb-3">
         <label asp-for="Fecha" class="form-label">Fecha de Venta</label>
-        <input asp-for="Fecha" class="form-control" type="date" readonly value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+        <input asp-for="Fecha" class="form-control" type="date" readonly
+               value="@DateTime.Now.ToString("yyyy-MM-dd")" />
     </div>
 
-    <input type="hidden" asp-for="IdUsuario" value="@ViewBag.IdUsuario" />
-
+    <!-- Detalles de productos -->
     <h5>Detalles de Productos</h5>
     <table class="table table-bordered table-dark" id="detalleTable">
         <thead>
@@ -77,11 +84,11 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody></tbody>
     </table>
     <button type="button" class="btn btn-success mb-3" onclick="agregarDetalle()">+ Agregar Producto</button>
 
+    <!-- Totales -->
     <div class="mb-3">
         <label class="form-label">Total Original (sin descuentos):</label>
         <input class="form-control" id="totalVentaOriginal" readonly value="0.00" />
@@ -95,11 +102,13 @@
         <input class="form-control" id="totalVentaFinalConDescuento" readonly value="0.00" />
     </div>
 
+    <!-- Hidden inputs para enviar totales al servidor -->
     <input type="hidden" name="Total" id="inputTotalVenta" value="0.00" />
     <input type="hidden" name="TotalDescuentoProductos" id="inputTotalDescuentoProductos" value="0.00" />
     <input type="hidden" name="TotalDescuentoPromociones" id="inputTotalDescuentoPromociones" value="0.00" />
     <input type="hidden" name="TotalConDescuento" id="inputTotalConDescuento" value="0.00" />
 
+    <!-- Estado -->
     <div class="mb-3">
         <label asp-for="Estado" class="form-label">Estado</label>
         <select asp-for="Estado" class="form-select" required>
@@ -107,12 +116,13 @@
             <option value="procesado">procesado</option>
             <option value="anulado">anulado</option>
         </select>
+        <span asp-validation-for="Estado" class="text-danger"></span>
     </div>
 
+    <!-- Botones -->
     <button type="submit" class="btn btn-primary">Registrar Venta</button>
     <a asp-action="Listar" class="btn btn-secondary">Cancelar</a>
-</form>
-
+}
 @section Scripts {
     <script>
         const productos = [];
@@ -339,5 +349,28 @@
             // Para tu caso, con agregarDetalle, basta con el actualizarTotalesGlobales inicial.
             actualizarTotalesGlobales();
         });
+
+
+
+
+
+            function seleccionarComprobante(tipo) {
+            document.getElementById('TipoComprobante').value = tipo;
+
+            // Quitar clases 'active' de todos
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+
+            // Agregar 'active' al botón seleccionado
+            if (tipo === 'boleta') {
+                event.target.classList.add('active');
+            } else if (tipo === 'factura') {
+                event.target.classList.add('active');
+            } else if (tipo === 'nota_credito') {
+                event.target.classList.add('active');
+            }
+        }
+
+
+
     </script>
 }

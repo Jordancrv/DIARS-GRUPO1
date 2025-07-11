@@ -67,6 +67,54 @@ namespace CapaDatos
         }
 
 
+        public entComprobantePago InsertarComprobantePago(string tipo)
+        {
+            entComprobantePago comprobante = null;
+
+            using (SqlConnection conn = Conexion.Instancia.Conectar())
+            using (SqlCommand cmd = new SqlCommand("sp_InsertarComprobantePago", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                // Parámetro de entrada
+                cmd.Parameters.AddWithValue("@tipo", tipo);
+
+                // Parámetros de salida
+                var serieOut = new SqlParameter("@serie_out", SqlDbType.VarChar, 20)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(serieOut);
+
+                var numeroOut = new SqlParameter("@numero_out", SqlDbType.VarChar, 20)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(numeroOut);
+
+                var idOut = new SqlParameter("@id_comprobante_out", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(idOut);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+
+                // Leer valores de salida
+                comprobante = new entComprobantePago
+                {
+                    id_comprobante = Convert.ToInt32(idOut.Value),
+                    tipo = tipo,
+                    serie = serieOut.Value.ToString(),
+                    numero = numeroOut.Value.ToString()
+                };
+            }
+
+            return comprobante;
+        }
+
+
 
     }
 }

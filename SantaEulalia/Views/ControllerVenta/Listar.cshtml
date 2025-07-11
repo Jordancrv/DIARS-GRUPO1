@@ -28,8 +28,10 @@
         {
             <tr>
                 <td>@venta.IdPedidoVenta</td>
-                <td>@venta.Cliente?.razon_social</td>
+               
+                <td>@(venta.Cliente != null ? venta.Cliente.id_cliente : "Sin cliente")</td>
                 <td>@(venta.Usuario != null ? venta.Usuario.id_usuario : "Sin usuario")</td>
+
                 <td>@venta.Fecha.ToString("dd/MM/yyyy")</td>
                 <td>@venta.IdComprobante</td>
                 <td>S/. @venta.Total.ToString("F2")</td>
@@ -38,8 +40,8 @@
                 <td><strong>S/. @venta.TotalConDescuento.ToString("F2")</strong></td>
                 <td>@venta.Estado</td>
                 <td>
-                    @Html.ActionLink("Detalles", "Detalles", new { id = venta.IdPedidoVenta }, new { @class = "btn btn-info btn-sm" }) |
-                    @Html.ActionLink("Eliminar", "Eliminar", new { id = venta.IdPedidoVenta }, new { @class = "btn btn-danger btn-sm" })
+                    @Html.ActionLink("Detalles", "Detalles", new { id = venta.IdPedidoVenta }, new { @class = "btn btn-info btn-sm" })|
+                    @Html.ActionLink("Anular", "EliminarVenta", new { id = venta.IdPedidoVenta }, new { @class = "btn btn-danger btn-sm" })
                 </td>
             </tr>
         }

@@ -25,6 +25,13 @@ namespace CapaLogica
 
         }
 
+        public entComprobantePago InsertarComprobantePago(string tipo)
+        {
+            return datComprobantePago.Instancia.InsertarComprobantePago(tipo);
+        }
+
+
+
 
     }
 }
