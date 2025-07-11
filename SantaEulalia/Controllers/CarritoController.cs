@@ -3,50 +3,75 @@ using CapaEntidad;
 using CapaLogica;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace SantaEulalia.Controllers
 {
     public class CarritoController : Controller
     {
-        // Agrega un producto al carrito
-        public IActionResult AgregarCarrito(int id)
+        [HttpPost]
+        public IActionResult AgregarCarrito(int id, int cantidad)
         {
             var producto = logProducto.Instancia.BuscarProducto(id);
             if (producto == null)
                 return NotFound();
 
-            List<entProductos> carrito = HttpContext.Session.GetObjectFromJson<List<entProductos>>("carrito")
-                                          ?? new List<entProductos>();
+            var carrito = HttpContext.Session.GetObjectFromJson<List<entDetalleVenta>>("carrito")
+                          ?? new List<entDetalleVenta>();
 
-            carrito.Add(producto);
+            var itemExistente = carrito.FirstOrDefault(x => x.IdProducto == id);
+
+            if (itemExistente != null)
+            {
+                itemExistente.Cantidad += cantidad;
+                itemExistente.Subtotal = itemExistente.Cantidad * itemExistente.PrecioUnitario;
+                itemExistente.TotalConDescuento = itemExistente.Subtotal * (1 - itemExistente.Descuento / 100);
+            }
+            else
+            {
+                decimal subtotal = producto.precioventa * cantidad;
+                decimal descuento = 0; // Aquí puedes aplicar lógica de promoción si deseas
+
+                var detalle = new entDetalleVenta
+                {
+                    IdProducto = producto.id_producto,
+                    Cantidad = cantidad,
+                    PrecioUnitario = producto.precioventa,
+                    Subtotal = subtotal,
+                    Descuento = descuento,
+                    TotalConDescuento = subtotal * (1 - descuento / 100),
+                    Producto = producto // ✅ Aquí se asigna el producto completo
+                };
+
+                carrito.Add(detalle);
+            }
+
             HttpContext.Session.SetObjectAsJson("carrito", carrito);
 
             return RedirectToAction("Tienda", "Producto");
         }
 
-        // Muestra los productos en el carrito
         public IActionResult Index()
         {
-            var carrito = HttpContext.Session.GetObjectFromJson<List<entProductos>>("carrito")
-                          ?? new List<entProductos>();
+            var carrito = HttpContext.Session.GetObjectFromJson<List<entDetalleVenta>>("carrito")
+                          ?? new List<entDetalleVenta>();
+
             return View(carrito);
         }
 
-        // Elimina un producto del carrito por su ID
         public IActionResult Eliminar(int id)
         {
-            var carrito = HttpContext.Session.GetObjectFromJson<List<entProductos>>("carrito")
-                          ?? new List<entProductos>();
+            var carrito = HttpContext.Session.GetObjectFromJson<List<entDetalleVenta>>("carrito")
+                          ?? new List<entDetalleVenta>();
 
-            var producto = carrito.Find(p => p.id_producto == id);
-            if (producto != null)
-                carrito.Remove(producto);
+            var item = carrito.FirstOrDefault(x => x.IdProducto == id);
+            if (item != null)
+                carrito.Remove(item);
 
             HttpContext.Session.SetObjectAsJson("carrito", carrito);
             return RedirectToAction("Index");
         }
 
-        // Vacía el carrito completamente
         public IActionResult Vaciar()
         {
             HttpContext.Session.Remove("carrito");

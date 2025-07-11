@@ -1,0 +1,155 @@
+﻿@model CapaEntidad.entPedidoVenta
+@{
+    Layout = null; // para que el PDF no herede layout
+    var cliente = Model.Cliente;
+    var usuario = Model.Usuario;
+    var comprobante = Model.Comprobante;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Comprobante de Venta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            padding: 40px;
+        }
+
+        h2 {
+            color: #28a745;
+        }
+
+        .header, .footer {
+            text-align: center;
+        }
+
+        .datos {
+            margin-top: 20px;
+        }
+
+            .datos td {
+                padding: 5px;
+            }
+
+        table.detalle {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+            table.detalle th, table.detalle td {
+                border: 1px solid #ccc;
+                padding: 8px;
+                text-align: center;
+            }
+
+        .totales td {
+            font-weight: bold;
+            text-align: right;
+            padding: 5px;
+        }
+
+        .botones {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+            .botones a {
+                display: inline-block;
+                margin: 0 10px;
+                padding: 12px 20px;
+                background-color: #28a745;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+
+                .botones a:hover {
+                    background-color: #218838;
+                }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Comprobante de Venta</h2>
+        <p><strong>Santa Eulalia</strong><br />RUC: 12345678901<br />Dirección: Av. Perú 123</p>
+    </div>
+
+    <table class="datos">
+        <tr>
+            <td><strong>Cliente:</strong> @cliente?.razon_social</td>
+            <td><strong>Fecha:</strong> @Model.Fecha.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <td><strong>Comprobante:</strong> @comprobante?.tipo - @comprobante?.serie-@comprobante?.numero</td>
+            <td><strong>Atendido por:</strong> @usuario?.nombre</td>
+        </tr>
+        <tr>
+            <td><strong>Forma de entrega:</strong> @(Model.EsDelivery ? "Delivery" : "Recojo en tienda")</td>
+            <td><strong>Estado:</strong> @Model.Estado</td>
+        </tr>
+    </table>
+
+    <table class="detalle">
+        <thead style="background-color: #28a745; color: white;">
+            <tr>
+                <th>#</th>
+                <th>Producto (ID)</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Descuento (%)</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Detalles.Count; i++)
+            {
+                var d = Model.Detalles[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@d.IdProducto</td>
+                    <td>@d.Cantidad</td>
+                    <td>S/ @d.PrecioUnitario.ToString("F2")</td>
+                    <td>@d.Descuento</td>
+                    <td>S/ @d.TotalConDescuento.ToString("F2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <table style="width: 100%; margin-top: 20px;" class="totales">
+        <tr>
+            <td>Total bruto:</td>
+            <td style="width: 150px;">S/ @Model.Total.ToString("F2")</td>
+        </tr>
+        <tr>
+            <td>Descuento por productos:</td>
+            <td>S/ @Model.TotalDescuentoProductos.ToString("F2")</td>
+        </tr>
+        <tr>
+            <td>Descuento por promociones:</td>
+            <td>S/ @Model.TotalDescuentoPromociones.ToString("F2")</td>
+        </tr>
+        <tr>
+            <td>Total final a pagar:</td>
+            <td style="color: green;">S/ @Model.TotalConDescuento.ToString("F2")</td>
+        </tr>
+    </table>
+
+    <div class="botones">
+        <a href="@Url.Action("ExportarComprobante", "Pedido", new { idPedido = Model.IdPedidoVenta })">
+            <i class="fa fa-file-pdf"></i> Descargar PDF
+        </a>
+        <a href="@Url.Action("Tienda", "Producto")">
+            <i class="fa fa-store"></i> Volver a Tienda
+        </a>
+    </div>
+
+    <div class="footer" style="margin-top: 40px;">
+        <p>Gracias por su compra.</p>
+    </div>
+</body>
+</html>

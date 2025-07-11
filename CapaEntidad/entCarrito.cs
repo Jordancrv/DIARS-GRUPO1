@@ -14,4 +14,10 @@ namespace CapaEntidad
         public decimal precioventa { get; set; }
         public int cantidad { get; set; }
     }
+
+    public class CarritoItem
+    {
+        public entProductos Producto { get; set; }
+        public int Cantidad { get; set; }
+    }
 }

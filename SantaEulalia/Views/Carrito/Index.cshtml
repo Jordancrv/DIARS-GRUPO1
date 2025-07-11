@@ -1,59 +1,79 @@
-﻿@model List<CapaEntidad.entProductos>
+﻿@model List<CapaEntidad.entDetalleVenta>
 @{
     ViewBag.Title = "Carrito";
-    Layout = "~/Views/Shared/LayoutUser.cshtml";
-
-    decimal total = Model.Sum(p => p.precioventa);
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    decimal total = Model.Sum(p => p.TotalConDescuento);
 }
 
 <div class="container mt-5">
-    <h2 class="mb-4">🛒 Carrito de Compras</h2>
+    <h2 class="mb-4 text-success">🛒 Carrito de Compras</h2>
 
     @if (!Model.Any())
     {
-        <div class="alert alert-info">Tu carrito está vacío.</div>
+        <div class="alert alert-warning">Tu carrito está vacío. <a href="@Url.Action("Tienda", "Producto")" class="alert-link">Explora productos aquí</a>.</div>
     }
     else
     {
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>Imagen</th>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-success text-center">
                     <tr>
-                        <td style="width: 100px;">
-                            <img src="@(item.imagen_url?.StartsWith("http") == true
-                                        ? item.imagen_url
-                                        : Url.Content("~/img-user/products/" + item.imagen_url))"
-                                 alt="@item.nombre"
-                                 class="img-fluid"
-                                 style="max-height: 80px;"
-                                 onerror="this.src='@Url.Content("~/img-user/default.jpg")'" />
-                        </td>
-                        <td>@item.nombre</td>
-                        <td>S/ @item.precioventa</td>
-                        <td>
-                            <a href="@Url.Action("Eliminar", "Carrito", new { id = item.id_producto })"
-                               class="btn btn-sm btn-danger">Eliminar</a>
-                        </td>
+                        <th>Imagen</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Descuento (%)</th>
+                        <th>Total</th>
+                        <th>Acción</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td>
+                                <img src="@(item.Producto?.imagen_url?.StartsWith("http") == true
+                                            ? item.Producto.imagen_url
+                                            : Url.Content("~/img-user/products/" + item.Producto?.imagen_url ?? "default.jpg"))"
+                                     alt="@item.Producto?.nombre"
+                                     style="width: 60px; height: 60px; object-fit: cover;" />
+                            </td>
+                            <td>@item.Producto?.nombre ?? "Producto N/D"</td>
+                            <td>@item.Cantidad</td>
+                            <td>S/ @item.PrecioUnitario.ToString("F2")</td>
+                            <td>@item.Descuento</td>
+                            <td class="text-success fw-semibold">S/ @item.TotalConDescuento.ToString("F2")</td>
+                            <td>
+                                <a href="@Url.Action("Eliminar", "Carrito", new { id = item.IdProducto })"
+                                   class="btn btn-sm btn-danger">
+                                    <i class="fa fa-trash"></i> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="text-end fw-bold">
+                        <td colspan="5">Total a pagar:</td>
+                        <td colspan="2" class="text-success">S/ @total.ToString("F2")</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
 
-        <div class="d-flex justify-content-between">
-            <h4>Total: <strong>S/ @total</strong></h4>
-
+        <div class="d-flex justify-content-between mt-4">
             <div>
-                <a href="@Url.Action("Vaciar", "Carrito")" class="btn btn-outline-danger me-2">Vaciar Carrito</a>
-                <a href="@Url.Action("Tienda", "Producto")" class="btn btn-primary">Seguir Comprando</a>
+                <a href="@Url.Action("Vaciar", "Carrito")" class="btn btn-outline-danger me-2">
+                    <i class="fa fa-trash-alt"></i> Vaciar Carrito
+                </a>
+                <a href="@Url.Action("Tienda", "Producto")" class="btn btn-outline-secondary">
+                    <i class="fa fa-arrow-left"></i> Seguir Comprando
+                </a>
+            </div>
+            <div>
+                <a href="@Url.Action("Confirmar", "Pedido")" class="btn btn-success btn-lg px-4">
+                    <i class="fa fa-check-circle"></i> Finalizar Pedido
+                </a>
             </div>
         </div>
     }

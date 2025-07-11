@@ -952,6 +952,7 @@ CREATE or alter PROCEDURE InsertarPedidoVenta
     @total_descuento_promociones DECIMAL(12,2),
     @total_con_descuento DECIMAL(12,2),
     @estado VARCHAR(20),
+	@fecha DATETIME,
     @Detalles DetalleVentaType READONLY -- Este es un tipo de tabla (debes crearlo si no lo tienes aún)
 AS
 BEGIN
@@ -964,12 +965,12 @@ BEGIN
         INSERT INTO PedidosVenta (
             id_cliente, id_usuario, id_comprobante, total,
             total_descuento_productos, total_descuento_promociones,
-            total_con_descuento, estado
+            total_con_descuento, estado, fecha
         )
         VALUES (
             @id_cliente, @id_usuario, @id_comprobante,
             @total, @total_descuento_productos,
-            @total_descuento_promociones, @total_con_descuento, @estado
+            @total_descuento_promociones, @total_con_descuento, @estado, @fecha
         );
 
         DECLARE @id_pedido INT = SCOPE_IDENTITY();
@@ -1032,6 +1033,30 @@ BEGIN
     ORDER BY pv.fecha DESC;
 END;
 GO
+
+CREATE OR ALTER PROCEDURE sp_ListarPedidosCompleto
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        id_pedido,
+        id_cliente,
+        id_usuario,
+        fecha,
+        id_comprobante,
+        total,
+        total_descuento_productos,
+        total_descuento_promociones,
+        total_con_descuento,
+        estado
+    FROM PedidosVenta where estado = 'Procesado'
+    ORDER BY fecha DESC;
+END
+go
+select *  from PedidosVenta
+
+
 
 CREATE OR ALTER PROCEDURE sp_ListarDetallesVentaPorPedido
     @id_pedido INT

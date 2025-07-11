@@ -12,7 +12,7 @@ namespace SantaEulalia.Controllers
     {
         public IActionResult Index()
         {
-            var pedidos = logVenta.Instancia.ListarVentas();
+            var pedidos = logVenta.Instancia.ListarVentasProcesadas();
 
             var resumen = new ResumenVentasViewModel
             {
@@ -43,7 +43,7 @@ namespace SantaEulalia.Controllers
 
         public IActionResult ExportarPDF()
         {
-            var pedidos = logVenta.Instancia.ListarVentas();
+            var pedidos = logVenta.Instancia.ListarVentasProcesadas();
             var resumen = new ResumenVentasViewModel
             {
                 TotalVentas = pedidos.Count,

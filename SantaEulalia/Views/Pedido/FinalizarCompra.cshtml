@@ -1,0 +1,84 @@
+﻿@model CapaEntidad.entPedidoVenta
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewBag.Title = "Finalizar Compra";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var carrito = ViewBag.Carrito as List<CapaEntidad.entDetalleVenta>;
+    var total = carrito?.Sum(p => p.TotalConDescuento) ?? 0;
+}
+
+<div class="container mt-5">
+    <div class="card shadow p-4 bg-white">
+        <h3 class="text-success mb-4">Resumen del Pedido</h3>
+
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead class="table-success">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Descuento</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in carrito)
+                    {
+                        <tr>
+                            <td>@item.IdProducto</td>
+                            <td>@item.Cantidad</td>
+                            <td>S/ @item.PrecioUnitario.ToString("F2")</td>
+                            <td>@item.Descuento %</td>
+                            <td>S/ @item.TotalConDescuento.ToString("F2")</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="4" class="text-end">Total a pagar:</th>
+                        <th class="text-success">S/ @total.ToString("F2")</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <form asp-action="FinalizarCompra" method="post">
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <label for="IdMetodoPago" class="form-label">Método de Pago</label>
+                    <select asp-for="IdMetodoPago" class="form-select" required>
+                        <option value="">-- Seleccione --</option>
+                        @foreach (var metodo in ViewBag.MetodosPago as List<SelectListItem>)
+                        {
+                            <option value="@metodo.Value">@metodo.Text</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="IdComprobante" class="form-label">Comprobante</label>
+                    <select asp-for="IdComprobante" class="form-select" required>
+                        <option value="">-- Seleccione --</option>
+                        @foreach (var comp in ViewBag.Comprobantes as List<SelectListItem>)
+                        {
+                            <option value="@comp.Value">@comp.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center">
+                <button type="submit" class="btn btn-success btn-lg px-5">
+                    <i class="fas fa-check-circle"></i> Confirmar y Pagar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Validaciones o scripts adicionales si deseas aquí
+    </script>
+}
