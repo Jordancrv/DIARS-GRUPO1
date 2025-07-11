@@ -8,6 +8,7 @@ namespace CapaDatos
 {
     public class datOrdenCompra
     {
+        //AQUI VA EL Singleton//
         #region Singleton
         private static readonly datOrdenCompra _instancia = new datOrdenCompra();
         public static datOrdenCompra Instancia => _instancia;
