@@ -556,7 +556,7 @@ GO
 
 ---
 
--- *** 10. INSERCIONES PARA CLIENTECORREOS ***
+-- ********************* 10. INSERCIONES PARA CLIENTECORREOS ***************
 INSERT INTO ClienteCorreos (id_cliente, email) VALUES
 (1, 'andrea.vega@email.com'), (2, 'roberto.quispe@email.com'), (3, 'sofia.castro@email.com'),
 (4, 'diego.flores@email.com'), (5, 'valeria.nunez@email.com'), (6, 'contacto@laesquina.com'),
