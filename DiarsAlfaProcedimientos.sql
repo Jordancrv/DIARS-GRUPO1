@@ -1,6 +1,6 @@
 USE DiarsAlfa;
 GO
-----------------------------------PROCEDIMIENTOS------------
+----------------------------------PROCEDIMIENTOS------------------------------------------------------------
 
 CREATE or alter PROCEDURE AdjudicarLicitacion (
     @id_orden_compra INT
@@ -27,8 +27,7 @@ END;
 
 GO
 
------------------------------------------Para que el sistema elijga automaticamente el 
-----------------------menor precio ------------------------
+-----------------------------------------Para que el sistema elijga automaticamente el menor precio ------------------------------------------------
 
 CREATE or alter  PROCEDURE AdjudicarLicitacion (
     @id_orden_compra INT
@@ -53,9 +52,9 @@ BEGIN
 END;
 GO
 
------------PROCEDIMIENTOS ALMACENADOS---------------------------
--------------------------------------------------------------
--------------PROCESO PARA USUARIO-----------------------
+-----------PROCEDIMIENTOS ALMACENADOS---------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+-------------PROCESO PARA USUARIO-----------------------------------------------------------------------
 -- Insertar usuario con correo
 CREATE OR ALTER PROCEDURE sp_InsertarUsuario
  
@@ -86,7 +85,7 @@ BEGIN
 END
 GO
 
-
+------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Listar usuarios
 CREATE or alter  PROCEDURE sp_ListarUsuarios
